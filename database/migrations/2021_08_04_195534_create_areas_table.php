@@ -16,8 +16,9 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('city_id');
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreignId('city_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();

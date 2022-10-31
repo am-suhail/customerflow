@@ -1,1 +1,1 @@
-<img src="{{ asset('img/logo.png') }}" alt="DIT LLC U.A.E" {{ $attributes }}>
+<h6>AL KHULOOD</h6>

@@ -15,21 +15,35 @@ class CreateUserDetailsTable extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
-            $table->string('referral_code');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('nid');
-            $table->date('nid_expiry');
-            $table->date('dob');
-            $table->string('building_name');
-            $table->unsignedBigInteger('area_id');
-            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
-            $table->unsignedBigInteger('street_id')->nullable();
-            $table->foreign('street_id')->references('id')->on('streets')->onDelete('cascade');
-            $table->unsignedBigInteger('qualification_id')->nullable();
-            $table->foreign('qualification_id')->references('id')->on('qualifications')->onDelete('cascade');
-            $table->string('years_of_exp')->nullable();
-            $table->text('remarks')->nullable();
+            $table->string('referral_code')->nullable();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->date('dob')->nullable();
+            $table->string('sex')->nullable();
+            $table->string('national_id')->nullable();
+            $table->date('national_id_expiry')->nullable();
+            $table->string('tax_id')->nullable();
+            $table->date('tax_id_expiry')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained();
+            $table->string('passport')->nullable();
+            $table->date('passport_expiry')->nullable();
+            $table->string('building_name')->nullable();
+            $table->foreignId('street_id')
+                ->nullable()
+                ->constrained();
+            $table->foreignId('area_id')
+                ->nullable()
+                ->constrained();
+            $table->text('address')->nullable();
+            $table->foreignId('qualification_id')
+                ->nullable()
+                ->constrained();
+            $table->integer('years_of_exp')->nullable();
+            $table->json('additional_info')->nullable();
+            $table->text('remark')->nullable();
             $table->timestamps();
         });
     }

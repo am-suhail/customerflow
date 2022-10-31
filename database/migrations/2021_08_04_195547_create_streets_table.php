@@ -16,8 +16,9 @@ class CreateStreetsTable extends Migration
         Schema::create('streets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('area_id');
-            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
+            $table->foreignId('area_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();

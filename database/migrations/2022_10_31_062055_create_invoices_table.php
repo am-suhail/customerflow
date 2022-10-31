@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatesTable extends Migration
+class CreateInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateStatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('states', function (Blueprint $table) {
+        Schema::create('invoices', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('country_id')->constrained();
-            $table->boolean('active')->default(1);
+            $table->foreignId('vendor_id')
+                ->nullable()
+                ->constrained();
+            $table->json('additional_info')->nullable();
+            $table->integer('type')->default(1);
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +33,6 @@ class CreateStatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('states');
+        Schema::dropIfExists('invoices');
     }
 }

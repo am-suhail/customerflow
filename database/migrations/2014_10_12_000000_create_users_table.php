@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->text('remarks')->nullable();
-            $table->string('profile')->default('user');
+            $table->integer('profile')->default(1);
             $table->boolean('profile_completed')->default(0);
             $table->boolean('suspended')->default(0);
             $table->rememberToken();

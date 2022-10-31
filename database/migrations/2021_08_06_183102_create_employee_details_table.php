@@ -15,15 +15,18 @@ class CreateEmployeeDetailsTable extends Migration
     {
         Schema::create('employee_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('code');
-            $table->unsignedBigInteger('designation_id');
-            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignId('designation_id')
+                ->constrained();
             $table->date('joining_date')->nullable();
             $table->decimal('salary', 10, 2)->nullable();
-            $table->text('remarks')->nullable();
-            $table->boolean('is_resigned')->default(0);
+            $table->integer('type')->default(1);
+            $table->json('additional_info')->nullable();
+            $table->text('remark')->nullable();
+            $table->boolean('resigned')->default(0);
             $table->timestamps();
         });
     }
