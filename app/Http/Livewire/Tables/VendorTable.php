@@ -60,7 +60,7 @@ class VendorTable extends LivewireDatatable
                 ->label('Telephone')
                 ->searchable(),
 
-            Column::name('remarks')
+            Column::name('remark')
                 ->label('Remarks')
                 ->searchable(),
 

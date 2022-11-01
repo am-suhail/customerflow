@@ -14,7 +14,7 @@ class UserTable extends LivewireDatatable
 
     public function builder()
     {
-        return User::where('profile', '!=', 'super_admin');
+        return User::where('profile', '!=', 1991);
     }
 
     public function columns()
@@ -42,25 +42,16 @@ class UserTable extends LivewireDatatable
                 ->filterable(['Male', 'Female'])
                 ->searchable(),
 
-            Column::name('user_detail.nid')
+            Column::name('user_detail.national_id')
                 ->label('National ID')
                 ->searchable(),
 
-            Column::name('user_detail.nid_expiry')
+            Column::name('user_detail.national_id_expiry')
                 ->label('NID Expiry'),
 
             Column::name('user_detail.building_name')
                 ->label('Building')
                 ->searchable(),
-
-            Column::name('user_detail.city.name')
-                ->label('City'),
-
-            Column::name('user_detail.area')
-                ->label('Area'),
-
-            Column::name('user_detail.street')
-                ->label('street'),
 
             Column::callback(['id', 'name'], function ($id, $name) {
                 return view('tables.user-table-actions', ['id' => $id, 'name' => $name]);

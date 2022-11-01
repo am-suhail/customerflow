@@ -17,7 +17,7 @@ class UserController extends BaseController
 
     public function employees()
     {
-        $this->setPageTitle('All Users', '');
+        $this->setPageTitle('Employees', '');
         return view('office.user.employees');
     }
 

@@ -15,7 +15,7 @@ class EmployeesTable extends LivewireDatatable
 
     public function builder()
     {
-        return User::whereProfile('employee');
+        return User::whereProfile(2);
     }
 
     public function columns()
@@ -35,11 +35,11 @@ class EmployeesTable extends LivewireDatatable
                 ->searchable()
                 ->hide(),
 
-            Column::name('user_detail.nid')
+            Column::name('user_detail.national_id')
                 ->label('National ID')
                 ->searchable(),
 
-            Column::name('user_detail.nid_expiry')
+            Column::name('user_detail.national_id_expiry')
                 ->label('NID Expiry')
                 ->hide(),
 
@@ -60,20 +60,6 @@ class EmployeesTable extends LivewireDatatable
             Column::name('user_detail.building_name')
                 ->label('Building')
                 ->searchable(),
-
-            Column::name('user_detail.city.state.name')
-                ->label('State')
-                ->hide(),
-
-            Column::name('user_detail.city.name')
-                ->label('City')
-                ->hide(),
-
-            Column::name('user_detail.area')
-                ->label('Area'),
-
-            Column::name('user_detail.street')
-                ->label('Street'),
 
             // Column::callback(['id', 'name'], function ($id, $name) {
             //     return view('tables.user-table-actions', ['id' => $id, 'name' => $name]);
