@@ -1,4 +1,4 @@
 <!-- Main footer -->
 <footer class="flex items-center justify-center flex-shrink-0 p-1 border-t lg:p-4 max-h-14">
-    <div class="text-gray-600">D.I.T LLC U.A.E &copy; 2021</div>
+	<div class="text-gray-600">&copy; D.I.T LLC U.A.E - {{ date('Y') }}</div>
 </footer>

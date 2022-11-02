@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        State::factory(30)->create();
-        City::factory(50)->create();
-        Category::factory(16)->create();
-        SubCategory::factory(30)->create();
+        // State::factory(30)->create();
+        // City::factory(50)->create();
+        // Category::factory(16)->create();
+        // SubCategory::factory(30)->create();
         $this->call([
-            // UserSeeder::class,
-            VendorSeeder::class,
-            ServiceSeeder::class
+            UserSeeder::class,
+            // VendorSeeder::class,
+            // ServiceSeeder::class
         ]);
     }
 }

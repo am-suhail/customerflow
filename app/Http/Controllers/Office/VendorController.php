@@ -58,7 +58,7 @@ class VendorController extends BaseController
             'url' => ['nullable', 'url'],
             'city_id' => ['required', 'not_in:0'],
             'telephone' => ['required', 'phone:AE', 'unique:vendors,telephone'],
-            'remarks' => ['nullable', 'string']
+            'remark' => ['nullable', 'string']
         ]);
 
         $code = 'CUST-' . mt_rand(111111111, 999999999);
@@ -95,7 +95,7 @@ class VendorController extends BaseController
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
 
-        $this->setPageTitle('Edit Customer' . $vendor->name, '');
+        $this->setPageTitle('Edit Customer ' . $vendor->name, '');
         return view('office.vendor.edit', compact('vendor', 'industries', 'countries'));
     }
 
@@ -120,7 +120,7 @@ class VendorController extends BaseController
             'url' => ['nullable', 'url'],
             'city_id' => ['required', 'not_in:0'],
             'telephone' => ['required', 'phone:AE'],
-            'remarks' => ['nullable', 'string']
+            'remark' => ['nullable', 'string']
         ]);
 
         $vendor = Vendor::findOrFail($id);
