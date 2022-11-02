@@ -78,9 +78,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/all-users', [UserController::class, 'index'])->name('all-users');
         Route::get('/user/{id}/manage', [UserController::class, 'manage'])->name('user.manage');
         Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
-        Route::get('/employees', [UserController::class, 'employees'])->name('employees');
 
         // Dashboard|Employees
+        Route::get('/employees', [EmployeeController::class, 'index'])->name('employee.index');
         Route::get('employee/{id}/appoint', [EmployeeController::class, 'appoint'])->name('employee.appoint');
         Route::put('employee/appoint/{id}', [EmployeeController::class, 'processAppoint'])->name('employee.appoint-process');
 

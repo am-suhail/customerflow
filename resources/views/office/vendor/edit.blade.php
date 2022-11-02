@@ -36,7 +36,7 @@
 					@enderror
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('sex', 'Sex', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], old('sex', $vendor->sex), [
@@ -63,7 +63,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('mobile', 'Mobile', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::number('mobile', old('mobile', $vendor->mobile), [
@@ -90,7 +90,7 @@
 
 				<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('company_name', 'Company Name', [
 						    'class' => 'label font-semibold uppercase',
@@ -117,7 +117,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-3 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('vat', 'VAT', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('vat', old('vat', $vendor->vat), [
@@ -160,7 +160,7 @@
 					<livewire:state-city :selectedCity="$errors ? old('city_id', $vendor->city_id) : null">
 				</div>
 
-				<div class="grid grid-cols-2 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
 					<div class="fomr-control">
 						{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::textarea('remark', old('remark', $vendor->remark), [
@@ -173,10 +173,6 @@
 						@enderror
 					</div>
 				</div>
-
-				{{-- <div>
-					<livewire:state-city :selectedCity="old('city_id', $vendor->city_id)">
-				</div> --}}
 
 				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
 					<div>

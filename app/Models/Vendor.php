@@ -28,7 +28,7 @@ class Vendor extends Model
         'url',
         'city_id',
         'telephone',
-        'remarks'
+        'remark'
     ];
 
     /**

@@ -15,12 +15,6 @@ class UserController extends BaseController
         return view('office.user.index');
     }
 
-    public function employees()
-    {
-        $this->setPageTitle('Employees', '');
-        return view('office.user.employees');
-    }
-
     public function manage($id)
     {
         $user = User::findOrFail($id);

@@ -61,9 +61,11 @@ class EmployeesTable extends LivewireDatatable
                 ->label('Building')
                 ->searchable(),
 
-            // Column::callback(['id', 'name'], function ($id, $name) {
-            //     return view('tables.user-table-actions', ['id' => $id, 'name' => $name]);
-            // })->unsortable(),
+            Column::callback(['id', 'name'], function ($id, $name) {
+                return view('tables.employee-table-actions', ['id' => $id, 'name' => $name]);
+            })->unsortable()
+                ->unsortable()
+                ->excludeFromExport()
 
         ];
     }
