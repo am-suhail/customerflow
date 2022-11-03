@@ -31,10 +31,6 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->toggleable(),
 
-            TextColumn::make('code')
-                ->searchable()
-                ->toggleable(),
-
             TextColumn::make('user.user_detail.dob')
                 ->getStateUsing(function (EmployeeDetail $record) {
                     return Carbon::parse($record->user->user_detail->dob)->format('d-m-Y');
@@ -49,6 +45,7 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable(),
 
             TextColumn::make('user.user_detail.country.name')
+                ->limit(15)
                 ->label('Nationality')
                 ->searchable()
                 ->toggleable(),
@@ -62,6 +59,23 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
                     return Carbon::parse($record->joining_date)->format('d-m-Y');
                 })
                 ->label('Joining Date')
+                ->searchable()
+                ->toggleable(),
+
+            TextColumn::make('user.user_detail.national_id')
+                ->label('National ID')
+                ->searchable()
+                ->toggleable(),
+
+            TextColumn::make('id_expiry')
+                ->label('National ID Expiry')
+                ->getStateUsing(function (EmployeeDetail $record) {
+                    return Carbon::parse($record->user->user_detail->national_id_expiry)->format('d-m-Y');
+                })
+                ->searchable()
+                ->toggleable(),
+
+            TextColumn::make('code')
                 ->searchable()
                 ->toggleable(),
 

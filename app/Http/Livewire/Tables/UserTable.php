@@ -49,15 +49,11 @@ class UserTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->toggleable(),
 
-            TextColumn::make('designation.name')
-                ->searchable()
-                ->toggleable(),
-
-            TextColumn::make('joining_date')
+            TextColumn::make('sign_up')
+                ->label('Signed Up')
                 ->getStateUsing(function (User $record) {
-                    return Carbon::parse($record->joining_date)->format('d-m-Y');
+                    return Carbon::parse($record->created_at)->format('d-m-Y');
                 })
-                ->label('Joining Date')
                 ->toggleable(),
 
 

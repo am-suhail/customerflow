@@ -46,20 +46,20 @@ class ProfileController extends BaseController
     public function store(Request $request)
     {
         $validated = request()->validate([
-            'nid' => ['required', 'string'],
-            'nid_expiry' => ['required', 'date'],
+            'national_id' => ['required', 'string'],
+            'national_id_expiry' => ['required', 'date'],
             'dob' => ['required', 'date'],
             'sex' => ['required', 'string'],
             'country_id' => ['required', 'not_in:0'],
             'building_name' => ['required', 'string'],
             'city_id' => ['required', 'not_in:0'],
-            'area' => ['required', 'string'],
-            'street' => ['required', 'string'],
+            'area_text' => ['required', 'string'],
+            'street_text' => ['required', 'string'],
             'qualification_id' => ['required', 'not_in:0'],
             'years_of_exp' => ['required', 'numeric'],
         ]);
 
-        $referral_code = 'DIT-' . mt_rand(1111, 9999) . Str::upper(Str::random(4));
+        $referral_code = 'AK-' . mt_rand(1111, 9999) . Str::upper(Str::random(4));
         $validated['referral_code'] = $referral_code;
 
         $created = Auth::user()->user_detail()->create($validated);
@@ -116,15 +116,15 @@ class ProfileController extends BaseController
             'name' => ['required', 'string'],
             'mobile' => ['required', 'unique:users,mobile,' . $id],
             'email' => ['required', 'unique:users,email,' . $id],
-            'nid' => ['required', 'string'],
-            'nid_expiry' => ['required', 'date'],
+            'national_id' => ['required', 'string'],
+            'national_id_expiry' => ['required', 'date'],
             'dob' => ['required', 'date'],
             'sex' => ['required', 'string'],
             'country_id' => ['required', 'not_in:0'],
             'building_name' => ['required', 'string'],
             'city_id' => ['required', 'not_in:0'],
-            'area' => ['required', 'string'],
-            'street' => ['nullable', 'string'],
+            'area_text' => ['required', 'string'],
+            'street_text' => ['required', 'string'],
             'qualification_id' => ['required', 'not_in:0'],
             'years_of_exp' => ['required', 'numeric'],
         ]);
@@ -135,15 +135,15 @@ class ProfileController extends BaseController
             'email' => $request->email,
         ]);
         $updated = Auth::user()->user_detail()->update([
-            'nid' => $validated['nid'],
-            'nid_expiry' => $validated['nid_expiry'],
+            'national_id' => $validated['national_id'],
+            'national_id_expiry' => $validated['national_id_expiry'],
             'dob' => $validated['dob'],
             'sex' => $validated['sex'],
             'country_id' => $validated['country_id'],
             'building_name' => $validated['building_name'],
             'city_id' => $validated['city_id'],
-            'area' => $validated['area'],
-            'street' => $validated['street'],
+            'area_text' => $validated['area_text'],
+            'street_text' => $validated['street_text'],
             'qualification_id' => $validated['qualification_id'],
             'years_of_exp' => $validated['years_of_exp'],
         ]);

@@ -37,29 +37,40 @@
 				</div>
 			</div>
 
+			@if ($errors->any())
+				<div class="alert alert-danger">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
+
 			<div class="w-full p-5 bg-white rounded-lg shadow-xl md:w-10/12 lg:w-3/4">
 				<form action="{{ route('my-profile.store') }}" method="POST">
 					@csrf
 
 					<div class="grid grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('nid', 'National ID:', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::text('nid', old('nid'), [
-							    'class' => 'input input-primary input-bordered' . ($errors->has('nid') ? 'border-2 border-red-600' : ''),
+							{!! Form::label('national_id', 'National ID:', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::text('national_id', old('national_id'), [
+							    'class' => 'input input-primary input-bordered' . ($errors->has('national_id') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('nid')
+							@error('national_id')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
 							@enderror
 						</div>
 						<div class="form-control">
-							{!! Form::label('nid_expiry', 'ID Expiry', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::date('nid_expiry', old('nid_expiry'), [
+							{!! Form::label('national_id_expiry', 'ID Expiry', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::date('national_id_expiry', old('national_id_expiry'), [
 							    'step' => '.01',
-							    'class' => 'input input-bordered input-primary' . ($errors->has('nid_expiry') ? 'border-2 border-red-600' : ''),
+							    'class' =>
+							        'input input-bordered input-primary' . ($errors->has('national_id_expiry') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('nid_expiry')
+							@error('national_id_expiry')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>

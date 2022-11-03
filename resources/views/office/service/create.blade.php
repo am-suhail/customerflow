@@ -24,7 +24,7 @@
 
 		@include('layouts.app.flash')
 
-		<div class="flex items-start justify-center w-full pt-4">
+		<div class="flex items-start justify-center w-full pt-4" x-data="{ sellingPrice: '', costOne: 0, costTwo: 0 }">
 			<div class="w-full p-5 bg-gray-200 rounded-lg shadow-xl md:w-10/12 lg:w-3/4">
 				<form action="{{ route('service.store') }}" method="POST">
 					@csrf
@@ -62,6 +62,7 @@
 						<div class="form-control">
 							{!! Form::label('selling_price', 'Selling Price', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('selling_price', old('selling_price'), [
+							    'x-model.number' => 'sellingPrice',
 							    'step' => '.01',
 							    'class' => 'input input-bordered input-primary' . ($errors->has('selling_price') ? 'border-2 border-red-600' : ''),
 							]) !!}
@@ -77,6 +78,7 @@
 						<div class="form-control">
 							{!! Form::label('cost_one', 'Cost 1', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('cost_one', old('cost_one'), [
+							    'x-model.number' => 'costOne',
 							    'step' => '.01',
 							    'class' => 'input input-bordered input-primary' . ($errors->has('cost_one') ? 'border-2 border-red-600' : ''),
 							]) !!}
@@ -107,6 +109,7 @@
 						<div class="form-control">
 							{!! Form::label('cost_two', 'Cost 2', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('cost_two', old('cost_two'), [
+							    'x-model.number' => 'costTwo',
 							    'step' => '.01',
 							    'class' => 'input input-bordered input-primary' . ($errors->has('cost_two') ? 'border-2 border-red-600' : ''),
 							]) !!}
@@ -136,27 +139,12 @@
 					<div class="grid grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('max_price', 'Gross Profit', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::number('max_price', old('max_price'), [
-							    'step' => '.01',
-							    'class' => 'input input-bordered input-primary' . ($errors->has('max_price') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('max_price')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
+							<span class="text-lg font-bold label" x-text="sellingPrice - (costOne + costTwo)"></span>
 						</div>
+
 						<div class="form-control">
-							{!! Form::label('max_price', 'Percentage', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::number('max_price', old('max_price'), [
-							    'step' => '.01',
-							    'class' => 'input input-bordered input-primary' . ($errors->has('max_price') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('max_price')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
+							{!! Form::label('max_price', 'Profit Percentage', ['class' => 'label font-semibold uppercase']) !!}
+							<span class="text-lg font-bold" x-text="sellingPrice - (costOne + costTwo)"></span>
 						</div>
 					</div>
 

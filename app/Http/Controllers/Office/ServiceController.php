@@ -30,7 +30,7 @@ class ServiceController extends BaseController
     {
         $units = Unit::pluck('name', 'id');
 
-        $this->setPageTitle('Add Product', '');
+        $this->setPageTitle('Add Service', '');
         return view('office.service.create', compact('units'));
     }
 
