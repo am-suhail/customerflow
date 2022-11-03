@@ -18,7 +18,8 @@ class CreateInvoicesTable extends Migration
             $table->string('number');
             $table->foreignId('vendor_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->date('date');
             $table->decimal('total_discount', 10, 2)
                 ->nullable();

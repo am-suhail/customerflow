@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Tables;
 
+use App\Models\Invoice;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class InvoiceTable extends Component implements Tables\Contracts\HasTable
@@ -11,7 +13,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Post::query();
+        return Invoice::query();
     }
 
     public function render()

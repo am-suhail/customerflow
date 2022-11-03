@@ -3,62 +3,78 @@
 namespace App\Http\Livewire\Tables;
 
 use App\Models\User;
-use Mediconesystems\LivewireDatatables\Column;
-use Mediconesystems\LivewireDatatables\DateColumn;
-use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-use Mediconesystems\LivewireDatatables\NumberColumn;
+use Livewire\Component;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\Column;
+use Filament\Tables\Columns\ViewColumn;
 
-class UserTable extends LivewireDatatable
+class UserTable extends Component implements Tables\Contracts\HasTable
 {
-    public $hideable = 'select';
+    use Tables\Concerns\InteractsWithTable;
 
-    public function builder()
+    protected function getTableQuery(): Builder
     {
-        return User::where('profile', '!=', 1991);
+        return User::query()->where('profile', '!=', 1991);
     }
 
-    public function columns()
+    protected function getTableColumns(): array
     {
         return [
+            TextColumn::make('name')
+                ->label('Name')
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('name')
-                ->label('Full Name')
-                ->searchable(),
+            TextColumn::make('user_detail.dob')
+                ->getStateUsing(function (User $record) {
+                    return Carbon::parse($record->user_detail->dob ?? "")->format('d-m-Y');
+                })
+                ->label('DOB')
+                ->searchable()
+                ->toggleable(),
 
-            NumberColumn::name('mobile')
-                ->label('Mobile')
-                ->searchable(),
-
-            Column::name('email')
-                ->label('Email')
-                ->searchable(),
-
-            DateColumn::name('user_detail.dob')
-                ->label('D.O.B')
-                ->searchable(),
-
-            Column::name('user_detail.sex')
+            TextColumn::make('user_detail.sex')
                 ->label('Sex')
-                ->filterable(['Male', 'Female'])
-                ->searchable(),
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('user_detail.national_id')
-                ->label('National ID')
-                ->searchable(),
+            TextColumn::make('user_detail.country.name')
+                ->label('Nationality')
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('user_detail.national_id_expiry')
-                ->label('NID Expiry'),
+            TextColumn::make('designation.name')
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('user_detail.building_name')
-                ->label('Building')
-                ->searchable(),
+            TextColumn::make('joining_date')
+                ->getStateUsing(function (User $record) {
+                    return Carbon::parse($record->joining_date)->format('d-m-Y');
+                })
+                ->label('Joining Date')
+                ->toggleable(),
 
-            Column::callback(['id', 'name'], function ($id, $name) {
-                return view('tables.user-table-actions', ['id' => $id, 'name' => $name]);
-            })->unsortable()
-                ->unsortable()
-                ->excludeFromExport()
+
+            // TextColumn::make('totalCost')
+            //     ->getStateUsing(function (Service $record) {
+            //         return $record->cost_one + $record->cost_two;
+            //     })->label('Total Cost'),
+
+            Column::make('Manage')
+                ->view('tables.modals.user.actions')
+                ->extraAttributes(['class' => 'justify-center']),
 
         ];
+    }
+
+    public function render()
+    {
+        return view('livewire.tables.user-table');
     }
 }

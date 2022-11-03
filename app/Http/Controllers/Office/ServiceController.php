@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\Service;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ServiceController extends BaseController
 {
@@ -46,9 +47,9 @@ class ServiceController extends BaseController
             'sub_category_id' => ['required', 'not_in:0'],
             'unit_id' => ['required', 'not_in:0'],
             'selling_price' => ['required', 'numeric'],
-            'cost_one' => ['required', 'numeric'],
+            'cost_one' => ['nullable', 'numeric'],
             'cost_one_desc' => ['nullable', 'string', 'max:191'],
-            'cost_two' => ['required', 'numeric'],
+            'cost_two' => ['nullable', 'numeric'],
             'cost_two_desc' => ['nullable', 'string', 'max:191'],
         ]);
 
@@ -61,7 +62,7 @@ class ServiceController extends BaseController
             return $this->responseRedirectBack('Something went wrong', 'warning', true, true);
         }
 
-        return redirect()->route('service.index')->with('success', 'Service Added');
+        return $this->responseRedirect('service.index', 'Service Added', 'success');
     }
 
     /**
@@ -72,7 +73,7 @@ class ServiceController extends BaseController
      */
     public function show($id)
     {
-        //
+        return redirect()->route('home');
     }
 
     /**
@@ -86,7 +87,7 @@ class ServiceController extends BaseController
         $service = Service::findOrFail($id);
         $units = Unit::pluck('name', 'id');
 
-        $this->setPageTitle('Edit Product' . $service->name, '');
+        $this->setPageTitle('Edit ' . Str::limit($service->name, 12, '..'), '');
         return view('office.service.edit', compact('service', 'units'));
     }
 
@@ -99,14 +100,15 @@ class ServiceController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $validated = request()->validate([
+        $validated = $request->validate([
             'name' => ['required', 'string', 'max:191'],
-            'code' => ['required', 'string'],
             'sub_category_id' => ['required', 'not_in:0'],
-            'description' => ['nullable', 'string', 'max:191'],
             'unit_id' => ['required', 'not_in:0'],
-            'min_price' => ['required', 'numeric'],
-            'max_price' => ['required', 'numeric', 'gt:min_price'],
+            'selling_price' => ['required', 'numeric'],
+            'cost_one' => ['nullable', 'numeric'],
+            'cost_one_desc' => ['nullable', 'string', 'max:191'],
+            'cost_two' => ['nullable', 'numeric'],
+            'cost_two_desc' => ['nullable', 'string', 'max:191'],
         ]);
 
         $service = Service::findOrFail($id);
@@ -116,6 +118,6 @@ class ServiceController extends BaseController
             return $this->responseRedirectBack('Something went wrong, could not update the service at this moment', 'warning', true, true);
         }
 
-        return redirect()->route('service.index')->with('success', 'Service Updated');
+        return $this->responseRedirect('service.index', 'Service Updated', 'success');
     }
 }

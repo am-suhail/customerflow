@@ -2,71 +2,78 @@
 
 namespace App\Http\Livewire\Tables;
 
-use App\Models\User;
-use Mediconesystems\LivewireDatatables\Column;
-use Mediconesystems\LivewireDatatables\DateColumn;
-use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-use Mediconesystems\LivewireDatatables\NumberColumn;
+use App\Models\EmployeeDetail;
+use Carbon\Carbon;
+use Livewire\Component;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables;
+use Filament\Tables\Actions\CreateAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\Column;
+use Filament\Tables\Columns\ViewColumn;
 
-class EmployeesTable extends LivewireDatatable
+class EmployeesTable extends Component implements Tables\Contracts\HasTable
 {
-    public $exportable = true;
-    public $hideable = 'select';
+    use Tables\Concerns\InteractsWithTable;
 
-    public function builder()
+    protected function getTableQuery(): Builder
     {
-        return User::whereProfile(2);
+        return EmployeeDetail::query();
     }
 
-    public function columns()
+    protected function getTableColumns(): array
     {
         return [
-
-            Column::name('name')
-                ->label('Employee Name')
-                ->searchable(),
-
-            NumberColumn::name('mobile')
-                ->label('Mobile')
-                ->searchable(),
-
-            Column::name('email')
-                ->label('Email')
+            TextColumn::make('user.name')
+                ->label('Name')
                 ->searchable()
-                ->hide(),
+                ->toggleable(),
 
-            Column::name('user_detail.national_id')
-                ->label('National ID')
-                ->searchable(),
+            TextColumn::make('code')
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('user_detail.national_id_expiry')
-                ->label('NID Expiry')
-                ->hide(),
+            TextColumn::make('user.user_detail.dob')
+                ->getStateUsing(function (EmployeeDetail $record) {
+                    return Carbon::parse($record->user->user_detail->dob)->format('d-m-Y');
+                })
+                ->label('DOB')
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('employee_detail.code')
-                ->label('Employee Code'),
+            TextColumn::make('user.user_detail.sex')
+                ->label('Sex')
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('employee_detail.designation.name')
-                ->label('Designation'),
+            TextColumn::make('user.user_detail.country.name')
+                ->label('Nationality')
+                ->searchable()
+                ->toggleable(),
 
-            DateColumn::name('employee_detail.joining_date')
-                ->label('Joined On')
-                ->hide(),
+            TextColumn::make('designation.name')
+                ->searchable()
+                ->toggleable(),
 
-            NumberColumn::name('employee_detail.salary')
-                ->label('Salary')
-                ->searchable(),
+            TextColumn::make('joining_date')
+                ->getStateUsing(function (EmployeeDetail $record) {
+                    return Carbon::parse($record->joining_date)->format('d-m-Y');
+                })
+                ->label('Joining Date')
+                ->searchable()
+                ->toggleable(),
 
-            Column::name('user_detail.building_name')
-                ->label('Building')
-                ->searchable(),
-
-            Column::callback(['id', 'name'], function ($id, $name) {
-                return view('tables.employee-table-actions', ['id' => $id, 'name' => $name]);
-            })->unsortable()
-                ->unsortable()
-                ->excludeFromExport()
+            Column::make('Manage')
+                ->view('tables.modals.employee.actions')
+                ->extraAttributes(['class' => 'justify-center']),
 
         ];
+    }
+
+    public function render()
+    {
+        return view('livewire.tables.employees-table');
     }
 }

@@ -108,38 +108,38 @@
 					</div>
 				</div>
 
-				{{-- <div>
+				<div>
 					<livewire:state-city :selectedCity="$errors ? old('city_id', $user->user_detail->city_id) : null">
-				</div> --}}
+				</div>
 
-				{{-- <div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('area', 'Area', [
+						{!! Form::label('area_text', 'Area', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::text('area', old('area', $user->user_detail->area), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('area') ? 'border-2 border-red-600' : ''),
+						{!! Form::text('area_text', old('area_text', $user->user_detail->area_text), [
+						    'class' => 'input input-bordered input-primary' . ($errors->has('area_text') ? 'border-2 border-red-600' : ''),
 						]) !!}
-						@error('area')
+						@error('area_text')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>
 						@enderror
 					</div>
 					<div class="form-control">
-						{!! Form::label('street', 'Street', [
+						{!! Form::label('street_text', 'Street', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::text('street', old('street'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('street') ? 'border-2 border-red-600' : ''),
+						{!! Form::text('street_text', old('street_text', $user->user_detail->area_text), [
+						    'class' => 'input input-bordered input-primary' . ($errors->has('street_text') ? 'border-2 border-red-600' : ''),
 						]) !!}
-						@error('street')
+						@error('street_text')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>
 						@enderror
 					</div>
-				</div> --}}
+				</div>
 
 				<div class="mt-8 mb-4 divider">Academics & Career</div>
 
@@ -148,10 +148,17 @@
 						{!! Form::label('qualification_id', 'Qualification', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::select('qualification_id', $qualifications, old('qualification_id'), [
-						    'class' =>
-						        'select select-bordered select-primary' . ($errors->has('qualification_id') ? 'border-2 border-red-600' : ''),
-						]) !!}
+						{!! Form::select(
+						    'qualification_id',
+						    $qualifications,
+						    old('qualification_id', $user->user_detail->qualification_id),
+						    [
+						        'placeholder' => '--choose--',
+						        'class' =>
+						            'select select-bordered select-primary' .
+						            ($errors->has('qualification_id') ? 'border-2 border-red-600' : ''),
+						    ],
+						) !!}
 						@error('qualification_id')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
@@ -162,7 +169,7 @@
 						{!! Form::label('years_of_exp', 'Years of Experience', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::number('years_of_exp', old('years_of_exp'), [
+						{!! Form::number('years_of_exp', old('years_of_exp', $user->user_detail->years_of_exp), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('years_of_exp') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('years_of_exp')
@@ -175,19 +182,8 @@
 
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('code', 'Employee Code', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::text('code', old('code'), [
-						    'class' => 'input input-primary input-bordered' . ($errors->has('code') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('code')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-					<div class="form-control">
 						{!! Form::label('joining_date', 'Joining Date', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::date('joining_date', old('joining_date'), [
+						{!! Form::date('joining_date', old('joining_date', $user->employee_detail->joining_date), [
 						    'class' => 'input input-primary input-bordered' . ($errors->has('joining_date') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('joining_date')
@@ -201,7 +197,7 @@
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('designation_id', 'Designation', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('designation_id', $designations, old('designations'), [
+						{!! Form::select('designation_id', $designations, old('designations', $user->employee_detail->designation_id), [
 						    'placeholder' => '--choose--',
 						    'class' =>
 						        'select select-bordered select-primary' . ($errors->has('designation_id') ? 'border-2 border-red-600' : ''),
@@ -214,11 +210,9 @@
 					</div>
 					<div class="form-control">
 						{!! Form::label('salary', 'Salary', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('salary', old('salary'), [
+						{!! Form::number('salary', old('salary', $user->employee_detail->salary), [
 						    'step' => '.01',
-						    'class' =>
-						        'input input-bordered
-																																																																																																																																																																		                    input-primary' . ($errors->has('salary') ? 'border-2 border-red-600' : ''),
+						    'class' => 'input input-bordered input-primary' . ($errors->has('salary') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('salary')
 							<label class="label">
@@ -230,13 +224,12 @@
 
 				<div class="grid grid-cols-2 mt-4">
 					<div class="fomr-control">
-						{!! Form::label('remarks', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::textarea('remarks', old('remarks'), [
+						{!! Form::label('remark', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::textarea('remark', old('remark'), [
 						    'class' =>
-						        'textarea h-20 textarea-bordered
-																																																																																																																																																																		                    textarea-primary' . ($errors->has('remarks') ? 'border-2 border-red-600' : ''),
+						        'textarea h-20 textarea-bordered textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
 						]) !!}
-						@error('remarks')
+						@error('remark')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>

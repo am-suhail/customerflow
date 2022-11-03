@@ -20,7 +20,8 @@ class CreateEmployeeDetailsTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->foreignId('designation_id')
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->date('joining_date')->nullable();
             $table->decimal('salary', 10, 2)->nullable();
             $table->integer('type')->default(1);

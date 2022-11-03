@@ -18,9 +18,11 @@ class CreateServicesTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->foreignId('sub_category_id')
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->foreignId('unit_id')
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->decimal('selling_price', 10, 2)->nullable();
             $table->decimal('cost_one', 10, 2)->nullable();
             $table->text('cost_one_desc')->nullable();

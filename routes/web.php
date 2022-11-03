@@ -71,33 +71,25 @@ Route::middleware(['auth'])->group(function () {
         // Home|Dashboard
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
 
-        // Dashboard|My Profile
+        // My Profile
         Route::resource('my-profile', ProfileController::class, ['except' => ['create', 'store']]);
 
-        // Dashboard|All Users
+        // All Users
         Route::get('/all-users', [UserController::class, 'index'])->name('all-users');
-        Route::get('/user/{id}/manage', [UserController::class, 'manage'])->name('user.manage');
+        Route::get('/user/manage/{id}', [UserController::class, 'manage'])->name('user.manage');
         Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 
-        // Dashboard|Employees
-        Route::get('/employees', [EmployeeController::class, 'index'])->name('employee.index');
+        // Employees
         Route::get('employee/{id}/appoint', [EmployeeController::class, 'appoint'])->name('employee.appoint');
         Route::put('employee/appoint/{id}', [EmployeeController::class, 'processAppoint'])->name('employee.appoint-process');
 
-        //Logs
-        Route::prefix('logs')->group(function () {
-            Route::get('project', [ProjectController::class, 'logs'])->name('project.logs');
+        // Logs
+        Route::prefix('all-logs')->group(function () {
+            Route::get('/', [ProjectController::class, 'logs'])->name('logs.index');
         });
-
-        // Project Resource and Livewire Component for Create
-        Route::get('project/create/{enquiry?}', Create::class)->name('project.create'); // Livewire Direct Component
-        Route::get('project/{project}/edit', Edit::class)->name('project.edit'); // Livewire Direct Component
-        Route::post('project/status', [ProjectController::class, 'status_update'])->name('project.status_update');
-        Route::resource('project', ProjectController::class)->except('create', 'store', 'edit');
 
         // Dashboard Resources
         Route::resources([
-            'enquiry' => EnquiryController::class,
             'vendor' => VendorController::class,
             'service' => ServiceController::class,
             'leads' => MarketLeadsController::class,

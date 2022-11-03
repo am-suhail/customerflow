@@ -2,15 +2,15 @@
 
 <li @class([
 	'font-normal rounded-md',
-	'border-l-8 border-green-500 bg-gray-100' => Request::routeIs($route),
+	'border-l-4 border-green-500 bg-gray-100' => Request::routeIs($route),
 ])>
 	<a href="{{ route($route) }}" @class(['flex items-center p-2 space-x-2 group']) :class="{ 'justify-center': !isSidebarOpen }">
 		<span>
 			<svg @class([
-				'w-6 h-6 text-gray-300 group-hover:text-green-500',
+				'text-gray-300 group-hover:text-green-500',
 				'text-green-600' => Request::routeIs($route),
-			]) fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-				viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+			]) width="20" height="20" fill="none" stroke="currentColor"
+				stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 				{{ $path }}
 			</svg>
 		</span>

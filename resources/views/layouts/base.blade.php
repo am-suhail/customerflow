@@ -63,7 +63,6 @@
 	@stack('scripts')
 	@livewireScripts
 	@powerGridScripts
-	@livewire('livewire-ui-modal')
 </body>
 
 </html>

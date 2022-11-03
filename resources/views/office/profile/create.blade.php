@@ -130,26 +130,26 @@
 
 					<div class="grid grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('area', 'Area', [
+							{!! Form::label('area_text', 'Area', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::text('area', old('area'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('area') ? 'border-2 border-red-600' : ''),
+							{!! Form::text('area_text', old('area_text'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('area_text') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('area')
+							@error('area_text')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
 							@enderror
 						</div>
 						<div class="form-control">
-							{!! Form::label('street', 'Street', [
+							{!! Form::label('street_text', 'Street', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::text('street', old('street'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('street') ? 'border-2 border-red-600' : ''),
+							{!! Form::text('street_text', old('street_text'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('street_text') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('street')
+							@error('street_text')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserDetail extends Model
 {
@@ -17,18 +18,25 @@ class UserDetail extends Model
     protected $fillable = [
         'referral_code',
         'user_id',
-        'nid',
-        'nid_expiry',
         'dob',
         'sex',
+        'national_id',
+        'national_id_expiry',
+        'tax_id',
+        'tax_id_expiry',
         'country_id',
+        'passport',
+        'passport_expiry',
         'building_name',
         'city_id',
-        'area',
-        'street',
+        'street_id',
+        'street_text',
+        'area_id',
+        'area_text',
+        'address',
         'qualification_id',
         'years_of_exp',
-        'remarks',
+        'remark',
     ];
 
     /**
@@ -37,7 +45,7 @@ class UserDetail extends Model
      * @var array
      */
     protected $casts = [
-        'nid_expiry' => 'date',
+        'national_id_expiry' => 'date',
         'dob' => 'date',
     ];
 
@@ -46,19 +54,9 @@ class UserDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get the area that owns the UserDetail
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function city()
-    {
-        return $this->belongsTo(City::class);
     }
 
     /**
@@ -66,9 +64,39 @@ class UserDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function country()
+    public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * Get the city that owns the UserDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    /**
+     * Get the area that owns the UserDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo(Area::class);
+    }
+
+    /**
+     * Get the street that owns the UserDetail
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function street(): BelongsTo
+    {
+        return $this->belongsTo(Street::class);
     }
 
     /**
@@ -76,7 +104,7 @@ class UserDetail extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function qualification()
+    public function qualification(): BelongsTo
     {
         return $this->belongsTo(Qualification::class);
     }

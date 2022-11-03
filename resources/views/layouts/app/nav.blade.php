@@ -94,10 +94,11 @@
 			<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
 			@canany(['view projects', 'add project', 'edit project', 'delete project', 'modify project status'])
-				<x-nav.nav-link route="project.create">
+				<x-nav.nav-link route="service.index">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z" />
+						<path
+							d="M9 2.003V2h10.998C20.55 2 21 2.455 21 2.992v18.016a.993.993 0 0 1-.993.992H3.993A1 1 0 0 1 3 20.993V8l6-5.997ZM5.83 8H9V4.83L5.83 8ZM11 4v5a1 1 0 0 1-1 1H5v10h14V4h-8Z">
+						</path>
 					</x-slot>
 					Invoice
 				</x-nav.nav-link>
@@ -108,8 +109,9 @@
 			@can('view products')
 				<x-nav.nav-link route="service.index">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+						<path
+							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
+						</path>
 					</x-slot>
 					Products
 				</x-nav.nav-link>
@@ -120,8 +122,9 @@
 
 				<x-nav.nav-link route="all-users">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+						<path
+							d="M9 13.75c-2.34 0-7 1.17-7 3.5V19h14v-1.75c0-2.33-4.66-3.5-7-3.5ZM4.34 17c.84-.58 2.87-1.25 4.66-1.25s3.82.67 4.66 1.25H4.34ZM9 12c1.93 0 3.5-1.57 3.5-3.5S10.93 5 9 5 5.5 6.57 5.5 8.5 7.07 12 9 12Zm0-5c.83 0 1.5.67 1.5 1.5S9.83 10 9 10s-1.5-.67-1.5-1.5S8.17 7 9 7Zm7.04 6.81c1.16.84 1.96 1.96 1.96 3.44V19h4v-1.75c0-2.02-3.5-3.17-5.96-3.44ZM15 12c1.93 0 3.5-1.57 3.5-3.5S16.93 5 15 5c-.54 0-1.04.13-1.5.35.63.89 1 1.98 1 3.15s-.37 2.26-1 3.15c.46.22.96.35 1.5.35Z">
+						</path>
 					</x-slot>
 					All Users
 				</x-nav.nav-link>
@@ -130,16 +133,18 @@
 			@can('view employees')
 				<x-nav.nav-link route="employee.index">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+						<path
+							d="M12 3a5.26 5.26 0 0 0-5.25 5.25c0 1.784.908 3.363 2.273 4.313-3.079 1.2-5.273 4.2-5.273 7.687h1.5c0-3.299 2.394-6.056 5.531-6.633L11.25 15h1.5l.469-1.383c3.137.577 5.531 3.334 5.531 6.633h1.5c0-3.486-2.194-6.486-5.273-7.688A5.259 5.259 0 0 0 17.25 8.25 5.26 5.26 0 0 0 12 3Zm0 1.5c2.08 0 3.75 1.67 3.75 3.75S14.08 12 12 12s-3.75-1.67-3.75-3.75S9.92 4.5 12 4.5Zm-.75 11.25-.75 4.5h3l-.75-4.5h-1.5Z">
+						</path>
 					</x-slot>
 					Employees
 				</x-nav.nav-link>
 
 				<x-nav.nav-link route="vendor.index">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+						<path d="M17 2.5H2v2h15v-2Z"></path>
+						<path d="M15 15.5h2v-3h1v-2l-1-5H2l-1 5v2h1v6h9v-6h4v3Zm-6 1H4v-4h5v4Zm-5.96-6 .6-3h11.72l.6 3H3.04Z"></path>
+						<path d="M23 16.5h-3v-3h-2v3h-3v2h3v3h2v-3h3v-2Z"></path>
 					</x-slot>
 					Customers
 				</x-nav.nav-link>

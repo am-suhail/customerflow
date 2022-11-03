@@ -20,18 +20,21 @@ class CreateVendorsTable extends Migration
             $table->string('sex')->nullable();
             $table->foreignId('country_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->string('mobile')->nullable();
             $table->string('email')->nullable();
             $table->string('company_name')->nullable();
             $table->foreignId('industry_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->string('vat')->nullable();
             $table->string('url')->nullable();
             $table->foreignId('city_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->string('telephone')->nullable();
             $table->json('additional_info')->nullable();
             $table->text('remark')->nullable();

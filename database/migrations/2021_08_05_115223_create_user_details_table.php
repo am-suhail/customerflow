@@ -27,20 +27,30 @@ class CreateUserDetailsTable extends Migration
             $table->date('tax_id_expiry')->nullable();
             $table->foreignId('country_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->string('passport')->nullable();
             $table->date('passport_expiry')->nullable();
             $table->string('building_name')->nullable();
+            $table->foreignId('city_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $table->foreignId('street_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
+            $table->string('street_text')->nullable();
             $table->foreignId('area_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
+            $table->string('area_text')->nullable();
             $table->text('address')->nullable();
             $table->foreignId('qualification_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()
+                ->nullOnDelete();
             $table->integer('years_of_exp')->nullable();
             $table->json('additional_info')->nullable();
             $table->text('remark')->nullable();
