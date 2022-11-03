@@ -46,7 +46,7 @@ class Create extends Component
         $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
         $this->number = '#INV-' . $code;
 
-        $this->date = Carbon::today();
+        $this->date = Carbon::today()->format('d-m-Y');
         $this->vendors = Vendor::pluck('name', 'id');
     }
 
@@ -93,8 +93,8 @@ class Create extends Component
 
         $created = Invoice::create([
             'number'                => $newNumber,
-            'vendor_id'             => $this->vendor_id,
-            'date'                  => $this->date,
+            'vendor_id'             => empty($this->vendor_id) ? NULL : $this->vendor_id,
+            'date'                  => today(),
             'total_discount'        => 0,
             'total_tax'             => 0,
             'total_amount'          => collect($this->services)->sum('total'),

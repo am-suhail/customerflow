@@ -29,6 +29,11 @@ class ServiceTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->toggleable(),
 
+            TextColumn::make('subcategory.category.name')
+                ->label('Category')
+                ->searchable()
+                ->toggleable(),
+
             TextColumn::make('subcategory.name')
                 ->label('Sub Category')
                 ->searchable()
@@ -37,15 +42,15 @@ class ServiceTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('selling_price')
                 ->label('Selling Price'),
 
-            TextColumn::make('totalCost')
-                ->getStateUsing(function (Service $record) {
-                    return $record->cost_one + $record->cost_two;
-                })->label('Total Cost'),
+            // TextColumn::make('totalCost')
+            //     ->getStateUsing(function (Service $record) {
+            //         return $record->cost_one + $record->cost_two;
+            //     })->label('Total Cost'),
 
-            TextColumn::make('grossProfit')
-                ->getStateUsing(function (Service $record) {
-                    return $record->selling_price - ($record->cost_one + $record->cost_two);
-                })->label('Gross Profit'),
+            // TextColumn::make('grossProfit')
+            //     ->getStateUsing(function (Service $record) {
+            //         return $record->selling_price - ($record->cost_one + $record->cost_two);
+            //     })->label('Gross Profit'),
 
             Column::make('Manage')
                 ->view('tables.modals.service.actions')

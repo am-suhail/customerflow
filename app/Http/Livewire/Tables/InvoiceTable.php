@@ -27,13 +27,18 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('vendor.name')
-                ->label('Vendor')
+            TextColumn::make('date')
+                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('date')
-                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
+            TextColumn::make('vendor.name')
+                ->label('Customer')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('vendor.company_name')
+                ->label('Customer\'s Company')
                 ->toggleable()
                 ->searchable(),
 

@@ -119,14 +119,15 @@
 				&nbsp;
 			</td>
 			<td align="right" width="35%">
-				<h3 style="font-weight: bold; margin: 0 0 2px 0;">Billing Address:</h3>
-				<h3 style="font-weight: light; margin: 0 0 2px 0;">
-					{{ $invoice->vendor->name }}
-				</h3>
-				<h3 style="font-weight: light; margin: 0">
-					{{-- {{ $order_details->order->full_address }} --}}
-				</h3>
-
+				@if (!is_null($invoice->vendor))
+					<h3 style="font-weight: bold; margin: 0 0 2px 0;">Billing Address:</h3>
+					<h3 style="font-weight: light; margin: 0 0 2px 0;">
+						{{ $invoice->vendor->name }}
+					</h3>
+					<h3 style="font-weight: light; margin: 0">
+						{{-- {{ $order_details->order->full_address }} --}}
+					</h3>
+				@endif
 				<br />
 			</td>
 		</tr>

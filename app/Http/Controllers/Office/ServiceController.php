@@ -17,7 +17,7 @@ class ServiceController extends BaseController
      */
     public function index()
     {
-        $this->setPageTitle('Products', '');
+        $this->setPageTitle('Services - Price List', '');
         return view('office.service.index');
     }
 
