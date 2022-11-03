@@ -19,7 +19,6 @@
 	<!-- Styles -->
 	<link rel="stylesheet" href="{{ url(mix('css/app.css')) }}">
 	@livewireStyles
-	@powerGridStyles
 
 	<!-- Scripts -->
 	<script src="{{ url(mix('js/app.js')) }}" defer></script>
@@ -56,13 +55,13 @@
 	</style>
 </head>
 
-<body>
+<body class="antialiased">
 	@yield('body')
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
 	@stack('scripts')
 	@livewireScripts
-	@powerGridScripts
+	@livewire('notifications')
 </body>
 
 </html>

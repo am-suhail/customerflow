@@ -19,6 +19,10 @@ class CreateInvoiceItemsTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->foreignId('service_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $table->decimal('unit_price', 10, 2)
                 ->nullable();
             $table->integer('qty')->default(1);

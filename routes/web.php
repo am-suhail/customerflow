@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Office\DashboardController;
 use App\Http\Controllers\Office\EmployeeController;
 use App\Http\Controllers\Office\EnquiryController;
+use App\Http\Controllers\Office\InvoiceController;
 use App\Http\Controllers\Office\MarketLeadsController;
 use App\Http\Controllers\Office\MasterController;
 use App\Http\Controllers\Office\ProfileController;
@@ -75,13 +76,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('my-profile', ProfileController::class, ['except' => ['create', 'store']]);
 
         // All Users
-        Route::get('/all-users', [UserController::class, 'index'])->name('all-users');
+        Route::get('/user.index', [UserController::class, 'index'])->name('user.index');
         Route::get('/user/manage/{id}', [UserController::class, 'manage'])->name('user.manage');
         Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 
         // Employees
         Route::get('employee/{id}/appoint', [EmployeeController::class, 'appoint'])->name('employee.appoint');
-        Route::put('employee/appoint/{id}', [EmployeeController::class, 'processAppoint'])->name('employee.appoint-process');
+        Route::put('employee/appoint/{id}', [EmployeeController::class, 'process_appoint'])->name('employee.appoint-process');
 
         // Logs
         Route::prefix('all-logs')->group(function () {
@@ -92,6 +93,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resources([
             'vendor' => VendorController::class,
             'service' => ServiceController::class,
+            'invoice' => InvoiceController::class,
             'leads' => MarketLeadsController::class,
             'employee' => EmployeeController::class,
             'roles' => RolesController::class,

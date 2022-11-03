@@ -19,8 +19,7 @@ class VendorController extends BaseController
      */
     public function index()
     {
-
-        $this->setPageTitle('Customer Data', '');
+        $this->setPageTitle('Customers', '');
         return view('office.vendor.index');
     }
 
@@ -95,7 +94,7 @@ class VendorController extends BaseController
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
 
-        $this->setPageTitle('Edit Customer ' . $vendor->name, '');
+        $this->setPageTitle('Edit ' . $vendor->name, '');
         return view('office.vendor.edit', compact('vendor', 'industries', 'countries'));
     }
 

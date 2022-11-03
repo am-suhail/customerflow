@@ -80,24 +80,52 @@ class EmployeeController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $validated = request()->validate([
-            'nid' => ['required', 'string'],
-            'nid_expiry' => ['required', 'date'],
-            'dob' => ['required', 'date'],
+        $validated = $request->validate([
+            'national_id' => ['required', 'string'],
+            'national_id_expiry' => ['required', 'date'],
             'sex' => ['required', 'string'],
+            'dob' => ['required', 'date'],
             'country_id' => ['required', 'not_in:0'],
             'building_name' => ['required', 'string'],
             'city_id' => ['required', 'not_in:0'],
-            'area' => ['required', 'string'],
-            'street' => ['required', 'string'],
+            'area_text' => ['nullable', 'string'],
+            'street_text' => ['nullable', 'string'],
             'qualification_id' => ['required', 'not_in:0'],
             'years_of_exp' => ['required', 'numeric'],
-            'code' => ['required', 'string'],
             'designation_id' => ['required', 'not_in:0'],
             'joining_date' => ['required', 'date'],
             'salary' => ['required', 'numeric'],
-            'remarks' => ['nullable', 'string', 'max:191'],
+            'remark' => ['nullable', 'string', 'max:191'],
         ]);
+
+        $user = User::findOrFail($id);
+
+        $user->user_detail->update([
+            'national_id' => $request->national_id,
+            'national_id_expiry' => $request->national_id_expiry,
+            'sex' => $request->sex,
+            'dob' => $request->dob,
+            'country_id' => $request->country_id,
+            'building_name' => $request->building_name,
+            'city_id' => $request->city_id,
+            'area_text' => $request->area_text,
+            'street_text' => $request->street_text,
+            'qualification_id' => $request->qualification_id,
+            'years_of_exp' => $request->years_of_exp,
+        ]);
+
+        $updated = $user->employee_detail->update([
+            'designation_id' => $request->designation_id,
+            'joining_date' => $request->joining_date,
+            'salary' => $request->salary,
+            'remark' => $request->remark,
+        ]);
+
+        if (!$updated) {
+            return $this->responseRedirectBack('Sorry, something went wrong!', 'warning', true, true);
+        }
+
+        return $this->responseRedirect('employee.index', 'Employee Details Updated', 'success');
     }
 
     /**
@@ -121,14 +149,13 @@ class EmployeeController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function processAppoint(Request $request, $id)
+    public function process_appoint(Request $request, $id)
     {
-        $validated = request()->validate([
-            'code' => ['required', 'string'],
+        $validated = $request->validate([
             'designation_id' => ['required', 'not_in:0'],
             'joining_date' => ['required', 'date'],
             'salary' => ['required', 'numeric'],
-            'remarks' => ['nullable', 'string', 'max:191'],
+            'remark' => ['nullable', 'string', 'max:191'],
         ]);
 
         $user = User::findOrFail($id);
@@ -141,6 +168,6 @@ class EmployeeController extends BaseController
             return $this->responseRedirectBack('Sorry, something went wrong!', 'warning', true, true);
         }
 
-        return $this->responseRedirect('all-users', 'Employee Appointed', 'success');
+        return $this->responseRedirect('employee.index', 'Employee Appointed', 'success');
     }
 }

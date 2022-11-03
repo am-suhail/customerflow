@@ -37,6 +37,6 @@ class UserController extends BaseController
             return $this->responseRedirectBack('Something went wrong!', 'warning', true, true);
         }
 
-        return $this->responseRedirect('all-users', 'Roles Updated!', 'success');
+        return $this->responseRedirect('user.index', 'Roles Updated!', 'success');
     }
 }

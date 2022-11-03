@@ -6,8 +6,6 @@
 		<!-- Main content header -->
 		<x-headers.page-heading :title="$pageTitle" />
 
-		@include('layouts.app.flash')
-
 		<div class="flex flex-col items-start mb-4 space-y-4 lg:items-center lg:space-y-0 lg:flex-row">
 			<a href="{{ route('service.create') }}" class="btn btn-outline btn-primary">
 				<svg class="mr-1" width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
@@ -19,6 +17,8 @@
 				Add New
 			</a>
 		</div>
+
+		@include('layouts.app.flash')
 
 		<div class="p-2">
 			<hr>

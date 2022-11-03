@@ -2,6 +2,7 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+    content: ["./resources/**/*.blade.php", "./vendor/filament/**/*.blade.php"],
     theme: {
         extend: {
             fontFamily: {
@@ -39,9 +40,7 @@ module.exports = {
         },
     },
     plugins: [
-        require("@tailwindcss/forms")({
-            strategy: "class",
-        }),
+        require("@tailwindcss/forms"),
         require("@tailwindcss/typography"),
         require("daisyui"),
     ],

@@ -3,72 +3,98 @@
 namespace App\Http\Livewire\Tables;
 
 use App\Models\Vendor;
-use Mediconesystems\LivewireDatatables\Column;
-use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
-use Mediconesystems\LivewireDatatables\NumberColumn;
+use Livewire\Component;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\Column;
 
-class VendorTable extends LivewireDatatable
+class VendorTable extends Component implements Tables\Contracts\HasTable
 {
-    public $hideable = 'select';
-    public $exportable = true;
-    public $model = Vendor::class;
+    use Tables\Concerns\InteractsWithTable;
 
-    public function columns()
+    protected function getTableQuery(): Builder
+    {
+        return Vendor::query();
+    }
+
+    protected function getTableColumns(): array
     {
         return [
 
-            Column::name('name')
+            TextColumn::make('name')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('country.name')
+            TextColumn::make('sex')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('country.name')
                 ->label('Nationality')
+                ->toggleable()
                 ->searchable(),
 
-            NumberColumn::name('mobile')
+            TextColumn::make('mobile')
                 ->label('Mobile')
+                ->toggleable()
                 ->searchable(),
 
-            NumberColumn::name('email')
+            TextColumn::make('email')
                 ->label('Email')
+                ->label('')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('company_name')
+            TextColumn::make('company_name')
                 ->label('Company Name')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('industry.name')
+            TextColumn::make('industry.name')
                 ->label('Industry')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('vat')
+            TextColumn::make('vat')
                 ->label('VAT')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('url')
+            TextColumn::make('url')
                 ->label('Website')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('city.state.name')
+            TextColumn::make('city.state.name')
                 ->label('State')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('city.name')
+            TextColumn::make('city.name')
                 ->label('City')
+                ->toggleable()
                 ->searchable(),
 
-            NumberColumn::name('telephone')
+            TextColumn::make('telephone')
                 ->label('Telephone')
+                ->toggleable()
                 ->searchable(),
 
-            Column::name('remark')
+            TextColumn::make('remark')
                 ->label('Remarks')
+                ->toggleable()
                 ->searchable(),
 
-            Column::callback(['id', 'name'], function ($id, $name) {
-                return view('tables.general-table-actions', ['id' => $id, 'name' => $name, 'route' => 'vendor.edit']);
-            })
-                ->unsortable()
-                ->excludeFromExport()
+            Column::make('Manage')
+                ->view('tables.modals.vendor.actions')
+                ->extraAttributes(['class' => 'justify-center']),
         ];
+    }
+
+    public function render()
+    {
+        return view('livewire.tables.vendor-table');
     }
 }
