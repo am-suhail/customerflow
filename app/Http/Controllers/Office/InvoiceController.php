@@ -6,6 +6,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceController extends BaseController
 {
@@ -57,7 +58,11 @@ class InvoiceController extends BaseController
      */
     public function show($id)
     {
-        //
+        $invoice = Invoice::findOrFail($id);
+
+        $pdf = PDF::loadView('pdf-template.invoice', compact('invoice'));
+
+        return $pdf->stream($invoice->number . ".pdf");
     }
 
     /**

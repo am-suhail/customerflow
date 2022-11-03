@@ -13,6 +13,16 @@ class InvoiceItemsRepeater extends Component
 
     public $service_lists;
 
+    protected $listeners = ['validateServices'];
+
+    public function validateServices()
+    {
+        $validated = $this->validate([
+            'service_id' => 'required|not_in:0',
+            'qty' => 'required|not_in:0'
+        ]);
+    }
+
     public function mount($key_id, $service = null)
     {
         //Child Key ID for the Array Index
@@ -32,19 +42,19 @@ class InvoiceItemsRepeater extends Component
         $this->service_lists = Service::pluck('name', 'id');
     }
 
-    // public function processTest()
-    // {
-    //     $this->validate(
-    //         [
-    //             'service_id' => ['required', 'not_in:0'],
-    //             'qty'        => ['required', 'numeric'],
-    //         ],
-    //         [
-    //             'service_id.required' => 'Please, specify the service',
-    //             'qty.required' => 'A Quantity for the specified service is missing',
-    //         ]
-    //     );
-    // }
+    public function processTest()
+    {
+        $this->validate(
+            [
+                'service_id' => ['required', 'not_in:0'],
+                'qty'        => ['required', 'numeric'],
+            ],
+            [
+                'service_id.required' => 'Please, specify the service',
+                'qty.required' => 'A Quantity for the specified service is missing',
+            ]
+        );
+    }
 
     public function render()
     {
@@ -77,6 +87,6 @@ class InvoiceItemsRepeater extends Component
             ]
         );
         $this->total = $this->selling_price * $this->qty;
-        $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total);
+        $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total, $this->selling_price);
     }
 }

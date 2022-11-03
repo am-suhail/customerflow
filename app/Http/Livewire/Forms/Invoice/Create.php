@@ -4,10 +4,14 @@ namespace App\Http\Livewire\Forms\Invoice;
 
 use App\Models\Invoice;
 use App\Models\Vendor;
+use App\Traits\FlashMessages;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class Create extends Component
 {
+    use FlashMessages;
+
     // Vendors List
     public $vendors;
 
@@ -26,12 +30,13 @@ class Create extends Component
         'serviceAdded'
     ];
 
-    public function serviceAdded($key_id, $service_id, $qty, $discount, $total)
+    public function serviceAdded($key_id, $service_id, $qty, $discount, $total, $unit_price)
     {
         $this->services[$key_id]['service_id'] = $service_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
         $this->services[$key_id]['total'] = $total;
+        $this->services[$key_id]['unit_price'] = $unit_price;
     }
 
     public function mount()
@@ -41,6 +46,7 @@ class Create extends Component
         $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
         $this->number = '#INV-' . $code;
 
+        $this->date = Carbon::today();
         $this->vendors = Vendor::pluck('name', 'id');
     }
 
@@ -50,7 +56,7 @@ class Create extends Component
      */
     public function addField()
     {
-        $this->services[] = ['service_id' => '', 'qty' => '', 'discount' => '', 'total' => ''];
+        $this->services[] = ['service_id' => '', 'qty' => '', 'discount' => '', 'total' => '', 'unit_price' => ''];
     }
 
     /**
@@ -65,24 +71,18 @@ class Create extends Component
 
     public function process()
     {
+        $this->emit('validateServices');
+
         $this->validate(
             [
-                'inward'                => ['required', 'date'],
                 'vendor_id'             => ['required', 'not_in:0'],
-                'referral_no'           => ['required', 'string'],
-                'building_name'         => ['required', 'string'],
-                'city_id'               => ['required', 'not_in:0'],
-                'area'                  => ['nullable', 'string', 'max:45'],
-                'street'                => ['nullable', 'string', 'max:45'],
-                'remarks'               => ['nullable', 'string', 'max:191'],
+                'date'                  => ['required', 'date'],
                 'services.*.service_id' => ['required', 'not_in:0'],
                 'services.*.qty'        => ['required', 'numeric'],
-                'services.*.price'      => ['required', 'numeric']
             ],
             [
                 'service_id.required' => 'Please, specify the service',
                 'qty.required' => 'A Quantity for the specified service is missing',
-                'price.required' => 'Please Mention price for the specified service'
             ]
         );
 
@@ -91,36 +91,25 @@ class Create extends Component
         $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
         $newNumber = '#INV-' . $code;
 
-        $created = Project::create([
+        $created = Invoice::create([
             'number'                => $newNumber,
-            'inward'                => $this->inward,
             'vendor_id'             => $this->vendor_id,
-            'referral_no'           => $this->referral_no,
-            'building_name'         => $this->building_name,
-            'city_id'               => $this->city_id,
-            'area'                  => $this->area,
-            'street'                => $this->street,
-            'remarks'               => $this->remarks,
-        ]);
-
-        $created->status()->create([
-            'badge' => 'active',
-            'user_id' => Auth::id(),
-            'comment' => 'Initial Status - Project Created'
+            'date'                  => $this->date,
+            'total_discount'        => 0,
+            'total_tax'             => 0,
+            'total_amount'          => collect($this->services)->sum('total'),
         ]);
 
         if (!empty($this->services)) {
-            $created->services()->createMany($this->services);
+            $created->items()->createMany($this->services);
             $created = true;
         }
 
-        if ($this->fromEnquiry) {
-            $this->enquiry->status = ProjectEnquiry::ENQUIRY_COMPLETE;
-            $this->enquiry->save();
-        }
-
         if ($created) {
-            return redirect()->route('invoice.index')->with('success', 'Project Added');
+            $this->setFlashMessage("Invoice Created", "success");
+            $this->showFlashMessages();
+
+            return redirect()->route('invoice.index');
         }
     }
 
