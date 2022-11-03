@@ -34,7 +34,7 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">0</p>
+					<p class="text-2xl">{{ $invoice_today }}</p>
 					<p>Today's Invoices</p>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">0</p>
+					<p class="text-2xl">{{ $amount_today }}</p>
 					<p>Today's Amount</p>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">0</p>
+					<p class="text-2xl">{{ $service_today }}</p>
 					<p>Today's Services</p>
 				</div>
 			</div>
@@ -88,7 +88,7 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">0</p>
+					<p class="text-2xl">{{ $total_invoices }}</p>
 					<p>Total Invoices</p>
 				</div>
 			</div>

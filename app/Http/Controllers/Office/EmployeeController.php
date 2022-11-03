@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Office;
 use App\Http\Controllers\BaseController;
 use App\Models\Country;
 use App\Models\Designation;
+use App\Models\EmployeeDetail;
 use App\Models\Qualification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -158,10 +159,15 @@ class EmployeeController extends BaseController
             'remark' => ['nullable', 'string', 'max:191'],
         ]);
 
+        $lastEmployee = EmployeeDetail::latest()->first();
+        $lastCode = preg_replace('~\D~', '', $lastEmployee ? $lastEmployee->code : 'EMP-000000');
+        $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
+        $validated['code'] = 'EMP-' . $code;
+
         $user = User::findOrFail($id);
 
         $appointed = $user->employee_detail()->create($validated);
-        $user->profile = 'employee';
+        $user->profile = 2;
         $user->save();
 
         if (!$appointed) {

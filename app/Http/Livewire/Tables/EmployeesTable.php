@@ -33,7 +33,7 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('user.user_detail.dob')
                 ->getStateUsing(function (EmployeeDetail $record) {
-                    return Carbon::parse($record->user->user_detail->dob)->format('d-m-Y');
+                    return Carbon::parse($record->user->user_detail->dob ?? '')->format('d-m-Y');
                 })
                 ->label('DOB')
                 ->searchable()
@@ -70,7 +70,7 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('id_expiry')
                 ->label('National ID Expiry')
                 ->getStateUsing(function (EmployeeDetail $record) {
-                    return Carbon::parse($record->user->user_detail->national_id_expiry)->format('d-m-Y');
+                    return Carbon::parse($record->user->user_detail->national_id_expiry ?? '')->format('d-m-Y');
                 })
                 ->searchable()
                 ->toggleable(),

@@ -34,7 +34,7 @@
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('national_id', 'National ID:', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::text('national_id', old('national_id', $user->user_detail->national_id), [
+						{!! Form::text('national_id', old('national_id', $user->user_detail->national_id ?? ''), [
 						    'class' => 'input input-primary input-bordered' . ($errors->has('national_id') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('national_id')
@@ -45,7 +45,7 @@
 					</div>
 					<div class="form-control">
 						{!! Form::label('national_id_expiry', 'ID Expiry', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::date('national_id_expiry', old('national_id_expiry', $user->user_detail->national_id_expiry), [
+						{!! Form::date('national_id_expiry', old('national_id_expiry', $user->user_detail->national_id_expiry ?? ''), [
 						    'step' => '.01',
 						    'class' =>
 						        'input input-bordered input-primary' . ($errors->has('national_id_expiry') ? 'border-2 border-red-600' : ''),
@@ -61,7 +61,7 @@
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('sex', 'Sex', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], old('sex', $user->user_detail->sex), [
+						{!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], old('sex', $user->user_detail->sex ?? ''), [
 						    'placeholder' => '--choose--',
 						    'class' => 'select select-bordered select-primary' . ($errors->has('sex') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -73,7 +73,7 @@
 					</div>
 					<div class="form-control">
 						{!! Form::label('dob', 'Date of Birth', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::date('dob', old('dob', $user->user_detail->dob), [
+						{!! Form::date('dob', old('dob', $user->user_detail->dob ?? ''), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('dob') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('dob')
@@ -87,7 +87,7 @@
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('country_id', 'Nationality', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('country_id', $countries, old('country_id', $user->user_detail->country_id), [
+						{!! Form::select('country_id', $countries, old('country_id', $user->user_detail->country_id ?? ''), [
 						    'placeholder' => '--choose--',
 						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -104,7 +104,7 @@
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('building_name', 'Building Name', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::text('building_name', old('building_name', $user->user_detail->building_name), [
+						{!! Form::text('building_name', old('building_name', $user->user_detail->building_name ?? ''), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('building_name') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('building_name')
@@ -116,7 +116,7 @@
 				</div>
 
 				<div>
-					<livewire:state-city :selectedCity="$errors ? old('city_id', $user->user_detail->city_id) : null">
+					<livewire:state-city :selectedCity="$errors ? old('city_id', $user->user_detail->city_id ?? '') : null">
 				</div>
 
 				<div class="grid grid-cols-2 gap-4 mt-4">
@@ -124,7 +124,7 @@
 						{!! Form::label('area_text', 'Area', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::text('area_text', old('area_text', $user->user_detail->area_text), [
+						{!! Form::text('area_text', old('area_text', $user->user_detail->area_text ?? ''), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('area_text') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('area_text')
@@ -137,7 +137,7 @@
 						{!! Form::label('street_text', 'Street', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::text('street_text', old('street_text', $user->user_detail->area_text), [
+						{!! Form::text('street_text', old('street_text', $user->user_detail->street_text ?? ''), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('street_text') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('street_text')
@@ -158,7 +158,7 @@
 						{!! Form::select(
 						    'qualification_id',
 						    $qualifications,
-						    old('qualification_id', $user->user_detail->qualification_id),
+						    old('qualification_id', $user->user_detail->qualification_id ?? ''),
 						    [
 						        'placeholder' => '--choose--',
 						        'class' =>
@@ -176,7 +176,7 @@
 						{!! Form::label('years_of_exp', 'Years of Experience', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::number('years_of_exp', old('years_of_exp', $user->user_detail->years_of_exp), [
+						{!! Form::number('years_of_exp', old('years_of_exp', $user->user_detail->years_of_exp ?? ''), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('years_of_exp') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('years_of_exp')
@@ -190,7 +190,7 @@
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('joining_date', 'Joining Date', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::date('joining_date', old('joining_date', $user->employee_detail->joining_date), [
+						{!! Form::date('joining_date', old('joining_date', $user->employee_detail->joining_date ?? ''), [
 						    'class' => 'input input-primary input-bordered' . ($errors->has('joining_date') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('joining_date')
@@ -204,11 +204,16 @@
 				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('designation_id', 'Designation', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('designation_id', $designations, old('designations', $user->employee_detail->designation_id), [
-						    'placeholder' => '--choose--',
-						    'class' =>
-						        'select select-bordered select-primary' . ($errors->has('designation_id') ? 'border-2 border-red-600' : ''),
-						]) !!}
+						{!! Form::select(
+						    'designation_id',
+						    $designations,
+						    old('designations', $user->employee_detail->designation_id ?? ''),
+						    [
+						        'placeholder' => '--choose--',
+						        'class' =>
+						            'select select-bordered select-primary' . ($errors->has('designation_id') ? 'border-2 border-red-600' : ''),
+						    ],
+						) !!}
 						@error('designation_id')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
@@ -217,7 +222,7 @@
 					</div>
 					<div class="form-control">
 						{!! Form::label('salary', 'Salary', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('salary', old('salary', $user->employee_detail->salary), [
+						{!! Form::number('salary', old('salary', $user->employee_detail->salary ?? ''), [
 						    'step' => '.01',
 						    'class' => 'input input-bordered input-primary' . ($errors->has('salary') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -232,7 +237,7 @@
 				<div class="grid grid-cols-2 mt-4">
 					<div class="fomr-control">
 						{!! Form::label('remark', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::textarea('remark', old('remark'), [
+						{!! Form::textarea('remark', old('remark', $user->employee_detail->remark ?? ''), [
 						    'class' =>
 						        'textarea h-20 textarea-bordered textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
 						]) !!}

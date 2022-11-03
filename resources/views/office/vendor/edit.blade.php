@@ -168,7 +168,7 @@
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
-					<div class="fomr-control">
+					<div class="form-control">
 						{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::textarea('remark', old('remark', $vendor->remark), [
 						    'class' => 'textarea textarea-bordered	textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
@@ -181,11 +181,9 @@
 					</div>
 				</div>
 
-				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
-					<div>
-						<a href={{ route('vendor.index') }} class="btn">Cancel</a>
-						<button type="submit" class='btn btn-accent'>Update</button>
-					</div>
+				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 w-1/2'>
+					<button type="submit" class='btn btn-accent'>Update</button>
+					<a href={{ route('service.index') }} class="btn">Cancel</a>
 				</div>
 				{!! Form::close() !!}
 			</div>
