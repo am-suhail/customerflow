@@ -210,7 +210,7 @@
 							</td> --}}
 						<td width="25%">
 							<h4>
-								<span style="font-family: DejaVu Sans; sans-serif;">&#8377;{{ $item->total }}</span>
+								<span style="font-family: DejaVu Sans; sans-serif;">{{ $item->total }}</span>
 							</h4>
 						</td>
 					</tr>

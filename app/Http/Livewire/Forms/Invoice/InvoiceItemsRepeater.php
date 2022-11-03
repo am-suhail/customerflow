@@ -9,6 +9,8 @@ class InvoiceItemsRepeater extends Component
 {
     public $key_id;
 
+    public $selectedService;
+
     public $service_id, $selling_price, $qty = 0, $discount = 0, $total = 0;
 
     public $service_lists;
@@ -35,25 +37,11 @@ class InvoiceItemsRepeater extends Component
 
             $this->qty = $service['qty'];
             $this->discount = $service['discount'];
-            $this->price = $service['price'];
+            $this->total = $service['total'];
         }
 
         // Fetched Services
         $this->service_lists = Service::pluck('name', 'id');
-    }
-
-    public function processTest()
-    {
-        $this->validate(
-            [
-                'service_id' => ['required', 'not_in:0'],
-                'qty'        => ['required', 'numeric'],
-            ],
-            [
-                'service_id.required' => 'Please, specify the service',
-                'qty.required' => 'A Quantity for the specified service is missing',
-            ]
-        );
     }
 
     public function render()

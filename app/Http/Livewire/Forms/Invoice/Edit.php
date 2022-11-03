@@ -5,10 +5,9 @@ namespace App\Http\Livewire\Forms\Invoice;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use App\Traits\FlashMessages;
-use Carbon\Carbon;
 use Livewire\Component;
 
-class Create extends Component
+class Edit extends Component
 {
     use FlashMessages;
 
@@ -17,6 +16,9 @@ class Create extends Component
 
     // Initialise an Empty Services Array to add Services to it
     public $services = [];
+
+    // Initialise an Empty Services Array to add Services to it
+    public $invoice;
 
     // Model Form Variables
     public $number;
@@ -39,15 +41,27 @@ class Create extends Component
         $this->services[$key_id]['unit_price'] = $unit_price;
     }
 
-    public function mount()
+    public function mount($invoice)
     {
-        $lastInvoice = Invoice::latest()->first();
-        $lastCode = preg_replace('~\D~', '', $lastInvoice ? $lastInvoice->number : '#INV-000000');
-        $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
-        $this->number = '#INV-' . $code;
+        $this->invoice = $invoice;
 
-        $this->date = Carbon::today();
         $this->vendors = Vendor::pluck('name', 'id');
+
+        $this->number = $invoice->number;
+        $this->date = $invoice->date;
+        $this->vendor_id = $invoice->vendor_id;
+
+        if (!is_null($invoice->items())) {
+            foreach ($invoice->items as $item) {
+                $this->services[] = [
+                    'service_id' => $item->service_id,
+                    'qty' => $item->qty,
+                    'discount' => $item->discount,
+                    'total' => $item->total,
+                    'unit_price' => $item->unit_price,
+                ];
+            }
+        }
     }
 
     /**
@@ -86,13 +100,7 @@ class Create extends Component
             ]
         );
 
-        $lastInvoice = Invoice::latest()->first();
-        $lastCode = preg_replace('~\D~', '', $lastInvoice ? $lastInvoice->number : '#INV-000000');
-        $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
-        $newNumber = '#INV-' . $code;
-
-        $created = Invoice::create([
-            'number'                => $newNumber,
+        $updated = $this->invoice->update([
             'vendor_id'             => $this->vendor_id,
             'date'                  => $this->date,
             'total_discount'        => 0,
@@ -100,13 +108,15 @@ class Create extends Component
             'total_amount'          => collect($this->services)->sum('total'),
         ]);
 
+        $this->invoice->items()->delete();
+
         if (!empty($this->services)) {
-            $created->items()->createMany($this->services);
-            $created = true;
+            $this->invoice->items()->createMany($this->services);
+            $updated = true;
         }
 
-        if ($created) {
-            $this->setFlashMessage("Invoice Created", "success");
+        if ($updated) {
+            $this->setFlashMessage("Invoice Updated", "success");
             $this->showFlashMessages();
 
             return redirect()->route('invoice.index');
@@ -115,6 +125,6 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.forms.invoice.create');
+        return view('livewire.forms.invoice.edit');
     }
 }

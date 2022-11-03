@@ -6,7 +6,7 @@
 		<!-- Start Content -->
 
 		@can('view products')
-			<button class="btn btn-accent">Button</button>
+			<a href="{{ route('invoice.create') }}" class="btn btn-accent">Create New Invoice</a>
 		@endcan
 
 		<!-- Statistics Cards -->

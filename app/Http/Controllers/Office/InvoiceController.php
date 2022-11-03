@@ -40,14 +40,9 @@ class InvoiceController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $lastInvoice = Invoice::latest()->first();
-        $lastCode = preg_replace('~\D~', '', $lastInvoice ? $lastInvoice->number : 'INV-000000');
-        $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
-        $validated['code'] = 'INV-' . $code;
-
-        dd($validated);
+        return redirect()->route('home');
     }
 
     /**
@@ -73,7 +68,10 @@ class InvoiceController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $invoice = Invoice::findOrFail($id);
+
+        $this->setPageTitle('Edit Invoice ' . $invoice->number, '');
+        return view('office.invoice.edit', compact('invoice'));
     }
 
     /**
