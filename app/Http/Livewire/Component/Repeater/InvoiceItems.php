@@ -6,64 +6,30 @@ use Livewire\Component;
 
 class InvoiceItems extends Component
 {
-    public $product_type_id;
-    public $selectedProductTypes = [];
-
-    // Component Helpers
-    public $error_active = false, $error_msg;
-
-    // Data Feeders
-    public $product_types = [];
-
-    // Listeners
-    protected $listeners = ['selectedSubCategory'];
-
-    public function selectedSubCategory($subcategory)
+    /**
+     * This function will add an empty service field
+     * causing an extra row to be rendered.
+     */
+    public function addField()
     {
-        $this->subcategory = $subcategory;
-        $this->product_types = ProductType::where('category_id', $subcategory)->get();
-        $this->dispatchBrowserEvent('reApplySelect2');
+        $this->services[] = ['code' => '', 'service_id' => '', 'qty' => '', 'price' => ''];
     }
 
-    public function mount($productTypes)
+    public function serviceAdded($key_id, $service_id, $qty, $price)
     {
-        foreach ($productTypes as $type) {
-            $this->selectedProductTypes[] = [$type->id, $type->name, $type->category->name, $type->category->parent->name];
-        }
+        $this->services[$key_id]['service_id'] = $service_id;
+        $this->services[$key_id]['qty'] = $qty;
+        $this->services[$key_id]['price'] = $price;
     }
 
-    public function selectProductType()
+    /**
+     * Here we'll remove the item with the given key
+     * from the services array, so a rendered row will
+     * disappear.
+     */
+    public function removeField($i)
     {
-
-        $product_type = explode(',', $this->product_type_id);
-
-        if (empty($product_type[0])) {
-            $this->error_active = true;
-            $this->error_msg = 'Please select a Product Type';
-
-            $this->dispatchBrowserEvent('reApplySelect2');
-            return;
-        }
-
-        if (in_array($product_type[0], Arr::flatten($this->selectedProductTypes))) {
-            $this->error_active = true;
-            $this->error_msg = 'Product Type already selected';
-
-            $this->dispatchBrowserEvent('reApplySelect2');
-            return;
-        }
-
-        $this->reset(['error_active', 'error_msg']);
-
-        $this->selectedProductTypes[] = $product_type;
-
-
-        $this->dispatchBrowserEvent('reApplySelect2');
-    }
-
-    public function removeProductType($i)
-    {
-        unset($this->selectedProductTypes[$i]);
+        unset($this->services[$i]);
     }
 
     public function render()

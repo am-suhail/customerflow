@@ -26,31 +26,7 @@
 
 		<div class="flex items-start justify-center w-full pt-4">
 			<div class="w-full p-5 bg-gray-200 rounded-lg shadow-xl md:w-10/12 lg:w-3/4">
-				<form action="{{ route('service.store') }}" method="POST">
-					@csrf
-
-					<div class="grid grid-cols-2 gap-4 mt-4">
-						<div class="form-control">
-							{!! Form::label('vendor_id', 'Customer', [
-							    'class' => 'label font-semibold uppercase',
-							]) !!}
-							{!! Form::select('vendor_id', $vendors, old('vendor_id'), [
-							    'placeholder' => '--choose--',
-							    'class' => 'select select-bordered select-primary' . ($errors->has('vendor_id') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('vendor_id')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-					</div>
-
-					<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 w-1/2'>
-						<button type="submit" class='btn btn-accent'>Create</button>
-						<a href={{ route('service.index') }} class="btn">Cancel</a>
-					</div>
-				</form>
+				<livewire:forms.invoice.create />
 			</div>
 		</div>
 	</main>
