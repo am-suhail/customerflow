@@ -75,7 +75,7 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->toggleable(),
 
-            TextColumn::make('code')
+            TextColumn::make('user.mobile')
                 ->searchable()
                 ->toggleable(),
 

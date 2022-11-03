@@ -42,29 +42,15 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('email')
-                ->label('Email')
-                ->label('')
-                ->toggleable()
-                ->searchable(),
-
             TextColumn::make('company_name')
                 ->label('Company Name')
+                ->limit(25)
                 ->toggleable()
                 ->searchable(),
 
             TextColumn::make('industry.name')
                 ->label('Industry')
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('vat')
-                ->label('VAT')
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('url')
-                ->label('Website')
+                ->limit(25)
                 ->toggleable()
                 ->searchable(),
 
@@ -75,6 +61,22 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('city.name')
                 ->label('City')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('email')
+                ->label('Email')
+                ->toggleable()
+                ->searchable(),
+
+
+            TextColumn::make('vat')
+                ->label('VAT')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('url')
+                ->label('Website')
                 ->toggleable()
                 ->searchable(),
 
@@ -92,6 +94,11 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->view('tables.modals.vendor.actions')
                 ->extraAttributes(['class' => 'justify-center']),
         ];
+    }
+
+    protected function shouldPersistTableFiltersInSession(): bool
+    {
+        return true;
     }
 
     public function render()

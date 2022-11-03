@@ -95,16 +95,23 @@
 		</div>
 		<!-- ./Statistics Cards -->
 
-		<div class="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 lg:grid-cols-4">
-			{{-- 
-				Invoice Button 
-				Total Invoice Today
-				Today Amount
-				Graph
-				Live Service
-				Live Product
-				--}}
+		<div class="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2">
+			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+				{!! $month_invoices_chart->container() !!}
+			</div>
+
+			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+				{!! $year_invoices_chart->container() !!}
+			</div>
 		</div>
 
 	</main>
 @endsection
+
+@once
+	@push('scripts')
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		{!! $year_invoices_chart->script() !!}
+		{!! $month_invoices_chart->script() !!}
+	@endpush
+@endonce

@@ -16,7 +16,8 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Invoice::query();
+        return Invoice::query()
+            ->orderBy('number', 'desc');
     }
 
     protected function getTableColumns(): array
@@ -27,8 +28,22 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('date')
-                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
+            // TextColumn::make('date')
+            //     ->label('Invoice Date')
+            //     ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
+            //     ->toggleable()
+            //     ->searchable(),
+
+            TextColumn::make('createdAt')
+                ->label('Created At')
+                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->created_at)->format('d-m-Y, h:i:s A'))
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('createdBy')
+                ->label('Created By')
+                ->getStateUsing(fn (Invoice $record) => $record->activities->last()->causer->name ?? "--")
+                ->limit(12)
                 ->toggleable()
                 ->searchable(),
 
@@ -39,6 +54,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('vendor.company_name')
                 ->label('Customer\'s Company')
+                ->limit(25)
                 ->toggleable()
                 ->searchable(),
 
