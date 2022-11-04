@@ -25,7 +25,7 @@
 		@include('layouts.app.flash')
 
 		<div class="flex items-start justify-center w-full pt-4">
-			<div class="w-full p-5 bg-gray-200 rounded-lg shadow-xl md:w-10/12 lg:w-3/4">
+			<div class="w-full p-5 bg-gray-200 rounded-lg shadow-xl">
 				<livewire:forms.invoice.edit :invoice="$invoice" />
 			</div>
 		</div>

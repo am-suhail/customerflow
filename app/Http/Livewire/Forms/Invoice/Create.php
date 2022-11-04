@@ -95,7 +95,7 @@ class Create extends Component
             'number'                => $newNumber,
             'vendor_id'             => empty($this->vendor_id) ? NULL : $this->vendor_id,
             'date'                  => today(),
-            'total_discount'        => 0,
+            'total_discount'        => collect($this->services)->sum('discount'),
             'total_tax'             => 0,
             'total_amount'          => collect($this->services)->sum('total'),
         ]);

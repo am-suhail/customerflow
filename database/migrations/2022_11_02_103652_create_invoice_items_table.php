@@ -26,7 +26,7 @@ class CreateInvoiceItemsTable extends Migration
             $table->decimal('unit_price', 10, 2)
                 ->nullable();
             $table->integer('qty')->default(1);
-            $table->integer('discount')
+            $table->decimal('discount', 10, 2)
                 ->nullable();
             $table->integer('tax')
                 ->nullable();

@@ -24,10 +24,16 @@
 						<td>{{ count($summary) }}</td>
 						<td>{{ $summary->map(fn($invoice) => count($invoice->items))->sum() }}</td>
 						<td>{{ $summary->sum('total_amount') }}</td>
-						<td>{{ $summary->sum('total_amount') }}</td>
-						<td>{{ $summary->sum('total_amount') }}</td>
-						<td>{{ $summary->sum('total_amount') }}</td>
-						<td>{{ $summary->sum('total_amount') }}</td>
+						<td>
+							{{ $summary->map(fn($invoice) => $invoice->items->map(fn($item) => $item->service->cost_one + $item->service->cost_two)->sum())->sum() }}
+						</td>
+						<td>
+							{{ $summary->sum('total_amount') - $summary->map(fn($invoice) => $invoice->items->map(fn($item) => $item->service->cost_one + $item->service->cost_two)->sum())->sum() }}
+						</td>
+						<td>{{ $summary->sum('total_discount') }}</td>
+						<td>
+							{{ $summary->sum('total_amount') - $summary->map(fn($invoice) => $invoice->items->map(fn($item) => $item->service->cost_one + $item->service->cost_two)->sum())->sum() - $summary->sum('total_discount') }}
+						</td>
 					</tr>
 				@endforeach
 			</tbody>

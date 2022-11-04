@@ -11,7 +11,7 @@ class InvoiceItemsRepeater extends Component
 
     public $selectedService;
 
-    public $service_id, $selling_price, $qty = 0, $discount = 0, $total = 0;
+    public $service_id, $selling_price, $qty = 1, $discount = 0, $total = 0;
 
     public $service_lists;
 
@@ -56,9 +56,9 @@ class InvoiceItemsRepeater extends Component
             $this->service_id = $this->selectedService->id;
             $this->selling_price = $this->selectedService->selling_price;
 
-            $this->qty = 0;
+            $this->qty = 1;
             $this->discount = 0;
-            $this->total = 0;
+            $this->total = $this->selling_price * $this->qty;
         }
     }
 
@@ -75,6 +75,22 @@ class InvoiceItemsRepeater extends Component
             ]
         );
         $this->total = $this->selling_price * $this->qty;
+        $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total, $this->selling_price);
+    }
+
+    public function updatedDiscount()
+    {
+        $this->validate(
+            [
+                'service_id' => ['required', 'not_in:0'],
+                'qty'        => ['required', 'numeric', 'not_in:0'],
+            ],
+            [
+                'qty.required'        => 'A Quantity for the specified service is missing',
+                'qty.not_in'        => 'Provided quantity is invalid'
+            ]
+        );
+        $this->total = ($this->selling_price * $this->qty) - $this->discount;
         $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total, $this->selling_price);
     }
 }
