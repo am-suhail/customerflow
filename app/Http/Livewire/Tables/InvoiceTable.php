@@ -42,7 +42,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('createdBy')
                 ->label('Created By')
-                ->getStateUsing(fn (Invoice $record) => $record->activities->last()->causer->name ?? "--")
+                ->getStateUsing(fn (Invoice $record) => $record->activities->where('description', 'created')->first()->causer->name ?? "--")
                 ->limit(12)
                 ->toggleable()
                 ->searchable(),

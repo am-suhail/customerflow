@@ -61,6 +61,13 @@ class DashboardController extends Controller
         // Daily Summary,
         // Date, No of Invoices, Services Count, Invoice Amount, Cost, GP, Discount, Actual Profit
 
+        // $daily_summary = Invoice::all()
+        //     ->groupBy(function ($data) {
+        //         return Carbon::parse($data->created_at)->format('d-m-Y');
+        //     });
+
+        // dd($daily_summary);
+
 
         return view('office.home.index', compact(
             'year_invoices_chart',

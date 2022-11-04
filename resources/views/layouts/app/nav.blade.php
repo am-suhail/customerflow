@@ -7,7 +7,7 @@
 <div x-show.in.out.opacity="isSidebarOpen" class="fixed inset-0 z-10 bg-black bg-opacity-20 lg:hidden"
 	style="backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px)"></div>
 <!-- Sidebar -->
-<aside x-transition:enter="transition transform duration-300"
+<aside id="sidebar" x-transition:enter="transition transform duration-300"
 	x-transition:enter-start="-translate-x-full opacity-30  ease-in"
 	x-transition:enter-end="translate-x-0 opacity-100 ease-out" x-transition:leave="transition transform duration-300"
 	x-transition:leave-start="translate-x-0 opacity-100 ease-out"
@@ -29,7 +29,6 @@
 	</div>
 	<!-- Sidebar links -->
 	<nav class="flex-1 overflow-y-scroll bg-gray-700 sidebar-nav-custom hover:overflow-y-auto">
-
 		<ul class="p-2 overflow-hidden menu" x-data="{ selected: 1 }">
 			<!-- dropdown -->
 			{{-- <li class="font-normal rounded-md" :class="{ 'border-l-4 border-red-500 bg-gray-200': selected == 3 }">
@@ -152,10 +151,11 @@
 
 			@can('modify master data')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-				<x-nav.nav-link route="master-data">
+				<x-nav.nav-link route="report.index">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+						<path
+							d="M21.5 5.5v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3Zm-3 14h-14v-14h6v-2h-6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6h-2v6Zm-4-6v4h2v-4h-2Zm-4 4h2v-8h-2v8Zm-2 0v-6h-2v6h2Z">
+						</path>
 					</x-slot>
 					Reports
 				</x-nav.nav-link>
@@ -184,7 +184,7 @@
 			@endcan
 
 
-			@if (Auth::user()->profile !== 'super_admin')
+			@if (Auth::user()->profile !== 1991)
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="my-profile.index">
 					<x-slot name="path">
@@ -194,39 +194,6 @@
 					My Profile
 				</x-nav.nav-link>
 			@endif
-
-			<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-
-			<x-nav.nav-link route="dummy">
-				<x-slot name="path">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-						d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-				</x-slot>
-				CRM System *
-			</x-nav.nav-link>
-			<x-nav.nav-link route="leads.index">
-				<x-slot name="path">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-						d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-				</x-slot>
-				Market Leads
-			</x-nav.nav-link>
-
-			<x-nav.nav-link route="leads.index">
-				<x-slot name="path">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-						d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-				</x-slot>
-				Follow Ups
-			</x-nav.nav-link>
-
-			<x-nav.nav-link route="leads.index">
-				<x-slot name="path">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-						d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-				</x-slot>
-				Email Templates
-			</x-nav.nav-link>
 		</ul>
 	</nav>
 
@@ -250,3 +217,18 @@
 		</form>
 	</div>
 </aside>
+
+@push('scripts')
+	<script>
+		let sidebar = document.getElementById('sidebar');
+		let pagePoint = sessionStorage.getItem('sidebar-scroll');
+
+		if (pagePoint !== null) {
+			sidebar.scrollTop = parseInt(pagePoint, 10);
+		}
+
+		window.addEventListener('beforeunload', () => {
+			sessionStorage.setItem('sidebar-scroll', sidebar.scrollTop);
+		})
+	</script>
+@endpush

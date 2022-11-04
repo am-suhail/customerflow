@@ -10,6 +10,7 @@ use App\Http\Controllers\Office\MarketLeadsController;
 use App\Http\Controllers\Office\MasterController;
 use App\Http\Controllers\Office\ProfileController;
 use App\Http\Controllers\Office\ProjectController;
+use App\Http\Controllers\Office\ReportController;
 use App\Http\Controllers\Office\RolesController;
 use App\Http\Controllers\Office\ServiceController;
 use App\Http\Controllers\Office\UserController;
@@ -98,6 +99,15 @@ Route::middleware(['auth'])->group(function () {
             'employee' => EmployeeController::class,
             'roles' => RolesController::class,
         ]);
+
+        // Reports
+        Route::prefix('reports')->group(function () {
+            // Index
+            Route::get('/', [ReportController::class, 'index'])->name('report.index');
+
+            // Summary Report
+            Route::get('/summary', [ReportController::class, 'summary'])->name('report.summary');
+        });
 
         // Master Data
         Route::prefix('master')->group(function () {
