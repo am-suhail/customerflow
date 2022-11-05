@@ -27,7 +27,7 @@
 		}
 
 		.invoice table thead tr {
-			background-color: #aaa;
+			background-color: #3B82F6;
 		}
 
 		.invoice table tbody tr {
@@ -51,7 +51,21 @@
 		<tr>
 			<td align="left" width="50%">
 				{{-- <img src="{{ asset('img/settings/logo.png') }}" alt="DASBAZAR" width="250" class="logo" /> --}}
-				<h1>Al Khulood</h1>
+				<h2 style="color:#3B82F6">
+					AL KHULOUD TYPING & DOC. COPYING
+				</h2>
+				<h4 style="margin:2px 0px">
+					P.O BOX NO 23558
+				</h4>
+				<h4 style="margin:2px 0px">
+					SHARJAH - UAE
+				</h4>
+				<h4 style="margin:8px 0px 2px 0px">
+					TEL: 065322790 | MOB: 0545993740
+				</h4>
+				<h4 style="margin:2px 0px">
+					EMAIL: aktyping786@gmail.com
+				</h4>
 			</td>
 			<td align="right" width="50%">
 				<h2>
@@ -125,7 +139,7 @@
 						{{ $invoice->vendor->name }}
 					</h3>
 					<h3 style="font-weight: light; margin: 0">
-						{{-- {{ $order_details->order->full_address }} --}}
+						{{ $invoice->vendor->company_name }}
 					</h3>
 				@endif
 				<br />
@@ -157,10 +171,10 @@
 		<table width="100%">
 			<thead>
 				<tr>
-					<th width="5%">#</th>
-					<th width="50%">Description</th>
-					<th width="10%">Unit Price</th>
-					<th width="5%">Qty</th>
+					<th width="5%" style="padding: 5px 0">#</th>
+					<th width="50%" style="padding: 5px 0">Description</th>
+					<th width="10%" style="padding: 5px 0">Unit Price</th>
+					<th width="5%" style="padding: 5px 0">Qty</th>
 					{{-- <th width="5%">Tax Rate</th> --}}
 					{{-- <th width="5%">Tax Type</th> --}}
 					{{-- <th width="5%">Tax Amount</th> --}}

@@ -59,6 +59,7 @@ class InvoiceItemsRepeater extends Component
             $this->qty = 1;
             $this->discount = 0;
             $this->total = $this->selling_price * $this->qty;
+            $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total, $this->selling_price);
         }
     }
 

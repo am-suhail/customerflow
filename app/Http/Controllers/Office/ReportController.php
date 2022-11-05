@@ -18,4 +18,16 @@ class ReportController extends BaseController
         $this->setPageTitle('Daily Summary', '');
         return view('office.report.summary');
     }
+
+    public function service_summary()
+    {
+        $this->setPageTitle('Service Summary', '');
+        return view('office.report.service-summary');
+    }
+
+    public function user_summary()
+    {
+        $this->setPageTitle('Daily Summary', '');
+        return view('office.report.summary');
+    }
 }

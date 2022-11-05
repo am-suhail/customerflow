@@ -107,6 +107,9 @@ Route::middleware(['auth'])->group(function () {
 
             // Summary Report
             Route::get('/summary', [ReportController::class, 'summary'])->name('report.summary');
+
+            // Services Summary Report
+            Route::get('/service-summary', [ReportController::class, 'service_summary'])->name('report.serive-summary');
         });
 
         // Master Data

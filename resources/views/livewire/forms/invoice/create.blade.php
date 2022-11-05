@@ -1,4 +1,14 @@
 <div>
+	@if ($errors->any())
+		<div class="alert alert-danger">
+			<ul>
+				@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+				@endforeach
+			</ul>
+		</div>
+	@endif
+
 	<form wire:submit.prevent="process">
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-1/2">

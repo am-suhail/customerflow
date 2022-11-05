@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Search;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -66,5 +67,15 @@ class Service extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    /**
+     * Get all of the invoice_items for the Service
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function invoice_items(): HasMany
+    {
+        return $this->hasMany(InvoiceItems::class);
     }
 }

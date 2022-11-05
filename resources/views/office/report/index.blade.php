@@ -19,7 +19,7 @@
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-3xl font-bold text-left">Daily Summary</h4>
+											<h4 class="text-black text-lg md:text-3xl font-bold text-left">Daily Summary</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="#3B82F6"
@@ -35,11 +35,11 @@
 								</div>
 							</a>
 
-							<a href="#">
+							<a href="{{ route('report.serive-summary') }}">
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-3xl font-bold text-left">Service Summary</h4>
+											<h4 class="text-black text-lg md:text-3xl font-bold text-left">Service Summary</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="#3B82F6"
@@ -58,7 +58,7 @@
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-3xl font-bold text-left">User Summary</h4>
+											<h4 class="text-black text-lg md:text-3xl font-bold text-left">User Summary</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="#3B82F6"
