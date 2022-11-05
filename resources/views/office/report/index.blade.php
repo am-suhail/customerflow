@@ -14,7 +14,7 @@
 				<!-- component -->
 				<div class="flex">
 					<div class="mx-auto container align-middle">
-						<div class="grid grid-cols-3 gap-4">
+						<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 							<a href="{{ route('report.summary') }}">
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">

@@ -181,7 +181,7 @@
 					</div>
 				</div>
 
-				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 w-1/2'>
+				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
 					<button type="submit" class='btn btn-accent'>Update</button>
 					<a href={{ route('service.index') }} class="btn">Cancel</a>
 				</div>

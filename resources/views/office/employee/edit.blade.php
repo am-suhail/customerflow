@@ -31,7 +31,7 @@
 				    'method' => 'PUT',
 				]) !!}
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('national_id', 'National ID:', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('national_id', old('national_id', $user->user_detail->national_id ?? ''), [
@@ -58,7 +58,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('sex', 'Sex', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], old('sex', $user->user_detail->sex ?? ''), [
@@ -84,7 +84,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('country_id', 'Nationality', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('country_id', $countries, old('country_id', $user->user_detail->country_id ?? ''), [
@@ -101,7 +101,7 @@
 
 				<div class="my-8 divider">Address</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('building_name', 'Building Name', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('building_name', old('building_name', $user->user_detail->building_name ?? ''), [
@@ -119,7 +119,7 @@
 					<livewire:state-city :selectedCity="$errors ? old('city_id', $user->user_detail->city_id ?? '') : null">
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('area_text', 'Area', [
 						    'class' => 'label font-semibold uppercase',
@@ -150,7 +150,7 @@
 
 				<div class="mt-8 mb-4 divider">Academics & Career</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('qualification_id', 'Qualification', [
 						    'class' => 'label font-semibold uppercase',
@@ -187,7 +187,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('joining_date', 'Joining Date', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::date('joining_date', old('joining_date', $user->employee_detail->joining_date ?? ''), [
@@ -201,7 +201,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('designation_id', 'Designation', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select(
@@ -234,8 +234,8 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 mt-4">
-					<div class="fomr-control">
+				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
+					<div class="form-control">
 						{!! Form::label('remark', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::textarea('remark', old('remark', $user->employee_detail->remark ?? ''), [
 						    'class' =>
@@ -249,11 +249,9 @@
 					</div>
 				</div>
 
-				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
-					<div>
-						<a href={{ route('employee.index') }} class="btn">Cancel</a>
-						<button type="submit" class='btn btn-accent'>Update</button>
-					</div>
+				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
+					<button type="submit" class='btn btn-accent'>Update</button>
+					<a href={{ route('employee.index') }} class="btn">Cancel</a>
 				</div>
 				{!! Form::close() !!}
 			</div>

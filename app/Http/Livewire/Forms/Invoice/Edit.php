@@ -4,12 +4,10 @@ namespace App\Http\Livewire\Forms\Invoice;
 
 use App\Models\Invoice;
 use App\Models\Vendor;
-use App\Traits\FlashMessages;
 use Livewire\Component;
 
 class Edit extends Component
 {
-    use FlashMessages;
 
     // Vendors List
     public $vendors;
@@ -116,8 +114,7 @@ class Edit extends Component
         }
 
         if ($updated) {
-            $this->setFlashMessage("Invoice Updated", "success");
-            $this->showFlashMessages();
+            session()->flash('message', 'Invoice Created');
 
             return redirect()->route('invoice.index');
         }

@@ -11,7 +11,7 @@
 		@include('layouts.app.flash')
 
 		<div class="flex justify-center p-2">
-			<div class="w-3/4 px-10 py-8 bg-gray-100 rounded-md shadow-md md:px-8">
+			<div class="md:w-3/4 px-4 py-8 bg-gray-100 rounded-md shadow-md md:px-8">
 
 				<div class="flex flex-col">
 					<div class="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-8">
@@ -41,7 +41,7 @@
 					    'method' => 'PUT',
 					]) !!}
 
-					<div class="grid grid-cols-3 gap-4 my-4">
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
 						@foreach ($roles as $role)
 							<div class="p-2 rounded-lg form-control bg-base-300">
 								<label class="cursor-pointer label">
@@ -53,11 +53,9 @@
 						@endforeach
 					</div>
 
-					<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
-						<div>
-							<a href={{ route('user.index') }} class="btn">Cancel</a>
-							<button type="submit" class='btn btn-accent'>Create</button>
-						</div>
+					<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
+						<a href={{ route('user.index') }} class="btn">Cancel</a>
+						<button type="submit" class='btn btn-accent'>Create</button>
 					</div>
 					{!! Form::close() !!}
 				</div>
@@ -66,7 +64,7 @@
 					<span class="text-sm font-light">refer below for information on the roles and it's permissions</span>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 					<div class="col-span-2 mt-4 place-self-start">
 						<h3 class="font-bold">All Roles & it's Permissions info:</h3>
 					</div>
@@ -77,7 +75,7 @@
 									{{ Str::upper($role->name) }}
 								</h6>
 							</div>
-							<div class="grid grid-cols-2 gap-2">
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 								@forelse ($role->permissions as $permission)
 									<span class="px-2 text-sm rounded bg-base-200">
 										{{ $permission->name }}

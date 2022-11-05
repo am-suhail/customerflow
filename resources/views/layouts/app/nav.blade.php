@@ -12,7 +12,7 @@
 	x-transition:enter-end="translate-x-0 opacity-100 ease-out" x-transition:leave="transition transform duration-300"
 	x-transition:leave-start="translate-x-0 opacity-100 ease-out"
 	x-transition:leave-end="-translate-x-full opacity-0 ease-in"
-	class="fixed inset-y-0 z-10 flex flex-col flex-shrink-0 w-64 max-h-screen overflow-hidden transition-all transform bg-white shadow-lg lg:z-auto lg:static lg:shadow-none"
+	class="fixed inset-y-0 z-50 flex flex-col flex-shrink-0 w-64 max-h-screen overflow-hidden transition-all transform bg-white shadow-lg lg:z-auto lg:static lg:shadow-none"
 	:class="{ '-translate-x-full lg:translate-x-0 lg:w-20': !isSidebarOpen }">
 	<!-- sidebar header -->
 	<div class="flex items-center justify-between flex-shrink-0 p-2 bg-gray-700"

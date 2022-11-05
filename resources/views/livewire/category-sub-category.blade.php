@@ -1,4 +1,4 @@
-<div class="grid grid-cols-2 gap-4 mt-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 	<div class="form-control">
 		<label for="category_id" class="font-semibold uppercase label">Category</label>
 		<select wire:model='selectedCategory' class="select select-primary select-bordered" id="category_id" name="category_id"

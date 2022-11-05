@@ -38,7 +38,7 @@
 			</div>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Products</div>
+		<div class="mt-8 mb-4 divider">Services</div>
 
 		<div>
 			<div class="mb-2">
@@ -50,7 +50,7 @@
 						<div class="col-span-6">
 							<button type="button" class="float-right bg-red-600 border-0 hover:bg-red-500 btn btn-xs"
 								wire:click.prevent="removeField({{ $index }})">
-								Remove Product
+								Remove Service
 							</button>
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 
 			<div class="flex">
 				<button wire:click.prevent="addField" class="btn btn-accent btn-block">
-					Add Product
+					Add Service
 					<svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-6 w-6" fill="none" viewBox="0 0 24 24"
 						stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -69,11 +69,9 @@
 			</div>
 		</div>
 
-		<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
-			<div>
-				<button type="submit" class='btn btn-accent'>Create</button>
-				<a href={{ route('invoice.index') }} class="btn">Cancel</a>
-			</div>
+		<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 w-1/2'>
+			<button type="submit" class='btn btn-accent'>Create</button>
+			<a href={{ route('invoice.index') }} class="btn">Cancel</a>
 		</div>
 	</form>
 </div>

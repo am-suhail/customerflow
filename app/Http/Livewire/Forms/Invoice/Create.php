@@ -4,14 +4,12 @@ namespace App\Http\Livewire\Forms\Invoice;
 
 use App\Models\Invoice;
 use App\Models\Vendor;
-use App\Traits\FlashMessages;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class Create extends Component
 {
-    use FlashMessages;
-
     // Vendors List
     public $vendors;
 
@@ -106,8 +104,7 @@ class Create extends Component
         }
 
         if ($created) {
-            $this->setFlashMessage("Invoice Created", "success");
-            $this->showFlashMessages();
+            session()->flash('message', 'Invoice Created');
 
             return redirect()->route('invoice.index');
         }

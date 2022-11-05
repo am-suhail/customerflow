@@ -41,7 +41,7 @@
 						@enderror
 					</div>
 
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('sex', 'Sex', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], old('sex'), [
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('mobile', 'Mobile', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('mobile', old('mobile'), [
@@ -95,7 +95,7 @@
 
 					<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
 
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('company_name', 'Company Name', [
 							    'class' => 'label font-semibold uppercase',
@@ -122,7 +122,7 @@
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('vat', 'VAT', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::text('vat', old('vat'), [
@@ -167,7 +167,7 @@
 
 					{{-- <div class="my-8 divider">Address</div>
 
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="col-start-1 col-end-2 form-control">
 							{!! Form::label('building_name', 'Building Name', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::text('building_name', old('building_name'), [
@@ -181,7 +181,7 @@
 						</div>
 					</div>
 
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('area', 'Area', [
 							    'class' => 'label font-semibold uppercase',
@@ -212,7 +212,7 @@
 
 					<div class="mt-8 mb-4 divider">Academics & Career</div>
 
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('qualification_id', 'Qualification', [
 							    'class' => 'label font-semibold uppercase',
@@ -242,7 +242,7 @@
 						</div>
 					</div>
 
-					<div class="grid grid-cols-2 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('area', 'Area', [
 							    'class' => 'label font-semibold uppercase',
@@ -271,8 +271,8 @@
 						</div>
 					</div> --}}
 
-					<div class="grid grid-cols-2 mt-4">
-						<div class="fomr-control">
+					<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
+						<div class="form-control">
 							{!! Form::label('remarks', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::textarea('remarks', old('remarks'), [
 							    'class' =>
@@ -286,11 +286,9 @@
 						</div>
 					</div>
 
-					<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
-						<div>
-							<a href={{ route('vendor.index') }} class="btn">Cancel</a>
-							<button type="submit" class='btn btn-accent'>Create</button>
-						</div>
+					<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
+						<a href={{ route('vendor.index') }} class="btn">Cancel</a>
+						<button type="submit" class='btn btn-accent'>Create</button>
 					</div>
 				</form>
 			</div>

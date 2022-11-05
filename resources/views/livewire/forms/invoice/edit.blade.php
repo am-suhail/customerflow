@@ -26,7 +26,7 @@
 
 		<div class="my-8 divider">Customer Details</div>
 
-		<div class="grid grid-cols-2 gap-4 mt-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 			<div class="form-control">
 				<label for="vendor_id" class="font-semibold uppercase label">Customer</label>
 				<x-select-search :data="$vendors" wire:model.lazy="vendor_id" placeholder="--choose customer--" />
@@ -70,11 +70,9 @@
 			</div>
 		</div>
 
-		<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
-			<div>
-				<button type="submit" class='btn btn-accent'>Update</button>
-				<a href={{ route('invoice.index') }} class="btn">Cancel</a>
-			</div>
+		<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 w-1/2'>
+			<button type="submit" class='btn btn-accent'>Update</button>
+			<a href={{ route('invoice.index') }} class="btn">Cancel</a>
 		</div>
 	</form>
 </div>

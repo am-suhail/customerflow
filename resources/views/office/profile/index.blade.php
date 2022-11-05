@@ -32,8 +32,8 @@
 							</div>
 						</div>
 
-						<div class="flex flex-col px-10 bg-gray-100 rounded-md shadow-md md:px-8">
-							<div class="flex items-center mb-8 md:flex-row md:gap-8">
+						<div class="flex flex-col px-4 bg-gray-100 rounded-md shadow-md md:px-8">
+							<div class="flex flex-col mb-8 gap-4 md:items-center md:flex-row md:gap-8">
 								<div class="flex flex-col">
 									<span>National ID</span>
 									<span class="text-lg font-medium text-gray-800">
@@ -65,7 +65,7 @@
 									</span>
 								</div>
 							</div>
-							<div class="flex items-center mb-8 md:flex-row md:gap-8">
+							<div class="flex flex-col mb-8 gap-4 md:items-center md:flex-row md:gap-8">
 								<div class="flex flex-col">
 									<span>Qualification</span>
 									<span class="text-lg font-medium text-gray-800">
@@ -86,7 +86,7 @@
 									</span>
 								</div>
 							</div>
-							<div class="flex items-center mb-8 md:flex-row md:gap-8">
+							<div class="flex flex-col mb-8 gap-4 md:items-center md:flex-row md:gap-8">
 								<div class="flex flex-col">
 									<span class="text-lg font-medium text-gray-600">
 										{{ Auth::user()->user_detail->city->state->name ?? '--' }}

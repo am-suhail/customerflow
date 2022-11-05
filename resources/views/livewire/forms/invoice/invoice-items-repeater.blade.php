@@ -2,7 +2,7 @@
 	<div class="flex flex-wrap px-4 mt-4">
 		<div class="grid grid-cols-1 md:grid-cols-12 mb-2 gap-4 w-full">
 			<div class="form-control w-full col-span-2 md:col-span-5">
-				<label class="label uppercase">Product</label>
+				<label class="label uppercase">Service</label>
 				<x-select-search :data="$service_lists" wire:model.lazy="service_id" placeholder="--choose product--" />
 				@error('service_id')
 					<div class="label uppercase">

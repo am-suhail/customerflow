@@ -47,7 +47,7 @@
 					<livewire:category-sub-category :selectedSubCategory="$errors ? old('sub_category_id', $service->sub_category_id) : null">
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('unit_id', 'Service Unit', [
 						    'class' => 'label font-semibold uppercase',
@@ -61,8 +61,13 @@
 							</label>
 						@enderror
 					</div>
+				</div>
+
+				<div class="mt-8 mb-4 divider">Price</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('selling_price', 'Selling Price', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::label('selling_price', 'Customer Price', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::number('selling_price', old('selling_price', $service->selling_price), [
 						    'step' => '.01',
 						    'class' => 'input input-bordered input-primary' . ($errors->has('selling_price') ? 'border-2 border-red-600' : ''),
@@ -75,9 +80,9 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('cost_one', 'Cost 1', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::label('cost_one', 'Govt Fee 1', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::number('cost_one', old('cost_one', $service->cost_one), [
 						    'step' => '.01',
 						    'class' => 'input input-bordered input-primary' . ($errors->has('cost_one') ? 'border-2 border-red-600' : ''),
@@ -89,7 +94,7 @@
 						@enderror
 					</div>
 					<div class="form-control">
-						{!! Form::label('cost_one_desc', 'Description for Cost 1', [
+						{!! Form::label('cost_one_desc', 'Description for Govt Fee 1', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
 						{!! Form::textarea('cost_one_desc', old('cost_one_desc', $service->cost_one_desc), [
@@ -105,9 +110,9 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('cost_two', 'Cost 2', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::label('cost_two', 'Service Agent Fee 2', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::number('cost_two', old('cost_two', $service->cost_two), [
 						    'step' => '.01',
 						    'class' => 'input input-bordered input-primary' . ($errors->has('cost_two') ? 'border-2 border-red-600' : ''),
@@ -119,7 +124,7 @@
 						@enderror
 					</div>
 					<div class="form-control">
-						{!! Form::label('cost_two_desc', 'Description for Cost 2', [
+						{!! Form::label('cost_two_desc', 'Description for Service Agent Fee 2', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
 						{!! Form::textarea('cost_two_desc', old('cost_two_desc', $service->cost_two_desc), [
@@ -135,38 +140,21 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				{{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('max_price', 'Gross Profit', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('max_price', old('max_price'), [
-						    'step' => '.01',
-						    'class' => 'input input-bordered input-primary' . ($errors->has('max_price') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('max_price')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
+						<span class="text-lg font-bold label" x-text="sellingPrice - (costOne + costTwo)"></span>
 					</div>
-					<div class="form-control">
-						{!! Form::label('max_price', 'Percentage', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('max_price', old('max_price'), [
-						    'step' => '.01',
-						    'class' => 'input input-bordered input-primary' . ($errors->has('max_price') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('max_price')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-				</div>
 
-				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
-					<div>
-						<a href={{ route('service.index') }} class="btn">Cancel</a>
-						<button type="submit" class='btn btn-accent'>Update</button>
+					<div class="form-control">
+						{!! Form::label('max_price', 'Profit Percentage', ['class' => 'label font-semibold uppercase']) !!}
+						<span class="text-lg font-bold" x-text="((sellingPrice - (costOne + costTwo)) / sellingPrice) * 100"></span>
 					</div>
+				</div> --}}
+
+				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
+					<a href={{ route('service.index') }} class="btn">Cancel</a>
+					<button type="submit" class='btn btn-accent'>Update</button>
 				</div>
 				{!! Form::close() !!}
 			</div>

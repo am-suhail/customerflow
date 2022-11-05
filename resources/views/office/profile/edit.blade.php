@@ -19,13 +19,13 @@
 				    'method' => 'PUT',
 				]) !!}
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('name', 'Name', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('name', old('name', Auth::user()->name), [
 						    'class' =>
 						        'input input-primary
-																																																																								                    input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
+																																																																														                    input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('name')
 							<label class="label">
@@ -35,13 +35,13 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('mobile', 'Mobile', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('mobile', old('mobile', Auth::user()->mobile), [
 						    'class' =>
 						        'input input-primary
-																																																																								                    input-bordered' . ($errors->has('mobile') ? 'border-2 border-red-600' : ''),
+																																																																														                    input-bordered' . ($errors->has('mobile') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('mobile')
 							<label class="label">
@@ -54,7 +54,7 @@
 						{!! Form::email('email', old('email', Auth::user()->email), [
 						    'class' =>
 						        'input input-primary
-																																																																								                    input-bordered' . ($errors->has('email') ? 'border-2 border-red-600' : ''),
+																																																																														                    input-bordered' . ($errors->has('email') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('email')
 							<label class="label">
@@ -64,13 +64,13 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('national_id', 'National ID:', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('national_id', old('national_id', Auth::user()->user_detail->national_id), [
 						    'class' =>
 						        'input
-																																																																								                    input-primary input-bordered' . ($errors->has('national_id') ? 'border-2 border-red-600' : ''),
+																																																																														                    input-primary input-bordered' . ($errors->has('national_id') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('national_id')
 							<label class="label">
@@ -92,7 +92,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('sex', 'Sex', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], old('sex', Auth::user()->user_detail->sex), [
@@ -118,7 +118,7 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('country_id', 'Nationality', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('country_id', $countries, old('country_id', Auth::user()->user_detail->country_id), [
@@ -135,7 +135,7 @@
 
 				<div class="my-8 divider">Address</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('building_name', 'Building Name', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('building_name', old('building_name', Auth::user()->user_detail->building_name), [
@@ -153,7 +153,7 @@
 					<livewire:state-city :selectedCity="$errors ? old('city_id', Auth::user()->user_detail->city_id) : null">
 				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('area_text', 'Area', [
 						    'class' => 'label font-semibold uppercase',
@@ -184,7 +184,7 @@
 
 				<div class="mt-8 mb-4 divider">Academics & Career</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('qualification_id', 'Qualification', [
 						    'placeholder' => '--choose--',
@@ -221,7 +221,7 @@
 					</div>
 				</div>
 
-				<div class='grid grid-cols-2 mt-4'>
+				<div class='grid grid-cols-1 md:grid-cols-2 mt-4'>
 					<div>
 						<button type="submit" class='btn btn-accent btn-block'>Update</button>
 					</div>
