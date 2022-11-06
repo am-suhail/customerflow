@@ -34,13 +34,6 @@ class Service extends Model
         'comment',
     ];
 
-    public function getActivitylogOptions(): LogOptions
-    {
-        return LogOptions::defaults()
-            ->logAll()
-            ->logOnlyDirty();
-    }
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -50,6 +43,23 @@ class Service extends Model
         'cost_one' => 'float',
         'cost_two' => 'float',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->logOnlyDirty();
+    }
+
+    /**
+     * Get the TotalCost
+     *
+     * @return float
+     */
+    public function getTotalCostAttribute()
+    {
+        return $this->cost_one + $this->cost_two + $this->cost_three;
+    }
 
     /**
      * Get the subcategory that owns the Service

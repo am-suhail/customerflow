@@ -11,7 +11,14 @@ class InvoiceItemsRepeater extends Component
 
     public $selectedService;
 
-    public $service_id, $selling_price, $qty = 1, $discount = 0, $total = 0;
+    public
+        $service_id,
+        $selling_price,
+        $qty = 1,
+        $discount = 0,
+        $additional_charge = 0,
+        $custom_price = NULL,
+        $total = 0;
 
     public $service_lists;
 
@@ -33,10 +40,11 @@ class InvoiceItemsRepeater extends Component
         if (!is_null($service) && !empty($service['service_id'])) {
             $this->selectedService = Service::findOrFail($service['service_id']);
             $this->service_id = $this->selectedService->id;
-            $this->selling_price = $this->selectedService->selling_price;
 
+            $this->selling_price = $service['unit_price'];
             $this->qty = $service['qty'];
             $this->discount = $service['discount'];
+            $this->additional_charge = $service['additional_charge'];
             $this->total = $service['total'];
         }
 
@@ -58,9 +66,24 @@ class InvoiceItemsRepeater extends Component
 
             $this->qty = 1;
             $this->discount = 0;
-            $this->total = $this->selling_price * $this->qty;
-            $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total, $this->selling_price);
+            $this->calcAndEmitUp();
         }
+    }
+
+    public function updatedSellingPrice()
+    {
+        $this->validate(
+            [
+                'service_id'       => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+                'qty'              => ['required', 'numeric', 'not_in:0'],
+            ],
+            [
+                'qty.required'     => 'A Quantity for the specified service is missing',
+                'qty.not_in'       => 'Provided quantity is invalid'
+            ]
+        );
+        $this->calcAndEmitUp();
     }
 
     public function updatedQty()
@@ -68,6 +91,7 @@ class InvoiceItemsRepeater extends Component
         $this->validate(
             [
                 'service_id' => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
                 'qty'        => ['required', 'numeric', 'not_in:0'],
             ],
             [
@@ -75,8 +99,7 @@ class InvoiceItemsRepeater extends Component
                 'qty.not_in'        => 'Provided quantity is invalid'
             ]
         );
-        $this->total = $this->selling_price * $this->qty;
-        $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total, $this->selling_price);
+        $this->calcAndEmitUp();
     }
 
     public function updatedDiscount()
@@ -84,6 +107,8 @@ class InvoiceItemsRepeater extends Component
         $this->validate(
             [
                 'service_id' => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+                'discount'   => ['required', 'numeric', 'lt:selling_price'],
                 'qty'        => ['required', 'numeric', 'not_in:0'],
             ],
             [
@@ -91,7 +116,28 @@ class InvoiceItemsRepeater extends Component
                 'qty.not_in'        => 'Provided quantity is invalid'
             ]
         );
-        $this->total = ($this->selling_price * $this->qty) - $this->discount;
-        $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->total, $this->selling_price);
+        $this->calcAndEmitUp();
+    }
+
+    public function updatedAdditionalCharge()
+    {
+        $this->validate(
+            [
+                'service_id'          => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+                'qty'                 => ['required', 'numeric', 'not_in:0'],
+            ],
+            [
+                'qty.required'        => 'A Quantity for the specified service is missing',
+                'qty.not_in'        => 'Provided quantity is invalid'
+            ]
+        );
+        $this->calcAndEmitUp();
+    }
+
+    private function calcAndEmitUp()
+    {
+        $this->total = (($this->selling_price * $this->qty) - $this->discount) + ($this->additional_charge ?? 0);
+        $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price);
     }
 }

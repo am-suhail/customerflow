@@ -5,8 +5,8 @@ namespace App\Http\Livewire\Forms\Invoice;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Session;
 use Livewire\Component;
+use Illuminate\Support\Arr;
 
 class Create extends Component
 {
@@ -25,14 +25,22 @@ class Create extends Component
     public $total_amount = 0;
 
     protected $listeners = [
+        'vendorAdded',
         'serviceAdded'
     ];
 
-    public function serviceAdded($key_id, $service_id, $qty, $discount, $total, $unit_price)
+    public function vendorAdded($vendor_id, $vendor_name)
+    {
+        $this->vendors = Arr::add($this->vendors, $vendor_id, $vendor_name);
+        $this->vendor_id = $vendor_id;
+    }
+
+    public function serviceAdded($key_id, $service_id, $qty, $discount, $additional_charge, $total, $unit_price)
     {
         $this->services[$key_id]['service_id'] = $service_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
+        $this->services[$key_id]['additional_charge'] = $additional_charge;
         $this->services[$key_id]['total'] = $total;
         $this->services[$key_id]['unit_price'] = $unit_price;
     }
@@ -54,7 +62,14 @@ class Create extends Component
      */
     public function addField()
     {
-        $this->services[] = ['service_id' => '', 'qty' => '', 'discount' => '', 'total' => '', 'unit_price' => ''];
+        $this->services[] = [
+            'service_id' => '',
+            'qty' => '',
+            'discount' => '',
+            'additional_charge' => '',
+            'total' => '',
+            'unit_price' => ''
+        ];
     }
 
     /**

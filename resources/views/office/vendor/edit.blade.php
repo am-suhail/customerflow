@@ -25,7 +25,7 @@
 		@include('layouts.app.flash')
 
 		<div class="flex items-start justify-center w-full pt-4">
-			<div class="w-full p-5 bg-white rounded-lg shadow-xl md:w-10/12 lg:w-3/4">
+			<div class="w-full p-5 bg-white rounded-lg shadow-xl xl:w-3/4">
 				{!! Form::open([
 				    'route' => ['vendor.update', $vendor],
 				    'method' => 'PUT',

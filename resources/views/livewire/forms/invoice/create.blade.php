@@ -36,16 +36,30 @@
 
 		<div class="my-8 divider">Customer Details</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+		<div class="grid grid-cols-1 mt-4 xl:w-1/2">
 			<div class="form-control">
 				<label for="vendor_id" class="font-semibold uppercase label">Customer</label>
-				<x-select-search :data="$vendors" wire:model.lazy="vendor_id" placeholder="--choose customer--" />
+
+				<x-select-search :data="$vendors" wire:model="vendor_id" placeholder="--choose customer--" />
+
 				@error('vendor_id')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>
 				@enderror
 			</div>
+			<button wire:click.prevent="$emit('openModal', 'forms.vendor.add-vendor-modal')"
+				class="flex items-center mt-3 text-blue-900">
+				<svg class="w-6 h-6 mr-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+					stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+					<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"></path>
+					<path d="M12 8v8"></path>
+					<path d="M8 12h8"></path>
+				</svg>
+				<span class="font-semibold">
+					Add New Customer
+				</span>
+			</button>
 		</div>
 
 		<div class="mt-8 mb-4 divider">Services</div>

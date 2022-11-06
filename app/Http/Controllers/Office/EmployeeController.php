@@ -9,6 +9,7 @@ use App\Models\EmployeeDetail;
 use App\Models\Qualification;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class EmployeeController extends BaseController
 {
@@ -68,7 +69,7 @@ class EmployeeController extends BaseController
         $countries = Country::pluck('name', 'id');
         $qualifications = Qualification::pluck('name', 'id');
 
-        $this->setPageTitle('Edit Employee ' . $user->name, '');
+        $this->setPageTitle('Edit: ' . Str::limit($user->name, 15, '..'), '');
         return view('office.employee.edit', compact('user', 'designations', 'qualifications', 'countries'));
     }
 

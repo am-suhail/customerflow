@@ -30,11 +30,12 @@ class Edit extends Component
         'serviceAdded'
     ];
 
-    public function serviceAdded($key_id, $service_id, $qty, $discount, $total, $unit_price)
+    public function serviceAdded($key_id, $service_id, $qty, $discount, $additional_charge, $total, $unit_price)
     {
         $this->services[$key_id]['service_id'] = $service_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
+        $this->services[$key_id]['additional_charge'] = $additional_charge;
         $this->services[$key_id]['total'] = $total;
         $this->services[$key_id]['unit_price'] = $unit_price;
     }
@@ -55,6 +56,7 @@ class Edit extends Component
                     'service_id' => $item->service_id,
                     'qty' => $item->qty,
                     'discount' => $item->discount,
+                    'additional_charge' => $item->additional_charge,
                     'total' => $item->total,
                     'unit_price' => $item->unit_price,
                 ];
@@ -68,7 +70,14 @@ class Edit extends Component
      */
     public function addField()
     {
-        $this->services[] = ['service_id' => '', 'qty' => '', 'discount' => '', 'total' => '', 'unit_price' => ''];
+        $this->services[] = [
+            'service_id' => '',
+            'qty' => '',
+            'discount' => '',
+            'additional_charge' => '',
+            'total' => '',
+            'unit_price' => ''
+        ];
     }
 
     /**

@@ -25,7 +25,7 @@
 		@include('layouts.app.flash')
 
 		<div class="flex items-start justify-center w-full pt-4">
-			<div class="w-full p-5 bg-white rounded-lg shadow-xl md:w-10/12 lg:w-3/4">
+			<div class="w-full p-5 bg-white rounded-lg shadow-xl xl:w-3/4">
 				{!! Form::open([
 				    'route' => ['employee.appoint-process', $user],
 				    'method' => 'PUT',
@@ -65,7 +65,7 @@
 						    'step' => '.01',
 						    'class' =>
 						        'input input-bordered
-																		                    input-primary' . ($errors->has('salary') ? 'border-2 border-red-600' : ''),
+																								                    input-primary' . ($errors->has('salary') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('salary')
 							<label class="label">
@@ -81,7 +81,7 @@
 						{!! Form::textarea('remarks', old('remarks'), [
 						    'class' =>
 						        'textarea h-20 textarea-bordered
-																		                    textarea-primary' . ($errors->has('remarks') ? 'border-2 border-red-600' : ''),
+																								                    textarea-primary' . ($errors->has('remarks') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('remarks')
 							<label class="label">

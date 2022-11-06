@@ -56,7 +56,7 @@
 			<td align="center" width="100%">
 				{{-- <img src="{{ asset('img/settings/logo.png') }}" alt="DASBAZAR" width="250" class="logo" /> --}}
 				<h1 style="color:#003f88;font-family: Verdana, sans-serif; font-size: 30px;">
-					AL KHULOUD TYPING & DOC. COPYING
+					AL KHELOUD TYPING & DOCUM COPYING
 				</h1>
 			</td>
 		</tr>
@@ -168,11 +168,11 @@
 			<thead>
 				<tr>
 					<th width="5%" style="padding: 5px 0">#</th>
-					<th width="50%" style="padding: 5px 0">Description</th>
-					<th width="10%" style="padding: 5px 0">Unit Price</th>
+					<th width="40%" style="padding: 5px 0">Description</th>
+					<th width="15%" style="padding: 5px 0">Unit Price</th>
 					<th width="5%" style="padding: 5px 0">Qty</th>
 					{{-- <th width="5%">Tax Rate</th> --}}
-					{{-- <th width="5%">Tax Type</th> --}}
+					<th width="10%">Discount</th>
 					{{-- <th width="5%">Tax Amount</th> --}}
 					<th width="15%">Total</th>
 				</tr>
@@ -185,19 +185,19 @@
 								{{ $loop->iteration }}
 							</h4>
 						</td>
-						<td width="50%">
+						<td width="40%">
 							<h4>
 								{{ $item->service->name }}
 							</h4>
 						</td>
-						<td width="10%">
+						<td width="15%">
 							<h4>
 								<span style="font-family: DejaVu Sans; sans-serif;">
 									{{ $item->unit_price }}
 								</span>
 							</h4>
 						</td>
-						<td width="10%">
+						<td width="5%">
 							<h4>
 								{{ $item->qty }}
 							</h4>
@@ -212,14 +212,14 @@
 									IGST
 								</h4>
 							</td> --}}
-						{{-- <td width="10%">
-								<h4>
-									<span style="font-family: DejaVu Sans; sans-serif;">
-										&#8377;{{ invoice_tax_amount($item->total_amount / $item->qty, $item->product->tax) }}
-									</span>
-								</h4>
-							</td> --}}
-						<td width="25%">
+						<td width="10%">
+							<h4>
+								<span style="font-family: DejaVu Sans; sans-serif;">
+									{{ $item->discount }}
+								</span>
+							</h4>
+						</td>
+						<td width="15%">
 							<h4>
 								<span style="font-family: DejaVu Sans; sans-serif;">{{ $item->total }}</span>
 							</h4>
@@ -230,7 +230,7 @@
 
 			<tfoot>
 				<tr>
-					<td align="left" colspan="4">
+					<td align="left" colspan="5">
 						<h3>
 							Total:
 						</h3>

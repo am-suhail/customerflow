@@ -24,6 +24,7 @@ class InvoiceItems extends Model
         'qty',
         'discount',
         'tax',
+        'additional_charge',
         'total'
     ];
 
@@ -32,6 +33,21 @@ class InvoiceItems extends Model
         return LogOptions::defaults()
             ->logAll()
             ->logOnlyDirty();
+    }
+
+    /**
+     * Get the unit_price
+     *
+     * @param  string  $value
+     * @return float
+     */
+    public function getUnitPriceAttribute($value)
+    {
+        if (is_null($this->custom_price) || $this->custom_price == 0) {
+            return $value;
+        }
+
+        return $this->custom_price / $this->qty;
     }
 
     /**

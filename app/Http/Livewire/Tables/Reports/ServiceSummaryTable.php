@@ -11,7 +11,7 @@ class ServiceSummaryTable extends Component
 
     public function mount()
     {
-        $this->services = Service::all()->sortByDesc(fn($service) => $service->items);
+        $this->services = Service::all()->sortByDesc(fn ($service) => $service->invoice_items);
     }
 
     public function render()

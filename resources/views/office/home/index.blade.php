@@ -7,7 +7,7 @@
 
 		@can('view products')
 			<a href="{{ route('invoice.create') }}"
-				class="text-white uppercase bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-lg px-5 py-3 text-center mb-10 hover:shadow-md">
+				class="text-white uppercase bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm xl:text-lg px-5 py-3 text-center mb-10 hover:shadow-md">
 				<svg width="25" height="25" class="inline mb-1" fill="none" stroke="currentColor" stroke-linecap="round"
 					stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 					<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"></path>
@@ -20,7 +20,7 @@
 		@endcan
 
 		<!-- Statistics Cards -->
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10 mb-4">
+		<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-10 mb-4">
 			<div
 				class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
 				<div
@@ -95,7 +95,7 @@
 		</div>
 		<!-- ./Statistics Cards -->
 
-		<div class="grid grid-cols-1 gap-6 mt-6 md:grid-cols-2">
+		<div class="grid grid-cols-1 gap-6 mt-6 xl:grid-cols-2">
 			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
 				{!! $month_invoices_chart->container() !!}
 			</div>
