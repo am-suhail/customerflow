@@ -24,8 +24,8 @@
 
 		@include('layouts.app.flash')
 
-		<div class="flex items-start justify-center w-full pt-4" x-data="{ sellingPrice: '', costOne: 0, costTwo: 0 }">
-			<div class="w-full p-5 bg-gray-200 rounded-lg shadow-xl md:w-10/12 lg:w-3/4">
+		<div class="flex items-start justify-center w-full pt-4" x-data="{ sellingPrice: '', costOne: 0, costTwo: 0, costThree: 0 }">
+			<div class="w-full p-5 bg-gray-200 rounded-lg shadow-xl xl:w-3/4">
 				<form action="{{ route('service.store') }}" method="POST">
 					@csrf
 
@@ -81,7 +81,7 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('cost_one', 'Govt Fee 1', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('cost_one', 'Govt Fee', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('cost_one', old('cost_one'), [
 							    'x-model.number' => 'costOne',
 							    'step' => '.01',
@@ -94,7 +94,7 @@
 							@enderror
 						</div>
 						<div class="form-control">
-							{!! Form::label('cost_one_desc', 'Description for Govt Fee 1', [
+							{!! Form::label('cost_one_desc', 'Description for Govt Fee', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
 							{!! Form::textarea('cost_one_desc', old('cost_one_desc'), [
@@ -112,7 +112,7 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('cost_two', 'Service Agent Fee 2', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('cost_two', 'Service Agent Fee', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('cost_two', old('cost_two'), [
 							    'x-model.number' => 'costTwo',
 							    'step' => '.01',
@@ -125,7 +125,7 @@
 							@enderror
 						</div>
 						<div class="form-control">
-							{!! Form::label('cost_two_desc', 'Description for Service Agent Fee 2', [
+							{!! Form::label('cost_two_desc', 'Description for Service Agent', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
 							{!! Form::textarea('cost_two_desc', old('cost_two_desc'), [
@@ -143,13 +143,45 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
+							{!! Form::label('cost_three', 'Service Agent Fee 2', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('cost_three', old('cost_three'), [
+							    'x-model.number' => 'costThree',
+							    'step' => '.01',
+							    'class' => 'input input-bordered input-primary' . ($errors->has('cost_three') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('cost_three')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+						<div class="form-control">
+							{!! Form::label('cost_three_desc', 'Description for Service Agent Fee 2', [
+							    'class' => 'label font-semibold uppercase',
+							]) !!}
+							{!! Form::textarea('cost_three_desc', old('cost_three_desc'), [
+							    'class' =>
+							        'textarea h-12 textarea-bordered textarea-primary' .
+							        ($errors->has('cost_three_desc') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('cost_three_desc')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="form-control">
 							{!! Form::label('max_price', 'Gross Profit', ['class' => 'label font-semibold uppercase']) !!}
-							<span class="text-lg font-bold label" x-text="sellingPrice - (costOne + costTwo)"></span>
+							<span class="text-lg font-bold label" x-text="sellingPrice - (costOne + costTwo + costThree)"></span>
 						</div>
 
 						<div class="form-control">
 							{!! Form::label('max_price', 'Profit Percentage', ['class' => 'label font-semibold uppercase']) !!}
-							<span class="text-lg font-bold" x-text="((sellingPrice - (costOne + costTwo)) / sellingPrice) * 100"></span>
+							<span class="text-lg font-bold"
+								x-text="parseFloat(((sellingPrice - (costOne + costTwo + costThree)) / sellingPrice) * 100).toFixed(2) + ' %'"></span>
 						</div>
 					</div>
 

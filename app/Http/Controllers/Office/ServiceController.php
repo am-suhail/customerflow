@@ -51,6 +51,8 @@ class ServiceController extends BaseController
             'cost_one_desc' => ['nullable', 'string', 'max:191'],
             'cost_two' => ['nullable', 'numeric'],
             'cost_two_desc' => ['nullable', 'string', 'max:191'],
+            'cost_three' => ['nullable', 'numeric'],
+            'cost_three_desc' => ['nullable', 'string', 'max:191'],
         ]);
 
         $code = 'PR-' . mt_rand(111111111, 999999999);
@@ -109,6 +111,8 @@ class ServiceController extends BaseController
             'cost_one_desc' => ['nullable', 'string', 'max:191'],
             'cost_two' => ['nullable', 'numeric'],
             'cost_two_desc' => ['nullable', 'string', 'max:191'],
+            'cost_three' => ['nullable', 'numeric'],
+            'cost_three_desc' => ['nullable', 'string', 'max:191'],
         ]);
 
         $service = Service::findOrFail($id);

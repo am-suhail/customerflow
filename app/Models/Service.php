@@ -29,6 +29,8 @@ class Service extends Model
         'cost_one_desc',
         'cost_two',
         'cost_two_desc',
+        'cost_three',
+        'cost_three_desc',
         'comment',
     ];
 

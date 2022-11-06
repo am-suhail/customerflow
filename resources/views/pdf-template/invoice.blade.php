@@ -27,7 +27,11 @@
 		}
 
 		.invoice table thead tr {
-			background-color: #3B82F6;
+			background-color: #003f88;
+		}
+
+		.invoice table thead tr th {
+			color: #fff;
 		}
 
 		.invoice table tbody tr {
@@ -49,28 +53,25 @@
 <body>
 	<table width="100%" id="header-table">
 		<tr>
-			<td align="left" width="50%">
+			<td align="center" width="100%">
 				{{-- <img src="{{ asset('img/settings/logo.png') }}" alt="DASBAZAR" width="250" class="logo" /> --}}
-				<h2 style="color:#3B82F6">
+				<h1 style="color:#003f88;font-family: Verdana, sans-serif; font-size: 30px;">
 					AL KHULOUD TYPING & DOC. COPYING
-				</h2>
-				<h4 style="margin:2px 0px">
-					P.O BOX NO 23558
-				</h4>
-				<h4 style="margin:2px 0px">
-					SHARJAH - UAE
-				</h4>
-				<h4 style="margin:8px 0px 2px 0px">
-					TEL: 065322790 | MOB: 0545993740
-				</h4>
-				<h4 style="margin:2px 0px">
-					EMAIL: aktyping786@gmail.com
-				</h4>
+				</h1>
 			</td>
-			<td align="right" width="50%">
-				<h2>
-					Tax Invoice/Bill of Supply/Cash Memo
-				</h2>
+		</tr>
+		<tr style="background-color:#003f88">
+			<td align="center" width="100%">
+				<h3 style="margin:2px 0px;color: #fff">
+					P.O BOX NO 23558, SHARJAH - UAE &nbsp; &nbsp; TEL: 065322790 | MOB: 0545993740
+				</h3>
+			</td>
+		</tr>
+		<tr>
+			<td align="center" width="100%">
+				<h3 style="margin:2px 0px; color:#003f88;">
+					EMAIL: aktyping786@gmail.com
+				</h3>
 			</td>
 		</tr>
 	</table>
@@ -89,18 +90,13 @@
 					{{ \Carbon\Carbon::parse($invoice->date)->format('d-m-Y') }}
 				</h3>
 			</td>
-			<td width="30%">
+			<td width="25%">
 				&nbsp;
 			</td>
-			<td align="right" width="35%">
-				{{-- <h3 style="font-weight: light; margin: 0 0 4px 0;">
-						<span style="font-weight: bold">Order No:</span>
-						{{ $order_details->order->order_no }}
-					</h3>
-					<h3 style="font-weight: light; margin: 0;">
-						<span style="font-weight: bold">Order Date:</span>
-						{{ $order_details->order->created_at->format('d-m-Y') }}
-					</h3> --}}
+			<td align="right" width="40%">
+				<h3>
+					CASH MEMO
+				</h3>
 			</td>
 		</tr>
 	</table>
