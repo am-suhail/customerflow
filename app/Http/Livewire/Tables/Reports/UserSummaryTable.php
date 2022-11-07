@@ -13,6 +13,8 @@ class UserSummaryTable extends Component
 
     public $date;
 
+    public $filter_active = false;
+
     public function mount()
     {
         $this->invoices = Invoice::all();
@@ -23,6 +25,17 @@ class UserSummaryTable extends Component
         $date = $this->date;
 
         $this->invoices =   Invoice::whereBetween('created_at', [Carbon::parse($date)->startOfDay(), Carbon::parse($date)->endOfDay()])->get();
+
+        $this->filter_active = true;
+    }
+
+    public function clearFilter()
+    {
+        unset($this->date);
+
+        $this->invoices = Invoice::all();
+
+        $this->filter_active = false;
     }
 
     public function render()
