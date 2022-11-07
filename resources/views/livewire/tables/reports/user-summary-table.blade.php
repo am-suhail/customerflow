@@ -1,4 +1,9 @@
 <div>
+	{!! Form::date('date', old('date'), [
+	    'class' => 'form-control',
+	    'wire:model' => 'date',
+	]) !!}
+	<button class="btn" wire:click.prevent="filter">Filter</button>
 	<div class="overflow-x-auto">
 		<table class="table table-compact w-full">
 			<!-- head -->
@@ -14,17 +19,15 @@
 				</tr>
 			</thead>
 			<tbody>
-
-
-				@foreach ($invoices->groupBy('causer_id') as $invoice)
-					{{-- @dd($invoice->first()->subject) --}}
-					{{-- @dd($invoice->map(fn($invoice) => $invoice->subject->items->sum('service.total_cost'))->sum()) --}}
+				@foreach ($invoices->groupBy(function ($data) {
+								return $data->activities->where('description', 'created')->first()->causer->name;
+				}) as $key => $invoice)
 					<tr class="hover">
-						<td>{{ $invoice->first()->causer->name }}</td>
+						<td>{{ $key }}</td>
 						<td>{{ count($invoice) }}</td>
-						<td>{{ $invoice->sum('subject.total_amount') }}</td>
+						<td>{{ $invoice->sum('total_amount') }}</td>
 						<td>
-							{{ $invoice->map(fn($invoice) => $invoice->subject->items->sum('service.total_cost'))->sum() }}
+							{{ $invoice->map(fn($invoice) => $invoice->items->sum('service.total_cost'))->sum() }}
 						</td>
 						{{-- <td>
 							{{ $invoice->invoice_items->map(fn($item) => $item->unit_price * $item->qty)->sum() - ($invoice->cost_one + $invoice->cost_two) * $invoice->invoice_items->sum('qty') }}

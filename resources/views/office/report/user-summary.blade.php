@@ -25,7 +25,6 @@
 		@include('layouts.app.flash')
 
 		<div class="p-2">
-			<hr>
 			<div class="py-4">
 				<livewire:tables.reports.user-summary-table />
 			</div>
