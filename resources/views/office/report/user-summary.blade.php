@@ -27,7 +27,7 @@
 		<div class="p-2">
 			<hr>
 			<div class="py-4">
-				<livewire:tables.reports.daily-summary-table />
+				<livewire:tables.reports.user-summary-table />
 			</div>
 		</div>
 

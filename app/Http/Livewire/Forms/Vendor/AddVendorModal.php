@@ -41,7 +41,7 @@ class AddVendorModal extends ModalComponent
             'name' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string'],
             'country_id' => ['required', 'not_in:0'],
-            // 'mobile' => ['required', 'phone:AE'],
+            'mobile' => ['required', 'phone:AE'],
             'email' => ['required', 'email'],
             'company_name' => ['required', 'string', 'max:100'],
             'industry_id' => ['required', 'not_in:0'],
@@ -54,8 +54,6 @@ class AddVendorModal extends ModalComponent
 
         $code = 'CUST-' . mt_rand(111111111, 999999999);
         $validated['code'] = $code;
-
-        $validated['mobile'] = 97152 . mt_rand(0000000, 9999999);
 
         $vendor = Vendor::create($validated);
 

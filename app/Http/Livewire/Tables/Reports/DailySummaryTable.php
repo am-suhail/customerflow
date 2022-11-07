@@ -13,9 +13,6 @@ class DailySummaryTable extends Component
     public function mount()
     {
         $this->daily_summary = Invoice::all();
-        // ->groupBy(function ($data) {
-        //     return Carbon::parse($data->created_at)->format('d-m-Y');
-        // });
     }
 
     public function render()

@@ -54,7 +54,7 @@
 								</div>
 							</a>
 
-							<a href="#">
+							<a href="{{ route('report.employee-summary') }}">
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>

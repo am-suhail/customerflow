@@ -110,6 +110,9 @@ Route::middleware(['auth'])->group(function () {
 
             // Services Summary Report
             Route::get('/service-summary', [ReportController::class, 'service_summary'])->name('report.serive-summary');
+
+            // Employees Summary Report
+            Route::get('/employee-summary', [ReportController::class, 'employee_summary'])->name('report.employee-summary');
         });
 
         // Master Data
