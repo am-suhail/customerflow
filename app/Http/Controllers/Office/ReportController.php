@@ -30,4 +30,10 @@ class ReportController extends BaseController
         $this->setPageTitle('Employee Summary', '');
         return view('office.report.user-summary');
     }
+
+    public function bank_summary()
+    {
+        $this->setPageTitle('Bank Summary', '');
+        return view('office.report.bank-summary');
+    }
 }

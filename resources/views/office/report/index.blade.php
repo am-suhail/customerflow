@@ -14,12 +14,32 @@
 				<!-- component -->
 				<div class="flex">
 					<div class="mx-auto container align-middle">
-						<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+						<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+							<a href="{{ route('report.bank-summary') }}">
+								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
+									<div class="flex flex-row justify-between items-center">
+										<div>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Bank Summary</h4>
+										</div>
+										<div>
+											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
+												stroke="#3B82F6" stroke-width="2">
+												<path d="M2 5a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5Z"></path>
+												<path d="M2 8h20"></path>
+												<path d="M13.5 16H18"></path>
+												<path d="M22 5v8"></path>
+												<path d="M2 5v8"></path>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</a>
+
 							<a href="{{ route('report.summary') }}">
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-lg md:text-sm xl:text-3xl font-bold text-left">Daily Summary</h4>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Daily Summary</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
@@ -39,7 +59,7 @@
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-lg md:text-sm xl:text-3xl font-bold text-left">Service Summary</h4>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Service Summary</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
@@ -58,7 +78,7 @@
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-lg md:text-sm xl:text-3xl font-bold text-left">User Summary</h4>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">User Summary</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"

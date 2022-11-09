@@ -113,6 +113,9 @@ Route::middleware(['auth'])->group(function () {
 
             // Employees Summary Report
             Route::get('/employee-summary', [ReportController::class, 'employee_summary'])->name('report.employee-summary');
+
+            // Bank Card Summary Report
+            Route::get('/bank-summary', [ReportController::class, 'bank_summary'])->name('report.bank-summary');
         });
 
         // Master Data
