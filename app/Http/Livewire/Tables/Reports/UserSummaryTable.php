@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
+use App\Exports\UserSummaryReport;
 use App\Models\Invoice;
 use Carbon\Carbon;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Activitylog\Models\Activity;
 
 class UserSummaryTable extends Component
@@ -36,6 +38,11 @@ class UserSummaryTable extends Component
         $this->invoices = Invoice::all();
 
         $this->filter_active = false;
+    }
+
+    public function excelExport()
+    {
+        return Excel::download(new UserSummaryReport($this->invoices), Carbon::now() . '_user_summary_report.xlsx');
     }
 
     public function render()

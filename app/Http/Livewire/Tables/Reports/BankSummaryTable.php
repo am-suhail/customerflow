@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
+use App\Exports\BankAndServiceCostReport;
 use App\Models\InvoiceItems;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Activitylog\Models\Activity;
 
 class BankSummaryTable extends Component
@@ -32,6 +35,11 @@ class BankSummaryTable extends Component
         $this->report(Carbon::today());
 
         $this->filter_active = false;
+    }
+
+    public function excelExport()
+    {
+        return Excel::download(new BankAndServiceCostReport($this->items), $this->date . '_bank_and_cost_report.xlsx');
     }
 
     public function render()

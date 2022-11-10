@@ -33,7 +33,7 @@ class ReportController extends BaseController
 
     public function bank_summary()
     {
-        $this->setPageTitle('Bank Summary', '');
+        $this->setPageTitle('Bank & Service Cost Report', '');
         return view('office.report.bank-summary');
     }
 }

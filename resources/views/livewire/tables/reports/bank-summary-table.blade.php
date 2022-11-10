@@ -1,22 +1,52 @@
 <div>
-	<div class="flex flex-col mb-10">
-		<div class="">
-			<label class="label">
-				<span class="label-text font-bold">Choose Date</span>
-			</label>
-		</div>
-		<div class="flex">
-			<div class="form-control">
-				{!! Form::date('date', old('date'), [
-				    'class' => 'input input-sm input-bordered w-full max-w-xs',
-				    'wire:model' => 'date',
-				]) !!}
-				@if ($filter_active)
-					<a href="javascript:void(0)" wire:click.prevent="clearFilter" class="text-red-600 px-1">clear filter</a>
-				@endif
+	<div class="flex justify-between mb-5">
+		<div class="flex flex-col">
+			<div class="">
+				<label class="label">
+					<span class="label-text font-bold">Choose Date</span>
+				</label>
 			</div>
-			<button class="ml-1 btn btn-sm" wire:click.prevent="filter"
-				@if (is_null($date)) disabled @endif>Filter</button>
+			<div class="flex">
+				<div class="form-control">
+					{!! Form::date('date', old('date'), [
+					    'class' => 'input input-sm input-bordered w-full max-w-xs',
+					    'wire:model' => 'date',
+					]) !!}
+					@if ($filter_active)
+						<a href="javascript:void(0)" wire:click.prevent="clearFilter" class="text-red-600 px-1">clear filter</a>
+					@endif
+				</div>
+				<button class="ml-1 btn btn-sm" wire:click.prevent="filter"
+					@if (is_null($date)) disabled @endif>Filter</button>
+			</div>
+		</div>
+
+		<div class="flex flex-col">
+			<div class="">
+				<label class="label">
+					<span class="label-text font-bold">&nbsp;</span>
+				</label>
+			</div>
+			<div class="flex">
+				<div class="form-control">
+					<button class="ml-1 btn btn-sm btn-accent btn-outline" wire:click.prevent="excelExport"
+						@if (count($items) == 0) disabled @endif>
+						<svg width="20" height="20" class="mr-1" fill="none" stroke="currentColor" stroke-linecap="round"
+							stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4 7.5V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4.5"></path>
+							<path d="M15.5 7.5H17"></path>
+							<path d="M14 11.5h3"></path>
+							<path d="M14 15.5h3"></path>
+							<path d="M11 7.5H2v9h9v-9Z"></path>
+							<path d="m5 10.5 3 3"></path>
+							<path d="m8 10.5-3 3"></path>
+						</svg>
+						<span class="hidden lg:block">
+							Excel Export
+						</span>
+					</button>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="overflow-x-auto">
@@ -28,17 +58,21 @@
 					<th>Service</th>
 					<th>Invoiced Amount</th>
 					<th>Govt Cost</th>
-					<th>Service Agent Cost 1</th>
-					<th>Service Agent Cost 2</th>
+					<th>Agent Cost 1</th>
+					<th>Agent Cost 2</th>
 					<th>Additional Charge</th>
 					<th>Total Charges</th>
+					<th>Round Off</th>
 				</tr>
 			</thead>
 			<tbody>
 				@forelse ($items as $item)
 					<tr class="hover">
-						<td>{{ $item->activities->last()->causer->name }}</td>
-						<td>{{ $item->service->name }}</td>
+						<td title="{{ $item->activities->last()->causer->name }}">
+							{{ Str::limit($item->activities->last()->causer->name, 10, '...') }}</td>
+						<td title="{{ $item->service->name }}">
+							{{ Str::limit($item->service->name, 18, '...') }}
+						</td>
 						<td>{{ $item->total }}</td>
 						<td>
 							{{ $item->service->cost_one ?? '--' }}
@@ -55,6 +89,14 @@
 							    ($item->service->cost_two ?? 0) +
 							    ($item->service->cost_three ?? 0) +
 							    ($item->additional_charge ?? 0) }}
+						</td>
+						<td>
+							{{ ceil(
+							    ($item->service->cost_one ?? 0) +
+							        ($item->service->cost_two ?? 0) +
+							        ($item->service->cost_three ?? 0) +
+							        ($item->additional_charge ?? 0),
+							) }}
 						</td>
 					</tr>
 				@empty
