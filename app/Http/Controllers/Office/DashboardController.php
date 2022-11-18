@@ -24,6 +24,10 @@ class DashboardController extends Controller
 
         $total_branches = count(Vendor::all());
 
+        $branches = Vendor::all()->filter(fn ($data) => !is_null($data->country_id));
+
+        $total_countries = count($branches->groupBy('country_id'));
+
         // Charts
         // Current Year Sales Chart
         $year_invoices = Invoice::all()
@@ -57,6 +61,7 @@ class DashboardController extends Controller
             'month_invoices_chart',
             'current_year_revenue',
             'previous_year_revenue',
+            'total_countries',
             'total_branches'
         ));
     }

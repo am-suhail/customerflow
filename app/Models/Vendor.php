@@ -26,6 +26,7 @@ class Vendor extends Model
         'email',
         'company_name',
         'industry_id',
+        'inc_date',
         'vat',
         'url',
         'city_id',
@@ -56,7 +57,7 @@ class Vendor extends Model
      */
     public function nationality()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class, 'nationality_id', 'id');
     }
 
     /**

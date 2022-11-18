@@ -28,7 +28,7 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('city.state.name')
+            TextColumn::make('country.name')
                 ->label('Country')
                 ->toggleable()
                 ->searchable(),
@@ -46,7 +46,7 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('country.name')
+            TextColumn::make('nationality.name')
                 ->limit(15)
                 ->label('Nationality')
                 ->toggleable()
