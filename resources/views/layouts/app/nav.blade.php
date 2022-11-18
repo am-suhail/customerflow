@@ -68,6 +68,28 @@
 				</x-nav.nav-link>
 			@endcan
 
+			@can('view products')
+				<x-nav.nav-link route="dummy">
+					<x-slot name="path">
+						<path
+							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
+						</path>
+					</x-slot>
+					Asset
+				</x-nav.nav-link>
+			@endcan
+
+			@can('view products')
+				<x-nav.nav-link route="dummy">
+					<x-slot name="path">
+						<path
+							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
+						</path>
+					</x-slot>
+					Liability
+				</x-nav.nav-link>
+			@endcan
+
 			@can('view users')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 

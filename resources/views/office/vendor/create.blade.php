@@ -29,8 +29,10 @@
 				<form action="{{ route('vendor.store') }}" method="POST">
 					@csrf
 
+					<div class="mt-8 mb-4 divider">KMP DETAILS</div>
+
 					<div class="form-control">
-						{!! Form::label('name', 'Contact Person', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::label('name', 'Name', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('name', old('name'), [
 						    'class' => 'input input-primary input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -109,9 +111,11 @@
 								</label>
 							@enderror
 						</div>
+
 						<div class="form-control">
-							{!! Form::label('country_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('country_id', 'Country', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::select('country_id', $countries, old('country_id'), [
+							    'placeholder' => '--choose--',
 							    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('country_id')
@@ -124,7 +128,7 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('vat', 'VAT', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('vat', 'VAT/GST', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::text('vat', old('vat'), [
 							    'class' => 'input input-bordered input-primary' . ($errors->has('vat') ? 'border-2 border-red-600' : ''),
 							]) !!}
@@ -164,112 +168,6 @@
 					<div>
 						<livewire:state-city :selectedCity="$errors ? old('city_id') : null">
 					</div>
-
-					{{-- <div class="my-8 divider">Address</div>
-
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-						<div class="col-start-1 col-end-2 form-control">
-							{!! Form::label('building_name', 'Building Name', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::text('building_name', old('building_name'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('building_name') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('building_name')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-					</div>
-
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-						<div class="form-control">
-							{!! Form::label('area', 'Area', [
-							    'class' => 'label font-semibold uppercase',
-							]) !!}
-							{!! Form::text('area', old('area'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('area') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('area')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-						<div class="form-control">
-							{!! Form::label('street', 'Street', [
-							    'class' => 'label font-semibold uppercase',
-							]) !!}
-							{!! Form::text('street', old('street'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('street') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('street')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-					</div>
-
-					<div class="mt-8 mb-4 divider">Academics & Career</div>
-
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-						<div class="form-control">
-							{!! Form::label('qualification_id', 'Qualification', [
-							    'class' => 'label font-semibold uppercase',
-							]) !!}
-							{!! Form::select('qualification_id', $qualifications, old('qualification_id'), [
-							    'class' =>
-							        'select select-bordered select-primary' . ($errors->has('qualification_id') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('qualification_id')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-						<div class="form-control">
-							{!! Form::label('years_of_exp', 'Years of Experience', [
-							    'class' => 'label font-semibold uppercase',
-							]) !!}
-							{!! Form::number('years_of_exp', old('years_of_exp'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('years_of_exp') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('years_of_exp')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-					</div>
-
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-						<div class="form-control">
-							{!! Form::label('area', 'Area', [
-							    'class' => 'label font-semibold uppercase',
-							]) !!}
-							{!! Form::text('area', old('area'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('area') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('area')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-						<div class="form-control">
-							{!! Form::label('street', 'Street', [
-							    'class' => 'label font-semibold uppercase',
-							]) !!}
-							{!! Form::text('street', old('street'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('street') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('street')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-					</div> --}}
 
 					<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
 						<div class="form-control">

@@ -61,12 +61,12 @@ class InvoiceItems extends Model
     }
 
     /**
-     * Get the service that owns the InvoiceItems
+     * Get the subcategory that owns the InvoiceItems
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function service(): BelongsTo
+    public function subcategory(): BelongsTo
     {
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(SubCategory::class);
     }
 }

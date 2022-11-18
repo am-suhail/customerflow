@@ -31,8 +31,10 @@
 				    'method' => 'PUT',
 				]) !!}
 
+				<div class="mt-8 mb-4 divider">KMP DETAILS</div>
+
 				<div class="form-control">
-					{!! Form::label('name', 'Contact Person', ['class' => 'label font-semibold uppercase']) !!}
+					{!! Form::label('name', 'Name', ['class' => 'label font-semibold uppercase']) !!}
 					{!! Form::text('name', old('name', $vendor->name), [
 					    'class' => 'input input-primary input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
 					]) !!}
@@ -111,12 +113,14 @@
 							</label>
 						@enderror
 					</div>
+
 					<div class="form-control">
-						{!! Form::label('industry_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('industry_id', $industries, old('industry_id', $vendor->industry_id), [
-						    'class' => 'select select-bordered select-primary' . ($errors->has('industry_id') ? 'border-2 border-red-600' : ''),
+						{!! Form::label('country_id', 'Country', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::select('country_id', $countries, old('country_id', $vendor->country_id), [
+						    'placeholder' => '--choose--',
+						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
 						]) !!}
-						@error('industry_id')
+						@error('country_id')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>
@@ -126,7 +130,7 @@
 
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('vat', 'VAT', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::label('vat', 'VAT/GST', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('vat', old('vat', $vendor->vat), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('vat') ? 'border-2 border-red-600' : ''),
 						]) !!}

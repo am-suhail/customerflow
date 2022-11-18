@@ -17,7 +17,7 @@ class InvoiceController extends BaseController
      */
     public function index()
     {
-        $this->setPageTitle('Invoices', '');
+        $this->setPageTitle('Revenue', '');
         return view('office.invoice.index');
     }
 
@@ -30,7 +30,7 @@ class InvoiceController extends BaseController
     {
         $vendors = Vendor::pluck('name', 'id');
 
-        $this->setPageTitle('New Invoice', '');
+        $this->setPageTitle('New Revenue Input', '');
         return view('office.invoice.create', compact('vendors'));
     }
 
@@ -70,7 +70,7 @@ class InvoiceController extends BaseController
     {
         $invoice = Invoice::findOrFail($id);
 
-        $this->setPageTitle('Edit Invoice ' . $invoice->number, '');
+        $this->setPageTitle('Edit Revenue Input ' . $invoice->number, '');
         return view('office.invoice.edit', compact('invoice'));
     }
 

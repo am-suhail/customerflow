@@ -19,7 +19,7 @@ class VendorController extends BaseController
      */
     public function index()
     {
-        $this->setPageTitle('Customers', '');
+        $this->setPageTitle('Branches', '');
         return view('office.vendor.index');
     }
 
@@ -33,7 +33,7 @@ class VendorController extends BaseController
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
 
-        $this->setPageTitle('Add Customer', '');
+        $this->setPageTitle('Add Branch', '');
         return view('office.vendor.create', compact('industries', 'countries'));
     }
 
@@ -52,7 +52,6 @@ class VendorController extends BaseController
             'mobile' => ['required', 'phone:AE'],
             'email' => ['required', 'email'],
             'company_name' => ['required', 'string', 'max:100'],
-            'industry_id' => ['required', 'not_in:0'],
             'vat' => ['required', 'string', 'max:20', 'unique:vendors,vat'],
             'url' => ['nullable', 'url'],
             'city_id' => ['required', 'not_in:0'],
@@ -68,7 +67,7 @@ class VendorController extends BaseController
         if (!$create) {
             return $this->responseRedirectBack('Something went wrong! Please try later', 'warning', true, true);
         }
-        return $this->responseRedirect('vendor.index', 'Customer added Successfully', 'success');
+        return $this->responseRedirect('vendor.index', 'Branch added Successfully', 'success');
     }
 
     /**
@@ -94,7 +93,7 @@ class VendorController extends BaseController
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
 
-        $this->setPageTitle('Edit ' . $vendor->name, '');
+        $this->setPageTitle('Edit ' . $vendor->company_name, '');
         return view('office.vendor.edit', compact('vendor', 'industries', 'countries'));
     }
 
@@ -114,7 +113,6 @@ class VendorController extends BaseController
             'mobile' => ['required', 'phone:AE'],
             'email' => ['required', 'email'],
             'company_name' => ['required', 'string', 'max:100'],
-            'industry_id' => ['required', 'not_in:0'],
             'vat' => ['required', 'string', 'max:20'],
             'url' => ['nullable', 'url'],
             'city_id' => ['required', 'not_in:0'],
@@ -129,6 +127,6 @@ class VendorController extends BaseController
             return $this->responseRedirectBack('Sorry! Something went wrong', 'warning', true, true);
         }
 
-        return $this->responseRedirect('vendor.index', 'Customer updated!', 'success');
+        return $this->responseRedirect('vendor.index', 'Branch updated!', 'success');
     }
 }

@@ -34,11 +34,11 @@
 			</div>
 		</div>
 
-		<div class="my-8 divider">Customer Details</div>
+		<div class="my-8 divider">Branch Details</div>
 
 		<div class="grid grid-cols-1 mt-4 xl:w-1/2">
 			<div class="form-control">
-				<label for="vendor_id" class="font-semibold uppercase label">Customer</label>
+				<label for="vendor_id" class="font-semibold uppercase label">Branch</label>
 
 				<x-select-search :data="$vendors" wire:model="vendor_id" placeholder="--choose customer--" />
 
@@ -57,7 +57,7 @@
 					<path d="M8 12h8"></path>
 				</svg>
 				<span class="font-semibold">
-					Add New Customer
+					Add New Branch
 				</span>
 			</button>
 		</div>

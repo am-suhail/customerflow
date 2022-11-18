@@ -40,9 +40,27 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
+            TextColumn::make('vendor.country.name')
+                ->label('Country')
+                ->limit(25)
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('vendor.city.state.name')
+                ->label('State')
+                ->limit(25)
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('vendor.city.name')
+                ->label('City')
+                ->limit(25)
+                ->toggleable()
+                ->searchable(),
+
             TextColumn::make('service')
-                ->label('Services')
-                ->getStateUsing(fn (Invoice $record) => $record->items->first()->service->subcategory->category->name)
+                ->label('Category')
+                ->getStateUsing(fn (Invoice $record) => $record->items->first()->subcategory->category->name)
                 ->toggleable()
                 ->searchable(),
 
