@@ -90,6 +90,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [ProjectController::class, 'logs'])->name('logs.index');
         });
 
+        Route::get('vendor/export', [VendorController::class, 'export'])->name('vendor.export');
+
         // Dashboard Resources
         Route::resources([
             'vendor' => VendorController::class,

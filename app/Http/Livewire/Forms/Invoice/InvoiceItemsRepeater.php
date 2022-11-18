@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Forms\Invoice;
 
 use Livewire\Component;
 use App\Models\Service;
+use App\Models\SubCategory;
 
 class InvoiceItemsRepeater extends Component
 {
@@ -12,7 +13,7 @@ class InvoiceItemsRepeater extends Component
     public $selectedService;
 
     public
-        $service_id,
+        $sub_category_id,
         $selling_price,
         $qty = 1,
         $discount = 0,
@@ -22,33 +23,33 @@ class InvoiceItemsRepeater extends Component
 
     public $service_lists;
 
-    protected $listeners = ['validateServices'];
+    protected $listeners = ['validateSubCategory'];
 
-    public function validateServices()
+    public function validateSubCategory()
     {
         $validated = $this->validate([
-            'service_id' => 'required|not_in:0',
+            'sub_category_id' => 'required|not_in:0',
         ]);
     }
 
-    public function mount($key_id, $service = null)
+    public function mount($key_id, $subcategory = null)
     {
         //Child Key ID for the Array Index
         $this->key_id = $key_id;
 
-        if (!is_null($service) && !empty($service['service_id'])) {
-            $this->selectedService = Service::findOrFail($service['service_id']);
-            $this->service_id = $this->selectedService->id;
+        if (!is_null($subcategory) && !empty($subcategory['sub_category_id'])) {
+            $this->selectedSubcategory = SubCategory::findOrFail($subcategory['sub_category_id']);
+            $this->sub_category_id = $this->selectedSubcategory->id;
 
-            $this->selling_price = $service['unit_price'];
-            $this->qty = $service['qty'];
-            $this->discount = $service['discount'];
-            $this->additional_charge = $service['additional_charge'];
-            $this->total = $service['total'];
+            $this->selling_price = $subcategory['unit_price'];
+            $this->qty = $subcategory['qty'];
+            $this->discount = $subcategory['discount'];
+            $this->additional_charge = $subcategory['additional_charge'];
+            $this->total = $subcategory['total'];
         }
 
-        // Fetched Services
-        $this->service_lists = Service::pluck('name', 'id');
+        // Fetched SubCategory
+        $this->subcategory_lists = SubCategory::pluck('name', 'id');
     }
 
     public function render()
@@ -56,12 +57,11 @@ class InvoiceItemsRepeater extends Component
         return view('livewire.forms.invoice.invoice-items-repeater');
     }
 
-    public function updatedServiceId($id)
+    public function updatedSubCategoryId($id)
     {
         if ($id) {
-            $this->selectedService = Service::findOrFail($id);
-            $this->service_id = $this->selectedService->id;
-            $this->selling_price = $this->selectedService->selling_price;
+            $this->selectedSubcategory = SubCategory::findOrFail($id);
+            $this->sub_category_id = $this->selectedSubcategory->id;
 
             $this->qty = 1;
             $this->discount = 0;
@@ -73,13 +73,8 @@ class InvoiceItemsRepeater extends Component
     {
         $this->validate(
             [
-                'service_id'       => ['required', 'not_in:0'],
+                'sub_category_id'       => ['required', 'not_in:0'],
                 'selling_price'    => ['required', 'numeric', 'not_in:0'],
-                'qty'              => ['required', 'numeric', 'not_in:0'],
-            ],
-            [
-                'qty.required'     => 'A Quantity for the specified service is missing',
-                'qty.not_in'       => 'Provided quantity is invalid'
             ]
         );
         $this->calcAndEmitUp();
@@ -89,13 +84,8 @@ class InvoiceItemsRepeater extends Component
     {
         $this->validate(
             [
-                'service_id' => ['required', 'not_in:0'],
+                'sub_category_id' => ['required', 'not_in:0'],
                 'selling_price'    => ['required', 'numeric', 'not_in:0'],
-                'qty'        => ['required', 'numeric', 'not_in:0'],
-            ],
-            [
-                'qty.required'        => 'A Quantity for the specified service is missing',
-                'qty.not_in'        => 'Provided quantity is invalid'
             ]
         );
         $this->calcAndEmitUp();
@@ -105,14 +95,8 @@ class InvoiceItemsRepeater extends Component
     {
         $this->validate(
             [
-                'service_id' => ['required', 'not_in:0'],
+                'sub_category_id' => ['required', 'not_in:0'],
                 'selling_price'    => ['required', 'numeric', 'not_in:0'],
-                'discount'   => ['required', 'numeric', 'lt:selling_price'],
-                'qty'        => ['required', 'numeric', 'not_in:0'],
-            ],
-            [
-                'qty.required'        => 'A Quantity for the specified service is missing',
-                'qty.not_in'        => 'Provided quantity is invalid'
             ]
         );
         $this->calcAndEmitUp();
@@ -122,13 +106,8 @@ class InvoiceItemsRepeater extends Component
     {
         $this->validate(
             [
-                'service_id'          => ['required', 'not_in:0'],
+                'sub_category_id'          => ['required', 'not_in:0'],
                 'selling_price'    => ['required', 'numeric', 'not_in:0'],
-                'qty'                 => ['required', 'numeric', 'not_in:0'],
-            ],
-            [
-                'qty.required'        => 'A Quantity for the specified service is missing',
-                'qty.not_in'        => 'Provided quantity is invalid'
             ]
         );
         $this->calcAndEmitUp();
@@ -137,6 +116,6 @@ class InvoiceItemsRepeater extends Component
     private function calcAndEmitUp()
     {
         $this->total = (($this->selling_price * $this->qty) - $this->discount) + ($this->additional_charge ?? 0);
-        $this->emitUp('serviceAdded', $this->key_id, $this->service_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price);
+        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price);
     }
 }

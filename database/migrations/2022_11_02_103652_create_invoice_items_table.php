@@ -19,7 +19,7 @@ class CreateInvoiceItemsTable extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->foreignId('service_id')
+            $table->foreignId('sub_category_id')
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();

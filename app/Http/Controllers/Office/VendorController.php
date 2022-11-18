@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Office;
 
+use App\Exports\BranchExport;
 use App\Http\Controllers\BaseController;
 use App\Models\Country;
 use App\Models\Industry;
@@ -9,6 +10,7 @@ use App\Models\Qualification;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VendorController extends BaseController
 {
@@ -128,5 +130,16 @@ class VendorController extends BaseController
         }
 
         return $this->responseRedirect('vendor.index', 'Branch updated!', 'success');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        return Excel::download(new BranchExport(Vendor::all()), 'branches_abc_mercantile_' . now() . '.xlsx');
     }
 }

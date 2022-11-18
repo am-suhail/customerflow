@@ -67,6 +67,6 @@ class InvoiceItems extends Model
      */
     public function subcategory(): BelongsTo
     {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
     }
 }

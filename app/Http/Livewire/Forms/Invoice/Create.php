@@ -35,9 +35,9 @@ class Create extends Component
         $this->vendor_id = $vendor_id;
     }
 
-    public function serviceAdded($key_id, $service_id, $qty, $discount, $additional_charge, $total, $unit_price)
+    public function serviceAdded($key_id, $sub_category_id, $qty, $discount, $additional_charge, $total, $unit_price)
     {
-        $this->services[$key_id]['service_id'] = $service_id;
+        $this->services[$key_id]['sub_category_id'] = $sub_category_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
         $this->services[$key_id]['additional_charge'] = $additional_charge;
@@ -63,7 +63,7 @@ class Create extends Component
     public function addField()
     {
         $this->services[] = [
-            'service_id' => '',
+            'sub_category_id' => '',
             'qty' => '',
             'discount' => '',
             'additional_charge' => '',
@@ -90,11 +90,11 @@ class Create extends Component
             [
                 'vendor_id'             => ['nullable', 'not_in:0'],
                 'date'                  => ['required', 'date'],
-                'services.*.service_id' => ['required', 'not_in:0'],
+                'services.*.sub_category_id' => ['required', 'not_in:0'],
                 'services.*.qty'        => ['required', 'numeric'],
             ],
             [
-                'service_id.required' => 'Please, specify the service',
+                'sub_category_id.required' => 'Please, specify the service',
                 'qty.required' => 'A Quantity for the specified service is missing',
             ]
         );
