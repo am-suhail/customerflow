@@ -32,7 +32,7 @@
 				]) !!}
 
 				<div class="form-control">
-					{!! Form::label('name', 'Customer Name', ['class' => 'label font-semibold uppercase']) !!}
+					{!! Form::label('name', 'Contact Person', ['class' => 'label font-semibold uppercase']) !!}
 					{!! Form::text('name', old('name', $vendor->name), [
 					    'class' => 'input input-primary input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
 					]) !!}

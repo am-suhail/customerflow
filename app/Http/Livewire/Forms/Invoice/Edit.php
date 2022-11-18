@@ -44,7 +44,7 @@ class Edit extends Component
     {
         $this->invoice = $invoice;
 
-        $this->vendors = Vendor::pluck('name', 'id');
+        $this->vendors = Vendor::pluck('company_name', 'id');
 
         $this->number = $invoice->number;
         $this->date = $invoice->date;

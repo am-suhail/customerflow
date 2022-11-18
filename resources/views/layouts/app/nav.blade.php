@@ -18,7 +18,7 @@
 	<div class="flex items-center justify-between flex-shrink-0 p-2 bg-gray-700"
 		:class="{ 'lg:justify-center': !isSidebarOpen }">
 		<span class="p-2 text-xl font-semibold leading-8 tracking-wider text-gray-200 uppercase whitespace-nowrap">
-			K<span :class="{ 'lg:hidden': !isSidebarOpen }">HULOOD - U.A.E</span>
+			ABC<span :class="{ 'lg:hidden': !isSidebarOpen }"> MERCANTILE</span>
 		</span>
 		<button @click="toggleSidbarMenu()" class="p-2 rounded-md lg:hidden">
 			<svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -30,54 +30,6 @@
 	<!-- Sidebar links -->
 	<nav class="flex-1 overflow-y-scroll bg-gray-700 sidebar-nav-custom hover:overflow-y-auto">
 		<ul class="p-2 overflow-hidden menu" x-data="{ selected: 1 }">
-			<!-- dropdown -->
-			{{-- <li class="font-normal rounded-md" :class="{ 'border-l-4 border-red-500 bg-gray-200': selected == 3 }">
-				<a @click="selected !== 3 ? selected = 3 : selected = null" :class="{ 'text-cyan-500 bg-slate-700': selected == 3 }"
-					class="block py-2.5 px-6 rounded hover:bg-slate-700 hover:text-cyan-500" href="javascript:void(0)">
-
-					<svg class="mr-1 w-6 h-6 text-gray-400 group-hover:text-red-500" fill="none" stroke="currentColor"
-						stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg">
-						<path d="M9 4H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1Z"></path>
-						<path d="M9 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1Z"></path>
-						<path d="M19 14h-4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1Z"></path>
-						<path d="M14 7h6"></path>
-						<path d="M17 4v6"></path>
-					</svg>
-					<span class="text-white sidebar-small-text">Apps</span>
-					<!-- caret -->
-					<svg class="transform transition duration-300 bx bx-chevron-down -rotate-90 inline-block float-right"
-						:class="{ 'rotate-0': selected == 3, '-rotate-90': !(selected == 3) }" width="25" height="25"
-						fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"
-						xmlns="http://www.w3.org/2000/svg">
-						<path d="m6 9 6 6 6-6"></path>
-					</svg>
-				</a>
-
-				<!-- dropdown menu -->
-				<ul x-show="selected == 3" x-transition:enter="transition-all duration-200 ease-out"
-					x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100"
-					class="block rounded rounded-t-none top-full z-50 pl-2 py-0.5 text-left mb-1 font-normal" style="display: none;">
-					<li class="relative">
-						<a class="text-white block w-full py-2 px-6 clear-both whitespace-nowrap hover:text-cyan-500"
-							href="app-calendar.html">Calendar</a>
-					</li>
-					<li class="relative">
-						<a class="text-white block w-full py-2 px-6 clear-both whitespace-nowrap hover:text-cyan-500"
-							href="app-kanban.html">Kanban</a>
-					</li>
-					<li class="relative">
-						<a class="text-white block w-full py-2 px-6 clear-both whitespace-nowrap hover:text-cyan-500"
-							href="app-invoice.html">Invoice</a>
-					</li>
-					<li class="relative">
-						<a
-							class="flex flex-row justify-between items-center w-full py-2 px-6 clear-both whitespace-nowrap hover:text-cyan-500"
-							href="ilustration.html">Ilustrations <i class="text-xs px-0.5 rounded text-cyan-700 bg-cyan-100">Bonus</i></a>
-					</li>
-				</ul>
-			</li> --}}
-
 			<x-nav.nav-link route="home">
 				<x-slot name="path">
 					<path
@@ -99,20 +51,20 @@
 							d="M9 2.003V2h10.998C20.55 2 21 2.455 21 2.992v18.016a.993.993 0 0 1-.993.992H3.993A1 1 0 0 1 3 20.993V8l6-5.997ZM5.83 8H9V4.83L5.83 8ZM11 4v5a1 1 0 0 1-1 1H5v10h14V4h-8Z">
 						</path>
 					</x-slot>
-					Invoice
+					Revenue
 				</x-nav.nav-link>
 			@endcanany
 
 			<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
 			@can('view products')
-				<x-nav.nav-link route="service.index">
+				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
 						<path
 							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
 						</path>
 					</x-slot>
-					Services
+					Expense
 				</x-nav.nav-link>
 			@endcan
 
@@ -145,7 +97,7 @@
 						<path d="M15 15.5h2v-3h1v-2l-1-5H2l-1 5v2h1v6h9v-6h4v3Zm-6 1H4v-4h5v4Zm-5.96-6 .6-3h11.72l.6 3H3.04Z"></path>
 						<path d="M23 16.5h-3v-3h-2v3h-3v2h3v3h2v-3h3v-2Z"></path>
 					</x-slot>
-					Customers
+					Branches
 				</x-nav.nav-link>
 			@endcan
 

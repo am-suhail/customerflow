@@ -46,13 +46,6 @@ class ServiceController extends BaseController
             'name' => ['required', 'string', 'max:191'],
             'sub_category_id' => ['required', 'not_in:0'],
             'unit_id' => ['required', 'not_in:0'],
-            'selling_price' => ['required', 'numeric'],
-            'cost_one' => ['nullable', 'numeric'],
-            'cost_one_desc' => ['nullable', 'string', 'max:191'],
-            'cost_two' => ['nullable', 'numeric'],
-            'cost_two_desc' => ['nullable', 'string', 'max:191'],
-            'cost_three' => ['nullable', 'numeric'],
-            'cost_three_desc' => ['nullable', 'string', 'max:191'],
         ]);
 
         $code = 'PR-' . mt_rand(111111111, 999999999);

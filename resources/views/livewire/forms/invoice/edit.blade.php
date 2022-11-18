@@ -15,7 +15,7 @@
 				<input type="date" value="{{ old('date') }}" wire:model="date" @class([
 					'input input-primary input-bordered',
 					'border-2 border-red-600' => $errors->has('date'),
-				]) disabled>
+				])>
 				@error('date')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>

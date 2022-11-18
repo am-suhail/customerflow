@@ -28,7 +28,6 @@ class InvoiceItemsRepeater extends Component
     {
         $validated = $this->validate([
             'service_id' => 'required|not_in:0',
-            'qty' => 'required|not_in:0'
         ]);
     }
 

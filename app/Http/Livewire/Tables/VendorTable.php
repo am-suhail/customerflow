@@ -23,6 +23,21 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
     {
         return [
 
+            TextColumn::make('company_name')
+                ->label('Company Name')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('city.state.name')
+                ->label('Country')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('city.name')
+                ->label('City')
+                ->toggleable()
+                ->searchable(),
+
             TextColumn::make('name')
                 ->toggleable()
                 ->searchable(),
@@ -42,36 +57,8 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('company_name')
-                ->label('Company Name')
-                ->limit(25)
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('industry.name')
-                ->label('Industry')
-                ->limit(25)
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('city.state.name')
-                ->label('State')
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('city.name')
-                ->label('City')
-                ->toggleable()
-                ->searchable(),
-
             TextColumn::make('email')
                 ->label('Email')
-                ->toggleable()
-                ->searchable(),
-
-
-            TextColumn::make('vat')
-                ->label('VAT')
                 ->toggleable()
                 ->searchable(),
 

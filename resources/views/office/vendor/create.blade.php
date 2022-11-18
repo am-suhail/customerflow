@@ -30,7 +30,7 @@
 					@csrf
 
 					<div class="form-control">
-						{!! Form::label('name', 'Customer Name', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::label('name', 'Contact Person', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('name', old('name'), [
 						    'class' => 'input input-primary input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -110,11 +110,11 @@
 							@enderror
 						</div>
 						<div class="form-control">
-							{!! Form::label('industry_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::select('industry_id', $industries, old('industry_id'), [
-							    'class' => 'select select-bordered select-primary' . ($errors->has('industry_id') ? 'border-2 border-red-600' : ''),
+							{!! Form::label('country_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::select('country_id', $countries, old('country_id'), [
+							    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('industry_id')
+							@error('country_id')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>

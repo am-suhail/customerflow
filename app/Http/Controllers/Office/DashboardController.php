@@ -29,26 +29,28 @@ class DashboardController extends Controller
 
         // Charts
         // Current Year Sales Chart
-        $year_invoices = Invoice::whereYear('created_at', date('Y'))
-            ->get()
+        $year_invoices = Invoice::all()
             ->groupBy(function ($data) {
-                return Carbon::parse($data->created_at)->format('M');
+                return Carbon::parse($data->date)->format('Y');
             });
 
         $year_invoices_chart = new InvoiceChart;
         $year_invoices_chart->labels($year_invoices->keys());
-        $year_invoices_chart->dataset('Current Year Invoices - ' . date('Y'), 'bar', $year_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#3B82F6");
+        $year_invoices_chart->dataset('Yearly Revenue - ' . date('Y'), 'bar', $year_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#3B82F6");
 
         // Current Month Sales Chart
-        $month_invoices = Invoice::whereMonth('created_at', date('m'))
+        $month_invoices = Invoice::whereYear('date', date('Y'))
             ->get()
+            ->sortBy(function ($data) {
+                return Carbon::parse($data->date)->format('m');
+            })
             ->groupBy(function ($data) {
-                return Carbon::parse($data->created_at)->format('d');
+                return Carbon::parse($data->date)->format('m');
             });
 
         $month_invoices_chart = new InvoiceChart;
         $month_invoices_chart->labels($month_invoices->keys());
-        $month_invoices_chart->dataset('Current Month Invoices - ' . date('M'), 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
+        $month_invoices_chart->dataset('Current Year Revenue - ' . date('Y'), 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
 
 
         // Reports: 

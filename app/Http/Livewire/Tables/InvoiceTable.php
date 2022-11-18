@@ -28,15 +28,26 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            // TextColumn::make('date')
-            //     ->label('Invoice Date')
-            //     ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
-            //     ->toggleable()
-            //     ->searchable(),
+            TextColumn::make('date')
+                ->label('Invoice Date')
+                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
+                ->toggleable()
+                ->searchable(),
 
-            TextColumn::make('createdAt')
-                ->label('Created At')
-                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->created_at)->format('d-m-Y, h:i:s A'))
+            TextColumn::make('vendor.company_name')
+                ->label('Company Name')
+                ->limit(25)
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('service')
+                ->label('Services')
+                ->getStateUsing(fn (Invoice $record) => $record->items->first()->service->subcategory->category->name)
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('total_amount')
+                ->label('Total Amount')
                 ->toggleable()
                 ->searchable(),
 
@@ -44,28 +55,6 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->label('Created By')
                 ->getStateUsing(fn (Invoice $record) => $record->activities->where('description', 'created')->first()->causer->name ?? "--")
                 ->limit(12)
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('vendor.name')
-                ->label('Customer')
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('vendor.company_name')
-                ->label('Customer\'s Company')
-                ->limit(25)
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('serviceCount')
-                ->label('Services')
-                ->getStateUsing(fn (Invoice $record) => count($record->items))
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('total_amount')
-                ->label('Total Amount')
                 ->toggleable()
                 ->searchable(),
 
