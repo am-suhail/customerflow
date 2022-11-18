@@ -5,31 +5,31 @@ namespace App\Http\Controllers\Office;
 use App\Charts\InvoiceChart;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Vendor;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $today = Invoice::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->get();
+        $current_year = Invoice::whereYear('date', date('Y'))
+            ->get();
 
-        $invoice_today = count(
-            Invoice::whereBetween('created_at', [Carbon::now()->startOfDay(), Carbon::now()->endOfDay()])->get()
-        );
+        $current_year_revenue = $current_year->sum('total_amount');
 
-        $amount_today = $today
-            ->map(fn ($invoice) => $invoice->total_amount)
-            ->sum();
+        $previous_year = Invoice::whereYear('date', date("Y", strtotime("-1 year")))
+            ->get();
 
-        $service_today = $today
-            ->map(fn ($invoice) => count($invoice->items))
-            ->sum();
+        $previous_year_revenue = $previous_year->sum('total_amount');
 
-        $total_invoices = count(Invoice::all());
+        $total_branches = count(Vendor::all());
 
         // Charts
         // Current Year Sales Chart
         $year_invoices = Invoice::all()
+            ->sortBy(function ($data) {
+                return Carbon::parse($data->date)->format('Y');
+            })
             ->groupBy(function ($data) {
                 return Carbon::parse($data->date)->format('Y');
             });
@@ -52,32 +52,12 @@ class DashboardController extends Controller
         $month_invoices_chart->labels($month_invoices->keys());
         $month_invoices_chart->dataset('Current Year Revenue - ' . date('Y'), 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
 
-
-        // Reports: 
-
-        // User Base,
-        // Services, Invoices, Amount
-
-        // Service Base,
-
-        // Daily Summary,
-        // Date, No of Invoices, Services Count, Invoice Amount, Cost, GP, Discount, Actual Profit
-
-        // $daily_summary = Invoice::all()
-        //     ->groupBy(function ($data) {
-        //         return Carbon::parse($data->created_at)->format('d-m-Y');
-        //     });
-
-        // dd($daily_summary);
-
-
         return view('office.home.index', compact(
             'year_invoices_chart',
             'month_invoices_chart',
-            'invoice_today',
-            'amount_today',
-            'service_today',
-            'total_invoices'
+            'current_year_revenue',
+            'previous_year_revenue',
+            'total_branches'
         ));
     }
 }

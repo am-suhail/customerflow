@@ -30,9 +30,9 @@ class Edit extends Component
         'serviceAdded'
     ];
 
-    public function serviceAdded($key_id, $service_id, $qty, $discount, $additional_charge, $total, $unit_price)
+    public function serviceAdded($key_id, $sub_category_id, $qty, $discount, $additional_charge, $total, $unit_price)
     {
-        $this->services[$key_id]['service_id'] = $service_id;
+        $this->services[$key_id]['sub_category_id'] = $sub_category_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
         $this->services[$key_id]['additional_charge'] = $additional_charge;
@@ -53,7 +53,7 @@ class Edit extends Component
         if (!is_null($invoice->items())) {
             foreach ($invoice->items as $item) {
                 $this->services[] = [
-                    'service_id' => $item->service_id,
+                    'sub_category_id' => $item->sub_category_id,
                     'qty' => $item->qty,
                     'discount' => $item->discount,
                     'additional_charge' => $item->additional_charge,
@@ -71,7 +71,7 @@ class Edit extends Component
     public function addField()
     {
         $this->services[] = [
-            'service_id' => '',
+            'sub_category_id' => '',
             'qty' => '',
             'discount' => '',
             'additional_charge' => '',
@@ -92,17 +92,17 @@ class Edit extends Component
 
     public function process()
     {
-        $this->emit('validateServices');
+        $this->emit('validateSubCategory');
 
         $this->validate(
             [
                 'vendor_id'             => ['nullable', 'not_in:0'],
                 'date'                  => ['required', 'date'],
-                'services.*.service_id' => ['required', 'not_in:0'],
+                'services.*.sub_category_id' => ['required', 'not_in:0'],
                 'services.*.qty'        => ['required', 'numeric'],
             ],
             [
-                'service_id.required' => 'Please, specify the service',
+                'sub_category_id.required' => 'Please, specify the service',
                 'qty.required' => 'A Quantity for the specified service is missing',
             ]
         );
@@ -123,7 +123,7 @@ class Edit extends Component
         }
 
         if ($updated) {
-            session()->flash('message', 'Invoice Created');
+            session()->flash('message', 'Revenue Updated');
 
             return redirect()->route('revenue.index');
         }

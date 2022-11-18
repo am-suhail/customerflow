@@ -21,7 +21,7 @@ class Vendor extends Model
         'name',
         'code',
         'sex',
-        'country_id',
+        'nationality_id',
         'mobile',
         'email',
         'company_name',
@@ -29,6 +29,7 @@ class Vendor extends Model
         'vat',
         'url',
         'city_id',
+        'country_id',
         'telephone',
         'remark'
     ];
@@ -46,6 +47,16 @@ class Vendor extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    /**
+     * Get the country that owns the Vendor
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function nationality()
+    {
+        return $this->belongsTo(Country::class);
     }
 
     /**

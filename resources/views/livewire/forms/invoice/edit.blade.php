@@ -45,7 +45,7 @@
 				@foreach ($services as $index => $value)
 					<div class="grid grid-cols-6 gap-4 p-2 my-1 bg-base-200 rounded-md">
 						<div class="col-span-6">
-							<livewire:forms.invoice.invoice-items-repeater :service="$value" :wire:key="'service-key-'.$index"
+							<livewire:forms.invoice.invoice-items-repeater :subcategory="$value" :wire:key="'service-key-'.$index"
 								:key_id="$index" />
 						</div>
 						<div class="col-span-6">

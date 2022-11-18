@@ -17,8 +17,9 @@ class CreateVendorsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->string('sex')->nullable();
-            $table->foreignId('country_id')
+            $table->string('sex')
+                ->nullable();
+            $table->foreignId('nationality_id')
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
@@ -29,8 +30,15 @@ class CreateVendorsTable extends Migration
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
-            $table->string('vat')->nullable();
+            $table->date('inc_date')
+                ->nullable();
+            $table->string('vat')
+                ->nullable();
             $table->string('url')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $table->foreignId('city_id')
                 ->nullable()
                 ->constrained()

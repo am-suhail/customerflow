@@ -18,8 +18,25 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">{{ $invoice_today }}</p>
-					<p>Today's Invoices</p>
+					<p class="text-2xl">{{ $current_year_revenue }}</p>
+					<p>Current Year Revenue</p>
+				</div>
+			</div>
+
+			<div
+				class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
+				<div
+					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+						class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+						<path
+							d="m20.034 6.216-3.75-3.75a.76.76 0 0 0-.534-.216h-7.5a1.5 1.5 0 0 0-1.5 1.5v1.5h-1.5a1.5 1.5 0 0 0-1.5 1.5v13.5a1.5 1.5 0 0 0 1.5 1.5h10.5a1.5 1.5 0 0 0 1.5-1.5v-1.5h1.5a1.5 1.5 0 0 0 1.5-1.5V6.75a.76.76 0 0 0-.216-.534ZM12.75 18h-4.5a.75.75 0 1 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Zm0-3h-4.5a.75.75 0 1 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Zm6 2.25h-1.5v-7.5a.76.76 0 0 0-.216-.534l-3.75-3.75a.76.76 0 0 0-.534-.216h-4.5v-1.5h7.19l3.31 3.31v10.19Z">
+						</path>
+					</svg>
+				</div>
+				<div class="text-right">
+					<p class="text-2xl">{{ $previous_year_revenue }}</p>
+					<p>Last Year Revenue</p>
 				</div>
 			</div>
 
@@ -35,8 +52,8 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">{{ $amount_today }}</p>
-					<p>Today's Amount</p>
+					<p class="text-2xl">{{ $total_branches }}</p>
+					<p>Total Countries</p>
 				</div>
 			</div>
 
@@ -55,25 +72,8 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">{{ $service_today }}</p>
-					<p>Today's Services</p>
-				</div>
-			</div>
-
-			<div
-				class="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
-				<div
-					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
-					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-						class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
-						<path
-							d="m20.034 6.216-3.75-3.75a.76.76 0 0 0-.534-.216h-7.5a1.5 1.5 0 0 0-1.5 1.5v1.5h-1.5a1.5 1.5 0 0 0-1.5 1.5v13.5a1.5 1.5 0 0 0 1.5 1.5h10.5a1.5 1.5 0 0 0 1.5-1.5v-1.5h1.5a1.5 1.5 0 0 0 1.5-1.5V6.75a.76.76 0 0 0-.216-.534ZM12.75 18h-4.5a.75.75 0 1 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Zm0-3h-4.5a.75.75 0 1 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Zm6 2.25h-1.5v-7.5a.76.76 0 0 0-.216-.534l-3.75-3.75a.76.76 0 0 0-.534-.216h-4.5v-1.5h7.19l3.31 3.31v10.19Z">
-						</path>
-					</svg>
-				</div>
-				<div class="text-right">
-					<p class="text-2xl">{{ $total_invoices }}</p>
-					<p>Total Invoices</p>
+					<p class="text-2xl">{{ $total_branches }}</p>
+					<p>Total Branches</p>
 				</div>
 			</div>
 		</div>

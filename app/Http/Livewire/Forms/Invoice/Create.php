@@ -119,7 +119,7 @@ class Create extends Component
         }
 
         if ($created) {
-            session()->flash('message', 'Invoice Created');
+            session()->flash('message', 'Revenue Created');
 
             return redirect()->route('revenue.index');
         }
