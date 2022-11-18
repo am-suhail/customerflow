@@ -4,15 +4,11 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Office\DashboardController;
 use App\Http\Controllers\Office\EmployeeController;
-use App\Http\Controllers\Office\EnquiryController;
 use App\Http\Controllers\Office\InvoiceController;
-use App\Http\Controllers\Office\MarketLeadsController;
 use App\Http\Controllers\Office\MasterController;
 use App\Http\Controllers\Office\ProfileController;
-use App\Http\Controllers\Office\ProjectController;
 use App\Http\Controllers\Office\ReportController;
 use App\Http\Controllers\Office\RolesController;
-use App\Http\Controllers\Office\ServiceController;
 use App\Http\Controllers\Office\UserController;
 use App\Http\Controllers\Office\VendorController;
 use App\Http\Livewire\Auth\Login;
@@ -21,8 +17,6 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
-use App\Http\Livewire\Project\Create;
-use App\Http\Livewire\Project\Edit;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -77,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('my-profile', ProfileController::class, ['except' => ['create', 'store']]);
 
         // All Users
-        Route::get('/user.index', [UserController::class, 'index'])->name('user.index');
+        Route::get('/users', [UserController::class, 'index'])->name('user.index');
         Route::get('/user/manage/{id}', [UserController::class, 'manage'])->name('user.manage');
         Route::put('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
 
@@ -85,19 +79,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('employee/{id}/appoint', [EmployeeController::class, 'appoint'])->name('employee.appoint');
         Route::put('employee/appoint/{id}', [EmployeeController::class, 'process_appoint'])->name('employee.appoint-process');
 
-        // Logs
-        Route::prefix('all-logs')->group(function () {
-            Route::get('/', [ProjectController::class, 'logs'])->name('logs.index');
-        });
-
-        Route::get('vendor/export', [VendorController::class, 'export'])->name('vendor.export');
+        // Branches Export
+        Route::get('branch/export', [VendorController::class, 'export'])->name('branch.export');
 
         // Dashboard Resources
         Route::resources([
-            'vendor' => VendorController::class,
-            'service' => ServiceController::class,
-            'invoice' => InvoiceController::class,
-            'leads' => MarketLeadsController::class,
+            'branch' => VendorController::class,
+            'revenue' => InvoiceController::class,
             'employee' => EmployeeController::class,
             'roles' => RolesController::class,
         ]);
@@ -134,10 +122,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/industry', [MasterController::class, 'industry'])->name('master.industry');
             // Category
             Route::get('/category', [MasterController::class, 'category'])->name('master.category');
-            // Units
-            Route::get('/unit', [MasterController::class, 'unit'])->name('master.unit');
-            // Badge
-            Route::get('/badge', [MasterController::class, 'badge'])->name('master.badge');
         });
 
         Route::get('#', function () {

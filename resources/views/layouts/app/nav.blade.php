@@ -45,7 +45,7 @@
 			<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
 			@canany(['view projects', 'add project', 'edit project', 'delete project', 'modify project status'])
-				<x-nav.nav-link route="invoice.index">
+				<x-nav.nav-link route="revenue.index">
 					<x-slot name="path">
 						<path
 							d="M9 2.003V2h10.998C20.55 2 21 2.455 21 2.992v18.016a.993.993 0 0 1-.993.992H3.993A1 1 0 0 1 3 20.993V8l6-5.997ZM5.83 8H9V4.83L5.83 8ZM11 4v5a1 1 0 0 1-1 1H5v10h14V4h-8Z">
@@ -113,7 +113,7 @@
 					Employees
 				</x-nav.nav-link>
 
-				<x-nav.nav-link route="vendor.index">
+				<x-nav.nav-link route="branch.index">
 					<x-slot name="path">
 						<path d="M17 2.5H2v2h15v-2Z"></path>
 						<path d="M15 15.5h2v-3h1v-2l-1-5H2l-1 5v2h1v6h9v-6h4v3Zm-6 1H4v-4h5v4Zm-5.96-6 .6-3h11.72l.6 3H3.04Z"></path>

@@ -4,16 +4,11 @@ namespace App\Exports;
 
 use App\Models\Vendor;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
 class BranchExport implements FromCollection, WithHeadings, WithMapping
 {
-    protected $report;
-
-    public function __construct($report)
-    {
-        $this->report = $report;
-    }
-
     public function headings(): array
     {
         return [
@@ -58,6 +53,6 @@ class BranchExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return $this->report;
+        return Vendor::all();
     }
 }

@@ -11,7 +11,7 @@
 		<hr>
 		<ul class="py-4 menu">
 			<li class="hover-bordered">
-				<a href="{{ route('invoice.edit', $getRecord()->id) }}" class="text-lg">
+				<a href="{{ route('revenue.edit', $getRecord()->id) }}" class="text-lg">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 						class="inline-block w-6 h-6 mr-2 text-blue-500 stroke-current">
 						<path d="M5 2h10l5 5v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z"></path>
@@ -25,7 +25,7 @@
 				</a>
 			</li>
 			<li class="hover-bordered">
-				<a href="{{ route('invoice.show', $getRecord()->id) }}" class="text-lg" target="_blank">
+				<a href="{{ route('revenue.show', $getRecord()->id) }}" class="text-lg" target="_blank">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 						class="inline-block w-6 h-6 mr-2 text-blue-500 stroke-current">
 						<path d="M5 19v3h14v-3"></path>

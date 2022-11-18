@@ -3,11 +3,11 @@
 		<div class="grid grid-cols-1 md:grid-cols-12 xl:grid-cols-12 mb-2 gap-4 w-full">
 			<div class="form-control w-full col-span-2 md:col-span-8 xl:col-span-7">
 				<label class="label uppercase">Service</label>
-				<x-select-search :data="$service_lists" wire:model.lazy="service_id" placeholder="--choose product--" />
-				@error('service_id')
+				<x-select-search :data="$subcategory_lists" wire:model.lazy="sub_category_id" placeholder="--choose product--" />
+				@error('sub_category_id')
 					<div class="label uppercase">
 						<span class="text-error label-text">
-							{{ $errors->first('service_id') }}
+							{{ $errors->first('sub_category_id') }}
 						</span>
 					</div>
 				@enderror

@@ -7,7 +7,7 @@
 		<x-headers.page-heading :title="$pageTitle" />
 
 		<div class="flex flex-col items-start mb-4 space-y-4 lg:items-center lg:space-y-0 lg:flex-row">
-			<a href="{{ route('invoice.create') }}" class="btn btn-outline btn-primary">
+			<a href="{{ route('revenue.create') }}" class="btn btn-outline btn-primary">
 				<svg class="mr-1" width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
 					xmlns="http://www.w3.org/2000/svg">
 					<path

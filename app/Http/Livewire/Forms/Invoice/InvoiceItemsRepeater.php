@@ -21,7 +21,7 @@ class InvoiceItemsRepeater extends Component
         $custom_price = NULL,
         $total = 0;
 
-    public $service_lists;
+    public $subcategory_lists;
 
     protected $listeners = ['validateSubCategory'];
 
@@ -74,39 +74,6 @@ class InvoiceItemsRepeater extends Component
         $this->validate(
             [
                 'sub_category_id'       => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-            ]
-        );
-        $this->calcAndEmitUp();
-    }
-
-    public function updatedQty()
-    {
-        $this->validate(
-            [
-                'sub_category_id' => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-            ]
-        );
-        $this->calcAndEmitUp();
-    }
-
-    public function updatedDiscount()
-    {
-        $this->validate(
-            [
-                'sub_category_id' => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-            ]
-        );
-        $this->calcAndEmitUp();
-    }
-
-    public function updatedAdditionalCharge()
-    {
-        $this->validate(
-            [
-                'sub_category_id'          => ['required', 'not_in:0'],
                 'selling_price'    => ['required', 'numeric', 'not_in:0'],
             ]
         );

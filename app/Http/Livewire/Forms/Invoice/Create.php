@@ -84,7 +84,7 @@ class Create extends Component
 
     public function process()
     {
-        $this->emit('validateServices');
+        $this->emit('validateSubCategory');
 
         $this->validate(
             [
@@ -121,7 +121,7 @@ class Create extends Component
         if ($created) {
             session()->flash('message', 'Invoice Created');
 
-            return redirect()->route('invoice.index');
+            return redirect()->route('revenue.index');
         }
     }
 

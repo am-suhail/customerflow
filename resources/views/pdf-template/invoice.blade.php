@@ -263,7 +263,7 @@
 	<table width="100%">
 		<tr>
 			<td>
-				<h6 style="color: #ccc; text-align: center; margin: 10px 0;">This is a computer generated invoice.</h6>
+				<h6 style="color: #ccc; text-align: center; margin: 10px 0;">This is a computer generated Revenue Document.</h6>
 			</td>
 		</tr>
 	</table>

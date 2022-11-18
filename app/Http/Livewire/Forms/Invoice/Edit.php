@@ -125,7 +125,7 @@ class Edit extends Component
         if ($updated) {
             session()->flash('message', 'Invoice Created');
 
-            return redirect()->route('invoice.index');
+            return redirect()->route('revenue.index');
         }
     }
 

@@ -72,7 +72,7 @@
 
 		<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 w-1/2'>
 			<button type="submit" class='btn btn-accent'>Update</button>
-			<a href={{ route('invoice.index') }} class="btn">Cancel</a>
+			<a href={{ route('revenue.index') }} class="btn">Cancel</a>
 		</div>
 	</form>
 </div>

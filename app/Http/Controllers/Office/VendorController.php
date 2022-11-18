@@ -69,7 +69,7 @@ class VendorController extends BaseController
         if (!$create) {
             return $this->responseRedirectBack('Something went wrong! Please try later', 'warning', true, true);
         }
-        return $this->responseRedirect('vendor.index', 'Branch added Successfully', 'success');
+        return $this->responseRedirect('branch.index', 'Branch added Successfully', 'success');
     }
 
     /**
@@ -129,7 +129,7 @@ class VendorController extends BaseController
             return $this->responseRedirectBack('Sorry! Something went wrong', 'warning', true, true);
         }
 
-        return $this->responseRedirect('vendor.index', 'Branch updated!', 'success');
+        return $this->responseRedirect('branch.index', 'Branch updated!', 'success');
     }
 
     /**

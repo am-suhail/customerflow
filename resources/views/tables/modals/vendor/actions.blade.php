@@ -11,7 +11,7 @@
 		<hr>
 		<ul class="py-4 menu">
 			<li class="hover-bordered">
-				<a href="{{ route('vendor.edit', $getRecord()->id) }}" class="text-lg">
+				<a href="{{ route('branch.edit', $getRecord()->id) }}" class="text-lg">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
 						class="inline-block w-6 h-6 mr-2 text-blue-500 stroke-current">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
