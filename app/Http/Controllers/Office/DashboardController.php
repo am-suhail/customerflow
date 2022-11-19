@@ -58,14 +58,15 @@ class DashboardController extends Controller
         $month_invoices_chart->dataset('Current Year Revenue - ' . date('Y'), 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
 
         // Country Wise Sales Chart
-        $country_wise_invoices = Invoice::all()
+        $country_wise_invoices = Invoice::whereYear('date', date('Y'))
+            ->get()
             ->groupBy(function ($data) {
                 return $data->vendor->country->name ?? "Others";
             });
 
         $country_wise_invoices_chart = new InvoiceChart;
         $country_wise_invoices_chart->labels($country_wise_invoices->keys());
-        $country_wise_invoices_chart->dataset('Total Revenue', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->backgroundColor($this->colorGenerator(3));
+        $country_wise_invoices_chart->dataset('Total Revenue', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->backgroundColor($this->colorGenerator(count($country_wise_invoices->keys())));
 
 
         return view('office.home.index', compact(

@@ -11,10 +11,9 @@
 					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
 						class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
-						<path d="M18.75 21H5.25a.75.75 0 0 1-.75-.75V3.75A.75.75 0 0 1 5.25 3h9l5.25 5.25v12a.75.75 0 0 1-.75.75Z"></path>
-						<path d="M13.875 3v5.625H19.5"></path>
-						<path d="M9 12.375h6"></path>
-						<path d="M9 16.125h6"></path>
+						<path fill-rule="evenodd"
+							d="M4.5 20.5 3 22V2l1.5 1.5L6 2l1.5 1.5L9 2l1.5 1.5L12 2l1.5 1.5L15 2l1.5 1.5L18 2l1.5 1.5L21 2v20l-1.5-1.5L18 22l-1.5-1.5L15 22l-1.5-1.5L12 22l-1.5-1.5L9 22l-1.5-1.5L6 22l-1.5-1.5ZM18 7v2H6V7h12ZM6 11v2h12v-2H6Zm0 4v2h12v-2H6Z"
+							clip-rule="evenodd"></path>
 					</svg>
 				</div>
 				<div class="text-right">
@@ -29,9 +28,10 @@
 					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
 						class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
-						<path
-							d="m20.034 6.216-3.75-3.75a.76.76 0 0 0-.534-.216h-7.5a1.5 1.5 0 0 0-1.5 1.5v1.5h-1.5a1.5 1.5 0 0 0-1.5 1.5v13.5a1.5 1.5 0 0 0 1.5 1.5h10.5a1.5 1.5 0 0 0 1.5-1.5v-1.5h1.5a1.5 1.5 0 0 0 1.5-1.5V6.75a.76.76 0 0 0-.216-.534ZM12.75 18h-4.5a.75.75 0 1 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Zm0-3h-4.5a.75.75 0 1 1 0-1.5h4.5a.75.75 0 1 1 0 1.5Zm6 2.25h-1.5v-7.5a.76.76 0 0 0-.216-.534l-3.75-3.75a.76.76 0 0 0-.534-.216h-4.5v-1.5h7.19l3.31 3.31v10.19Z">
-						</path>
+						<path d="M20.5 7 12 2 3.5 7v10l8.5 5 8.5-5V7Z"></path>
+						<path d="M12 11v4"></path>
+						<path d="M16 9v6"></path>
+						<path d="M8 13v2"></path>
 					</svg>
 				</div>
 				<div class="text-right">
@@ -46,8 +46,15 @@
 					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
 						class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
+						<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"></path>
 						<path
-							d="M23 12v2c0 3.314-4.925 6-11 6-5.967 0-10.824-2.591-10.995-5.823L1 14v-2c0 3.314 4.925 6 11 6s11-2.686 11-6ZM12 4c6.075 0 11 2.686 11 6s-4.925 6-11 6-11-2.686-11-6 4.925-6 11-6Z">
+							d="M2 10.42c1.507-.712 2.622-.811 3.345-.297 1.083.77 1.22 3.909 3.684 2.409 2.464-1.5-1.056-2.112-.291-4.285.764-2.174 3.266-.485 3.515-2.866.166-1.587-1.733-2.194-5.695-1.822">
+						</path>
+						<path
+							d="M18 4c-2.857 2.494-3.855 4-2.994 4.519 1.292.777 1.84-.317 3.417 0 1.577.317 1.236 2.454.406 2.454-.829 0-5.124-.547-4.908 1.96.217 2.506 2.8 2.877 2.8 4.278 0 .933-.572 2.362-1.715 4.286">
+						</path>
+						<path
+							d="M3.052 16.463c.456-.198.799-.344 1.028-.437 1.924-.777 3.35-.96 4.282-.55 1.646.727 1.013 2.194 1.529 2.735.515.54 1.803.383 1.803 1.411 0 .686-.23 1.46-.69 2.323">
 						</path>
 					</svg>
 				</div>
@@ -63,12 +70,9 @@
 					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
 						class="stroke-current text-blue-800 dark:text-gray-800 transform transition-transform duration-500 ease-in-out">
-						<path
-							d="M4.5 17.625h15a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5h-15A1.5 1.5 0 0 0 3 6v10.125a1.5 1.5 0 0 0 1.5 1.5Z">
-						</path>
-						<path d="M15 21H9"></path>
-						<path d="M3 13.875h18"></path>
-						<path d="M12 18v3"></path>
+						<path d="M17 2.5H2v2h15v-2Z"></path>
+						<path d="M15 15.5h2v-3h1v-2l-1-5H2l-1 5v2h1v6h9v-6h4v3Zm-6 1H4v-4h5v4Zm-5.96-6 .6-3h11.72l.6 3H3.04Z"></path>
+						<path d="M23 16.5h-3v-3h-2v3h-3v2h3v3h2v-3h3v-2Z"></path>
 					</svg>
 				</div>
 				<div class="text-right">
