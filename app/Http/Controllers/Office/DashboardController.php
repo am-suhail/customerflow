@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Carbon\Carbon;
+use Illuminate\Support\Arr;
 
 class DashboardController extends Controller
 {
@@ -59,17 +60,13 @@ class DashboardController extends Controller
         // Country Wise Sales Chart
         $country_wise_invoices = Invoice::all()
             ->groupBy(function ($data) {
-                return Carbon::parse($data)->format('m');
+                return $data->vendor->country->name ?? "Others";
             });
 
         $country_wise_invoices_chart = new InvoiceChart;
         $country_wise_invoices_chart->labels($country_wise_invoices->keys());
-        $country_wise_invoices_chart->dataset('Current Year Revenue - ' . date('Y'), 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
-        $country_wise_invoices_chart->options([
-            'tooltip' => [
-                'show' => true // or false, depending on what you want.
-            ]
-        ]);
+        $country_wise_invoices_chart->dataset('Total Revenue', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->backgroundColor($this->colorGenerator(3));
+
 
         return view('office.home.index', compact(
             'year_invoices_chart',
@@ -80,5 +77,20 @@ class DashboardController extends Controller
             'total_countries',
             'total_branches'
         ));
+    }
+
+    private function colorGenerator($numbers)
+    {
+        $chars = "ABCDEF0123456789";
+        $size = strlen($chars);
+        $colors = array();
+        for ($i = 0; $i < $numbers; $i++) {
+            $hex = array();
+            for ($j = 0; $j < 6; $j++) {
+                array_push($hex, $chars[rand(0, $size - 1)]);
+            }
+            $colors[$i] = implode(Arr::prepend($hex, "#"));
+        }
+        return $colors;
     }
 }
