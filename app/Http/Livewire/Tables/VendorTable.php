@@ -23,6 +23,10 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
     {
         return [
 
+            TextColumn::make('index')
+                ->label('#')
+                ->rowIndex(),
+
             TextColumn::make('company_name')
                 ->label('Company Name')
                 ->toggleable()

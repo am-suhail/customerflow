@@ -87,6 +87,10 @@
 			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
 				{!! $year_invoices_chart->container() !!}
 			</div>
+
+			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+				{!! $country_wise_invoices_chart->container() !!}
+			</div>
 		</div>
 
 	</main>
@@ -97,5 +101,6 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 		{!! $year_invoices_chart->script() !!}
 		{!! $month_invoices_chart->script() !!}
+		{!! $country_wise_invoices_chart->script() !!}
 	@endpush
 @endonce

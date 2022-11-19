@@ -47,8 +47,6 @@ class Invoice extends Model
             ->logOnlyDirty();
     }
 
-    
-
     /**
      * Get the vendor that owns the Invoice
      *
