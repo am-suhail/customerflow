@@ -13,7 +13,7 @@
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-1/2">
 			<div class="form-control">
-				{!! Form::label('number', 'Invoice Number', ['class' => 'label font-semibold uppercase']) !!}
+				{!! Form::label('number', 'Input Number', ['class' => 'label font-semibold uppercase']) !!}
 				{!! Form::text('number', old('number'), [
 				    'wire:model' => 'number',
 				    'disabled',
@@ -21,7 +21,7 @@
 				]) !!}
 			</div>
 			<div class="form-control">
-				{!! Form::label('date', 'Invoice Date', ['class' => 'label font-semibold uppercase']) !!}
+				{!! Form::label('date', 'Revenue Date', ['class' => 'label font-semibold uppercase']) !!}
 				<input type="date" value="{{ old('date') }}" wire:model="date" @class([
 					'input input-primary input-bordered',
 					'border-2 border-red-600' => $errors->has('date'),
@@ -62,7 +62,7 @@
 			</button>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Services</div>
+		<div class="mt-8 mb-4 divider">Category</div>
 
 		<div>
 			<div class="mb-2">
@@ -74,7 +74,7 @@
 						<div class="col-span-6">
 							<button type="button" class="float-right bg-red-600 border-0 hover:bg-red-500 btn btn-xs"
 								wire:click.prevent="removeField({{ $index }})">
-								Remove Service
+								Remove Category
 							</button>
 						</div>
 					</div>

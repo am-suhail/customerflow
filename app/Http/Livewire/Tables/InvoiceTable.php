@@ -79,10 +79,6 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->limit(12)
                 ->toggleable()
                 ->searchable(),
-
-            Column::make('Manage')
-                ->view('tables.modals.invoice.actions')
-                ->extraAttributes(['class' => 'justify-center']),
         ];
     }
 
