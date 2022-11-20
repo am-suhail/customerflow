@@ -11,12 +11,16 @@ class UserController extends BaseController
 {
     public function index()
     {
+        $this->authorize('view users');
+
         $this->setPageTitle('All Users', '');
         return view('office.user.index');
     }
 
     public function manage($id)
     {
+        $this->authorize('manage user');
+
         $user = User::findOrFail($id);
         $roles = Role::all();
 
@@ -26,6 +30,8 @@ class UserController extends BaseController
 
     public function update(Request $request, $id)
     {
+        $this->authorize('manage user');
+
         $validated = request()->validate([
             'roles' => 'array'
         ]);

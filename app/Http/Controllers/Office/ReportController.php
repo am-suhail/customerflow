@@ -9,6 +9,8 @@ class ReportController extends BaseController
 {
     public function index()
     {
+        $this->authorize('view reports');
+
         $this->setPageTitle('Business Reports', '');
         return view('office.report.index');
     }

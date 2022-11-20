@@ -19,6 +19,7 @@ class EmployeeDetail extends Model
      */
     protected $fillable = [
         'user_id',
+        'vendor_id',
         'code',
         'designation_id',
         'joining_date',

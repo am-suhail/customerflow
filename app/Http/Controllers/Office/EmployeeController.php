@@ -20,6 +20,8 @@ class EmployeeController extends BaseController
      */
     public function index()
     {
+        $this->authorize('view employees');
+
         $this->setPageTitle('Employees', '');
         return view('office.employee.index');
     }
@@ -64,6 +66,8 @@ class EmployeeController extends BaseController
      */
     public function edit($id)
     {
+        $this->authorize('manage employee');
+
         $user = User::findOrFail($id);
         $designations = Designation::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
@@ -82,6 +86,8 @@ class EmployeeController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('manage employee');
+
         $validated = $request->validate([
             'national_id' => ['required', 'string'],
             'national_id_expiry' => ['required', 'date'],
@@ -138,6 +144,8 @@ class EmployeeController extends BaseController
      */
     public function appoint($id)
     {
+        $this->authorize('manage employee');
+
         $user = User::findOrFail($id);
         $designations = Designation::pluck('name', 'id');
 
@@ -153,6 +161,8 @@ class EmployeeController extends BaseController
      */
     public function process_appoint(Request $request, $id)
     {
+        $this->authorize('manage employee');
+
         $validated = $request->validate([
             'designation_id' => ['required', 'not_in:0'],
             'joining_date' => ['required', 'date'],

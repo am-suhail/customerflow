@@ -21,6 +21,8 @@ class VendorController extends BaseController
      */
     public function index()
     {
+        $this->authorize('view branches');
+
         $this->setPageTitle('Branches', '');
         return view('office.vendor.index');
     }
@@ -32,6 +34,8 @@ class VendorController extends BaseController
      */
     public function create()
     {
+        $this->authorize('add branch');
+
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
 
@@ -47,6 +51,8 @@ class VendorController extends BaseController
      */
     public function store(Request $request)
     {
+        $this->authorize('add branch');
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string'],
@@ -93,6 +99,8 @@ class VendorController extends BaseController
      */
     public function edit($id)
     {
+        $this->authorize('edit branch');
+
         $vendor = Vendor::findOrFail($id);
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
@@ -110,6 +118,8 @@ class VendorController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('edit branch');
+
         $validated = request()->validate([
             'name' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string'],
@@ -144,6 +154,8 @@ class VendorController extends BaseController
      */
     public function export()
     {
+        $this->authorize('export branches');
+
         return Excel::download(new BranchExport(Vendor::all()), 'branches_abc_mercantile_' . now() . '.xlsx');
     }
 }

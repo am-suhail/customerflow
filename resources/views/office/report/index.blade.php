@@ -19,7 +19,7 @@
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Bank Summary</h4>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Country Report</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
@@ -39,7 +39,7 @@
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Daily Summary</h4>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Category Report</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
@@ -59,7 +59,7 @@
 								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
 									<div class="flex flex-row justify-between items-center">
 										<div>
-											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Service Summary</h4>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Company Report</h4>
 										</div>
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"

@@ -30,21 +30,24 @@
 	<!-- Sidebar links -->
 	<nav class="flex-1 overflow-y-scroll bg-gray-700 sidebar-nav-custom hover:overflow-y-auto">
 		<ul class="p-2 overflow-hidden menu" x-data="{ selected: 1 }">
-			<x-nav.nav-link route="home">
-				<x-slot name="path">
-					<path
-						d="M12.261 4.745a.375.375 0 0 0-.518 0l-8.63 8.244a.374.374 0 0 0-.115.271l-.002 7.737a1.5 1.5 0 0 0 1.5 1.5h4.505a.75.75 0 0 0 .75-.75v-6.375a.375.375 0 0 1 .375-.375h3.75a.375.375 0 0 1 .375.375v6.375a.75.75 0 0 0 .75.75h4.503a1.5 1.5 0 0 0 1.5-1.5V13.26a.374.374 0 0 0-.116-.271L12.26 4.745Z">
-					</path>
-					<path
-						d="M23.011 11.444 19.505 8.09V3a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0-.75.75v1.5L13.04 1.904c-.254-.257-.632-.404-1.04-.404-.407 0-.784.147-1.038.405l-9.97 9.539a.765.765 0 0 0-.063 1.048.749.749 0 0 0 1.087.05l9.726-9.294a.375.375 0 0 1 .519 0l9.727 9.294a.75.75 0 0 0 1.059-.02c.288-.299.264-.791-.036-1.078Z">
-					</path>
-				</x-slot>
-				Dashboard
-			</x-nav.nav-link>
+			@can('dashboard primary')
+				<x-nav.nav-link route="home">
+					<x-slot name="path">
+						<path
+							d="M12.261 4.745a.375.375 0 0 0-.518 0l-8.63 8.244a.374.374 0 0 0-.115.271l-.002 7.737a1.5 1.5 0 0 0 1.5 1.5h4.505a.75.75 0 0 0 .75-.75v-6.375a.375.375 0 0 1 .375-.375h3.75a.375.375 0 0 1 .375.375v6.375a.75.75 0 0 0 .75.75h4.503a1.5 1.5 0 0 0 1.5-1.5V13.26a.374.374 0 0 0-.116-.271L12.26 4.745Z">
+						</path>
+						<path
+							d="M23.011 11.444 19.505 8.09V3a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0-.75.75v1.5L13.04 1.904c-.254-.257-.632-.404-1.04-.404-.407 0-.784.147-1.038.405l-9.97 9.539a.765.765 0 0 0-.063 1.048.749.749 0 0 0 1.087.05l9.726-9.294a.375.375 0 0 1 .519 0l9.727 9.294a.75.75 0 0 0 1.059-.02c.288-.299.264-.791-.036-1.078Z">
+						</path>
+					</x-slot>
+					Dashboard
+				</x-nav.nav-link>
+			@endcan
 
-			<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
-			@canany(['view projects', 'add project', 'edit project', 'delete project', 'modify project status'])
+			@canany(['view revenue', 'add revenue', 'edit revenue', 'delete revenue'])
+				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+
 				<x-nav.nav-link route="revenue.index">
 					<x-slot name="path">
 						<path
@@ -55,9 +58,10 @@
 				</x-nav.nav-link>
 			@endcanany
 
-			<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
-			@can('view products')
+			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])
+				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
 						<path
@@ -66,9 +70,9 @@
 					</x-slot>
 					Expense
 				</x-nav.nav-link>
-			@endcan
+			@endcanany
 
-			@can('view products')
+			@canany(['view asset', 'add asset', 'edit asset', 'delete asset'])
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
 						<path
@@ -77,9 +81,9 @@
 					</x-slot>
 					Asset
 				</x-nav.nav-link>
-			@endcan
+			@endcanany
 
-			@can('view products')
+			@canany(['view liability', 'add liability', 'edit liability', 'delete liability'])
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
 						<path
@@ -88,9 +92,20 @@
 					</x-slot>
 					Liability
 				</x-nav.nav-link>
-			@endcan
+			@endcanany
 
-			@can('view users')
+			@canany(['view budget', 'add budget', 'edit budget', 'delete budget'])
+				<x-nav.nav-link route="dummy">
+					<x-slot name="path">
+						<path
+							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
+						</path>
+					</x-slot>
+					Budget
+				</x-nav.nav-link>
+			@endcanany
+
+			@canany(['view users', 'manage user'])
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
 				<x-nav.nav-link route="user.index">
@@ -101,9 +116,9 @@
 					</x-slot>
 					All Users
 				</x-nav.nav-link>
-			@endcan
+			@endcanany
 
-			@can('view employees')
+			@canany(['view employees', 'manage employee'])
 				<x-nav.nav-link route="employee.index">
 					<x-slot name="path">
 						<path
@@ -112,7 +127,9 @@
 					</x-slot>
 					Employees
 				</x-nav.nav-link>
+			@endcanany
 
+			@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
 				<x-nav.nav-link route="branch.index">
 					<x-slot name="path">
 						<path d="M17 2.5H2v2h15v-2Z"></path>
@@ -121,9 +138,9 @@
 					</x-slot>
 					Branches
 				</x-nav.nav-link>
-			@endcan
+			@endcanany
 
-			@can('modify master data')
+			@can('view reports')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="report.index">
 					<x-slot name="path">
@@ -146,7 +163,7 @@
 				</x-nav.nav-link>
 			@endcan
 
-			@can('modify master data')
+			@can('modify app settings')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="master-data">
 					<x-slot name="path">

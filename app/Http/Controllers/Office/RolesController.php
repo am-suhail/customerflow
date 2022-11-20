@@ -17,6 +17,8 @@ class RolesController extends BaseController
      */
     public function index()
     {
+        $this->authorize('view roles');
+
         $this->setPageTitle('Roles & Permissions', '');
         return view('office.roles.index');
     }
@@ -28,6 +30,8 @@ class RolesController extends BaseController
      */
     public function create()
     {
+        $this->authorize('add role');
+
         $permissions = Permission::all();
 
         $this->setPageTitle('Create New Role', '');
@@ -42,6 +46,8 @@ class RolesController extends BaseController
      */
     public function store(Request $request)
     {
+        $this->authorize('add role');
+
         $validated = request()->validate([
             'name' => ['required', 'string'],
             'permissions' => ['array']
@@ -65,6 +71,8 @@ class RolesController extends BaseController
      */
     public function show($id)
     {
+        $this->authorize('view roles');
+
         $role = Role::findOrFail($id);
 
         $this->setPageTitle('Role information for ' . Str::ucfirst($role->name) . '', '');
@@ -79,6 +87,8 @@ class RolesController extends BaseController
      */
     public function edit($id)
     {
+        $this->authorize('edit role');
+
         $role = Role::findOrFail($id);
         $permissions = Permission::all();
 
@@ -95,6 +105,8 @@ class RolesController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $this->authorize('edit role');
+
         $validated = request()->validate([
             'name' => ['required', 'string'],
             'permissions' => ['array']
@@ -121,6 +133,6 @@ class RolesController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete role');
     }
 }

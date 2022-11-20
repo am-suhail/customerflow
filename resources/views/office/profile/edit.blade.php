@@ -23,9 +23,7 @@
 					<div class="col-start-1 col-end-2 form-control">
 						{!! Form::label('name', 'Name', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('name', old('name', Auth::user()->name), [
-						    'class' =>
-						        'input input-primary
-																																																																														                    input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
+						    'class' => 'input input-primary input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('name')
 							<label class="label">
@@ -39,9 +37,7 @@
 					<div class="form-control">
 						{!! Form::label('mobile', 'Mobile', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('mobile', old('mobile', Auth::user()->mobile), [
-						    'class' =>
-						        'input input-primary
-																																																																														                    input-bordered' . ($errors->has('mobile') ? 'border-2 border-red-600' : ''),
+						    'class' => 'input input-primary input-bordered' . ($errors->has('mobile') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('mobile')
 							<label class="label">
@@ -52,9 +48,7 @@
 					<div class="form-control">
 						{!! Form::label('email', 'Email', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::email('email', old('email', Auth::user()->email), [
-						    'class' =>
-						        'input input-primary
-																																																																														                    input-bordered' . ($errors->has('email') ? 'border-2 border-red-600' : ''),
+						    'class' => 'input input-primary input-bordered' . ($errors->has('email') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('email')
 							<label class="label">
@@ -68,9 +62,7 @@
 					<div class="form-control">
 						{!! Form::label('national_id', 'National ID:', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::text('national_id', old('national_id', Auth::user()->user_detail->national_id), [
-						    'class' =>
-						        'input
-																																																																														                    input-primary input-bordered' . ($errors->has('national_id') ? 'border-2 border-red-600' : ''),
+						    'class' => 'input input-primary input-bordered' . ($errors->has('national_id') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('national_id')
 							<label class="label">
@@ -221,10 +213,9 @@
 					</div>
 				</div>
 
-				<div class='grid grid-cols-1 md:grid-cols-2 mt-4'>
-					<div>
-						<button type="submit" class='btn btn-accent btn-block'>Update</button>
-					</div>
+				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
+					<a href={{ route('my-profile.index') }} class="btn">Cancel</a>
+					<button type="submit" class='btn btn-accent'>Update</button>
 				</div>
 
 				{!! Form::close() !!}

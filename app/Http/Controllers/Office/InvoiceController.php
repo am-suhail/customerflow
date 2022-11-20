@@ -17,6 +17,8 @@ class InvoiceController extends BaseController
      */
     public function index()
     {
+        $this->authorize('view revenue');
+
         $this->setPageTitle('Revenue', '');
         return view('office.invoice.index');
     }
@@ -28,6 +30,8 @@ class InvoiceController extends BaseController
      */
     public function create()
     {
+        $this->authorize('add revenue');
+
         $vendors = Vendor::pluck('name', 'id');
 
         $this->setPageTitle('New Revenue Input', '');
@@ -42,6 +46,8 @@ class InvoiceController extends BaseController
      */
     public function store()
     {
+        $this->authorize('add revenue');
+
         return redirect()->route('home');
     }
 
@@ -53,6 +59,8 @@ class InvoiceController extends BaseController
      */
     public function show($id)
     {
+        $this->authorize('view revenue');
+
         $invoice = Invoice::findOrFail($id);
 
         $pdf = PDF::loadView('pdf-template.invoice', compact('invoice'));
@@ -68,6 +76,8 @@ class InvoiceController extends BaseController
      */
     public function edit($id)
     {
+        $this->authorize('edit revenue');
+
         $invoice = Invoice::findOrFail($id);
 
         $this->setPageTitle('Edit Revenue Input ' . $invoice->number, '');
@@ -83,7 +93,7 @@ class InvoiceController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->authorize('edit revenue');
     }
 
     /**
@@ -94,6 +104,6 @@ class InvoiceController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $this->authorize('delete revenue');
     }
 }

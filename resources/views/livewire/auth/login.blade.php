@@ -85,7 +85,7 @@
 				<div class="w-full md:w-1/2 py-10 px-5 md:px-10">
 					<div class="text-center mb-10">
 						<x-logo class="w-auto h-24 mx-auto text-indigo-600" />
-						<p> Sign in to your account</p>
+						<p> Sign in to Your Account</p>
 					</div>
 					<form wire:submit.prevent="authenticate">
 						<div>

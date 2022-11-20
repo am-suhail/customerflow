@@ -82,13 +82,18 @@ Route::middleware(['auth'])->group(function () {
         // Branches Export
         Route::get('branch/export', [VendorController::class, 'export'])->name('branch.export');
 
+
+        Route::get('revenue/list', [InvoiceController::class, 'index'])->name('revenue.index');
+        Route::resource('revenue', InvoiceController::class, ['except' => ['index', 'store', 'update', 'destroy']]);
+
         // Dashboard Resources
-        Route::resources([
-            'branch' => VendorController::class,
-            'revenue' => InvoiceController::class,
-            'employee' => EmployeeController::class,
-            'roles' => RolesController::class,
-        ]);
+        Route::resources(
+            [
+                'branch' => VendorController::class,
+                'employee' => EmployeeController::class,
+                'roles' => RolesController::class,
+            ]
+        );
 
         // Reports
         Route::prefix('reports')->group(function () {
