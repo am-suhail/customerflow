@@ -4,11 +4,13 @@ namespace App\Http\Livewire\Tables;
 
 use App\Models\Vendor;
 use Livewire\Component;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\Column;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\DeleteAction;
 
 class VendorTable extends Component implements Tables\Contracts\HasTable
 {
@@ -80,10 +82,24 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->label('Remarks')
                 ->toggleable()
                 ->searchable(),
+        ];
+    }
 
-            Column::make('Manage')
-                ->view('tables.modals.vendor.actions')
-                ->extraAttributes(['class' => 'justify-center']),
+    protected function getTableActions(): array
+    {
+        return [
+            ActionGroup::make([
+                EditAction::make('edit')
+                    ->label("Edit")
+                    ->color('primary')
+                    ->url(fn ($record) => route('branch.edit', $record->id)),
+
+                DeleteAction::make("delete")
+                    ->label("Delete")
+                    ->modalHeading('Delete Branch')
+                    ->modalSubheading('Are you sure you\'d like to delete this branch? This cannot be undone.')
+                    ->visible(fn () => auth()->user()->can('delete branch'))
+            ])
         ];
     }
 

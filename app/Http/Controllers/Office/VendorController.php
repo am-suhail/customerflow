@@ -147,6 +147,17 @@ class VendorController extends BaseController
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $this->authorize('delete branch');
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id

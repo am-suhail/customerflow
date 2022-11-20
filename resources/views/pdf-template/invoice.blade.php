@@ -187,7 +187,7 @@
 						</td>
 						<td width="40%">
 							<h4>
-								{{ $item->service->name }}
+								{{ $item->subcategory->name ?? '--' }}
 							</h4>
 						</td>
 						<td width="15%">

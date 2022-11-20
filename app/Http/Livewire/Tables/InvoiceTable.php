@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\Column;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\ViewAction;
 
 class InvoiceTable extends Component implements Tables\Contracts\HasTable
 {
@@ -80,6 +84,35 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->view('tables.modals.invoice.actions')
                 ->extraAttributes(['class' => 'justify-center']),
         ];
+    }
+
+    protected function getTableActions(): array
+    {
+        return [
+            ActionGroup::make([
+                ViewAction::make('view')
+                    ->label("View")
+                    ->color('secondary')
+                    ->url(fn ($record) => route('revenue.show', $record->id))
+                    ->openUrlInNewTab(),
+
+                EditAction::make('edit')
+                    ->label("Edit")
+                    ->color('primary')
+                    ->url(fn ($record) => route('revenue.edit', $record->id)),
+
+                DeleteAction::make("delete")
+                    ->label("Delete")
+                    ->modalHeading('Delete Revenue Input')
+                    ->modalSubheading('Are you sure you\'d like to delete this input? This cannot be undone.')
+                    ->visible(fn () => auth()->user()->can('delete revenue'))
+            ])
+        ];
+    }
+
+    protected function shouldPersistTableFiltersInSession(): bool
+    {
+        return true;
     }
 
     public function render()
