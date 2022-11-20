@@ -4,14 +4,14 @@
 			<!-- head -->
 			<thead>
 				<tr>
-					<th>Date</th>
-					<th>Total Invoices</th>
-					<th>Total Services</th>
-					<th>Total Amount</th>
-					<th>Cost</th>
-					<th>GP</th>
-					<th>Discount</th>
-					<th>Profit</th>
+					<th>Country</th>
+					<th>No of Companies</th>
+					{{-- <th>Sales Revenue</th>
+					<th>Percentage</th>
+					<th>Other Revenue</th>
+					<th>Percentage</th> --}}
+					<th>Total</th>
+					<th>Total Percentage</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,7 +37,7 @@
 					</tr>
 				@empty
 					<tr>
-						<td colspan="8">
+						<td colspan="4">
 							<div class="py-20 w-full flex flex-col items-center">
 								<div class="bg-gray-200 rounded-full p-5">
 									<svg class="w-10 h-10 text-red-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
