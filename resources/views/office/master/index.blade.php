@@ -8,7 +8,7 @@
 
 		<!-- Start Content -->
 
-		<div class="md:w-3/4 px-10 py-5 mt-5 overflow-x-auto bg-gray-100 rounded shadow">
+		<div class="w-3/4 px-10 py-5 mt-5 overflow-x-auto bg-gray-100 rounded shadow">
 			<table class="w-full">
 				<tbody>
 					<!-- Location -->
@@ -36,7 +36,7 @@
 					</tr>
 
 					<!-- Qualification -->
-					<tr class="">
+					<tr class="border-b border-gray-300">
 						<td>
 							<div class="py-2 text-black">
 								Qualification

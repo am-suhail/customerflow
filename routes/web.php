@@ -116,9 +116,9 @@ Route::middleware(['auth'])->group(function () {
         // Master Data
         Route::prefix('master')->group(function () {
             // Index
-            Route::get('/', [MasterController::class, 'index'])->name('master-data');
+            Route::get('/', [MasterController::class, 'index'])->name('master.index');
             // Location
-            Route::get('/location', [MasterController::class, 'location'])->name('master.location');
+            Route::get('/location/{type?}', [MasterController::class, 'location'])->name('master.location');
             // Qualification
             Route::get('/qualification', [MasterController::class, 'qualification'])->name('master.qualification');
             // Designation
@@ -126,7 +126,7 @@ Route::middleware(['auth'])->group(function () {
             // Industry
             Route::get('/industry', [MasterController::class, 'industry'])->name('master.industry');
             // Category
-            Route::get('/category', [MasterController::class, 'category'])->name('master.category');
+            Route::get('/category/{type?}', [MasterController::class, 'category'])->name('master.category');
         });
 
         Route::get('#', function () {

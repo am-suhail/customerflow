@@ -16,12 +16,12 @@ class MasterController extends BaseController
         return view('office.master.index');
     }
 
-    public function location()
+    public function location($type = 'state')
     {
         $this->authorize('modify master data');
 
-        $this->setPageTitle('Location Data', '');
-        return view('office.master.location');
+        $this->setPageTitle($type == 'state' ? 'States' : 'Cities', '');
+        return view('office.master.location', compact('type'));
     }
 
     public function qualification()
@@ -48,27 +48,11 @@ class MasterController extends BaseController
         return view('office.master.industry');
     }
 
-    public function category()
+    public function category($type = 'main')
     {
         $this->authorize('modify master data');
 
-        $this->setPageTitle('Category Data', '');
-        return view('office.master.category');
-    }
-
-    public function unit()
-    {
-        $this->authorize('modify master data');
-
-        $this->setPageTitle('Unit Data', '');
-        return view('office.master.unit');
-    }
-
-    public function badge()
-    {
-        $this->authorize('modify master data');
-
-        $this->setPageTitle('Status Tags', '');
-        return view('office.master.badge');
+        $this->setPageTitle($type == 'main' ? 'Category Data' : 'Sub Category Data', '');
+        return view('office.master.category', compact('type'));
     }
 }

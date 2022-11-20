@@ -163,7 +163,7 @@
 
 			@can('modify master data')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-				<x-nav.nav-link route="master-data">
+				<x-nav.nav-link route="master.index">
 					<x-slot name="path">
 						<path d="M4 6v6s0 3 7 3 7-3 7-3V6"></path>
 						<path d="M11 3c7 0 7 3 7 3s0 3-7 3-7-3-7-3 0-3 7-3Z"></path>

@@ -57,7 +57,7 @@ class DashboardController extends Controller
 
         $month_invoices_chart = new InvoiceChart;
         $month_invoices_chart->labels($month_invoices->keys());
-        $month_invoices_chart->dataset('Current Year Revenue - ' . date('Y'), 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
+        $month_invoices_chart->dataset('Current Year Revenue', 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
 
         // Country Wise Sales Chart
 
