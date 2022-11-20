@@ -6,17 +6,17 @@ use App\Models\Invoice;
 use Carbon\Carbon;
 use Livewire\Component;
 
-class DailySummaryTable extends Component
+class CountryReportTable extends Component
 {
     public $daily_summary;
 
     public function mount()
     {
-        $this->daily_summary = Invoice::all();
+        $this->daily_summary = collect();
     }
 
     public function render()
     {
-        return view('livewire.tables.reports.daily-summary-table');
+        return view('livewire.tables.reports.country-report-table');
     }
 }

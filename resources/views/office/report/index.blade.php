@@ -15,8 +15,8 @@
 				<div class="flex">
 					<div class="mx-auto container align-middle">
 						<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-							<a href="{{ route('report.bank-summary') }}">
-								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
+							<a href="{{ route('report.country') }}">
+								<div class="shadow rounded-lg py-6 px-5 bg-gray-100">
 									<div class="flex flex-row justify-between items-center">
 										<div>
 											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Country Report</h4>
@@ -35,8 +35,8 @@
 								</div>
 							</a>
 
-							<a href="{{ route('report.summary') }}">
-								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
+							<a href="{{ route('report.category') }}">
+								<div class="shadow rounded-lg py-6 px-5 bg-gray-100">
 									<div class="flex flex-row justify-between items-center">
 										<div>
 											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Category Report</h4>
@@ -55,8 +55,8 @@
 								</div>
 							</a>
 
-							<a href="{{ route('report.serive-summary') }}">
-								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
+							<a href="{{ route('report.company') }}">
+								<div class="shadow rounded-lg py-6 px-5 bg-gray-100">
 									<div class="flex flex-row justify-between items-center">
 										<div>
 											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Company Report</h4>
@@ -74,8 +74,8 @@
 								</div>
 							</a>
 
-							<a href="{{ route('report.employee-summary') }}">
-								<div class="shadow rounded-lg py-6 px-5 bg-purple-200">
+							<a href="{{ route('report.company') }}">
+								<div class="shadow rounded-lg py-6 px-5 bg-gray-100">
 									<div class="flex flex-row justify-between items-center">
 										<div>
 											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">User Summary</h4>

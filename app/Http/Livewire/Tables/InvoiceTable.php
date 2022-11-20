@@ -60,7 +60,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('service')
                 ->label('Category')
-                ->getStateUsing(fn (Invoice $record) =>  $record->items->first()->subcategory->category->name)
+                ->getStateUsing(fn (Invoice $record) =>  $record->items->first()->subcategory->category->name ?? "--")
                 ->toggleable()
                 ->searchable(),
 

@@ -26,7 +26,7 @@
 
 		<div class="p-2">
 			<div class="py-4">
-				<livewire:tables.reports.user-summary-table />
+				<livewire:tables.reports.country-report-table />
 			</div>
 		</div>
 

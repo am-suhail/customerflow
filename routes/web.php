@@ -101,13 +101,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [ReportController::class, 'index'])->name('report.index');
 
             // Summary Report
-            Route::get('/summary', [ReportController::class, 'summary'])->name('report.summary');
+            Route::get('/country', [ReportController::class, 'country'])->name('report.country');
 
             // Services Summary Report
-            Route::get('/service-summary', [ReportController::class, 'service_summary'])->name('report.serive-summary');
+            Route::get('/category', [ReportController::class, 'category'])->name('report.category');
 
             // Employees Summary Report
-            Route::get('/employee-summary', [ReportController::class, 'employee_summary'])->name('report.employee-summary');
+            Route::get('/company', [ReportController::class, 'company'])->name('report.company');
 
             // Bank Card Summary Report
             Route::get('/bank-summary', [ReportController::class, 'bank_summary'])->name('report.bank-summary');

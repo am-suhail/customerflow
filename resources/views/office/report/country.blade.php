@@ -25,9 +25,8 @@
 		@include('layouts.app.flash')
 
 		<div class="p-2">
-			<hr>
 			<div class="py-4">
-				<livewire:tables.reports.service-summary-table />
+				<livewire:tables.reports.country-report-table />
 			</div>
 		</div>
 

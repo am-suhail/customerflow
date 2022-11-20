@@ -15,22 +15,22 @@ class ReportController extends BaseController
         return view('office.report.index');
     }
 
-    public function summary()
+    public function country()
     {
-        $this->setPageTitle('Daily Summary', '');
-        return view('office.report.summary');
+        $this->setPageTitle('Country Report', '');
+        return view('office.report.country');
     }
 
-    public function service_summary()
+    public function category()
     {
-        $this->setPageTitle('Service Summary', '');
-        return view('office.report.service-summary');
+        $this->setPageTitle('Category Report', '');
+        return view('office.report.category');
     }
 
-    public function employee_summary()
+    public function company()
     {
-        $this->setPageTitle('Employee Summary', '');
-        return view('office.report.user-summary');
+        $this->setPageTitle('Company Report', '');
+        return view('office.report.company');
     }
 
     public function bank_summary()
