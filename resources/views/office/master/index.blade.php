@@ -141,7 +141,7 @@
 					</tr>
 
 					<!-- Categories -->
-					<tr class="border-b border-gray-300">
+					<tr class="">
 						<td>
 							<div class="py-2 text-black">
 								Categories

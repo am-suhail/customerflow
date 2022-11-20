@@ -28,17 +28,14 @@
 		</button>
 	</div>
 	<!-- Sidebar links -->
-	<nav class="flex-1 overflow-y-scroll bg-gray-700 sidebar-nav-custom hover:overflow-y-auto">
+	<nav class="flex-1 overflow-y-scroll bg-gray-700 sidebar-nav-custom hover:overflow-y-auto" id="sidebarNav">
 		<ul class="p-2 overflow-hidden menu" x-data="{ selected: 1 }">
 			@can('dashboard primary')
 				<x-nav.nav-link route="home">
 					<x-slot name="path">
-						<path
-							d="M12.261 4.745a.375.375 0 0 0-.518 0l-8.63 8.244a.374.374 0 0 0-.115.271l-.002 7.737a1.5 1.5 0 0 0 1.5 1.5h4.505a.75.75 0 0 0 .75-.75v-6.375a.375.375 0 0 1 .375-.375h3.75a.375.375 0 0 1 .375.375v6.375a.75.75 0 0 0 .75.75h4.503a1.5 1.5 0 0 0 1.5-1.5V13.26a.374.374 0 0 0-.116-.271L12.26 4.745Z">
-						</path>
-						<path
-							d="M23.011 11.444 19.505 8.09V3a.75.75 0 0 0-.75-.75h-2.25a.75.75 0 0 0-.75.75v1.5L13.04 1.904c-.254-.257-.632-.404-1.04-.404-.407 0-.784.147-1.038.405l-9.97 9.539a.765.765 0 0 0-.063 1.048.749.749 0 0 0 1.087.05l9.726-9.294a.375.375 0 0 1 .519 0l9.727 9.294a.75.75 0 0 0 1.059-.02c.288-.299.264-.791-.036-1.078Z">
-						</path>
+						<path d="M5 12H3l9-9 9 9h-2"></path>
+						<path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"></path>
+						<path d="M9 21v-6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v6"></path>
 					</x-slot>
 					Dashboard
 				</x-nav.nav-link>
@@ -50,9 +47,10 @@
 
 				<x-nav.nav-link route="revenue.index">
 					<x-slot name="path">
-						<path
-							d="M9 2.003V2h10.998C20.55 2 21 2.455 21 2.992v18.016a.993.993 0 0 1-.993.992H3.993A1 1 0 0 1 3 20.993V8l6-5.997ZM5.83 8H9V4.83L5.83 8ZM11 4v5a1 1 0 0 1-1 1H5v10h14V4h-8Z">
-						</path>
+						<path d="M20 6H9"></path>
+						<path d="M20 12h-7"></path>
+						<path d="M20 18H9"></path>
+						<path d="m4 8 4 4-4 4"></path>
 					</x-slot>
 					Revenue
 				</x-nav.nav-link>
@@ -64,9 +62,10 @@
 
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
-						<path
-							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
-						</path>
+						<path d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"></path>
+						<path d="m4.6 19.402 14.8-14.8"></path>
+						<path d="M9 7v4M7 9h4-4Z"></path>
+						<path d="M13 16h4"></path>
 					</x-slot>
 					Expense
 				</x-nav.nav-link>
@@ -75,9 +74,10 @@
 			@canany(['view asset', 'add asset', 'edit asset', 'delete asset'])
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
-						<path
-							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
-						</path>
+						<path d="M19 7H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"></path>
+						<path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+						<path d="M12 12v.01"></path>
+						<path d="M3 13a20 20 0 0 0 18 0"></path>
 					</x-slot>
 					Asset
 				</x-nav.nav-link>
@@ -86,9 +86,8 @@
 			@canany(['view liability', 'add liability', 'edit liability', 'delete liability'])
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
-						<path
-							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
-						</path>
+						<path d="M17 10h4v4"></path>
+						<path d="M3 12.001c.887-1.284 2.48-2.033 4-2 1.52-.033 3.113.716 4 2s2.48 2.033 4 2c1.52.033 3-1 4-2l2-2"></path>
 					</x-slot>
 					Liability
 				</x-nav.nav-link>
@@ -97,9 +96,12 @@
 			@canany(['view budget', 'add budget', 'edit budget', 'delete budget'])
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
-						<path
-							d="M4 16h16V5H4v11Zm9 2v2h4v2H7v-2h4v-2H2.992A1 1 0 0 1 2 16.993V4.007C2 3.451 2.455 3 2.992 3h18.016c.548 0 .992.449.992 1.007v12.986c0 .556-.455 1.007-.992 1.007H13Z">
-						</path>
+						<path d="M16 9c2.761 0 5-1.343 5-3s-2.239-3-5-3-5 1.343-5 3 2.239 3 5 3Z"></path>
+						<path d="M11 6v4c0 1.657 2.239 3 5 3s5-1.343 5-3V6"></path>
+						<path d="M11 10v4c0 1.657 2.239 3 5 3s5-1.343 5-3v-4"></path>
+						<path d="M11 14v4c0 1.657 2.239 3 5 3s5-1.343 5-3v-4"></path>
+						<path d="M7 9H4.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 1 1 0 3H3"></path>
+						<path d="M5 8v1m0 6v1-1Z"></path>
 					</x-slot>
 					Budget
 				</x-nav.nav-link>
@@ -110,9 +112,10 @@
 
 				<x-nav.nav-link route="user.index">
 					<x-slot name="path">
-						<path
-							d="M9 13.75c-2.34 0-7 1.17-7 3.5V19h14v-1.75c0-2.33-4.66-3.5-7-3.5ZM4.34 17c.84-.58 2.87-1.25 4.66-1.25s3.82.67 4.66 1.25H4.34ZM9 12c1.93 0 3.5-1.57 3.5-3.5S10.93 5 9 5 5.5 6.57 5.5 8.5 7.07 12 9 12Zm0-5c.83 0 1.5.67 1.5 1.5S9.83 10 9 10s-1.5-.67-1.5-1.5S8.17 7 9 7Zm7.04 6.81c1.16.84 1.96 1.96 1.96 3.44V19h4v-1.75c0-2.02-3.5-3.17-5.96-3.44ZM15 12c1.93 0 3.5-1.57 3.5-3.5S16.93 5 15 5c-.54 0-1.04.13-1.5.35.63.89 1 1.98 1 3.15s-.37 2.26-1 3.15c.46.22.96.35 1.5.35Z">
-						</path>
+						<path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+						<path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
+						<path d="M16 3.133a4 4 0 0 1 0 7.75"></path>
+						<path d="M21 20.998v-2a4 4 0 0 0-3-3.85"></path>
 					</x-slot>
 					All Users
 				</x-nav.nav-link>
@@ -121,9 +124,9 @@
 			@canany(['view employees', 'manage employee'])
 				<x-nav.nav-link route="employee.index">
 					<x-slot name="path">
-						<path
-							d="M12 3a5.26 5.26 0 0 0-5.25 5.25c0 1.784.908 3.363 2.273 4.313-3.079 1.2-5.273 4.2-5.273 7.687h1.5c0-3.299 2.394-6.056 5.531-6.633L11.25 15h1.5l.469-1.383c3.137.577 5.531 3.334 5.531 6.633h1.5c0-3.486-2.194-6.486-5.273-7.688A5.259 5.259 0 0 0 17.25 8.25 5.26 5.26 0 0 0 12 3Zm0 1.5c2.08 0 3.75 1.67 3.75 3.75S14.08 12 12 12s-3.75-1.67-3.75-3.75S9.92 4.5 12 4.5Zm-.75 11.25-.75 4.5h3l-.75-4.5h-1.5Z">
-						</path>
+						<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+						<path d="M8.5 3a4 4 0 1 0 0 8 4 4 0 1 0 0-8z"></path>
+						<path d="m17 11 2 2 4-4"></path>
 					</x-slot>
 					Employees
 				</x-nav.nav-link>
@@ -132,9 +135,13 @@
 			@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
 				<x-nav.nav-link route="branch.index">
 					<x-slot name="path">
-						<path d="M17 2.5H2v2h15v-2Z"></path>
-						<path d="M15 15.5h2v-3h1v-2l-1-5H2l-1 5v2h1v6h9v-6h4v3Zm-6 1H4v-4h5v4Zm-5.96-6 .6-3h11.72l.6 3H3.04Z"></path>
-						<path d="M23 16.5h-3v-3h-2v3h-3v2h3v3h2v-3h3v-2Z"></path>
+						<path d="M3 21h18"></path>
+						<path d="M5 21V7l8-4v18"></path>
+						<path d="M19 21V11l-6-4"></path>
+						<path d="M9 9v.01"></path>
+						<path d="M9 12v.01"></path>
+						<path d="M9 15v.01"></path>
+						<path d="M9 18v.01"></path>
 					</x-slot>
 					Branches
 				</x-nav.nav-link>
@@ -144,9 +151,11 @@
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="report.index">
 					<x-slot name="path">
-						<path
-							d="M21.5 5.5v2h-3v3h-2v-3h-3v-2h3v-3h2v3h3Zm-3 14h-14v-14h6v-2h-6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-6h-2v6Zm-4-6v4h2v-4h-2Zm-4 4h2v-8h-2v8Zm-2 0v-6h-2v6h2Z">
-						</path>
+						<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
+						<path d="M13 3h-2a2 2 0 1 0 0 4h2a2 2 0 1 0 0-4Z"></path>
+						<path d="M9 17v-5"></path>
+						<path d="M12 17v-1"></path>
+						<path d="M15 17v-3"></path>
 					</x-slot>
 					Reports
 				</x-nav.nav-link>
@@ -156,8 +165,11 @@
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="master-data">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+						<path d="M4 6v6s0 3 7 3 7-3 7-3V6"></path>
+						<path d="M11 3c7 0 7 3 7 3s0 3-7 3-7-3-7-3 0-3 7-3Z"></path>
+						<path d="M11 21c-7 0-7-3-7-3v-6"></path>
+						<path d="M19 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
+						<path stroke-dasharray="0.3 2" d="M19 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
 					</x-slot>
 					Data Settings
 				</x-nav.nav-link>
@@ -165,10 +177,13 @@
 
 			@can('modify app settings')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-				<x-nav.nav-link route="master-data">
+				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-							d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+						<path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path>
+						<path d="m12 12.002-3 5.197m9-5.197h-6 6ZM9 6.805l3 5.197-3-5.197Z"></path>
+						<path stroke-dasharray="1 3" d="M12 19a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"></path>
+						<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"></path>
+						<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
 					</x-slot>
 					Company Settings
 				</x-nav.nav-link>
@@ -211,7 +226,7 @@
 
 @push('scripts')
 	<script>
-		let sidebar = document.getElementById('sidebar');
+		let sidebar = document.getElementById('sidebarNav');
 		let pagePoint = sessionStorage.getItem('sidebar-scroll');
 
 		if (pagePoint !== null) {
