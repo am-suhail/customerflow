@@ -37,7 +37,7 @@
 				<div class="pt-4 my-6 card">
 					<div x-show="activeTabIndex == 0">
 						<x-toggle-record-field>
-							<livewire:records.add-single-record :model="'\App\Models\State'" :recordLabel="'Add New State'">
+							<livewire:records.add-state-record />
 						</x-toggle-record-field>
 						<div class="py-4">
 							<livewire:tables.master.state-table>
@@ -46,7 +46,7 @@
 
 					<div x-show="activeTabIndex == 1">
 						<x-toggle-record-field>
-							<livewire:records.add-city-record>
+							<livewire:records.add-city-record />
 						</x-toggle-record-field>
 						<div class="py-4">
 							<livewire:tables.master.city-table>

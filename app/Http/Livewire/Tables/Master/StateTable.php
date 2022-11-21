@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tables\Master;
 
+use App\Models\Country;
 use App\Models\State;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
@@ -13,6 +14,7 @@ use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 
 class StateTable extends Component implements Tables\Contracts\HasTable
@@ -30,6 +32,10 @@ class StateTable extends Component implements Tables\Contracts\HasTable
         return [
             TextColumn::make('#')
                 ->rowIndex(),
+
+            TextColumn::make('country.name')
+                ->label('Belongs to Country')
+                ->searchable(),
 
             TextColumn::make('name')
                 ->sortable()
@@ -52,6 +58,11 @@ class StateTable extends Component implements Tables\Contracts\HasTable
                     ->color('primary')
                     ->modalHeading(fn ($record) => "Edit " . $record->name)
                     ->form([
+                        Select::make('country_id')
+                            ->label('Belongs to Country')
+                            ->options(Country::query()->pluck('name', 'id'))
+                            ->required(),
+
                         TextInput::make('name')
                             ->label('State Name')
                             ->required(),
