@@ -15,25 +15,24 @@ class DashboardController extends Controller
     {
         $this->authorize('dashboard primary');
 
-        $current_year = Invoice::whereYear('date', date('Y'))
-            ->get();
+        $invoices = Invoice::with('vendor', 'vendor.country')->get();
+        $vendors = Vendor::all();
+
+        $current_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y'));
+        $previous_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
 
         $current_year_revenue = $current_year->sum('total_amount');
 
-        $previous_year = Invoice::whereYear('date', date("Y", strtotime("-1 year")))
-            ->get();
-
         $previous_year_revenue = $previous_year->sum('total_amount');
 
-        $total_branches = count(Vendor::all());
+        $total_branches = count($vendors);
 
-        $branches = Vendor::all()->filter(fn ($data) => !is_null($data->country_id));
-
+        $branches = $vendors->filter(fn ($data) => !is_null($data->country_id));
         $total_countries = count($branches->groupBy('country_id'));
 
         // Charts
         // Yearly Revenue Chart
-        $year_invoices = Invoice::all()
+        $year_invoices = $invoices
             ->sortBy(function ($data) {
                 return Carbon::parse($data->date)->format('Y');
             })
@@ -46,8 +45,7 @@ class DashboardController extends Controller
         $year_invoices_chart->dataset('Yearly Revenue', 'bar', $year_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#3B82F6");
 
         // Current Year Revenue Chart
-        $month_invoices = Invoice::whereYear('date', date('Y'))
-            ->get()
+        $month_invoices = $current_year
             ->sortBy(function ($data) {
                 return Carbon::parse($data->date)->format('m');
             })
@@ -60,17 +58,15 @@ class DashboardController extends Controller
         $month_invoices_chart->dataset('Current Year Revenue', 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
 
         // Country Wise Sales Chart
-
-        $country_wise_invoices = Invoice::whereYear('date', date('Y'))
-            ->get()
+        $country_wise_invoices = $current_year
             ->groupBy(function ($data) {
                 return $data->vendor->country->name ?? "Others";
             });
 
         $country_wise_invoices_chart = new InvoiceChart;
         $country_wise_invoices_chart->labels($country_wise_invoices->keys());
-        $country_wise_invoices_chart->dataset('Revenue %', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
 
+        $country_wise_invoices_chart->dataset('Revenue %', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
 
         return view('office.home.index', compact(
             'year_invoices_chart',

@@ -21,6 +21,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
         return Invoice::query()
+            ->with('activities', 'activities.causer', 'items', 'items.subcategory')
             ->orderBy('number', 'desc');
     }
 
