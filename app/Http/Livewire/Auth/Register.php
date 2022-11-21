@@ -2,55 +2,58 @@
 
 namespace App\Http\Livewire\Auth;
 
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use Livewire\Component;
+use Filament\Forms;
+use Filament\Forms\Components\TextInput;
+use AbanoubNassem\FilamentPhoneField\Forms\Components\PhoneInput;
 
-class Register extends Component
+class Register extends Component implements Forms\Contracts\HasForms
 {
-    /** @var string */
-    public $name = '';
+    use Forms\Concerns\InteractsWithForms;
 
-    /** @var int */
-    public $mobile = '';
+    public
+        $name,
+        $mobile,
+        $email,
+        $password,
+        $password_confirmation;
 
-    /** @var string */
-    public $email = '';
+    protected function getFormSchema(): array
+    {
+        return [
+            TextInput::make('name')
+                ->required(),
 
-    /** @var string */
-    public $password = '';
+            PhoneInput::make('mobile')
+                ->required()
+                ->initialCountry(null)
+                ->tel(),
 
-    /** @var string */
-    public $passwordConfirmation = '';
+            TextInput::make('email')
+                ->required()
+                ->email(),
 
-    /** @var string */
-    public $verified = false;
+            TextInput::make('password')
+                ->password()
+                ->required()
+                ->confirmed()
+                ->disableAutocomplete(),
 
-    /** @var string */
-    public $verifying = false;
-
-    // public function otpProcess()
-    // {
-    //     $this->validate([
-    //         'name' => ['required'],
-    //         'mobile' => ['required', 'phone:AE', 'unique:users'],
-    //         'email' => ['required', 'email', 'unique:users'],
-    //         'password' => ['required', 'min:8', 'same:passwordConfirmation'],
-    //     ]);
-
-    // }
+            TextInput::make('password_confirmation')
+                ->password()
+                ->dehydrated(false)
+        ];
+    }
 
     public function register()
     {
-        $this->validate([
-            'name' => ['required'],
-            'mobile' => ['required', 'phone:AE', 'unique:users'],
-            'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'same:passwordConfirmation'],
-        ]);
+        $validated = $this->form->getState();
+
+        dd($validated['mobile']);
 
         $user = User::create([
             'email' => $this->email,
