@@ -29,8 +29,7 @@
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^5.1",
         "spatie/laravel-settings": "^2.4",
-        "wire-elements/modal": "^1.0",
-        "ysfkaya/filament-phone-input": "^1.1"
+        "wire-elements/modal": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

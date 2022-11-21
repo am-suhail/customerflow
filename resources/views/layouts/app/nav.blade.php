@@ -17,8 +17,8 @@
 	<!-- sidebar header -->
 	<div class="flex items-center justify-between flex-shrink-0 p-2 bg-gray-700"
 		:class="{ 'lg:justify-center': !isSidebarOpen }">
-		<span class="p-2 text-xl font-semibold leading-8 tracking-wider text-gray-200 uppercase whitespace-nowrap">
-			SHOP<span :class="{ 'lg:hidden': !isSidebarOpen }">PRIX RETAIL</span>
+		<span class="p-2 md:text-xl font-semibold leading-8 tracking-wider text-gray-200 uppercase whitespace-nowrap">
+			<span :class="{ 'lg:hidden': !isSidebarOpen }">{{ Str::limit($general_settings->company_name, 15, '..') }}</span>
 		</span>
 		<button @click="toggleSidbarMenu()" class="p-2 rounded-md lg:hidden">
 			<svg class="w-6 h-6 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -177,7 +177,7 @@
 
 			@can('modify app settings')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-				<x-nav.nav-link route="dummy">
+				<x-nav.nav-link route="app-settings.general">
 					<x-slot name="path">
 						<path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path>
 						<path d="m12 12.002-3 5.197m9-5.197h-6 6ZM9 6.805l3 5.197-3-5.197Z"></path>
@@ -185,7 +185,7 @@
 						<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"></path>
 						<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
 					</x-slot>
-					Company Settings
+					App Settings
 				</x-nav.nav-link>
 			@endcan
 

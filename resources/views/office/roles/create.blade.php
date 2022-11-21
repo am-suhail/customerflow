@@ -35,9 +35,7 @@
 					{!! Form::label('name', 'Role', ['class' => 'label font-semibold uppercase']) !!}
 					{!! Form::text('name', old('name'), [
 					    'required',
-					    'class' =>
-					        'input input-primary
-										                input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
+					    'class' => 'input input-primary input-bordered' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
 					]) !!}
 					@error('name')
 						<label class="label">
@@ -46,17 +44,14 @@
 					@enderror
 				</div>
 
-				<div class="grid grid-cols-3 gap-4 my-4">
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
 					@foreach ($permissions as $permission)
 						<div class="p-2 rounded-lg form-control bg-base-200">
 							<label class="cursor-pointer label">
 								{!! Form::label('permissions', $permission->name, ['class' => 'label-text']) !!}
 								{!! Form::checkbox('permissions[]', $permission->id, old('permissions'), [
-								    'class' => 'checkbox
-																                        checkbox-accent',
+								    'class' => 'checkbox checkbox-accent',
 								]) !!}
-								{{-- <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
-                        class="checkbox checkbox-accent"> --}}
 							</label>
 						</div>
 					@endforeach

@@ -1,1 +1,1 @@
-<h6>SHOPPRIX RETAIL</h6>
+<h6 class="uppercase">{{ $general_settings->company_name }}</h6>

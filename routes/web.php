@@ -9,6 +9,7 @@ use App\Http\Controllers\Office\MasterController;
 use App\Http\Controllers\Office\ProfileController;
 use App\Http\Controllers\Office\ReportController;
 use App\Http\Controllers\Office\RolesController;
+use App\Http\Controllers\Office\SettingsController;
 use App\Http\Controllers\Office\UserController;
 use App\Http\Controllers\Office\VendorController;
 use App\Http\Livewire\Auth\Login;
@@ -127,6 +128,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/industry', [MasterController::class, 'industry'])->name('master.industry');
             // Category
             Route::get('/category/{type?}', [MasterController::class, 'category'])->name('master.category');
+        });
+
+        // Application Settings
+        Route::prefix('settings')->group(function () {
+            // General
+            Route::get('/general-settings', [SettingsController::class, 'index'])->name('app-settings.general');
+            Route::post('/general-settings', [SettingsController::class, 'update'])->name('app-settings.update-general');
         });
 
         Route::get('#', function () {

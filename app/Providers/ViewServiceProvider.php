@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\StatusBadge;
+use App\View\Composers\GeneralSettingsComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,5 +30,11 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('tables.project-actions', function ($view) {
             $view->with('statuses', StatusBadge::pluck('name', 'name'));
         });
+
+        View::composers(
+            [
+                GeneralSettingsComposer::class => '*',
+            ]
+        );
     }
 }
