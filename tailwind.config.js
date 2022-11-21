@@ -35,9 +35,6 @@ module.exports = {
         "./vendor/filament/**/*.blade.php",
     ],
     safelist: ["text-blue-600", "text-indigo-600", "border-blue-600"],
-    daisyui: {
-        themes: ["light"],
-    },
     plugins: [
         require("@tailwindcss/forms"),
         require("@tailwindcss/typography"),

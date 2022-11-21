@@ -11,15 +11,19 @@
 					</span>
 				</label>
 
-				<div class="flex space-x-2">
-					<select id="country" wire:model='country' class="select select-bordered">
-						<option>--choose country--</option>
-						@foreach ($countries as $country)
-							<option value="{{ $country->id }}">{{ $country->name }}</option>
-						@endforeach
-					</select>
-					<input type="text" id="name" class="w-1/3 input input-bordered" wire:model='name' required>
-					<div class="mx-2 btn-group" role="group">
+				<div class="flex flex-col space-y-2 space-x-0 sm:flex-row sm:space-y-0 sm:space-x-2">
+					<div>
+						<select id="country" wire:model='country' class="select select-bordered w-full">
+							<option>--choose country--</option>
+							@foreach ($countries as $country)
+								<option value="{{ $country->id }}">{{ $country->name }}</option>
+							@endforeach
+						</select>
+					</div>
+					<div>
+						<input type="text" id="name" class="input input-bordered w-full" wire:model='name' required>
+					</div>
+					<div class="btn-group" role="group">
 						<button type="submit" class="btn btn-accent">
 							<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
@@ -31,12 +35,14 @@
 							</svg>
 						</button>
 					</div>
-					<button type="button" wire:click="refreshRecord" class="bg-green-600 border-0 btn hover:bg-green-500">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-								d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-						</svg>
-					</button>
+					<div class="btn-group" role="group">
+						<button type="button" wire:click="refreshRecord" class="bg-green-600 border-0 btn hover:bg-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+									d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+							</svg>
+						</button>
+					</div>
 				</div>
 				@error('country')
 					<span class="text-red-600">{{ $message }}</span>
