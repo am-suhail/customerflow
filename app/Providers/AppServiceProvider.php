@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Spatie\Activitylog\Models\Activity;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,14 @@ class AppServiceProvider extends ServiceProvider
             });
 
             return $this;
+        });
+
+        Activity::saving(function (Activity $activity) {
+            $activity->properties = $activity->properties->put('agent', [
+                'ip_address' => Request::ip(),
+                'browser' => Request::header('User-Agent'),
+                'url' => Request::fullUrl(),
+            ]);
         });
 
         Schema::defaultStringLength(191);
