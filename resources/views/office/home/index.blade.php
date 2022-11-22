@@ -84,17 +84,23 @@
 		<!-- ./Statistics Cards -->
 
 		<div class="grid grid-cols-1 gap-6 mt-6 xl:grid-cols-2">
-			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
-				{!! $month_invoices_chart->container() !!}
-			</div>
+			@if (!is_null($bar_chart_monthly))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $bar_chart_monthly->container() !!}
+				</div>
+			@endif
 
-			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
-				{!! $year_invoices_chart->container() !!}
-			</div>
+			@if (!is_null($bar_chart_yearly))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $bar_chart_yearly->container() !!}
+				</div>
+			@endif
 
-			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
-				{!! $country_wise_invoices_chart->container() !!}
-			</div>
+			@if (!is_null($pie_chart_country))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $pie_chart_country->container() !!}
+				</div>
+			@endif
 		</div>
 
 	</main>
@@ -103,8 +109,16 @@
 @once
 	@push('scripts')
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-		{!! $year_invoices_chart->script() !!}
-		{!! $month_invoices_chart->script() !!}
-		{!! $country_wise_invoices_chart->script() !!}
+		@if (!is_null($bar_chart_monthly))
+			{!! $bar_chart_monthly->script() !!}
+		@endif
+
+		@if (!is_null($bar_chart_yearly))
+			{!! $bar_chart_yearly->script() !!}
+		@endif
+
+		@if (!is_null($pie_chart_country))
+			{!! $pie_chart_country->script() !!}
+		@endif
 	@endpush
 @endonce

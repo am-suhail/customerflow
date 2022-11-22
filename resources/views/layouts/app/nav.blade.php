@@ -177,7 +177,7 @@
 
 			@can('modify app settings')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-				<x-nav.nav-link route="app-settings.general">
+				<x-nav.nav-link route="app-settings.index">
 					<x-slot name="path">
 						<path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path>
 						<path d="m12 12.002-3 5.197m9-5.197h-6 6ZM9 6.805l3 5.197-3-5.197Z"></path>

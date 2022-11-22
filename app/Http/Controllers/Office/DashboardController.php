@@ -6,12 +6,13 @@ use App\Charts\InvoiceChart;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Vendor;
+use app\Settings\DashboardSettings;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(DashboardSettings $settings)
     {
         $this->authorize('dashboard primary');
 
@@ -31,47 +32,57 @@ class DashboardController extends Controller
         $total_countries = count($branches->groupBy('country_id'));
 
         // Charts
-        // Yearly Revenue Chart
-        $year_invoices = $invoices
-            ->sortBy(function ($data) {
-                return Carbon::parse($data->date)->format('Y');
-            })
-            ->groupBy(function ($data) {
-                return Carbon::parse($data->date)->format('Y');
-            });
+        $bar_chart_yearly = null;
+        $bar_chart_monthly = null;
+        $pie_chart_country = null;
 
-        $year_invoices_chart = new InvoiceChart;
-        $year_invoices_chart->labels($year_invoices->keys());
-        $year_invoices_chart->dataset('Yearly Revenue', 'bar', $year_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#3B82F6");
+        // Yearly Revenue Chart
+        if ($settings->bar_chart_yearly) {
+            $year_invoices = $invoices
+                ->sortBy(function ($data) {
+                    return Carbon::parse($data->date)->format('Y');
+                })
+                ->groupBy(function ($data) {
+                    return Carbon::parse($data->date)->format('Y');
+                });
+
+            $bar_chart_yearly = new InvoiceChart;
+            $bar_chart_yearly->labels($year_invoices->keys());
+            $bar_chart_yearly->dataset('Yearly Revenue', 'bar', $year_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#3B82F6");
+        }
 
         // Current Year Revenue Chart
-        $month_invoices = $current_year
-            ->sortBy(function ($data) {
-                return Carbon::parse($data->date)->format('m');
-            })
-            ->groupBy(function ($data) {
-                return Carbon::parse($data->date)->format('M');
-            });
+        if ($settings->bar_chart_monthly) {
+            $month_invoices = $current_year
+                ->sortBy(function ($data) {
+                    return Carbon::parse($data->date)->format('m');
+                })
+                ->groupBy(function ($data) {
+                    return Carbon::parse($data->date)->format('M');
+                });
 
-        $month_invoices_chart = new InvoiceChart;
-        $month_invoices_chart->labels($month_invoices->keys());
-        $month_invoices_chart->dataset('Current Year Revenue', 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
+            $bar_chart_monthly = new InvoiceChart;
+            $bar_chart_monthly->labels($month_invoices->keys());
+            $bar_chart_monthly->dataset('Current Year Revenue', 'bar', $month_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
+        }
 
         // Country Wise Sales Chart
-        $country_wise_invoices = $current_year
-            ->groupBy(function ($data) {
-                return $data->vendor->country->name ?? "Others";
-            });
+        if ($settings->pie_chart_country) {
+            $country_wise_invoices = $current_year
+                ->groupBy(function ($data) {
+                    return $data->vendor->country->name ?? "Others";
+                });
 
-        $country_wise_invoices_chart = new InvoiceChart;
-        $country_wise_invoices_chart->labels($country_wise_invoices->keys());
+            $pie_chart_country = new InvoiceChart;
+            $pie_chart_country->labels($country_wise_invoices->keys());
 
-        $country_wise_invoices_chart->dataset('Revenue %', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
+            $pie_chart_country->dataset('Revenue %', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
+        }
 
         return view('office.home.index', compact(
-            'year_invoices_chart',
-            'month_invoices_chart',
-            'country_wise_invoices_chart',
+            'bar_chart_monthly',
+            'bar_chart_yearly',
+            'pie_chart_country',
             'current_year_revenue',
             'previous_year_revenue',
             'total_countries',

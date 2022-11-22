@@ -3,7 +3,9 @@
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Office\DashboardController;
+use App\Http\Controllers\Office\DashboardSettingsController;
 use App\Http\Controllers\Office\EmployeeController;
+use App\Http\Controllers\Office\GeneralSettingsController;
 use App\Http\Controllers\Office\InvoiceController;
 use App\Http\Controllers\Office\MasterController;
 use App\Http\Controllers\Office\ProfileController;
@@ -132,9 +134,15 @@ Route::middleware(['auth'])->group(function () {
 
         // Application Settings
         Route::prefix('settings')->group(function () {
+            Route::get('/', SettingsController::class)->name('app-settings.index');
+
             // General
-            Route::get('/general-settings', [SettingsController::class, 'index'])->name('app-settings.general');
-            Route::post('/general-settings', [SettingsController::class, 'update'])->name('app-settings.update-general');
+            Route::get('/general-settings', [GeneralSettingsController::class, 'index'])->name('app-settings.general');
+            Route::post('/general-settings', [GeneralSettingsController::class, 'update'])->name('app-settings.update-general');
+
+            // Dashboard
+            Route::get('/dashboard-settings', [DashboardSettingsController::class, 'index'])->name('app-settings.dashboard');
+            Route::post('/dashboard-settings', [DashboardSettingsController::class, 'update'])->name('app-settings.update-dashboard');
         });
 
         Route::get('#', function () {
