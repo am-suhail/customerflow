@@ -28,15 +28,14 @@
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase">Other Revenue</label>
-				<input placeholder="Amount" type="number" min="1" wire:model="selling_price"
-					class="input input-bordered input-primary">
-				@error('selling_price')
+				<input placeholder="Amount" type="number" min="1" class="input input-bordered input-primary">
+				{{-- @error('')
 					<div class="label uppercase">
 						<span class="text-error label-text">
-							{{ $errors->first('selling_price') }}
+							{{ $errors->first('') }}
 						</span>
 					</div>
-				@enderror
+				@enderror --}}
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
