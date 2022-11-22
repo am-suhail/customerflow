@@ -101,6 +101,30 @@
 					{!! $pie_chart_country->container() !!}
 				</div>
 			@endif
+
+			@if (!is_null($pie_chart_state))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $pie_chart_state->container() !!}
+				</div>
+			@endif
+
+			@if (!is_null($pie_chart_city))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $pie_chart_city->container() !!}
+				</div>
+			@endif
+
+			@if (!is_null($pie_chart_category))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $pie_chart_category->container() !!}
+				</div>
+			@endif
+
+			@if (!is_null($pie_chart_sub_category))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $pie_chart_sub_category->container() !!}
+				</div>
+			@endif
 		</div>
 
 	</main>
@@ -119,6 +143,22 @@
 
 		@if (!is_null($pie_chart_country))
 			{!! $pie_chart_country->script() !!}
+		@endif
+
+		@if (!is_null($pie_chart_state))
+			{!! $pie_chart_state->script() !!}
+		@endif
+
+		@if (!is_null($pie_chart_city))
+			{!! $pie_chart_city->script() !!}
+		@endif
+
+		@if (!is_null($pie_chart_category))
+			{!! $pie_chart_category->script() !!}
+		@endif
+
+		@if (!is_null($pie_chart_sub_category))
+			{!! $pie_chart_sub_category->script() !!}
 		@endif
 	@endpush
 @endonce
