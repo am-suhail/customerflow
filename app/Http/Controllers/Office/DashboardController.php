@@ -35,6 +35,10 @@ class DashboardController extends Controller
         $bar_chart_yearly = null;
         $bar_chart_monthly = null;
         $pie_chart_country = null;
+        $pie_chart_state = null;
+        $pie_chart_city = null;
+        $pie_chart_sub_category = null;
+        $pie_chart_category = null;
 
         // Yearly Revenue Chart
         if ($settings->bar_chart_yearly) {
