@@ -34,25 +34,19 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->searchable(),
 
             TextColumn::make('date')
-                ->label('Invoice Date')
+                ->label('Revenue Date')
                 ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
                 ->toggleable()
                 ->searchable(),
 
             TextColumn::make('vendor.company_name')
-                ->label('Company Name')
-                ->limit(25)
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('vendor.country.name')
-                ->label('Country')
+                ->label('Branch')
                 ->limit(25)
                 ->toggleable()
                 ->searchable(),
 
             TextColumn::make('vendor.city.state.name')
-                ->label('State')
+                ->label('Zone/District')
                 ->limit(25)
                 ->toggleable()
                 ->searchable(),
@@ -60,12 +54,6 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('vendor.city.name')
                 ->label('City')
                 ->limit(25)
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('service')
-                ->label('Category')
-                ->getStateUsing(fn (Invoice $record) =>  $record->items->first()->subcategory->category->name ?? "--")
                 ->toggleable()
                 ->searchable(),
 
@@ -78,6 +66,12 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->label('Created By')
                 ->getStateUsing(fn (Invoice $record) => $record->activities->where('description', 'created')->first()->causer->name ?? "--")
                 ->limit(12)
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('created_at')
+                ->label('Created On')
+                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->created_at)->format('d-m-Y | h:i:s A'))
                 ->toggleable()
                 ->searchable(),
         ];
