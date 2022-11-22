@@ -45,6 +45,12 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
+            TextColumn::make('vendor.country.name')
+                ->label('Country')
+                ->limit(25)
+                ->toggleable()
+                ->searchable(),
+
             TextColumn::make('vendor.city.state.name')
                 ->label('Zone/District')
                 ->limit(25)
