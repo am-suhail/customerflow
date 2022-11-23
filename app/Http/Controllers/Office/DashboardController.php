@@ -17,12 +17,12 @@ class DashboardController extends Controller
     {
         $this->authorize('dashboard primary');
 
-        $invoices = Invoice::with('vendor', 'vendor.country', 'vendor.city', 'vendor.city.state', 'items', 'items.subcategory')->get();
+        $invoices = Invoice::with('vendor', 'vendor.country', 'vendor.city', 'vendor.city.state')->get();
         $vendors = Vendor::all();
 
         $current_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y'));
         $previous_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
-        $current_year_items = InvoiceItems::with('invoice', 'subcategory')->get();
+        $current_year_items = InvoiceItems::with('subcategory.category')->get();
 
         $current_year_revenue = $current_year->sum('total_amount');
 
