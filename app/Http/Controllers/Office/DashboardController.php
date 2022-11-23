@@ -10,13 +10,17 @@ use App\Models\Vendor;
 use app\Settings\DashboardSettings;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
     public function index(DashboardSettings $settings)
     {
-        $this->authorize('dashboard primary');
+        if (!Gate::check('dashboard primary')) {
+            return redirect()->route('my-profile.index');
+        }
 
+        $this->authorize('dashboard primary');
         $invoices = Invoice::with('vendor', 'vendor.country', 'vendor.city', 'vendor.city.state')->get();
         $vendors = Vendor::all();
 
