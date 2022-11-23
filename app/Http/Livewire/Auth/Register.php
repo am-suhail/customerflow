@@ -53,13 +53,11 @@ class Register extends Component implements Forms\Contracts\HasForms
     {
         $validated = $this->form->getState();
 
-        dd($validated['mobile']);
-
         $user = User::create([
-            'email' => $this->email,
-            'mobile' => $this->mobile,
-            'name' => $this->name,
-            'password' => Hash::make($this->password),
+            'email' => $validated['email'],
+            'mobile' => $validated['mobile'],
+            'name' => $validated['name'],
+            'password' => Hash::make($validated['password']),
         ]);
 
         event(new Registered($user));
