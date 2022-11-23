@@ -20,6 +20,8 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Models\Invoice;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +69,24 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware('profile_setup')->group(function () {
+        // Route::get('/data-verify', function () {
+        //     $invoices = Invoice::whereYear('date', date('Y'))->get();
+
+        //     echo count($invoices) . " Refs for the Year 2022,<br /><br /><br />";
+
+        //     foreach ($invoices as $invoice) {
+        //         echo $invoice->number . ",";
+        //         echo Carbon::parse($invoice->date)->format('d-m-Y') . ",";
+        //         echo $invoice->total_amount . ",";
+        //         echo $invoice->items->first()->subcategory->category->name . ",";
+        //         echo $invoice->items->first()->subcategory->name . ",";
+        //         echo $invoice->vendor->country->name . ",";
+        //         echo $invoice->vendor->city->state->name . ",";
+        //         echo $invoice->vendor->city->name . ",";
+        //         echo "<br />";
+        //     }
+        // });
+
         // Home|Dashboard
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
 

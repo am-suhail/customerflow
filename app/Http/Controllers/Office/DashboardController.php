@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Office;
 use App\Charts\InvoiceChart;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\InvoiceItems;
 use App\Models\Vendor;
 use app\Settings\DashboardSettings;
 use Carbon\Carbon;
@@ -21,6 +22,7 @@ class DashboardController extends Controller
 
         $current_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y'));
         $previous_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
+        $current_year_items = InvoiceItems::with('invoice', 'subcategory')->get();
 
         $current_year_revenue = $current_year->sum('total_amount');
 
@@ -111,28 +113,28 @@ class DashboardController extends Controller
 
         // Category Wise Sales Chart
         if ($settings->pie_chart_category) {
-            $category_wise_chart = $current_year
+            $category_wise_chart = $current_year_items
                 ->groupBy(function ($data) {
-                    return $data->items->first()->subcategory->category->name ?? "Generic";
+                    return $data->subcategory->category->name ?? "Generic";
                 });
 
             $pie_chart_category = new InvoiceChart;
             $pie_chart_category->labels($category_wise_chart->keys());
 
-            $pie_chart_category->dataset('Revenue %', 'pie', $category_wise_chart->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
+            $pie_chart_category->dataset('Revenue %', 'pie', $category_wise_chart->values()->map(fn ($data) => round($data->map(fn ($invoice_item) => $invoice_item->total)->sum() / $current_year_items->sum('total') * 100, 2)))->backgroundColor($this->colorGenerator());
         }
 
         // Sub Category Wise Sales Chart
         if ($settings->pie_chart_sub_category) {
-            $sub_category_wise_chart = $current_year
+            $sub_category_wise_chart = $current_year_items
                 ->groupBy(function ($data) {
-                    return $data->items->first()->subcategory->name ?? "Generic";
+                    return $data->subcategory->name ?? "Generic";
                 });
 
             $pie_chart_sub_category = new InvoiceChart;
             $pie_chart_sub_category->labels($sub_category_wise_chart->keys());
 
-            $pie_chart_sub_category->dataset('Revenue %', 'pie', $sub_category_wise_chart->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
+            $pie_chart_sub_category->dataset('Revenue %', 'pie', $sub_category_wise_chart->values()->map(fn ($data) => round($data->map(fn ($invoice_item) => $invoice_item->total)->sum() / $current_year_items->sum('total') * 100, 2)))->backgroundColor($this->colorGenerator());
         }
 
         return view('office.home.index', compact(
