@@ -19,7 +19,8 @@ class IndustryTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Industry::query();
+        return Industry::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array

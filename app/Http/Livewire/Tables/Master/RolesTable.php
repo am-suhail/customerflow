@@ -18,7 +18,8 @@ class RolesTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Role::query();
+        return Role::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array

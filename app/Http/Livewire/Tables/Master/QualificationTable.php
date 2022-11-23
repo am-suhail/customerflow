@@ -19,7 +19,8 @@ class QualificationTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Qualification::query();
+        return Qualification::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array

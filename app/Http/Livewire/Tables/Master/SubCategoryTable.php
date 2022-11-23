@@ -21,7 +21,8 @@ class SubCategoryTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return SubCategory::query();
+        return SubCategory::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array

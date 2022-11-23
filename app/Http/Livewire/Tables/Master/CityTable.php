@@ -21,7 +21,8 @@ class CityTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return City::query();
+        return City::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array

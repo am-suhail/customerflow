@@ -21,7 +21,8 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Category::query();
+        return Category::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array

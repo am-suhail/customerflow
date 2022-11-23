@@ -23,7 +23,8 @@ class StateTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return State::query();
+        return State::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array

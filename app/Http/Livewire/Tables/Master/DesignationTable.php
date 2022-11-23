@@ -19,7 +19,8 @@ class DesignationTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Designation::query();
+        return Designation::query()
+            ->orderBy('name');
     }
 
     protected function getTableColumns(): array
