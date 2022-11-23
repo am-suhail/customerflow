@@ -21,8 +21,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
         return Invoice::query()
-            ->with('activities', 'activities.causer', 'items', 'items.subcategory')
-            ->orderBy('number', 'desc');
+            ->with('activities', 'activities.causer', 'items', 'items.subcategory');
     }
 
     protected function getTableColumns(): array
@@ -31,42 +30,47 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('number')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('date')
                 ->label('Revenue Date')
                 ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
-                ->toggleable()
-                ->searchable(),
+                ->toggleable(),
 
             TextColumn::make('vendor.company_name')
                 ->label('Branch')
                 ->limit(25)
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('vendor.country.name')
                 ->label('Country')
                 ->limit(25)
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('vendor.city.state.name')
                 ->label('Zone/District')
                 ->limit(25)
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('vendor.city.name')
                 ->label('City')
                 ->limit(25)
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('total_amount')
                 ->label('Total Amount')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('createdBy')
                 ->label('Created By')
@@ -104,6 +108,16 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                     ->visible(fn () => auth()->user()->can('delete revenue'))
             ])
         ];
+    }
+
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'number';
+    }
+
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'desc';
     }
 
     protected function shouldPersistTableFiltersInSession(): bool

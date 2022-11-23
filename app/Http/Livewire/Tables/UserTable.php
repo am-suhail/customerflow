@@ -56,17 +56,21 @@ class UserTable extends Component implements Tables\Contracts\HasTable
                 })
                 ->toggleable(),
 
-
-            // TextColumn::make('totalCost')
-            //     ->getStateUsing(function (Service $record) {
-            //         return $record->cost_one + $record->cost_two;
-            //     })->label('Total Cost'),
-
             Column::make('Manage')
                 ->view('tables.modals.user.actions')
                 ->extraAttributes(['class' => 'justify-center']),
 
         ];
+    }
+
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'name';
+    }
+
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'asc';
     }
 
     public function render()

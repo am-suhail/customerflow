@@ -32,31 +32,37 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('company_name')
                 ->label('Company Name')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('country.name')
                 ->label('Country')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('city.name')
                 ->label('City')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('name')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('sex')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('nationality.name')
                 ->limit(15)
                 ->label('Nationality')
                 ->toggleable()
-                ->searchable(),
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('mobile')
                 ->label('Mobile')
@@ -101,6 +107,16 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                     ->visible(fn () => auth()->user()->can('delete branch'))
             ])
         ];
+    }
+
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'company_name';
+    }
+
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'asc';
     }
 
     protected function shouldPersistTableFiltersInSession(): bool

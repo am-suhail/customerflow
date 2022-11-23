@@ -38,9 +38,7 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('sub_category_count')
                 ->label('Sub Category Count')
-                ->getStateUsing(fn ($record) => count($record->subcategories ?? 0))
-                ->searchable(),
-
+                ->getStateUsing(fn ($record) => count($record->subcategories ?? 0)),
         ];
     }
 

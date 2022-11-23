@@ -29,6 +29,7 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('user.name')
                 ->label('Name')
                 ->searchable()
+                ->sortable()
                 ->toggleable(),
 
             TextColumn::make('user.user_detail.dob')
@@ -36,22 +37,24 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
                     return Carbon::parse($record->user->user_detail->dob ?? '')->format('d-m-Y');
                 })
                 ->label('DOB')
-                ->searchable()
                 ->toggleable(),
 
             TextColumn::make('user.user_detail.sex')
                 ->label('Sex')
                 ->searchable()
+                ->sortable()
                 ->toggleable(),
 
             TextColumn::make('user.user_detail.country.name')
                 ->limit(15)
                 ->label('Nationality')
                 ->searchable()
+                ->sortable()
                 ->toggleable(),
 
             TextColumn::make('designation.name')
                 ->searchable()
+                ->sortable()
                 ->toggleable(),
 
             TextColumn::make('joining_date')
@@ -72,7 +75,6 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(function (EmployeeDetail $record) {
                     return Carbon::parse($record->user->user_detail->national_id_expiry ?? '')->format('d-m-Y');
                 })
-                ->searchable()
                 ->toggleable(),
 
             TextColumn::make('user.mobile')
@@ -84,6 +86,16 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
                 ->extraAttributes(['class' => 'justify-center']),
 
         ];
+    }
+
+    protected function getDefaultTableSortColumn(): ?string
+    {
+        return 'user.name';
+    }
+
+    protected function getDefaultTableSortDirection(): ?string
+    {
+        return 'asc';
     }
 
     public function render()
