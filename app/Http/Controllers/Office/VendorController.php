@@ -58,14 +58,14 @@ class VendorController extends BaseController
             'sex' => ['required', 'string'],
             'nationality_id' => ['required', 'not_in:0'],
             'country_id' => ['required', 'not_in:0'],
-            'mobile' => ['required', 'phone:AE'],
+            'mobile' => ['required'],
             'email' => ['required', 'email'],
             'company_name' => ['required', 'string', 'max:100'],
             'inc_date' => ['required', 'date'],
             'vat' => ['required', 'string', 'max:20', 'unique:vendors,vat'],
-            'url' => ['nullable', 'url'],
+            'url' => ['nullable'],
             'city_id' => ['required', 'not_in:0'],
-            'telephone' => ['required', 'phone:AE', 'unique:vendors,telephone'],
+            'telephone' => ['required', 'unique:vendors,telephone'],
             'remark' => ['nullable', 'string']
         ]);
 
@@ -125,14 +125,14 @@ class VendorController extends BaseController
             'sex' => ['required', 'string'],
             'nationality_id' => ['required', 'not_in:0'],
             'country_id' => ['required', 'not_in:0'],
-            'mobile' => ['required', 'phone:AE'],
+            'mobile' => ['required'],
             'email' => ['required', 'email'],
             'company_name' => ['required', 'string', 'max:100'],
             'inc_date' => ['required', 'date'],
             'vat' => ['required', 'string', 'max:20'],
-            'url' => ['nullable', 'url'],
+            'url' => ['nullable'],
             'city_id' => ['required', 'not_in:0'],
-            'telephone' => ['required', 'phone:AE'],
+            'telephone' => ['required'],
             'remark' => ['nullable', 'string']
         ]);
 

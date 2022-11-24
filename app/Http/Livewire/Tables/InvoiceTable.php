@@ -29,6 +29,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
         return [
 
             TextColumn::make('number')
+                ->label('Ref Number')
                 ->toggleable()
                 ->searchable()
                 ->sortable(),

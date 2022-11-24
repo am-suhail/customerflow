@@ -30,11 +30,13 @@ class Register extends Component implements Forms\Contracts\HasForms
 
             PhoneInput::make('mobile')
                 ->required()
+                ->unique()
                 ->initialCountry(null)
                 ->tel(),
 
             TextInput::make('email')
                 ->required()
+                ->unique()
                 ->email(),
 
             TextInput::make('password')

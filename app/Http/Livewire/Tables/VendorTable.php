@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tables;
 
 use App\Models\Vendor;
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
@@ -31,9 +32,25 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('company_name')
                 ->label('Company Name')
+                ->limit(40)
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
+
+            TextColumn::make('inc_date')
+                ->getStateUsing(function (Vendor $record) {
+                    return Carbon::parse($record->inc_date ?? "")->format('d-m-Y');
+                })
+                ->label('Inc. Date')
+                ->searchable()
+                ->toggleable(),
+
+            TextColumn::make('age')
+                ->getStateUsing(function (Vendor $record) {
+                    return Carbon::parse($record->inc_date ?? "")->diffForHumans();
+                })
+                ->label('Age')
+                ->toggleable(),
 
             TextColumn::make('country.name')
                 ->label('Country')
@@ -48,6 +65,7 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->sortable(),
 
             TextColumn::make('name')
+                ->label('KMP Name')
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
