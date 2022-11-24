@@ -29,15 +29,15 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->required(),
 
             PhoneInput::make('phone')
+                ->tel()
+                ->initialCountry('AE')
                 ->required()
-                ->initialCountry(null)
-                ->unique(column: 'mobile')
-                ->tel(),
+                ->unique(column: 'mobile'),
 
             TextInput::make('email')
+                ->email()
                 ->required()
-                ->unique()
-                ->email(),
+                ->unique(),
 
             TextInput::make('password')
                 ->password()
@@ -49,6 +49,11 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->password()
                 ->dehydrated(false)
         ];
+    }
+
+    protected function getFormModel(): string
+    {
+        return User::class;
     }
 
     public function register()

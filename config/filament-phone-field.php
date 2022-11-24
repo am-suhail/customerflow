@@ -56,7 +56,7 @@ return [
     |
     */
 
-    'auto_hide_dial_code' => false,
+    'auto_hide_dial_code' => true,
 
     /*
     |
@@ -96,7 +96,7 @@ return [
     |
     */
 
-    'initial_country' => 'auto',
+    'initial_country' => 'AE',
 
     /*
     |
@@ -132,7 +132,7 @@ return [
     |
     */
 
-    'placeholder_number_type' => 'MOBILE',
+    'placeholder_number_type' => 'FIXED_LINE_OR_MOBILE',
 
     /*
     |
@@ -158,7 +158,7 @@ return [
     |
     */
 
-    'preferred_countries' => ['EG', 'AE', 'US', 'GB'],
+    'preferred_countries' => ['IN', 'AE', 'QA', 'UG'],
 
     /*
     |

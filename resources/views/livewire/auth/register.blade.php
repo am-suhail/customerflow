@@ -89,6 +89,7 @@
 					<p> Create a New Account</p>
 				</div>
 				<form wire:submit.prevent="register">
+
 					{{ $this->form }}
 
 					<div class="mt-6">
