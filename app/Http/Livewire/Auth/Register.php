@@ -17,7 +17,7 @@ class Register extends Component implements Forms\Contracts\HasForms
 
     public
         $name,
-        $mobile,
+        $phone,
         $email,
         $password,
         $password_confirmation;
@@ -31,7 +31,7 @@ class Register extends Component implements Forms\Contracts\HasForms
             PhoneInput::make('phone')
                 ->required()
                 ->initialCountry(null)
-                ->unique('mobile')
+                ->unique(column: 'mobile')
                 ->tel(),
 
             TextInput::make('email')
