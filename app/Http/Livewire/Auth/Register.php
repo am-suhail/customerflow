@@ -28,10 +28,10 @@ class Register extends Component implements Forms\Contracts\HasForms
             TextInput::make('name')
                 ->required(),
 
-            PhoneInput::make('mobile')
+            PhoneInput::make('phone')
                 ->required()
-                ->unique()
                 ->initialCountry(null)
+                ->unique('mobile')
                 ->tel(),
 
             TextInput::make('email')
@@ -57,7 +57,7 @@ class Register extends Component implements Forms\Contracts\HasForms
 
         $user = User::create([
             'email' => $validated['email'],
-            'mobile' => $validated['mobile'],
+            'mobile' => $validated['phone'],
             'name' => $validated['name'],
             'password' => Hash::make($validated['password']),
         ]);
