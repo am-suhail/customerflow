@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Office;
 
+use App\Exports\RevenueTableExport;
 use App\Http\Controllers\BaseController;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceController extends BaseController
 {
@@ -105,5 +107,18 @@ class InvoiceController extends BaseController
     public function destroy($id)
     {
         $this->authorize('delete revenue');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        $this->authorize('export revenue');
+
+        return Excel::download(new RevenueTableExport(Invoice::all()), 'revenue_' . now() . '.xlsx');
     }
 }

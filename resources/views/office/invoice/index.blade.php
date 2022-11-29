@@ -6,7 +6,7 @@
 		<!-- Main content header -->
 		<x-headers.page-heading :title="$pageTitle" />
 
-		<div class="flex flex-col items-start mb-4 space-y-4 lg:items-center lg:space-y-0 lg:flex-row">
+		<div class="flex flex-col items-start mb-4 space-y-4 space-x-2 lg:items-center lg:space-y-0 lg:flex-row">
 			<a href="{{ route('revenue.create') }}" class="btn btn-outline btn-primary">
 				<svg class="mr-1" width="25" height="25" fill="currentColor" viewBox="0 0 24 24"
 					xmlns="http://www.w3.org/2000/svg">
@@ -15,6 +15,21 @@
 					</path>
 				</svg>
 				Add New
+			</a>
+
+			<a href="{{ route('revenue.export') }}" class="btn btn-outline btn-accent">
+				<svg width="25" height="25" class="mr-1" fill="none" stroke="currentColor" stroke-linecap="round"
+					stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+
+					<path d="M4 7.5V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4.5"></path>
+					<path d="M15.5 7.5H17"></path>
+					<path d="M14 11.5h3"></path>
+					<path d="M14 15.5h3"></path>
+					<path d="M11 7.5H2v9h9v-9Z"></path>
+					<path d="m5 10.5 3 3"></path>
+					<path d="m8 10.5-3 3"></path>
+				</svg>
+				Export
 			</a>
 		</div>
 

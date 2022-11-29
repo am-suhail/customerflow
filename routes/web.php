@@ -107,6 +107,7 @@ Route::middleware(['auth'])->group(function () {
 
 
         Route::get('revenue/list', [InvoiceController::class, 'index'])->name('revenue.index');
+        Route::get('revenue/export', [InvoiceController::class, 'export'])->name('revenue.export');
         Route::resource('revenue', InvoiceController::class, ['except' => ['index', 'store', 'update', 'destroy']]);
 
         // Dashboard Resources
