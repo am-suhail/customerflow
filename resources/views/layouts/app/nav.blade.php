@@ -56,7 +56,6 @@
 				</x-nav.nav-link>
 			@endcanany
 
-
 			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
@@ -68,6 +67,20 @@
 						<path d="M13 16h4"></path>
 					</x-slot>
 					Expense
+				</x-nav.nav-link>
+			@endcanany
+
+			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])
+				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+
+				<x-nav.nav-link route="dummy">
+					<x-slot name="path">
+						<path d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"></path>
+						<path d="m4.6 19.402 14.8-14.8"></path>
+						<path d="M9 7v4M7 9h4-4Z"></path>
+						<path d="M13 16h4"></path>
+					</x-slot>
+					Payment
 				</x-nav.nav-link>
 			@endcanany
 
@@ -90,6 +103,16 @@
 						<path d="M3 12.001c.887-1.284 2.48-2.033 4-2 1.52-.033 3.113.716 4 2s2.48 2.033 4 2c1.52.033 3-1 4-2l2-2"></path>
 					</x-slot>
 					Liability
+				</x-nav.nav-link>
+			@endcanany
+
+			@canany(['view liability', 'add liability', 'edit liability', 'delete liability'])
+				<x-nav.nav-link route="dummy">
+					<x-slot name="path">
+						<path d="M17 10h4v4"></path>
+						<path d="M3 12.001c.887-1.284 2.48-2.033 4-2 1.52-.033 3.113.716 4 2s2.48 2.033 4 2c1.52.033 3-1 4-2l2-2"></path>
+					</x-slot>
+					Investment Cost
 				</x-nav.nav-link>
 			@endcanany
 
@@ -143,7 +166,7 @@
 						<path d="M9 15v.01"></path>
 						<path d="M9 18v.01"></path>
 					</x-slot>
-					Branches
+					Company
 				</x-nav.nav-link>
 			@endcanany
 

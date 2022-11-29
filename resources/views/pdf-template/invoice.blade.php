@@ -54,26 +54,18 @@
 	<table width="100%" id="header-table">
 		<tr>
 			<td align="center" width="100%">
-				{{-- <img src="{{ asset('img/settings/logo.png') }}" alt="DASBAZAR" width="250" class="logo" /> --}}
-				<h1 style="color:#003f88;font-family: Verdana, sans-serif; font-size: 30px;">
-					AL KHELOUD TYPING & DOCUM COPYING
+				<h1 style="color:#003f88;font-family: Verdana, sans-serif; font-size: 30px; text-transform: uppercase;">
+					{{ $general_settings->company_name }}
 				</h1>
 			</td>
 		</tr>
-		<tr style="background-color:#003f88">
+		{{-- <tr style="background-color:#003f88">
 			<td align="center" width="100%">
 				<h3 style="margin:2px 0px;color: #fff">
 					P.O BOX NO 23558, SHARJAH - UAE &nbsp; &nbsp; TEL: 065322790 | MOB: 0545993740
 				</h3>
 			</td>
-		</tr>
-		<tr>
-			<td align="center" width="100%">
-				<h3 style="margin:2px 0px; color:#003f88;">
-					EMAIL: aktyping786@gmail.com
-				</h3>
-			</td>
-		</tr>
+		</tr> --}}
 	</table>
 
 	<br />

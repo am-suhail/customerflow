@@ -111,6 +111,19 @@
 								</label>
 							@enderror
 						</div>
+
+						<div class="form-control">
+							{!! Form::label('industry_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::select('industry_id', $industries, old('industry_id'), [
+							    'placeholder' => '--choose--',
+							    'class' => 'select select-bordered select-primary' . ($errors->has('industry_id') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('industry_id')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 					</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">

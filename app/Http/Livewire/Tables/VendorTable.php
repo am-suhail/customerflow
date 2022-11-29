@@ -52,6 +52,11 @@ class VendorTable extends Component implements Tables\Contracts\HasTable
                 ->label('Age')
                 ->toggleable(),
 
+            TextColumn::make('industry.name')
+                ->label('Industry')
+                ->toggleable()
+                ->searchable(),
+
             TextColumn::make('country.name')
                 ->label('Country')
                 ->toggleable()
