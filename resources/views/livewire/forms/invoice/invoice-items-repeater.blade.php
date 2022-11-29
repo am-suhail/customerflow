@@ -28,27 +28,28 @@
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase">Other Revenue</label>
-				<input placeholder="Amount" type="number" min="1" class="input input-bordered input-primary">
-				{{-- @error('')
+				<input placeholder="Amount" type="number" min="1" wire:model="additional_charge"
+					class="input input-bordered input-primary">
+				@error('additional_charge')
 					<div class="label uppercase">
 						<span class="text-error label-text">
-							{{ $errors->first('') }}
+							{{ $errors->first('additional_charge') }}
 						</span>
 					</div>
-				@enderror --}}
+				@enderror
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase">Total Invoice</label>
-				<input placeholder="Total Invoices of Each Month" type="number" min="1"
+				<input placeholder="Total Invoices of Each Month" type="number" min="1" wire:model="tax"
 					class="input input-bordered input-primary">
-				{{-- @error('')
+				@error('tax')
 					<div class="label uppercase">
 						<span class="text-error label-text">
-							{{ $errors->first('') }}
+							{{ $errors->first('tax') }}
 						</span>
 					</div>
-				@enderror --}}
+				@enderror
 			</div>
 		</div>
 	</div>

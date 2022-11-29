@@ -35,7 +35,7 @@ class Create extends Component
         $this->vendor_id = $vendor_id;
     }
 
-    public function serviceAdded($key_id, $sub_category_id, $qty, $discount, $additional_charge, $total, $unit_price)
+    public function serviceAdded($key_id, $sub_category_id, $qty, $discount, $additional_charge, $total, $unit_price, $tax)
     {
         $this->services[$key_id]['sub_category_id'] = $sub_category_id;
         $this->services[$key_id]['qty'] = $qty;
@@ -43,6 +43,7 @@ class Create extends Component
         $this->services[$key_id]['additional_charge'] = $additional_charge;
         $this->services[$key_id]['total'] = $total;
         $this->services[$key_id]['unit_price'] = $unit_price;
+        $this->services[$key_id]['tax'] = $tax;
     }
 
     public function mount()
@@ -68,7 +69,8 @@ class Create extends Component
             'discount' => '',
             'additional_charge' => '',
             'total' => '',
-            'unit_price' => ''
+            'unit_price' => '',
+            'tax' => ''
         ];
     }
 

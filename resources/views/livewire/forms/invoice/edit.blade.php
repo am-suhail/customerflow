@@ -3,7 +3,7 @@
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 			<div class="form-control">
-				{!! Form::label('number', 'Invoice Number', ['class' => 'label font-semibold uppercase']) !!}
+				{!! Form::label('number', 'Reference Number', ['class' => 'label font-semibold uppercase']) !!}
 				{!! Form::text('number', old('number'), [
 				    'wire:model' => 'number',
 				    'disabled',
@@ -11,7 +11,7 @@
 				]) !!}
 			</div>
 			<div class="form-control">
-				{!! Form::label('date', 'Invoice Date', ['class' => 'label font-semibold uppercase']) !!}
+				{!! Form::label('date', 'Revenue Date', ['class' => 'label font-semibold uppercase']) !!}
 				<input type="date" value="{{ old('date') }}" wire:model="date" @class([
 					'input input-primary input-bordered',
 					'border-2 border-red-600' => $errors->has('date'),
@@ -24,11 +24,11 @@
 			</div>
 		</div>
 
-		<div class="my-8 divider">Customer Details</div>
+		<div class="my-8 divider">Company Details</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 			<div class="form-control">
-				<label for="vendor_id" class="font-semibold uppercase label">Customer</label>
+				<label for="vendor_id" class="font-semibold uppercase label">Company</label>
 				<x-select-search :data="$vendors" wire:model.lazy="vendor_id" placeholder="--choose customer--" />
 				@error('vendor_id')
 					<label class="label">
@@ -38,7 +38,7 @@
 			</div>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Products</div>
+		<div class="mt-8 mb-4 divider">Revenue</div>
 
 		<div>
 			<div class="mb-2">

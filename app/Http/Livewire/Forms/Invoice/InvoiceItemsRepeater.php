@@ -17,6 +17,7 @@ class InvoiceItemsRepeater extends Component
         $selling_price,
         $qty = 1,
         $discount = 0,
+        $tax = 1,
         $additional_charge = 0,
         $custom_price = NULL,
         $total = 0;
@@ -45,6 +46,7 @@ class InvoiceItemsRepeater extends Component
             $this->qty = $subcategory['qty'];
             $this->discount = $subcategory['discount'];
             $this->additional_charge = $subcategory['additional_charge'];
+            $this->tax = $subcategory['tax'];
             $this->total = $subcategory['total'];
         }
 
@@ -80,9 +82,31 @@ class InvoiceItemsRepeater extends Component
         $this->calcAndEmitUp();
     }
 
+    public function updatedAdditionalCharge()
+    {
+        $this->validate(
+            [
+                'sub_category_id'       => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+            ]
+        );
+        $this->calcAndEmitUp();
+    }
+
+    public function updatedTax()
+    {
+        $this->validate(
+            [
+                'sub_category_id'       => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+            ]
+        );
+        $this->calcAndEmitUp();
+    }
+
     private function calcAndEmitUp()
     {
         $this->total = (($this->selling_price * $this->qty) - $this->discount) + ($this->additional_charge ?? 0);
-        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price);
+        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price, $this->tax);
     }
 }
