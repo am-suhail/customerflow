@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Office\CompanyController;
 use App\Http\Controllers\Office\DashboardController;
 use App\Http\Controllers\Office\DashboardSettingsController;
 use App\Http\Controllers\Office\EmployeeController;
@@ -113,6 +114,7 @@ Route::middleware(['auth'])->group(function () {
         // Dashboard Resources
         Route::resources(
             [
+                'company' => CompanyController::class,
                 'branch' => VendorController::class,
                 'employee' => EmployeeController::class,
                 'roles' => RolesController::class,
