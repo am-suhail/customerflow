@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\BaseController;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 
 class CompanyController extends BaseController
@@ -24,8 +25,10 @@ class CompanyController extends BaseController
      */
     public function create()
     {
+        $industries = Industry::pluck('name', 'id');
+
         $this->setPageTitle('Create Company', 'Add a new company');
-        return view('office.company.create');
+        return view('office.company.create', compact('industries'));
     }
 
     /**

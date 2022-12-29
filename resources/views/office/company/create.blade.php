@@ -35,29 +35,10 @@
 
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('country_id', 'Country', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('country_id', $countries, old('country_id', $vendor->country_id), [
-						    'placeholder' => '--choose--',
-						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('country_id')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-				</div>
-
-				<div>
-					<livewire:state-city :selectedCity="$errors ? old('city_id', $vendor->city_id) : null">
-				</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-					<div class="form-control">
 						{!! Form::label('company_name', 'Company Name', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::text('company_name', old('company_name', $vendor->company_name), [
+						{!! Form::text('company_name', old('company_name'), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('company_name') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('company_name')
@@ -69,10 +50,22 @@
 
 					<div class="form-control">
 						{!! Form::label('inc_date', 'Year of Incorporation', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::date('inc_date', old('inc_date', $vendor->inc_date), [
+						{!! Form::date('inc_date', old('inc_date'), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('inc_date') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('inc_date')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+
+					<div class="form-control">
+						{!! Form::label('reg_no', 'Incorporation No', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::date('reg_no', old('reg_no'), [
+						    'class' => 'input input-bordered input-primary' . ($errors->has('reg_no') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('reg_no')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>
@@ -96,7 +89,7 @@
 
 					<div class="form-control">
 						{!! Form::label('vat', 'VAT/GST', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::text('vat', old('vat', $vendor->vat), [
+						{!! Form::text('vat', old('vat'), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('vat') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('vat')
@@ -112,7 +105,7 @@
 						{!! Form::label('url', 'Website (if any)', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::text('url', old('url', $vendor->url), [
+						{!! Form::text('url', old('url'), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('url') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('url')
@@ -124,7 +117,7 @@
 
 					<div class="form-control">
 						{!! Form::label('telephone', 'Telephone', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('telephone', old('telephone', $vendor->telephone), [
+						{!! Form::number('telephone', old('telephone'), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('telephone') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('telephone')
