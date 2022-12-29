@@ -27,7 +27,7 @@
 		<div class="flex items-start justify-center w-full pt-4">
 			<div class="w-full p-5 bg-white rounded-lg shadow-xl xl:w-3/4">
 				{!! Form::open([
-				    'route' => ['branch.update', $vendor],
+				    // 'route' => ['branch.update', $vendor],
 				    'method' => 'PUT',
 				]) !!}
 
@@ -199,7 +199,7 @@
 				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
 					<div class="form-control">
 						{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::textarea('remark', old('remark', $vendor->remark), [
+						{!! Form::textarea('remark', old('remark'), [
 						    'class' => 'textarea textarea-bordered	textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('remark')
