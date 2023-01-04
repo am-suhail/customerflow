@@ -73,7 +73,7 @@ class DashboardController extends Controller
 
             $bar_chart_monthly_previous_year = new InvoiceChart;
             $bar_chart_monthly_previous_year->labels($previous_year_monthly->keys());
-            $bar_chart_monthly_previous_year->dataset('Current Year Revenue', 'bar', $previous_year_monthly->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
+            $bar_chart_monthly_previous_year->dataset('Previous Year Revenue', 'bar', $previous_year_monthly->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
         }
 
         // Current Year Revenue Chart

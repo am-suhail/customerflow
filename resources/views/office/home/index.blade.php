@@ -36,7 +36,43 @@
 				</div>
 				<div class="text-right">
 					<p class="text-2xl">{{ $previous_year_revenue }}</p>
+					<p>Current Year Invoices</p>
+				</div>
+			</div>
+
+			<div
+				class="bg-blue-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 text-white font-medium group">
+				<div
+					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+						class="stroke-current text-blue-800 transform transition-transform duration-500 ease-in-out">
+						<path d="M20.5 7 12 2 3.5 7v10l8.5 5 8.5-5V7Z"></path>
+						<path d="M12 11v4"></path>
+						<path d="M16 9v6"></path>
+						<path d="M8 13v2"></path>
+					</svg>
+				</div>
+				<div class="text-right">
+					<p class="text-2xl">{{ $previous_year_revenue }}</p>
 					<p>Last Year Revenue</p>
+				</div>
+			</div>
+
+			<div
+				class="bg-blue-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 text-white font-medium group">
+				<div
+					class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
+					<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+						class="stroke-current text-blue-800 transform transition-transform duration-500 ease-in-out">
+						<path d="M20.5 7 12 2 3.5 7v10l8.5 5 8.5-5V7Z"></path>
+						<path d="M12 11v4"></path>
+						<path d="M16 9v6"></path>
+						<path d="M8 13v2"></path>
+					</svg>
+				</div>
+				<div class="text-right">
+					<p class="text-2xl">{{ $previous_year_revenue }}</p>
+					<p>Last Year Invoices</p>
 				</div>
 			</div>
 
