@@ -61,6 +61,21 @@ class DashboardController extends Controller
             $bar_chart_yearly->dataset('Yearly Revenue', 'bar', $year_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#3B82F6");
         }
 
+        // Previous Year Revenue Chart
+        if ($settings->bar_chart_monthly) {
+            $previous_year_monthly = $previous_year
+                ->sortBy(function ($data) {
+                    return Carbon::parse($data->date)->format('m');
+                })
+                ->groupBy(function ($data) {
+                    return Carbon::parse($data->date)->format('M');
+                });
+
+            $bar_chart_monthly_previous_year = new InvoiceChart;
+            $bar_chart_monthly_previous_year->labels($previous_year_monthly->keys());
+            $bar_chart_monthly_previous_year->dataset('Current Year Revenue', 'bar', $previous_year_monthly->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum()))->color("#0AA674");
+        }
+
         // Current Year Revenue Chart
         if ($settings->bar_chart_monthly) {
             $month_invoices = $current_year
@@ -142,6 +157,7 @@ class DashboardController extends Controller
         }
 
         return view('office.home.index', compact(
+            'bar_chart_monthly_previous_year',
             'bar_chart_monthly',
             'bar_chart_yearly',
             'pie_chart_country',

@@ -62,7 +62,7 @@
 
 					<div class="form-control">
 						{!! Form::label('reg_no', 'Incorporation No', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::date('reg_no', old('reg_no'), [
+						{!! Form::text('reg_no', old('reg_no'), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('reg_no') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('reg_no')

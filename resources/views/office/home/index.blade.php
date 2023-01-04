@@ -86,6 +86,12 @@
 		<div class="grid grid-cols-1 gap-6 mt-6 xl:grid-cols-2">
 			@if (!is_null($bar_chart_monthly))
 				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+					{!! $bar_chart_monthly_previous_year->container() !!}
+				</div>
+			@endif
+
+			@if (!is_null($bar_chart_monthly))
+				<div class="bg-base-200 rounded my-2 p-2 shadow-md">
 					{!! $bar_chart_monthly->container() !!}
 				</div>
 			@endif
@@ -133,6 +139,10 @@
 @once
 	@push('scripts')
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		@if (!is_null($bar_chart_monthly))
+			{!! $bar_chart_monthly_previous_year->script() !!}
+		@endif
+
 		@if (!is_null($bar_chart_monthly))
 			{!! $bar_chart_monthly->script() !!}
 		@endif
