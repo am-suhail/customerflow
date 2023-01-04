@@ -39,8 +39,7 @@
 							Qualification
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage education qualification field for employees and agent
-							registration
+							Manage education qualification
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
 							<a href="{{ route('master.qualification') }}" class="md:float-right text-blue-600 hover:text-blue-400">
@@ -62,7 +61,7 @@
 							Designation
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage employee's designation data
+							Manage designations
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
 							<a href="{{ route('master.designation') }}" class="md:float-right text-blue-600 hover:text-blue-400">
@@ -106,7 +105,7 @@
 							Industry
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage industries that vendors can belongs to
+							Manage industries
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
 							<a href="{{ route('master.industry') }}" class="md:float-right text-blue-600 hover:text-blue-400">
@@ -128,7 +127,7 @@
 							Product Categories
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage service & vendor categories
+							Manage product categories
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
 							<a href="{{ route('master.category') }}" class="md:float-right text-blue-600 hover:text-blue-400">
