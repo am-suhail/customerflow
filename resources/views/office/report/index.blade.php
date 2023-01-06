@@ -73,24 +73,6 @@
 									</div>
 								</div>
 							</a>
-
-							<a href="{{ route('report.company') }}">
-								<div class="shadow rounded-lg py-6 px-5 bg-gray-100">
-									<div class="flex flex-row justify-between items-center">
-										<div>
-											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">User Summary</h4>
-										</div>
-										<div>
-											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
-												stroke="#3B82F6" stroke-width="2">
-												<path d="M12 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
-												<path d="M21 22a9 9 0 1 0-18 0"></path>
-												<path d="m15 18-4 4-2-2"></path>
-											</svg>
-										</div>
-									</div>
-								</div>
-							</a>
 						</div>
 					</div>
 				</div>

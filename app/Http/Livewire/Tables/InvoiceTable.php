@@ -73,6 +73,12 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->sortable(),
 
+            TextColumn::make('items.tax')
+                ->label('Total Invoices')
+                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->tax)->sum())
+                ->toggleable()
+                ->searchable(),
+
             TextColumn::make('createdBy')
                 ->label('Created By')
                 ->getStateUsing(fn (Invoice $record) => $record->activities->where('description', 'created')->first()->causer->name ?? "--")

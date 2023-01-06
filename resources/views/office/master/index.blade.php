@@ -122,7 +122,7 @@
 					</div>
 
 					<!-- Categories -->
-					<div class="grid grid-cols-3 py-2">
+					<div class="border-b border-gray-300 grid grid-cols-3 py-2">
 						<div class="text-black col-span-3 md:col-span-1">
 							Product Categories
 						</div>
@@ -149,10 +149,10 @@
 							Company Category
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage a comapanies Category
+							Manage comapanies Category
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
-							<a href="{{ route('master.category') }}" class="md:float-right text-blue-600 hover:text-blue-400">
+							<a href="{{ route('master.company-category') }}" class="md:float-right text-blue-600 hover:text-blue-400">
 								<span class="flex items-center">
 									<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
 										<path fill-rule="evenodd"

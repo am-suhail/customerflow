@@ -15,7 +15,7 @@
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase">Sales Revenue</label>
-				<input placeholder="Amount" type="number" min="1" wire:model="selling_price"
+				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="selling_price"
 					class="input input-bordered input-primary">
 				@error('selling_price')
 					<div class="label uppercase">
@@ -28,7 +28,7 @@
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase">Other Revenue</label>
-				<input placeholder="Amount" type="number" min="1" wire:model="additional_charge"
+				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="additional_charge"
 					class="input input-bordered input-primary">
 				@error('additional_charge')
 					<div class="label uppercase">
@@ -41,7 +41,7 @@
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase">Total Invoice</label>
-				<input placeholder="Total Invoices of Each Month" type="number" min="1" wire:model="tax"
+				<input placeholder="Total Invoices of Each Month" type="number" min="0" wire:model="tax"
 					class="input input-bordered input-primary">
 				@error('tax')
 					<div class="label uppercase">

@@ -153,6 +153,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/industry', [MasterController::class, 'industry'])->name('master.industry');
             // Category
             Route::get('/category/{type?}', [MasterController::class, 'category'])->name('master.category');
+            // Company Category
+            Route::get('/company-category/{type?}', [MasterController::class, 'company_category'])->name('master.company-category');
         });
 
         // Application Settings

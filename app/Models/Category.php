@@ -12,6 +12,9 @@ class Category extends Model
 {
     use HasFactory, SoftDeletes, LogsActivity;
 
+    const TYPE_PRODUCT = 1;
+    const TYPE_COMPANY = 2;
+
     /**
      * The attributes that are mass assignable.
      *

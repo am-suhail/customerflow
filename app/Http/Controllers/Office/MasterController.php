@@ -55,4 +55,12 @@ class MasterController extends BaseController
         $this->setPageTitle($type == 'main' ? 'Category Data' : 'Sub Category Data', '');
         return view('office.master.category', compact('type'));
     }
+
+    public function company_category($type = 'main')
+    {
+        $this->authorize('modify master data');
+
+        $this->setPageTitle($type == 'main' ? 'Company Category Data' : 'Company Sub Category Data', '');
+        return view('office.master.company-category', compact('type'));
+    }
 }

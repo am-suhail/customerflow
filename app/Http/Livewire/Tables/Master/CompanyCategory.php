@@ -7,15 +7,12 @@ use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 
-class CategoryTable extends Component implements Tables\Contracts\HasTable
+class CompanyCategory extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
@@ -28,7 +25,6 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableColumns(): array
     {
-
         return [
             TextColumn::make('#')
                 ->rowIndex(),
@@ -65,6 +61,6 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
 
     public function render()
     {
-        return view('livewire.tables.master.category-table');
+        return view('livewire.tables.master.company-category');
     }
 }

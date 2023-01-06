@@ -31,6 +31,38 @@
 				    'method' => 'PUT',
 				]) !!}
 
+				//TODO
+
+				<div class="mt-8 mb-4 divider">CATEGORY DETAILS</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					<div class="form-control">
+						{!! Form::label('country_id', 'Choose Category', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::select('country_id', ['--choose--' => '--choose--'], old('country_id'), [
+						    'placeholder' => '--choose--',
+						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('country_id')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+
+					<div class="form-control">
+						{!! Form::label('country_id', 'Choose Sub Category', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::select('country_id', ['--choose--' => '--choose--'], old('country_id'), [
+						    'placeholder' => '--choose--',
+						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('country_id')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+				</div>
+
 				<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -121,72 +153,6 @@
 						    'class' => 'input input-bordered input-primary' . ($errors->has('telephone') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('telephone')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-				</div>
-
-				<div class="mt-8 mb-4 divider">Investment</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-					<div class="form-control">
-						{!! Form::label('capital', 'Company Capital', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('capital', old('capital'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('capital') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('capital')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-
-					<div class="form-control">
-						{!! Form::label('percentage', 'Total No of Shares', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('percentage', old('percentage'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('percentage')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-				</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-					<div class="form-control">
-						{!! Form::label('percentage', 'Investment Amount', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('percentage', old('percentage'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('percentage')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-
-					<div class="form-control">
-						{!! Form::label('percentage', 'Percentage', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::email('percentage', old('percentage'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('percentage')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-
-					<div class="form-control">
-						{!! Form::label('percentage', 'No of Shares', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::email('percentage', old('percentage'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('percentage')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>

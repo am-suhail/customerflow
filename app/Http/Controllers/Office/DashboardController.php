@@ -26,16 +26,25 @@ class DashboardController extends Controller
 
         $current_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y'));
         $previous_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
-        $current_year_items = InvoiceItems::with('subcategory.category')->get();
+        $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) {
+            return $query->whereYear('date',  date('Y', strtotime("-1 year")));
+        })
+            ->get();
+        $current_year_items = InvoiceItems::whereHas('invoice', function ($query) {
+            return $query->whereYear('date',  date('Y'));
+        })
+            ->get();
 
         $current_year_revenue = $current_year->sum('total_amount');
-
         $previous_year_revenue = $previous_year->sum('total_amount');
 
         $total_branches = count($vendors);
 
         $branches = $vendors->filter(fn ($data) => !is_null($data->country_id));
         $total_countries = count($branches->groupBy('country_id'));
+
+        $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
+        $previous_year_invoices = $previous_year_items->map(fn ($item) => $item->tax)->sum();
 
         // Charts
         $bar_chart_yearly = null;
@@ -166,7 +175,9 @@ class DashboardController extends Controller
             'pie_chart_category',
             'pie_chart_sub_category',
             'current_year_revenue',
+            'current_year_invoices',
             'previous_year_revenue',
+            'previous_year_invoices',
             'total_countries',
             'total_branches'
         ));

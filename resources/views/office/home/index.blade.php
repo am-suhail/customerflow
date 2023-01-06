@@ -35,7 +35,7 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">{{ $previous_year_revenue }}</p>
+					<p class="text-2xl">{{ $current_year_invoices }}</p>
 					<p>Current Year Invoices</p>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 					</svg>
 				</div>
 				<div class="text-right">
-					<p class="text-2xl">{{ $previous_year_revenue }}</p>
+					<p class="text-2xl">{{ $previous_year_invoices }}</p>
 					<p>Last Year Invoices</p>
 				</div>
 			</div>

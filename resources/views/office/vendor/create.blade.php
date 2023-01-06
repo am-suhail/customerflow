@@ -29,7 +29,24 @@
 				<form action="{{ route('branch.store') }}" method="POST">
 					@csrf
 
-					<div class="mt-8 mb-4 divider">KMP DETAILS</div>
+					<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('country_id', 'Choose Company', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::select('country_id', $countries, old('country_id'), [
+							    'placeholder' => '--choose--',
+							    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('country_id')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+					</div>
+
+					<div class="mt-8 mb-4 divider">KEY MANAGERIAL PERSON (KMP) DETAILS</div>
 
 					<div class="form-control">
 						{!! Form::label('name', 'Name', ['class' => 'label font-semibold uppercase']) !!}
@@ -43,7 +60,7 @@
 						@enderror
 					</div>
 
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					{{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('sex', 'Sex', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::select('sex', ['Male' => 'Male', 'Female' => 'Female'], old('sex'), [
@@ -69,9 +86,9 @@
 								</label>
 							@enderror
 						</div>
-					</div>
+					</div> --}}
 
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					{{-- <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('mobile', 'Mobile', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('mobile', old('mobile'), [
@@ -94,9 +111,9 @@
 								</label>
 							@enderror
 						</div>
-					</div>
+					</div> --}}
 
-					<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
+					<div class="mt-8 mb-4 divider">BRANCH DETAILS</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
@@ -112,7 +129,7 @@
 							@enderror
 						</div>
 
-						<div class="form-control">
+						{{-- <div class="form-control">
 							{!! Form::label('industry_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::select('industry_id', $industries, old('industry_id'), [
 							    'placeholder' => '--choose--',
@@ -123,12 +140,16 @@
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
 							@enderror
-						</div>
+						</div> --}}
+					</div>
+
+					<div>
+						<livewire:state-city :selectedCity="$errors ? old('city_id') : null">
 					</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('company_name', 'Company Name', [
+							{!! Form::label('company_name', 'Branch Name', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
 							{!! Form::text('company_name', old('company_name'), [
@@ -142,7 +163,7 @@
 						</div>
 
 						<div class="form-control">
-							{!! Form::label('inc_date', 'Year of Incorporation', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('inc_date', 'Branch Commencement Date', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::date('inc_date', old('inc_date'), [
 							    'class' => 'input input-bordered input-primary' . ($errors->has('inc_date') ? 'border-2 border-red-600' : ''),
 							]) !!}
@@ -154,32 +175,23 @@
 						</div>
 					</div>
 
-					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('vat', 'VAT/GST', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::text('vat', old('vat'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('vat') ? 'border-2 border-red-600' : ''),
-							]) !!}
-							@error('vat')
-								<label class="label">
-									<span class="text-red-600 label-text-alt">{{ $message }}</span>
-								</label>
-							@enderror
-						</div>
-						<div class="form-control">
-							{!! Form::label('url', 'Website (if any)', [
+							{!! Form::label('company_name', 'Size of the Building (Sq Ft)', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::text('url', old('url'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('url') ? 'border-2 border-red-600' : ''),
+							{!! Form::text('company_name', old('company_name'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('company_name') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('url')
+							@error('company_name')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
 							@enderror
 						</div>
+					</div>
 
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('telephone', 'Telephone', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('telephone', old('telephone'), [
@@ -193,8 +205,100 @@
 						</div>
 					</div>
 
-					<div>
-						<livewire:state-city :selectedCity="$errors ? old('city_id') : null">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('url', 'No of Employees (Male)', [
+							    'class' => 'label font-semibold uppercase',
+							]) !!}
+							{!! Form::text('url', old('url'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('url') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('url')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('url', 'No of Employees (Female)', [
+							    'class' => 'label font-semibold uppercase',
+							]) !!}
+							{!! Form::text('url', old('url'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('url') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('url')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+					</div>
+
+					<div class="mt-8 mb-4 divider">Investment</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('capital', 'Branch Capital', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('capital', old('capital'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('capital') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('capital')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('percentage', 'Total No of Shares', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('percentage', old('percentage'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('percentage')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('percentage', 'Investment Amount', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('percentage', old('percentage'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('percentage')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('percentage', 'Percentage', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::email('percentage', old('percentage'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('percentage')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('percentage', 'No of Shares', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::email('percentage', old('percentage'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('percentage') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('percentage')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 					</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 mt-4">

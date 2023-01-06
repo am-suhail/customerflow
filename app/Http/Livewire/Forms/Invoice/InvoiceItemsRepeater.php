@@ -10,6 +10,7 @@ class InvoiceItemsRepeater extends Component
 {
     public $key_id;
 
+    //FIXME
     public $selectedService;
 
     public
@@ -39,6 +40,7 @@ class InvoiceItemsRepeater extends Component
         $this->key_id = $key_id;
 
         if (!is_null($subcategory) && !empty($subcategory['sub_category_id'])) {
+            //FIXME
             $this->selectedSubcategory = SubCategory::findOrFail($subcategory['sub_category_id']);
             $this->sub_category_id = $this->selectedSubcategory->id;
 
@@ -62,6 +64,7 @@ class InvoiceItemsRepeater extends Component
     public function updatedSubCategoryId($id)
     {
         if ($id) {
+            //FIXME
             $this->selectedSubcategory = SubCategory::findOrFail($id);
             $this->sub_category_id = $this->selectedSubcategory->id;
 
@@ -88,6 +91,7 @@ class InvoiceItemsRepeater extends Component
             [
                 'sub_category_id'       => ['required', 'not_in:0'],
                 'selling_price'    => ['required', 'numeric', 'not_in:0'],
+                'additional_charge'    => ['required', 'numeric'],
             ]
         );
         $this->calcAndEmitUp();

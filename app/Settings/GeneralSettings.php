@@ -12,4 +12,7 @@ class GeneralSettings extends Settings
     {
         return 'general';
     }
+
+    //TODO
+    //Financial Year Settings
 }
