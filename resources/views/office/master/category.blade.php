@@ -51,7 +51,7 @@
 						</x-toggle-record-field>
 						<hr>
 						<div class="py-4">
-							<livewire:tables.master.sub-category-table sub_category_type='1' />
+							<livewire:tables.master.sub-category-table category_type='1' />
 						</div>
 					</div>
 				</div>

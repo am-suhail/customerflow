@@ -19,22 +19,22 @@ class SubCategoryTable extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
-    public $sub_category_type;
+    public $category_type;
 
     protected $listeners = ['refreshLivewireDatatable' => '$refresh'];
 
-    public function mount($sub_category_type)
+    public function mount($category_type)
     {
-        $this->sub_category_type = $sub_category_type;
+        $this->category_type = $category_type;
     }
 
     protected function getTableQuery(): Builder
     {
-        $sub_category_type = $this->sub_category_type;
+        $category_type = $this->category_type;
 
         return SubCategory::query()
-            ->whereHas('category', function ($query) use ($sub_category_type) {
-                return $query->where('type', $sub_category_type);
+            ->whereHas('category', function ($query) use ($category_type) {
+                return $query->where('type', $category_type);
             })
             ->orderBy('name');
     }
@@ -72,7 +72,7 @@ class SubCategoryTable extends Component implements Tables\Contracts\HasTable
                     ->form([
                         Select::make('category_id')
                             ->label('Parent Category')
-                            ->options(Category::query()->pluck('name', 'id'))
+                            ->options(Category::query()->where('type', $this->category_type)->pluck('name', 'id'))
                             ->required(),
 
                         TextInput::make('name')
