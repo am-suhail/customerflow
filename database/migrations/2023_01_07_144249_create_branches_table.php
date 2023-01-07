@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendorsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,17 @@ class CreateVendorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('branches', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('code');
-            $table->string('sex')
-                ->nullable();
-            $table->foreignId('nationality_id')
-                ->nullable()
-                ->constrained('countries')
-                ->nullOnDelete();
-            $table->string('mobile')->nullable();
-            $table->string('email')->nullable();
-            $table->string('company_name')->nullable();
-            $table->foreignId('industry_id')
+            $table->foreignId('company_id')
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
+            $table->string('name');
+            $table->string('code');
+            $table->string('mobile')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('email')->nullable();
             $table->date('inc_date')
                 ->nullable();
             $table->string('vat')
@@ -43,7 +37,6 @@ class CreateVendorsTable extends Migration
                 ->nullable()
                 ->constrained()
                 ->nullOnDelete();
-            $table->string('telephone')->nullable();
             $table->json('additional_info')->nullable();
             $table->text('remark')->nullable();
             $table->timestamps();
@@ -58,6 +51,6 @@ class CreateVendorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('branches');
     }
-}
+};

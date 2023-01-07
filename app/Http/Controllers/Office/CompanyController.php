@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\BaseController;
+use App\Models\Company;
 use App\Models\Industry;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,10 @@ class CompanyController extends BaseController
      */
     public function index()
     {
-        //
+        $this->authorize('view company');
+
+        $this->setPageTitle('Company', '');
+        return view('office.company.index');
     }
 
     /**
@@ -39,7 +43,25 @@ class CompanyController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'sub_category_id' => ['required', 'not_in:0'],
+            'name' => ['required', 'string', 'max:100'],
+            'inc_date' => ['required', 'date'],
+            'inc_number' => ['required', 'string'],
+            'industry_id' => ['required', 'not_in:0'],
+            'tax_number' => ['required', 'string', 'max:20', 'unique:companies,tax_number'],
+            'telephone' => ['required', 'unique:companies,telephone'],
+            'email' => ['required', 'email'],
+            'website' => ['nullable'],
+            'remark' => ['nullable', 'string']
+        ]);
+
+        $create = Company::create($validated);
+
+        if (!$create) {
+            return $this->responseRedirectBack('Something went wrong! Please try later', 'warning', true, true);
+        }
+        return $this->responseRedirect('company.index', 'Company added Successfully', 'success');
     }
 
     /**
@@ -50,7 +72,7 @@ class CompanyController extends BaseController
      */
     public function show($id)
     {
-        //
+        //TODO
     }
 
     /**
@@ -61,7 +83,13 @@ class CompanyController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $this->authorize('edit branch');
+
+        $company = Company::findOrFail($id);
+        $industries = Industry::pluck('name', 'id');
+
+        $this->setPageTitle('Edit ' . $company->name, '');
+        return view('office.company.edit', compact('company', 'industries'));
     }
 
     /**
@@ -73,7 +101,27 @@ class CompanyController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'sub_category_id' => ['required', 'not_in:0'],
+            'name' => ['required', 'string', 'max:100'],
+            'inc_date' => ['required', 'date'],
+            'inc_number' => ['required', 'string'],
+            'industry_id' => ['required', 'not_in:0'],
+            'tax_number' => ['required', 'string', 'max:20', 'unique:companies,tax_number,' . $id],
+            'telephone' => ['required', 'unique:companies,telephone,' . $id],
+            'email' => ['required', 'email'],
+            'website' => ['nullable'],
+            'remark' => ['nullable', 'string']
+        ]);
+
+        $company = Company::findOrFail($id);
+        $updated = $company->update($validated);
+
+        if (!$updated) {
+            return $this->responseRedirectBack('Sorry! Something went wrong', 'warning', true, true);
+        }
+
+        return $this->responseRedirect('company.index', 'Company updated!', 'success');
     }
 
     /**

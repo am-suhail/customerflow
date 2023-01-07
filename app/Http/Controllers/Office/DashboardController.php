@@ -48,6 +48,7 @@ class DashboardController extends Controller
 
         // Charts
         $bar_chart_yearly = null;
+        $bar_chart_monthly_previous_year = null;
         $bar_chart_monthly = null;
         $pie_chart_country = null;
         $pie_chart_state = null;

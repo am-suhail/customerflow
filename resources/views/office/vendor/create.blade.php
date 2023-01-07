@@ -317,8 +317,8 @@
 					</div>
 
 					<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
-						<a href={{ route('branch.index') }} class="btn">Cancel</a>
 						<button type="submit" class='btn btn-accent'>Create</button>
+						<a href={{ route('branch.index') }} class="btn">Cancel</a>
 					</div>
 				</form>
 			</div>

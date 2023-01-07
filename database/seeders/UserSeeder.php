@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'mobile' => '506517567',
             'email' => 'admin@ditllc.com',
             'password' => Hash::make('Admind1t-7139'),
-            'profile' => 'super_admin',
+            'profile' => 1991,
             'profile_completed' => true
         ]);
     }

@@ -151,7 +151,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/designation', [MasterController::class, 'designation'])->name('master.designation');
             // Industry
             Route::get('/industry', [MasterController::class, 'industry'])->name('master.industry');
-            // Category
+            // Product Category
             Route::get('/category/{type?}', [MasterController::class, 'category'])->name('master.category');
             // Company Category
             Route::get('/company-category/{type?}', [MasterController::class, 'company_category'])->name('master.company-category');
