@@ -17,7 +17,7 @@ class ProfileSetup
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->profile !== 'super_admin' && !Auth::user()->profile_completed) {
+        if (Auth::user()->profile !== 1991 && !Auth::user()->profile_completed) {
             return redirect()->route('my-profile.create');
         }
 
