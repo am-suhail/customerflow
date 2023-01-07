@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class CategorySubCategory extends Component
 {
+    public $type;
+
     public $categories, $subcategories;
 
     public $selectedCategory = null;
@@ -18,9 +20,10 @@ class CategorySubCategory extends Component
      *
      * @return response()
      */
-    public function mount($selectedSubCategory = null)
+    public function mount($selectedSubCategory = null, $type = 1)
     {
-        $this->categories = Category::all();
+        $this->categories = Category::where('type', $type)
+            ->get();
         $this->subcategories = collect();
         $this->selectedSubCategory = $selectedSubCategory;
 

@@ -26,161 +26,148 @@
 
 		<div class="flex items-start justify-center w-full pt-4">
 			<div class="w-full p-5 bg-white rounded-lg shadow-xl xl:w-3/4">
-				{!! Form::open([
-				    // 'route' => ['branch.update', $vendor],
-				    'method' => 'PUT',
-				]) !!}
+				<form action="{{ route('company.store') }}" method="POST">
+					@csrf
 
-				{{-- //TODO --}}
+					<div class="mt-8 mb-4 divider">CATEGORY DETAILS</div>
 
-				<div class="mt-8 mb-4 divider">CATEGORY DETAILS</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-					<div class="form-control">
-						{!! Form::label('country_id', 'Choose Category', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('country_id', ['--choose--' => '--choose--'], old('country_id'), [
-						    'placeholder' => '--choose--',
-						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('country_id')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
+					<div>
+						<livewire:category-sub-category :selectedSubCategory="$errors ? old('sub_category_id') : null" type="2">
 					</div>
 
-					<div class="form-control">
-						{!! Form::label('country_id', 'Choose Sub Category', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('country_id', ['--choose--' => '--choose--'], old('country_id'), [
-						    'placeholder' => '--choose--',
-						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('country_id')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-				</div>
+					<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
 
-				<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-					<div class="form-control">
-						{!! Form::label('company_name', 'Company Name', [
-						    'class' => 'label font-semibold uppercase',
-						]) !!}
-						{!! Form::text('company_name', old('company_name'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('company_name') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('company_name')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
+					<div class="grid grid-cols-1 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('name', 'Company Name', [
+							    'class' => 'label font-semibold uppercase',
+							]) !!}
+							{!! Form::text('name', old('name'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('name')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 					</div>
 
-					<div class="form-control">
-						{!! Form::label('inc_date', 'Year of Incorporation', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::date('inc_date', old('inc_date'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('inc_date') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('inc_date')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('inc_date', 'Date of Incorporation', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::date('inc_date', old('inc_date'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('inc_date') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('inc_date')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('inc_number', 'Incorporation Number', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::text('inc_number', old('inc_number'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('inc_number') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('inc_number')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 					</div>
 
-					<div class="form-control">
-						{!! Form::label('reg_no', 'Incorporation No', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::text('reg_no', old('reg_no'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('reg_no') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('reg_no')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-				</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('industry_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::select('industry_id', $industries, old('industry_id'), [
+							    'placeholder' => '--choose--',
+							    'class' => 'select select-bordered select-primary' . ($errors->has('industry_id') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('industry_id')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-					<div class="form-control">
-						{!! Form::label('industry_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::select('industry_id', $industries, old('industry_id'), [
-						    'placeholder' => '--choose--',
-						    'class' => 'select select-bordered select-primary' . ($errors->has('industry_id') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('industry_id')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-
-					<div class="form-control">
-						{!! Form::label('vat', 'VAT/GST', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::text('vat', old('vat'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('vat') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('vat')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-				</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-					<div class="form-control">
-						{!! Form::label('url', 'Website (if any)', [
-						    'class' => 'label font-semibold uppercase',
-						]) !!}
-						{!! Form::text('url', old('url'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('url') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('url')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
+						<div class="form-control">
+							{!! Form::label('tax_number', 'VAT/GST', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::text('tax_number', old('tax_number'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('tax_number') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('tax_number')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 					</div>
 
-					<div class="form-control">
-						{!! Form::label('telephone', 'Telephone', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('telephone', old('telephone'), [
-						    'class' => 'input input-bordered input-primary' . ($errors->has('telephone') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('telephone')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+
+						<div class="form-control">
+							{!! Form::label('telephone', 'Telephone', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('telephone', old('telephone'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('telephone') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('telephone')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('email', 'Email', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::email('email', old('email'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('email') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('email')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('website', 'Website (if any)', [
+							    'class' => 'label font-semibold uppercase',
+							]) !!}
+							{!! Form::text('website', old('website'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('website') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('website')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 					</div>
-				</div>
 
-				<div class="mt-8 mb-4 divider">Remark</div>
+					<div class="mt-8 mb-4 divider">Remark</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
-					<div class="form-control">
-						{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::textarea('remark', old('remark'), [
-						    'class' => 'textarea textarea-bordered	textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('remark')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
+					<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
+						<div class="form-control">
+							{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::textarea('remark', old('remark'), [
+							    'class' => 'textarea textarea-bordered	textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('remark')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
 					</div>
-				</div>
 
-				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
-					<button type="submit" class='btn btn-accent'>Update</button>
-					<a href={{ route('branch.index') }} class="btn">Cancel</a>
-				</div>
-				{!! Form::close() !!}
+					<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
+						<button type="submit" class='btn btn-accent'>Create</button>
+						<a href={{ route('company.index') }} class="btn">Cancel</a>
+					</div>
+				</form>
 			</div>
 		</div>
 

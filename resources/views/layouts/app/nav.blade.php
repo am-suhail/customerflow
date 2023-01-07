@@ -156,7 +156,7 @@
 			@endcanany
 
 			@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
-				<x-nav.nav-link route="company.create">
+				<x-nav.nav-link route="company.index">
 					<x-slot name="path">
 						<path d="M3 21h18"></path>
 						<path d="M5 21V7l8-4v18"></path>
