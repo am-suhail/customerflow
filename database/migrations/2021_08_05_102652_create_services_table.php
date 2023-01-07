@@ -22,6 +22,7 @@ class CreateServicesTable extends Migration
                 ->constrained()
                 ->nullOnDelete();
             $table->foreignId('unit_id')
+                ->nullable()
                 ->constrained()
                 ->nullOnDelete();
             $table->decimal('selling_price', 10, 2)->nullable();
