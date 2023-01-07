@@ -20,7 +20,7 @@ class CategorySubCategory extends Component
      */
     public function mount($selectedSubCategory = null)
     {
-        $this->categories = Category::all();
+        $this->categories = Category::where('type', Category::TYPE_PRODUCT)->get();
         $this->subcategories = collect();
         $this->selectedSubCategory = $selectedSubCategory;
 
