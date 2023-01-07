@@ -21,7 +21,7 @@ class CreateVendorsTable extends Migration
                 ->nullable();
             $table->foreignId('nationality_id')
                 ->nullable()
-                ->constrained()
+                ->constrained('countries')
                 ->nullOnDelete();
             $table->string('mobile')->nullable();
             $table->string('email')->nullable();
