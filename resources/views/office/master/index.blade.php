@@ -146,10 +146,10 @@
 					<!-- Categories -->
 					<div class="grid grid-cols-3 py-2">
 						<div class="text-black col-span-3 md:col-span-1">
-							Company Category
+							Company Categories
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage comapanies Category
+							Manage company categories
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
 							<a href="{{ route('master.company-category') }}" class="md:float-right text-blue-600 hover:text-blue-400">

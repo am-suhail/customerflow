@@ -29,7 +29,8 @@
 }">
 				<div class="justify-center my-6 font-bold tabs">
 					<template x-for="(tab, index) in tabs" :key="index">
-						<a :href="index == 0 ? '{{ route('master.category') }}' : '{{ route('master.category', 'sub-category') }}'"
+						<a
+							:href="index == 0 ? '{{ route('master.company-category') }}' : '{{ route('master.company-category', 'sub-category') }}'"
 							class="tab tab-lifted " :class="{ 'tab-active': activeTabIndex == index }" x-text=tab></a>
 					</template>
 				</div>
@@ -37,21 +38,21 @@
 				<div class="pt-4 my-6 card">
 					<div x-show="activeTabIndex == 0">
 						<x-toggle-record-field>
-							<livewire:records.add-single-record :model="'\App\Models\Category'" :recordLabel="'Add Category'">
+							<livewire:records.add-category-record type='2'>
 						</x-toggle-record-field>
 						<hr>
 						<div class="py-4">
-							<livewire:tables.master.category-table />
+							<livewire:tables.master.category-table category_type='2' />
 						</div>
 					</div>
 
 					<div x-show="activeTabIndex == 1">
 						<x-toggle-record-field>
-							<livewire:records.add-subcategory-record>
+							<livewire:records.add-subcategory-record type='2'>
 						</x-toggle-record-field>
 						<hr>
 						<div class="py-4">
-							<livewire:tables.master.sub-category-table />
+							<livewire:tables.master.sub-category-table sub_category_type='2' />
 						</div>
 					</div>
 				</div>

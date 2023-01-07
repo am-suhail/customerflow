@@ -31,7 +31,7 @@
 				    'method' => 'PUT',
 				]) !!}
 
-				//TODO
+				{{-- //TODO --}}
 
 				<div class="mt-8 mb-4 divider">CATEGORY DETAILS</div>
 

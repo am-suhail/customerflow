@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire\Records;
 
+use App\Models\Category;
 use Livewire\Component;
 
-class AddSingleRecord extends Component
+class AddCategoryRecord extends Component
 {
     public $name;
-    public $model;
-    public $recordLabel;
+    public $type;
 
-    public function mount($model)
+    public function mount($type)
     {
-        $this->model = $model;
+        $this->type = $type;
     }
 
     protected $rules = [
@@ -24,8 +24,9 @@ class AddSingleRecord extends Component
         $this->resetErrorBag('name');
         $this->validate();
 
-        $insert = $this->model::create([
-            "name" => $this->name
+        $insert = Category::create([
+            'name' => $this->name,
+            'type' => $this->type
         ]);
 
         if ($insert) {
@@ -36,6 +37,6 @@ class AddSingleRecord extends Component
 
     public function render()
     {
-        return view('livewire.records.add-single-record');
+        return view('livewire.records.add-category-record');
     }
 }

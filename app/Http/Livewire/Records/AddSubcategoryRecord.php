@@ -12,9 +12,10 @@ class AddSubcategoryRecord extends Component
     public $category;
     public $name;
 
-    public function mount()
+    public function mount($type)
     {
-        $this->categories = Category::all();
+        $this->categories = Category::where('type', $type)
+            ->get();
     }
 
     protected $rules = [
@@ -47,7 +48,6 @@ class AddSubcategoryRecord extends Component
     public function refreshRecord()
     {
         $this->resetField();
-        $this->mount();
     }
 
     public function render()

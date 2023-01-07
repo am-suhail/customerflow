@@ -37,21 +37,21 @@
 				<div class="pt-4 my-6 card">
 					<div x-show="activeTabIndex == 0">
 						<x-toggle-record-field>
-							<livewire:records.add-single-record :model="'\App\Models\Category'" :recordLabel="'Add Category'">
+							<livewire:records.add-category-record type='1'>
 						</x-toggle-record-field>
 						<hr>
 						<div class="py-4">
-							<livewire:tables.master.category-table />
+							<livewire:tables.master.category-table category_type='1' />
 						</div>
 					</div>
 
 					<div x-show="activeTabIndex == 1">
 						<x-toggle-record-field>
-							<livewire:records.add-subcategory-record>
+							<livewire:records.add-subcategory-record type='1'>
 						</x-toggle-record-field>
 						<hr>
 						<div class="py-4">
-							<livewire:tables.master.sub-category-table />
+							<livewire:tables.master.sub-category-table sub_category_type='1' />
 						</div>
 					</div>
 				</div>

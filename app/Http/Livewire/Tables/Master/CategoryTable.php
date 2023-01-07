@@ -19,10 +19,19 @@ class CategoryTable extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
+    public $category_type;
+
+    protected $listeners = ['refreshLivewireDatatable' => '$refresh'];
+
+    public function mount($category_type)
+    {
+        $this->category_type = $category_type;
+    }
+
     protected function getTableQuery(): Builder
     {
         return Category::query()
-            ->where('type', Category::TYPE_PRODUCT)
+            ->where('type', $this->category_type)
             ->orderBy('name');
     }
 
