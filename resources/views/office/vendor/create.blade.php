@@ -33,12 +33,12 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('country_id', 'Choose Company', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::select('country_id', $countries, old('country_id'), [
+							{!! Form::label('company_id', 'Choose Company', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::select('company_id', $companies, old('company_id'), [
 							    'placeholder' => '--choose--',
-							    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
+							    'class' => 'select select-bordered select-primary' . ($errors->has('company_id') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('country_id')
+							@error('company_id')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>

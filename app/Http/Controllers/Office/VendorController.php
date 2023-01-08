@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Office;
 
 use App\Exports\BranchExport;
 use App\Http\Controllers\BaseController;
+use App\Models\Company;
 use App\Models\Country;
 use App\Models\Industry;
 use App\Models\Qualification;
@@ -38,9 +39,10 @@ class VendorController extends BaseController
 
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
+        $companies = Company::pluck('name', 'id');
 
         $this->setPageTitle('Add Branch', '');
-        return view('office.vendor.create', compact('industries', 'countries'));
+        return view('office.vendor.create', compact('industries', 'countries', 'companies'));
     }
 
     /**
