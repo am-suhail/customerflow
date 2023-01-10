@@ -25,7 +25,7 @@ class VendorController extends BaseController
         $this->authorize('view branches');
 
         $this->setPageTitle('Branches', '');
-        return view('office.vendor.index');
+        return view('office.branch.index');
     }
 
     /**
@@ -42,7 +42,7 @@ class VendorController extends BaseController
         $companies = Company::pluck('name', 'id');
 
         $this->setPageTitle('Add Branch', '');
-        return view('office.vendor.create', compact('industries', 'countries', 'companies'));
+        return view('office.branch.create', compact('industries', 'countries', 'companies'));
     }
 
     /**
@@ -65,10 +65,9 @@ class VendorController extends BaseController
             'email' => ['required', 'email'],
             'company_name' => ['required', 'string', 'max:100'],
             'inc_date' => ['required', 'date'],
-            'vat' => ['required', 'string', 'max:20', 'unique:vendors,vat'],
             'url' => ['nullable'],
             'city_id' => ['required', 'not_in:0'],
-            'telephone' => ['required', 'unique:vendors,telephone'],
+            'telephone' => ['required', 'unique:branches,telephone'],
             'remark' => ['nullable', 'string']
         ]);
 
@@ -104,12 +103,13 @@ class VendorController extends BaseController
     {
         $this->authorize('edit branch');
 
-        $vendor = Vendor::findOrFail($id);
+        $branch = Branch::findOrFail($id);
         $industries = Industry::pluck('name', 'id');
         $countries = Country::pluck('name', 'id');
+        $companies = Company::pluck('name', 'id');
 
-        $this->setPageTitle('Edit ' . $vendor->company_name, '');
-        return view('office.vendor.edit', compact('vendor', 'industries', 'countries'));
+        $this->setPageTitle('Edit ' . $branch->company_name, '');
+        return view('office.branch.edit', compact('branch', 'industries', 'countries', 'companies'));
     }
 
     /**
@@ -140,8 +140,8 @@ class VendorController extends BaseController
             'remark' => ['nullable', 'string']
         ]);
 
-        $vendor = Vendor::findOrFail($id);
-        $updated = $vendor->update($validated);
+        $branch = Branch::findOrFail($id);
+        $updated = $branch->update($validated);
 
         if (!$updated) {
             return $this->responseRedirectBack('Sorry! Something went wrong', 'warning', true, true);

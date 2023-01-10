@@ -9,10 +9,21 @@ use Livewire\Component;
 
 class StateCity extends Component
 {
-    public $states, $cities;
+    public $country = null, $states, $cities;
 
     public $selectedState = null;
     public $selectedCity = null;
+
+    protected $listeners = ['countrySelected'];
+
+    public function countrySelected($country)
+    {
+        $this->country = $country;
+
+        $this->states = State::where('country_id', $this->country)
+            ->get()
+            ->sortBy('name');
+    }
 
     /**
      * Mount method for the data
@@ -21,7 +32,9 @@ class StateCity extends Component
      */
     public function mount($selectedCity = null)
     {
-        $this->states = State::all()->sortBy('name');
+        if (is_null($this->country)) {
+            $this->states = State::all()->sortBy('name');
+        }
         $this->cities = collect();
         $this->selectedCity = $selectedCity;
 

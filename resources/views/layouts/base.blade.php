@@ -19,6 +19,7 @@
 	<!-- Styles -->
 	<link rel="stylesheet" href="{{ url(mix('css/app.css')) }}">
 	@livewireStyles
+	@laravelTelInputStyles
 
 	<!-- Scripts -->
 	<script src="{{ url(mix('js/app.js')) }}" defer></script>
@@ -61,6 +62,7 @@
 	@livewireScripts
 	@livewire('notifications')
 	@livewire('livewire-ui-modal')
+	@laravelTelInputScripts
 	@stack('scripts')
 </body>
 

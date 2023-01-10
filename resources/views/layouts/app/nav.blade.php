@@ -155,36 +155,6 @@
 				</x-nav.nav-link>
 			@endcanany
 
-			@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
-				<x-nav.nav-link route="company.index">
-					<x-slot name="path">
-						<path d="M3 21h18"></path>
-						<path d="M5 21V7l8-4v18"></path>
-						<path d="M19 21V11l-6-4"></path>
-						<path d="M9 9v.01"></path>
-						<path d="M9 12v.01"></path>
-						<path d="M9 15v.01"></path>
-						<path d="M9 18v.01"></path>
-					</x-slot>
-					Company
-				</x-nav.nav-link>
-			@endcanany
-
-			@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
-				<x-nav.nav-link route="branch.index">
-					<x-slot name="path">
-						<path d="M3 21h18"></path>
-						<path d="M5 21V7l8-4v18"></path>
-						<path d="M19 21V11l-6-4"></path>
-						<path d="M9 9v.01"></path>
-						<path d="M9 12v.01"></path>
-						<path d="M9 15v.01"></path>
-						<path d="M9 18v.01"></path>
-					</x-slot>
-					Branches
-				</x-nav.nav-link>
-			@endcanany
-
 			@can('view reports')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="report.index">
@@ -201,6 +171,38 @@
 
 			@can('modify master data')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+
+				@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
+					<x-nav.nav-link route="company.index">
+						<x-slot name="path">
+							<path d="M3 21h18"></path>
+							<path d="M5 21V7l8-4v18"></path>
+							<path d="M19 21V11l-6-4"></path>
+							<path d="M9 9v.01"></path>
+							<path d="M9 12v.01"></path>
+							<path d="M9 15v.01"></path>
+							<path d="M9 18v.01"></path>
+						</x-slot>
+						Company
+					</x-nav.nav-link>
+				@endcanany
+
+				@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
+					<x-nav.nav-link route="branch.index">
+						<x-slot name="path">
+							<path d="M3 21h18"></path>
+							<path d="M9 8h1"></path>
+							<path d="M9 12h1"></path>
+							<path d="M9 16h1"></path>
+							<path d="M14 8h1"></path>
+							<path d="M14 12h1"></path>
+							<path d="M14 16h1"></path>
+							<path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path>
+						</x-slot>
+						Branches
+					</x-nav.nav-link>
+				@endcanany
+
 				<x-nav.nav-link route="master.index">
 					<x-slot name="path">
 						<path d="M4 6v6s0 3 7 3 7-3 7-3V6"></path>
@@ -214,7 +216,6 @@
 			@endcan
 
 			@can('modify app settings')
-				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="app-settings.index">
 					<x-slot name="path">
 						<path d="M12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path>
@@ -228,7 +229,7 @@
 			@endcan
 
 
-			@if (Auth::user()->profile !== 1991)
+			@if (!Auth::user()->admin)
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="my-profile.index">
 					<x-slot name="path">

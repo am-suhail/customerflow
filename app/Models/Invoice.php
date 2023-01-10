@@ -48,13 +48,13 @@ class Invoice extends Model
     }
 
     /**
-     * Get the vendor that owns the Invoice
+     * Get the branch that owns the Invoice
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function vendor(): BelongsTo
+    public function branch(): BelongsTo
     {
-        return $this->belongsTo(Vendor::class);
+        return $this->belongsTo(Branch::class);
     }
 
     /**

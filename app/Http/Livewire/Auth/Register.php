@@ -46,6 +46,7 @@ class Register extends Component implements Forms\Contracts\HasForms
                 ->disableAutocomplete(),
 
             TextInput::make('password_confirmation')
+                ->label('Password Confirmation')
                 ->password()
                 ->dehydrated(false)
         ];
