@@ -10,8 +10,8 @@ use Illuminate\Support\Arr;
 
 class Create extends Component
 {
-    // Vendors List
-    public $vendors;
+    // Branches List
+    public $branches;
 
     // Initialise an Empty Services Array to add Services to it
     public $services = [];
@@ -31,7 +31,7 @@ class Create extends Component
 
     public function vendorAdded($vendor_id, $vendor_name)
     {
-        $this->vendors = Arr::add($this->vendors, $vendor_id, $vendor_name);
+        $this->branches = Arr::add($this->vendors, $vendor_id, $vendor_name);
         $this->vendor_id = $vendor_id;
     }
 
@@ -54,7 +54,7 @@ class Create extends Component
         $this->number = '#INV-' . $code;
 
         $this->date = Carbon::today()->format('d-m-Y');
-        $this->vendors = Vendor::pluck('company_name', 'id');
+        $this->branches = Vendor::pluck('company_name', 'id');
     }
 
     /**

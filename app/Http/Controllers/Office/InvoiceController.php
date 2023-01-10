@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Office;
 
 use App\Exports\RevenueTableExport;
 use App\Http\Controllers\BaseController;
+use App\Models\Branch;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Illuminate\Http\Request;
@@ -34,10 +35,10 @@ class InvoiceController extends BaseController
     {
         $this->authorize('add revenue');
 
-        $vendors = Vendor::pluck('name', 'id');
+        $branches = Branch::pluck('name', 'id');
 
         $this->setPageTitle('New Revenue Input', '');
-        return view('office.invoice.create', compact('vendors'));
+        return view('office.invoice.create', compact('branches'));
     }
 
     /**

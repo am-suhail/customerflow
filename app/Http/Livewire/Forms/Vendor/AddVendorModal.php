@@ -12,7 +12,7 @@ class AddVendorModal extends ModalComponent
     // datas
     public
         $industries,
-        $countrie;
+        $countries;
 
     // fields
     public

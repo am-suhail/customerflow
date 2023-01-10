@@ -7,12 +7,10 @@ use Livewire\Component;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
-use Filament\Tables\Actions\CreateAction;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Columns\Column;
-use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Columns\TextColumn;
 
 class UserTable extends Component implements Tables\Contracts\HasTable
 {
@@ -20,7 +18,7 @@ class UserTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return User::query()->where('profile', '!=', 1991);
+        return User::query()->where('admin', false);
     }
 
     protected function getTableColumns(): array
@@ -56,10 +54,32 @@ class UserTable extends Component implements Tables\Contracts\HasTable
                 })
                 ->toggleable(),
 
-            Column::make('Manage')
-                ->view('tables.modals.user.actions')
-                ->extraAttributes(['class' => 'justify-center']),
+        ];
+    }
 
+    protected function getTableActions(): array
+    {
+        return [
+            ActionGroup::make([
+                Action::make('appoint-employee')
+                    ->label('Appoint as Employee')
+                    ->icon('heroicon-o-user-add')
+                    ->color('primary')
+                    ->url(fn ($record) => route('employee.appoint', $record->id))
+                    ->visible(fn ($record) => empty($record->employee_detail)),
+
+                Action::make('manage-roles')
+                    ->label('Manage Roles')
+                    ->icon('heroicon-o-adjustments')
+                    ->color('warning')
+                    ->url(fn ($record) => route('user.manage', $record->id))
+                    ->visible(fn ($record) => !$record->employee),
+
+                // EditAction::make('edit')
+                //     ->label("Edit")
+                //     ->color('primary')
+                //     ->url(fn ($record) => route('user.manage', $record->id)),
+            ])
         ];
     }
 

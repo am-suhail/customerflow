@@ -6,7 +6,7 @@ use App\Charts\InvoiceChart;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
-use App\Models\Vendor;
+use App\Models\Branch;
 use app\Settings\DashboardSettings;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
@@ -21,8 +21,8 @@ class DashboardController extends Controller
         }
 
         $this->authorize('dashboard primary');
-        $invoices = Invoice::with('vendor', 'vendor.country', 'vendor.city', 'vendor.city.state')->get();
-        $vendors = Vendor::all();
+        $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')->get();
+        $branches = Branch::all();
 
         $current_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y'));
         $previous_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
@@ -38,9 +38,9 @@ class DashboardController extends Controller
         $current_year_revenue = $current_year->sum('total_amount');
         $previous_year_revenue = $previous_year->sum('total_amount');
 
-        $total_branches = count($vendors);
+        $total_branches = count($branches);
 
-        $branches = $vendors->filter(fn ($data) => !is_null($data->country_id));
+        $branches = $branches->filter(fn ($data) => !is_null($data->country_id));
         $total_countries = count($branches->groupBy('country_id'));
 
         $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
@@ -105,7 +105,7 @@ class DashboardController extends Controller
         if ($settings->pie_chart_country) {
             $country_wise_invoices = $current_year
                 ->groupBy(function ($data) {
-                    return $data->vendor->country->name ?? "Others";
+                    return $data->branch->country->name ?? "Others";
                 });
 
             $pie_chart_country = new InvoiceChart;
@@ -118,7 +118,7 @@ class DashboardController extends Controller
         if ($settings->pie_chart_state) {
             $state_wise_invoices = $current_year
                 ->groupBy(function ($data) {
-                    return $data->vendor->city->state->name ?? "Others";
+                    return $data->branch->city->state->name ?? "Others";
                 });
 
             $pie_chart_state = new InvoiceChart;
@@ -131,7 +131,7 @@ class DashboardController extends Controller
         if ($settings->pie_chart_city) {
             $city_wise_chart = $current_year
                 ->groupBy(function ($data) {
-                    return $data->vendor->city->name ?? "Others";
+                    return $data->branch->city->name ?? "Others";
                 });
 
             $pie_chart_city = new InvoiceChart;

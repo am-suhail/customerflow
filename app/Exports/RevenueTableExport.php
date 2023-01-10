@@ -34,10 +34,10 @@ class RevenueTableExport implements FromCollection, WithHeadings, WithMapping
         return [
             $invoice->number,
             Carbon::parse($invoice->date)->format('d-m-Y'),
-            $invoice->vendor->company_name,
-            $invoice->vendor->country->name,
-            $invoice->vendor->city->state->name,
-            $invoice->vendor->city->name,
+            $invoice->branch->name,
+            $invoice->branch->country->name,
+            $invoice->branch->city->state->name,
+            $invoice->branch->city->name,
             $invoice->total_amount,
             $invoice->activities->where('description', 'created')->first()->causer->name ?? "--",
             Carbon::parse($invoice->created_at)->format('d-m-Y | h:i:s A')

@@ -3962,11 +3962,11 @@ input:invalid, textarea:invalid, select:invalid {
 .mr-6 {
   margin-right: 1.5rem;
 }
-.mt-10 {
-  margin-top: 2.5rem;
-}
 .mr-1 {
   margin-right: 0.25rem;
+}
+.mt-10 {
+  margin-top: 2.5rem;
 }
 .mb-3 {
   margin-bottom: 0.75rem;
@@ -4094,14 +4094,14 @@ input:invalid, textarea:invalid, select:invalid {
 .h-3 {
   height: 0.75rem;
 }
-.h-10 {
-  height: 2.5rem;
-}
 .h-20 {
   height: 5rem;
 }
 .h-28 {
   height: 7rem;
+}
+.h-10 {
+  height: 2.5rem;
 }
 .h-7 {
   height: 1.75rem;
@@ -7454,11 +7454,11 @@ input:invalid, textarea:invalid, select:invalid {
   .xl\:h-12 {
     height: 3rem;
   }
-  .xl\:w-12 {
-    width: 3rem;
-  }
   .xl\:w-3\/4 {
     width: 75%;
+  }
+  .xl\:w-12 {
+    width: 3rem;
   }
   .xl\:w-1\/2 {
     width: 50%;

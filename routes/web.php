@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Office\BranchController;
 use App\Http\Controllers\Office\CompanyController;
 use App\Http\Controllers\Office\DashboardController;
 use App\Http\Controllers\Office\DashboardSettingsController;
@@ -70,23 +71,6 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware('profile_setup')->group(function () {
-        // Route::get('/data-verify', function () {
-        //     $invoices = Invoice::whereYear('date', date('Y'))->get();
-
-        //     echo count($invoices) . " Refs for the Year 2022,<br /><br /><br />";
-
-        //     foreach ($invoices as $invoice) {
-        //         echo $invoice->number . ",";
-        //         echo Carbon::parse($invoice->date)->format('d-m-Y') . ",";
-        //         echo $invoice->total_amount . ",";
-        //         echo $invoice->items->first()->subcategory->category->name . ",";
-        //         echo $invoice->items->first()->subcategory->name . ",";
-        //         echo $invoice->vendor->country->name . ",";
-        //         echo $invoice->vendor->city->state->name . ",";
-        //         echo $invoice->vendor->city->name . ",";
-        //         echo "<br />";
-        //     }
-        // });
 
         // Home|Dashboard
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
@@ -115,7 +99,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resources(
             [
                 'company' => CompanyController::class,
-                'branch' => VendorController::class,
+                'branch' => BranchController::class,
                 'employee' => EmployeeController::class,
                 'roles' => RolesController::class,
             ]

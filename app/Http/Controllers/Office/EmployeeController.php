@@ -178,7 +178,7 @@ class EmployeeController extends BaseController
         $user = User::findOrFail($id);
 
         $appointed = $user->employee_detail()->create($validated);
-        $user->profile = 2;
+        $user->is_employee = 1;
         $user->save();
 
         if (!$appointed) {
