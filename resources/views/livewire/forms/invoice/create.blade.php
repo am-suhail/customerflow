@@ -38,11 +38,11 @@
 
 		<div class="grid grid-cols-1 mt-4 xl:w-1/2">
 			<div class="form-control">
-				<label for="vendor_id" class="font-semibold uppercase label">Branch</label>
+				<label for="branch_id" class="font-semibold uppercase label">Branch</label>
 
-				<x-select-search :data="$vendors" wire:model="vendor_id" placeholder="--choose branch--" />
+				<x-select-search :data="$branches" wire:model="branch_id" placeholder="--choose branch--" />
 
-				@error('vendor_id')
+				@error('branch_id')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>

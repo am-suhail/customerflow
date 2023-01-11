@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Forms\Invoice;
 
+use App\Models\Branch;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Carbon\Carbon;
@@ -18,21 +19,21 @@ class Create extends Component
 
     // Model Form Variables
     public $number;
-    public $vendor_id;
+    public $branch_id;
     public $date;
     public $total_discount = 0;
     public $total_tax = 0;
     public $total_amount = 0;
 
     protected $listeners = [
-        'vendorAdded',
+        'branchAdded',
         'serviceAdded'
     ];
 
-    public function vendorAdded($vendor_id, $vendor_name)
+    public function branchAdded($branch_id, $branch_name)
     {
-        $this->branches = Arr::add($this->vendors, $vendor_id, $vendor_name);
-        $this->vendor_id = $vendor_id;
+        $this->branches = Arr::add($this->branches, $branch_id, $branch_name);
+        $this->branch_id = $branch_id;
     }
 
     public function serviceAdded($key_id, $sub_category_id, $qty, $discount, $additional_charge, $total, $unit_price, $tax)
@@ -53,8 +54,8 @@ class Create extends Component
         $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
         $this->number = '#INV-' . $code;
 
-        $this->date = Carbon::today()->format('d-m-Y');
-        $this->branches = Vendor::pluck('company_name', 'id');
+        // $this->date = today();
+        $this->branches = Branch::pluck('name', 'id');
     }
 
     /**
@@ -88,9 +89,10 @@ class Create extends Component
     {
         $this->emit('validateSubCategory');
 
+
         $this->validate(
             [
-                'vendor_id'             => ['nullable', 'not_in:0'],
+                'branch_id'             => ['required', 'not_in:0'],
                 'date'                  => ['required', 'date'],
                 'services.*.sub_category_id' => ['required', 'not_in:0'],
                 'services.*.qty'        => ['required', 'numeric'],
@@ -108,7 +110,7 @@ class Create extends Component
 
         $created = Invoice::create([
             'number'                => $newNumber,
-            'vendor_id'             => empty($this->vendor_id) ? NULL : $this->vendor_id,
+            'branch_id'             => empty($this->branch_id) ? NULL : $this->branch_id,
             'date'                  => $this->date,
             'total_discount'        => collect($this->services)->sum('discount'),
             'total_tax'             => 0,

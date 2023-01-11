@@ -30,7 +30,7 @@ class Invoice extends Model
      */
     protected $fillable = [
         'number',
-        'vendor_id',
+        'branch_id',
         'date',
         'total_discount',
         'total_tax',

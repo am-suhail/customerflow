@@ -24,13 +24,13 @@
 			</div>
 		</div>
 
-		<div class="my-8 divider">Company Details</div>
+		<div class="my-8 divider">Branch Details</div>
 
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 			<div class="form-control">
-				<label for="vendor_id" class="font-semibold uppercase label">Company</label>
-				<x-select-search :data="$vendors" wire:model.lazy="vendor_id" placeholder="--choose customer--" />
-				@error('vendor_id')
+				<label for="branch_id" class="font-semibold uppercase label">Branch</label>
+				<x-select-search :data="$branches" wire:model.lazy="branch_id" placeholder="--choose branch--" />
+				@error('branch_id')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>
@@ -51,7 +51,7 @@
 						<div class="col-span-6">
 							<button type="button" class="float-right bg-red-600 border-0 hover:bg-red-500 btn btn-xs"
 								wire:click.prevent="removeField({{ $index }})">
-								Remove Product
+								Remove Revenue
 							</button>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 
 			<div class="flex">
 				<button wire:click.prevent="addField" class="btn btn-accent btn-block">
-					Add Service
+					Add Revenue
 					<svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-6 w-6" fill="none" viewBox="0 0 24 24"
 						stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

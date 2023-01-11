@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Forms\Invoice;
 
+use App\Models\Branch;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Livewire\Component;
@@ -9,8 +10,8 @@ use Livewire\Component;
 class Edit extends Component
 {
 
-    // Vendors List
-    public $vendors;
+    // branches List
+    public $branches;
 
     // Initialise an Empty Services Array to add Services to it
     public $services = [];
@@ -20,7 +21,7 @@ class Edit extends Component
 
     // Model Form Variables
     public $number;
-    public $vendor_id;
+    public $branch_id;
     public $date;
     public $total_discount = 0;
     public $total_tax = 0;
@@ -45,11 +46,11 @@ class Edit extends Component
     {
         $this->invoice = $invoice;
 
-        $this->vendors = Vendor::pluck('company_name', 'id');
+        $this->branches = Branch::pluck('name', 'id');
 
         $this->number = $invoice->number;
         $this->date = $invoice->date;
-        $this->vendor_id = $invoice->vendor_id;
+        $this->branch_id = $invoice->branch_id;
 
         if (!is_null($invoice->items())) {
             foreach ($invoice->items as $item) {
@@ -99,7 +100,7 @@ class Edit extends Component
 
         $this->validate(
             [
-                'vendor_id'             => ['nullable', 'not_in:0'],
+                'branch_id'             => ['nullable', 'not_in:0'],
                 'date'                  => ['required', 'date'],
                 'services.*.sub_category_id' => ['required', 'not_in:0'],
                 'services.*.qty'        => ['required', 'numeric'],
@@ -111,7 +112,7 @@ class Edit extends Component
         );
 
         $updated = $this->invoice->update([
-            'vendor_id'             => $this->vendor_id,
+            'branch_id'             => $this->branch_id,
             'date'                  => $this->date,
             'total_discount'        => 0,
             'total_tax'             => 0,

@@ -46,8 +46,6 @@
 						</div>
 					</div>
 
-					<div class="mt-8 mb-4 divider">KEY MANAGERIAL PERSON (KMP) DETAILS</div>
-
 					<div class="mt-8 mb-4 divider">BRANCH DETAILS</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" x-data="{ country: '{{ old('country_id', '') }}' }">
@@ -129,15 +127,69 @@
 						</div>
 					</div>
 
-					<div class="mt-8 mb-4 divider uppercase">Investment</div>
+					<div class="mt-8 mb-4 divider uppercase">Human Resource</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('emp_male', 'Male - Employees', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('emp_male', old('emp_male'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('emp_male') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('emp_male')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('emp_female', 'Female - Employees', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('emp_female', old('emp_female'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('emp_female') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('emp_female')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-4">
+						<div class="form-control">
+							{!! Form::label('emp_male', 'Key Management Person (KMP)', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('emp_male', old('emp_male'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('emp_male') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('emp_male')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+					</div>
+
+					<div class="mt-8 mb-4 divider uppercase">Investment</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('capital', 'Branch Capital', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('capital', old('capital'), [
 							    'class' => 'input input-bordered input-primary' . ($errors->has('capital') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('capital')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
+							{!! Form::label('share_value', 'Value of Share', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::number('share_value', old('share_value'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('share_value') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('share_value')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
