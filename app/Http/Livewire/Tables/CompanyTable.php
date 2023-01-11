@@ -29,6 +29,17 @@ class CompanyTable extends Component implements Tables\Contracts\HasTable
                 ->label('#')
                 ->rowIndex(),
 
+            TextColumn::make('sub_category.category.name')
+                ->label('Category')
+                ->limit(40)
+                ->toggleable(),
+
+            TextColumn::make('sub_category.name')
+                ->label('Sub Category')
+                ->limit(40)
+                ->toggleable()
+                ->sortable(),
+
             TextColumn::make('name')
                 ->label('Company Name')
                 ->limit(40)
@@ -51,6 +62,11 @@ class CompanyTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('industry.name')
                 ->label('Industry')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('tax_number')
+                ->label('VAT/GST')
                 ->toggleable()
                 ->searchable(),
 

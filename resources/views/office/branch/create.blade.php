@@ -50,7 +50,7 @@
 
 					<div class="mt-8 mb-4 divider">BRANCH DETAILS</div>
 
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" x-data="{ country: {{ old('country_id', '') }} }">
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4" x-data="{ country: '{{ old('country_id', '') }}' }">
 						<div class="form-control">
 							{!! Form::label('country_id', 'Country', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::select('country_id', $countries, old('country_id'), [

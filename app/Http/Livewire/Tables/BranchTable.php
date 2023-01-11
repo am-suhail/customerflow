@@ -64,7 +64,7 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable(),
 
             TextColumn::make('building_size')
-                ->label('Building Size')
+                ->label('Building Sq Ft')
                 ->toggleable()
                 ->sortable(),
 

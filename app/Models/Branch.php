@@ -40,6 +40,18 @@ class Branch extends Model
         'remark',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'capital' => 'integer',
+        'total_shares' => 'integer',
+        'investment_amount' => 'integer',
+        'investment_shares' => 'integer',
+    ];
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
