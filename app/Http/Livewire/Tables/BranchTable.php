@@ -85,8 +85,22 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
+            TextColumn::make('emp_male')
+                ->label('Employee Male')
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('emp_female')
+                ->label('Employee Female')
+                ->toggleable()
+                ->searchable(),
+
             TextColumn::make('capital')
                 ->label('Capital')
+                ->toggleable(),
+
+            TextColumn::make('share_value')
+                ->label('Value of Share')
                 ->toggleable(),
 
             TextColumn::make('total_shares')
