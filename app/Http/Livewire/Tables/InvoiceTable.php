@@ -39,28 +39,28 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
                 ->toggleable(),
 
-            TextColumn::make('vendor.company_name')
+            TextColumn::make('branch.name')
                 ->label('Company')
                 ->limit(25)
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
 
-            TextColumn::make('vendor.country.name')
+            TextColumn::make('branch.country.name')
                 ->label('Country')
                 ->limit(25)
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
 
-            TextColumn::make('vendor.city.state.name')
+            TextColumn::make('branch.city.state.name')
                 ->label('Zone/District')
                 ->limit(25)
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
 
-            TextColumn::make('vendor.city.name')
+            TextColumn::make('branch.city.name')
                 ->label('City')
                 ->limit(25)
                 ->toggleable()

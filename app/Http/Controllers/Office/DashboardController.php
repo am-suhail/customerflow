@@ -8,13 +8,14 @@ use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use App\Models\Branch;
 use app\Settings\DashboardSettings;
+use app\Settings\FinanceSettings;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
-    public function index(DashboardSettings $settings)
+    public function index(DashboardSettings $settings, FinanceSettings $finance_settings)
     {
         if (!Gate::check('dashboard primary')) {
             return redirect()->route('my-profile.index');
@@ -24,14 +25,39 @@ class DashboardController extends Controller
         $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')->get();
         $branches = Branch::all();
 
-        $current_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y'));
-        $previous_year = $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
-        $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) {
-            return $query->whereYear('date',  date('Y', strtotime("-1 year")));
+        $start_month = $finance_settings->year_start;
+        $end_month = Carbon::parse($start_month)->subMonth();
+
+        if (Carbon::parse($start_month)->gt(date('M'))) {
+            $curr_start_date = Carbon::parse($start_month)->subYear()->startOfMonth();
+            $curr_end_date = $end_month->endOfMonth();
+        } else {
+            $curr_start_date = Carbon::parse($start_month)->startOfMonth();
+            $curr_end_date = $end_month->addYear()->endOfMonth();
+        }
+
+        $prev_start_date = Carbon::parse($curr_start_date)->subYear();
+        $prev_end_date = Carbon::parse($curr_end_date)->subYear();
+
+        $current_year = $invoices->whereBetween('date', [$curr_start_date, $curr_end_date]);
+        $previous_year = $invoices->whereBetween('date', [$prev_start_date, $prev_end_date]);
+        // $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
+
+        // dd(
+        //     "Current Year Invoice Count: " . count($current_year),
+        //     "Previous Year Invoice Count: " . count($previous_year),
+        //     "Curr Start Date: " . $curr_start_date,
+        //     "Curr End Date: " . $curr_end_date,
+        //     "Prev Start Date: " . $prev_start_date,
+        //     "Prev End Date: " . $prev_end_date,
+        // );
+
+        $current_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($curr_start_date, $curr_end_date) {
+            return $query->whereBetween('date', [$curr_start_date, $curr_end_date]);
         })
             ->get();
-        $current_year_items = InvoiceItems::whereHas('invoice', function ($query) {
-            return $query->whereYear('date',  date('Y'));
+        $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date) {
+            return $query->whereBetween('date',  [$prev_start_date, $prev_end_date]);
         })
             ->get();
 

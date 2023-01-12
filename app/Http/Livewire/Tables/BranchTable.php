@@ -108,15 +108,15 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable(),
 
             TextColumn::make('investment_amount')
-                ->label('Investment Amount')
+                ->label('Investment')
                 ->toggleable(),
 
             TextColumn::make('investment_percentage')
-                ->label('Investment Percentage')
+                ->label('Percentage')
                 ->toggleable(),
 
             TextColumn::make('investment_shares')
-                ->label('Investment Shares')
+                ->label('Shares')
                 ->toggleable(),
 
             TextColumn::make('remark')

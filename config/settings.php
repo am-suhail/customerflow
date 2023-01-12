@@ -9,6 +9,7 @@ return [
     'settings' => [
         GeneralSettings::class,
         DashboardSettings::class,
+        FinanceSettings::class,
     ],
 
     /*

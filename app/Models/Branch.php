@@ -49,6 +49,7 @@ class Branch extends Model
      * @var array
      */
     protected $casts = [
+        'building_size' => 'integer',
         'capital' => 'integer',
         'total_shares' => 'integer',
         'investment_amount' => 'integer',

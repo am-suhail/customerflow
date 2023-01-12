@@ -47,10 +47,7 @@
 
 				<x-nav.nav-link route="revenue.index">
 					<x-slot name="path">
-						<path d="M20 6H9"></path>
-						<path d="M20 12h-7"></path>
-						<path d="M20 18H9"></path>
-						<path d="m4 8 4 4-4 4"></path>
+						<path d="M13 15h2M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-3-2-2 2-2-2-2 2-2-2-3 2ZM9 7h6-6Zm0 4h6-6Z"></path>
 					</x-slot>
 					Revenue
 				</x-nav.nav-link>
@@ -61,10 +58,10 @@
 
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
-						<path d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"></path>
-						<path d="m4.6 19.402 14.8-14.8"></path>
-						<path d="M9 7v4M7 9h4-4Z"></path>
-						<path d="M13 16h4"></path>
+						<path d="M18 5H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3Z"></path>
+						<path d="M3 10h18"></path>
+						<path d="M7 15h.01"></path>
+						<path d="M11 15h2"></path>
 					</x-slot>
 					Expense
 				</x-nav.nav-link>
@@ -109,8 +106,10 @@
 			@canany(['view liability', 'add liability', 'edit liability', 'delete liability'])
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
-						<path d="M17 10h4v4"></path>
-						<path d="M3 12.001c.887-1.284 2.48-2.033 4-2 1.52-.033 3.113.716 4 2s2.48 2.033 4 2c1.52.033 3-1 4-2l2-2"></path>
+						<path d="M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"></path>
+						<path d="m21 21-6-6"></path>
+						<path d="M12 7H9.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 1 1 0 3H8"></path>
+						<path d="M10 6v1m0 6v1-1Z"></path>
 					</x-slot>
 					Investment Cost
 				</x-nav.nav-link>
@@ -159,11 +158,13 @@
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="report.index">
 					<x-slot name="path">
-						<path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"></path>
-						<path d="M13 3h-2a2 2 0 1 0 0 4h2a2 2 0 1 0 0-4Z"></path>
-						<path d="M9 17v-5"></path>
-						<path d="M12 17v-1"></path>
-						<path d="M15 17v-3"></path>
+						<path d="M18 21V7"></path>
+						<path d="m9 15 3-3 3 3"></path>
+						<path d="m15 10 3-3 3 3"></path>
+						<path d="M3 21h18"></path>
+						<path d="M12 21v-9"></path>
+						<path d="m3 6 3-3 3 3"></path>
+						<path d="M6 21V3"></path>
 					</x-slot>
 					Reports
 				</x-nav.nav-link>

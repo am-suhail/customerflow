@@ -4,12 +4,12 @@ namespace app\Settings;
 
 use Spatie\LaravelSettings\Settings;
 
-class GeneralSettings extends Settings
+class FinanceSettings extends Settings
 {
-    public string $company_name;
+    public string $year_start;
 
     public static function group(): string
     {
-        return 'general';
+        return 'finance';
     }
 }
