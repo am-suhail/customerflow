@@ -7,6 +7,7 @@ use App\Http\Controllers\Office\CompanyController;
 use App\Http\Controllers\Office\DashboardController;
 use App\Http\Controllers\Office\DashboardSettingsController;
 use App\Http\Controllers\Office\EmployeeController;
+use App\Http\Controllers\Office\FinanceSettingsController;
 use App\Http\Controllers\Office\GeneralSettingsController;
 use App\Http\Controllers\Office\InvoiceController;
 use App\Http\Controllers\Office\MasterController;
@@ -152,6 +153,10 @@ Route::middleware(['auth'])->group(function () {
             // Dashboard
             Route::get('/dashboard-settings', [DashboardSettingsController::class, 'index'])->name('app-settings.dashboard');
             Route::post('/dashboard-settings', [DashboardSettingsController::class, 'update'])->name('app-settings.update-dashboard');
+
+            // Finance
+            Route::get('/finance-settings', [FinanceSettingsController::class, 'index'])->name('app-settings.finance');
+            Route::post('/finance-settings', [FinanceSettingsController::class, 'update'])->name('app-settings.update-finance');
         });
 
         Route::get('#', function () {
