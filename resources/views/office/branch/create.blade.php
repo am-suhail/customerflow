@@ -236,8 +236,9 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('kmp', 'Key Management Person (KMP)', ['class' => 'label font-semibold uppercase']) !!}
-							{!! Form::number('kmp', old('kmp'), [
+							{!! Form::label('kmp', 'Key Management Person (KMP)', ['class' => 'label font-semibold uppercase text-red-500']) !!}
+							{!! Form::text('kmp', old('kmp'), [
+							    'disabled',
 							    'class' => 'input input-bordered input-primary' . ($errors->has('kmp') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('kmp')
@@ -281,11 +282,13 @@
 							</div>
 
 							<div class="form-control">
-								{!! Form::label('total_shares', 'Total No of Shares', ['class' => 'label font-semibold uppercase']) !!}
+								{!! Form::label('total_shares', 'Total No of Shares', [
+								    'class' => 'label font-semibold uppercase text-green-500',
+								]) !!}
 								{!! Form::text('total_shares', old('total_shares'), [
 								    'readonly',
 								    'x-model' => 'total_shares',
-								    'class' => 'input input-bordered input-secondary' . ($errors->has('total_shares') ? 'border-2 border-red-600' : ''),
+								    'class' => 'input input-bordered input-success' . ($errors->has('total_shares') ? 'border-2 border-red-600' : ''),
 								]) !!}
 								@error('total_shares')
 									<label class="label">
@@ -312,13 +315,14 @@
 							</div>
 
 							<div class="form-control">
-								{!! Form::label('investment_percentage', 'Percentage %', ['class' => 'label font-semibold uppercase']) !!}
+								{!! Form::label('investment_percentage', 'Percentage %', [
+								    'class' => 'label font-semibold uppercase text-green-500',
+								]) !!}
 								{!! Form::number('investment_percentage', old('investment_percentage'), [
 								    'readonly',
 								    'x-model' => 'investment_percentage',
 								    'class' =>
-								        'input input-bordered input-secondary' .
-								        ($errors->has('investment_percentage') ? 'border-2 border-red-600' : ''),
+								        'input input-bordered input-success' . ($errors->has('investment_percentage') ? 'border-2 border-red-600' : ''),
 								]) !!}
 								@error('investment_percentage')
 									<label class="label">
@@ -328,12 +332,14 @@
 							</div>
 
 							<div class="form-control">
-								{!! Form::label('investment_shares', 'No of Share Units', ['class' => 'label font-semibold uppercase']) !!}
+								{!! Form::label('investment_shares', 'No of Share Units', [
+								    'class' => 'label font-semibold uppercase text-green-500',
+								]) !!}
 								{!! Form::number('investment_shares', old('investment_shares'), [
 								    'readonly',
 								    'x-model' => 'investment_shares',
 								    'class' =>
-								        'input input-bordered input-secondary' . ($errors->has('investment_shares') ? 'border-2 border-red-600' : ''),
+								        'input input-bordered input-success' . ($errors->has('investment_shares') ? 'border-2 border-red-600' : ''),
 								]) !!}
 								@error('investment_shares')
 									<label class="label">
@@ -351,6 +357,7 @@
 							    'class' => 'label font-semibold uppercase text-red-500',
 							]) !!}
 							{!! Form::number('roi_percentage', old('roi_percentage'), [
+							    'disabled',
 							    'class' => 'input input-bordered input-primary' . ($errors->has('roi_percentage') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('roi_percentage')
@@ -361,10 +368,11 @@
 						</div>
 
 						<div class="form-control">
-							{!! Form::label('roi_amount', 'Return of Investment (ROI)', [
+							{!! Form::label('roi_amount', 'ROI Amount', [
 							    'class' => 'label font-semibold uppercase text-red-500',
 							]) !!}
 							{!! Form::number('roi_amount', old('roi_amount'), [
+							    'disabled',
 							    'class' => 'input input-bordered input-primary' . ($errors->has('roi_amount') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('roi_amount')
@@ -379,6 +387,7 @@
 							    'class' => 'label font-semibold uppercase text-red-500',
 							]) !!}
 							{!! Form::number('roi_period', old('roi_period'), [
+							    'disabled',
 							    'min' => 0,
 							    'class' => 'input input-bordered input-primary' . ($errors->has('roi_period') ? 'border-2 border-red-600' : ''),
 							]) !!}

@@ -59,8 +59,8 @@ class BranchController extends BaseController
             'rent' => ['nullable'],
             'total_accomodation' => ['nullable'],
             'accomodation_rent' => ['nullable'],
-            'total_warhouse' => ['nullable'],
-            'warhouse_rent' => ['nullable'],
+            'total_warehouse' => ['nullable'],
+            'warehouse_rent' => ['nullable'],
             'country_id' => ['required', 'not_in:0'],
             'city_id' => ['required', 'not_in:0'],
             'emp_male' => ['required', 'numeric'],
@@ -97,7 +97,7 @@ class BranchController extends BaseController
      */
     public function show($id)
     {
-        //
+        $branch = Branch::findOrFail($id);
     }
 
     /**
@@ -138,8 +138,8 @@ class BranchController extends BaseController
             'rent' => ['nullable'],
             'total_accomodation' => ['nullable'],
             'accomodation_rent' => ['nullable'],
-            'total_warhouse' => ['nullable'],
-            'warhouse_rent' => ['nullable'],
+            'total_warehouse' => ['nullable'],
+            'warehouse_rent' => ['nullable'],
             'country_id' => ['required', 'not_in:0'],
             'city_id' => ['required', 'not_in:0'],
             'emp_male' => ['required', 'numeric'],

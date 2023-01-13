@@ -1,9 +1,16 @@
 <div>
 	<div class="flex flex-wrap px-4 mt-4">
 		<div class="grid grid-cols-1 md:grid-cols-12 xl:grid-cols-12 mb-2 gap-4 w-full">
-			<div class="form-control w-full col-span-2 md:col-span-8 xl:col-span-6">
+			<div class="form-control w-full col-span-2 md:col-span-6 xl:col-span-4">
 				<label class="label uppercase">Category</label>
-				<x-select-search :data="$subcategory_lists" wire:model.lazy="sub_category_id" placeholder="--choose product--" />
+				{{-- <x-select-search :data="$subcategory_lists" wire:model.lazy="sub_category_id" placeholder="--choose product--" /> --}}
+				<select wire:model='sub_category_id' class="select select-primary select-bordered" id="sub_category_id"
+					name="sub_category_id" required>
+					<option value="" selected>--choose sub category--</option>
+					@foreach ($subcategory_lists as $id => $name)
+						<option value="{{ $id }}">{{ $name }}</option>
+					@endforeach
+				</select>
 				@error('sub_category_id')
 					<div class="label uppercase">
 						<span class="text-error label-text">
@@ -27,7 +34,7 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase">Other Revenue</label>
+				<label class="label uppercase">Trade Revenue</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="additional_charge"
 					class="input input-bordered input-primary">
 				@error('additional_charge')
@@ -40,7 +47,20 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase">Total Invoice</label>
+				<label class="label uppercase">Non Trade Revenue</label>
+				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="non_trade_revenue"
+					class="input input-bordered input-primary">
+				@error('non_trade_revenue')
+					<div class="label uppercase">
+						<span class="text-error label-text">
+							{{ $errors->first('non_trade_revenue') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
+			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
+				<label class="label uppercase">Total Amount</label>
 				<input placeholder="Total Invoices of Each Month" type="number" min="0" wire:model="tax"
 					class="input input-bordered input-primary">
 				@error('tax')

@@ -29,15 +29,15 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->label('#')
                 ->rowIndex(),
 
-            TextColumn::make('company.name')
-                ->label('Company Name')
+            TextColumn::make('name')
+                ->label('Branch Name')
                 ->limit(40)
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
 
-            TextColumn::make('name')
-                ->label('Branch Name')
+            TextColumn::make('company.name')
+                ->label('Company Name')
                 ->limit(40)
                 ->toggleable()
                 ->searchable()
@@ -73,6 +73,10 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
+
+            TextColumn::make('city.state.name')
+                ->label('Zone')
+                ->toggleable(),
 
             TextColumn::make('city.name')
                 ->label('City')

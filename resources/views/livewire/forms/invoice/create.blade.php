@@ -36,12 +36,32 @@
 
 		<div class="my-8 divider">Branch Details</div>
 
-		<div class="grid grid-cols-1 mt-4 xl:w-1/2">
+		<div class="grid grid-cols-2 mt-4 gap-4 xl:w-3/4">
+			<div class="form-control">
+				<label for="company_id" class="font-semibold uppercase label">Company</label>
+				<select wire:model='company_id' class="select select-primary select-bordered" id="company_id" name="company_id"
+					required>
+					<option value="" selected>--choose company--</option>
+					@foreach ($companies as $id => $name)
+						<option value="{{ $id }}">{{ $name }}</option>
+					@endforeach
+				</select>
+				@error('company_id')
+					<label class="label">
+						<span class="text-red-600 label-text-alt">{{ $message }}</span>
+					</label>
+				@enderror
+			</div>
+
 			<div class="form-control">
 				<label for="branch_id" class="font-semibold uppercase label">Branch</label>
-
-				<x-select-search :data="$branches" wire:model="branch_id" placeholder="--choose branch--" />
-
+				<select wire:model='branch_id' class="select select-primary select-bordered" id="branch_id" name="branch_id"
+					required {{ !is_null($company_id) ? '' : 'disabled' }}>
+					<option value="" selected>--choose branch--</option>
+					@foreach ($branches as $id => $branch)
+						<option value="{{ $id }}">{{ $branch }}</option>
+					@endforeach
+				</select>
 				@error('branch_id')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>

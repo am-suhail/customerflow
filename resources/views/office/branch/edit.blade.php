@@ -130,10 +130,73 @@
 						{!! Form::label('rent', 'Showroom Rent', [
 						    'class' => 'label font-semibold uppercase',
 						]) !!}
-						{!! Form::number('rent', old('rent'), [
+						{!! Form::number('rent', old('rent', $branch->rent), [
 						    'class' => 'input input-bordered input-primary' . ($errors->has('rent') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('rent')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					<div class="form-control">
+						{!! Form::label('total_accomodation', 'No of Accomodation', [
+						    'class' => 'label font-semibold uppercase',
+						]) !!}
+						{!! Form::number('total_accomodation', old('total_accomodation', $branch->total_accomodation), [
+						    'class' =>
+						        'input input-bordered input-primary' . ($errors->has('total_accomodation') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('total_accomodation')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+
+					<div class="form-control">
+						{!! Form::label('accomodation_rent', 'Accomodation Rent', [
+						    'class' => 'label font-semibold uppercase',
+						]) !!}
+						{!! Form::number('accomodation_rent', old('accomodation_rent', $branch->accomodation_rent), [
+						    'class' =>
+						        'input input-bordered input-primary' . ($errors->has('accomodation_rent') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('accomodation_rent')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+				</div>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					<div class="form-control">
+						{!! Form::label('total_warehouse', 'No of Warehouse', [
+						    'class' => 'label font-semibold uppercase',
+						]) !!}
+						{!! Form::number('total_warehouse', old('total_warehouse', $branch->total_warehouse), [
+						    'class' =>
+						        'input input-bordered input-primary' . ($errors->has('total_warehouse') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('total_warehouse')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+
+					<div class="form-control">
+						{!! Form::label('warehouse_rent', 'Warehouse Rent', [
+						    'class' => 'label font-semibold uppercase',
+						]) !!}
+						{!! Form::number('warehouse_rent', old('warehouse_rent', $branch->warehouse_rent), [
+						    'class' => 'input input-bordered input-primary' . ($errors->has('warehouse_rent') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('warehouse_rent')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>
@@ -173,8 +236,9 @@
 
 				<div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('kmp', 'Key Management Person (KMP)', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('kmp', old('kmp'), [
+						{!! Form::label('kmp', 'Key Management Person (KMP)', ['class' => 'label font-semibold uppercase text-red-500']) !!}
+						{!! Form::text('kmp', old('kmp'), [
+						    'disabled',
 						    'class' => 'input input-bordered input-primary' . ($errors->has('kmp') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('kmp')
@@ -218,11 +282,13 @@
 						</div>
 
 						<div class="form-control">
-							{!! Form::label('total_shares', 'Total No of Shares', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('total_shares', 'Total No of Shares', [
+							    'class' => 'label font-semibold uppercase text-green-500',
+							]) !!}
 							{!! Form::number('total_shares', old('total_shares', $branch->total_shares), [
 							    'readonly',
 							    'x-model' => 'total_shares',
-							    'class' => 'input input-bordered input-secondary' . ($errors->has('total_shares') ? 'border-2 border-red-600' : ''),
+							    'class' => 'input input-bordered input-success' . ($errors->has('total_shares') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('total_shares')
 								<label class="label">
@@ -249,13 +315,14 @@
 						</div>
 
 						<div class="form-control">
-							{!! Form::label('investment_percentage', 'Percentage %', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('investment_percentage', 'Percentage %', [
+							    'class' => 'label font-semibold uppercase text-green-500',
+							]) !!}
 							{!! Form::number('investment_percentage', old('investment_percentage', $branch->investment_percentage), [
 							    'readonly',
 							    'x-model' => 'investment_percentage',
 							    'class' =>
-							        'input input-bordered input-secondary' .
-							        ($errors->has('investment_percentage') ? 'border-2 border-red-600' : ''),
+							        'input input-bordered input-success' . ($errors->has('investment_percentage') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('investment_percentage')
 								<label class="label">
@@ -265,12 +332,14 @@
 						</div>
 
 						<div class="form-control">
-							{!! Form::label('investment_shares', 'No of Share Units', ['class' => 'label font-semibold uppercase']) !!}
+							{!! Form::label('investment_shares', 'No of Share Units', [
+							    'class' => 'label font-semibold uppercase text-green-500',
+							]) !!}
 							{!! Form::number('investment_shares', old('investment_shares', $branch->investment_shares), [
 							    'readonly',
 							    'x-model' => 'investment_shares',
 							    'class' =>
-							        'input input-bordered input-secondary' . ($errors->has('investment_shares') ? 'border-2 border-red-600' : ''),
+							        'input input-bordered input-success' . ($errors->has('investment_shares') ? 'border-2 border-red-600' : ''),
 							]) !!}
 							@error('investment_shares')
 								<label class="label">
@@ -288,6 +357,7 @@
 						    'class' => 'label font-semibold uppercase text-red-500',
 						]) !!}
 						{!! Form::number('roi_percentage', old('roi_percentage'), [
+						    'disabled',
 						    'min' => 0,
 						    'class' => 'input input-bordered input-primary' . ($errors->has('roi_percentage') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -299,10 +369,11 @@
 					</div>
 
 					<div class="form-control">
-						{!! Form::label('roi_amount', 'Return of Investment (ROI)', [
+						{!! Form::label('roi_amount', 'ROI Amount', [
 						    'class' => 'label font-semibold uppercase text-red-500',
 						]) !!}
 						{!! Form::number('roi_amount', old('roi_amount'), [
+						    'disabled',
 						    'min' => 0,
 						    'class' => 'input input-bordered input-primary' . ($errors->has('roi_amount') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -318,6 +389,7 @@
 						    'class' => 'label font-semibold uppercase text-red-500',
 						]) !!}
 						{!! Form::number('roi_period', old('roi_period'), [
+						    'disabled',
 						    'min' => 0,
 						    'class' => 'input input-bordered input-primary' . ($errors->has('roi_period') ? 'border-2 border-red-600' : ''),
 						]) !!}
@@ -359,12 +431,12 @@
 	<script>
 		function calc() {
 			return {
-				capital: {{ old('capital', $branch->capital) }},
-				share_value: {{ old('share_value', $branch->share_value) }},
-				total_shares: {{ old('total_shares', $branch->total_shares) }},
-				investment_amount: {{ old('investment_amount', $branch->investment_amount) }},
-				investment_percentage: {{ old('investment_percentage', $branch->investment_percentage) }},
-				investment_shares: {{ old('investment_shares', $branch->investment_shares) }},
+				capital: {{ old('capital', $branch->capital ?? 0) }},
+				share_value: {{ old('share_value', $branch->share_value ?? 0) }},
+				total_shares: {{ old('total_shares', $branch->total_shares ?? 0) }},
+				investment_amount: {{ old('investment_amount', $branch->investment_amount ?? 0) }},
+				investment_percentage: {{ old('investment_percentage', $branch->investment_percentage ?? 0) }},
+				investment_shares: {{ old('investment_shares', $branch->investment_shares ?? 0) }},
 
 				calc_values() {
 					this.total_shares = parseFloat((this.capital / this.share_value).toFixed(2));

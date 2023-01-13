@@ -24,6 +24,7 @@ class InvoiceItems extends Model
         'qty',
         'discount',
         'tax',
+        'non_trade_revenue',
         'additional_charge',
         'total'
     ];

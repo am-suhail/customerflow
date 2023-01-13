@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Forms\Invoice;
 
 use App\Models\Branch;
+use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Vendor;
 use Carbon\Carbon;
@@ -11,7 +12,8 @@ use Illuminate\Support\Arr;
 
 class Create extends Component
 {
-    // Branches List
+    // Company & Branches List
+    public $companies;
     public $branches;
 
     // Initialise an Empty Services Array to add Services to it
@@ -19,6 +21,7 @@ class Create extends Component
 
     // Model Form Variables
     public $number;
+    public $company_id;
     public $branch_id;
     public $date;
     public $total_discount = 0;
@@ -36,11 +39,12 @@ class Create extends Component
         $this->branch_id = $branch_id;
     }
 
-    public function serviceAdded($key_id, $sub_category_id, $qty, $discount, $additional_charge, $total, $unit_price, $tax)
+    public function serviceAdded($key_id, $sub_category_id, $qty, $discount, $additional_charge, $total, $unit_price, $tax, $non_trade_revenue)
     {
         $this->services[$key_id]['sub_category_id'] = $sub_category_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
+        $this->services[$key_id]['non_trade_revenue'] = $non_trade_revenue;
         $this->services[$key_id]['additional_charge'] = $additional_charge;
         $this->services[$key_id]['total'] = $total;
         $this->services[$key_id]['unit_price'] = $unit_price;
@@ -55,7 +59,17 @@ class Create extends Component
         $this->number = '#INV-' . $code;
 
         // $this->date = today();
-        $this->branches = Branch::pluck('name', 'id');
+        $this->branches = [];
+        $this->companies = Company::pluck('name', 'id');
+    }
+
+    public function updatedCompanyId($company)
+    {
+        if (!is_null($company)) {
+            $this->branches = Branch::where('company_id', $company)
+                ->get()
+                ->pluck('name', 'id');
+        }
     }
 
     /**
@@ -71,7 +85,8 @@ class Create extends Component
             'additional_charge' => '',
             'total' => '',
             'unit_price' => '',
-            'tax' => ''
+            'tax' => '',
+            'non_trade_revenue' => ''
         ];
     }
 

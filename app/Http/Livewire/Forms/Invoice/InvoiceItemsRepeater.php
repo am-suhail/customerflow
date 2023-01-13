@@ -10,8 +10,7 @@ class InvoiceItemsRepeater extends Component
 {
     public $key_id;
 
-    //FIXME
-    public $selectedService;
+    public $selectedSubcategory;
 
     public
         $sub_category_id,
@@ -19,6 +18,7 @@ class InvoiceItemsRepeater extends Component
         $qty = 1,
         $discount = 0,
         $tax = 1,
+        $non_trade_revenue = 0,
         $additional_charge = 0,
         $custom_price = NULL,
         $total = 0;
@@ -40,7 +40,6 @@ class InvoiceItemsRepeater extends Component
         $this->key_id = $key_id;
 
         if (!is_null($subcategory) && !empty($subcategory['sub_category_id'])) {
-            //FIXME
             $this->selectedSubcategory = SubCategory::findOrFail($subcategory['sub_category_id']);
             $this->sub_category_id = $this->selectedSubcategory->id;
 
@@ -48,6 +47,7 @@ class InvoiceItemsRepeater extends Component
             $this->qty = $subcategory['qty'];
             $this->discount = $subcategory['discount'];
             $this->additional_charge = $subcategory['additional_charge'];
+            $this->non_trade_revenue = $subcategory['non_trade_revenue'];
             $this->tax = $subcategory['tax'];
             $this->total = $subcategory['total'];
         }
@@ -64,7 +64,6 @@ class InvoiceItemsRepeater extends Component
     public function updatedSubCategoryId($id)
     {
         if ($id) {
-            //FIXME
             $this->selectedSubcategory = SubCategory::findOrFail($id);
             $this->sub_category_id = $this->selectedSubcategory->id;
 
@@ -97,6 +96,19 @@ class InvoiceItemsRepeater extends Component
         $this->calcAndEmitUp();
     }
 
+    public function updatedNonTradeRevenue()
+    {
+        $this->validate(
+            [
+                'sub_category_id'       => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+                'additional_charge'    => ['required', 'numeric'],
+                'non_trade_revenue'    => ['required', 'numeric'],
+            ]
+        );
+        $this->calcAndEmitUp();
+    }
+
     public function updatedTax()
     {
         $this->validate(
@@ -110,7 +122,7 @@ class InvoiceItemsRepeater extends Component
 
     private function calcAndEmitUp()
     {
-        $this->total = (($this->selling_price * $this->qty) - $this->discount) + ($this->additional_charge ?? 0);
-        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price, $this->tax);
+        $this->total = (($this->selling_price * $this->qty) - $this->discount) + ($this->additional_charge ?? 0) + ($this->non_trade_revenue ?? 0);
+        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price, $this->tax, $this->non_trade_revenue);
     }
 }
