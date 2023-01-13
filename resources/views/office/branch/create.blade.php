@@ -143,13 +143,14 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('building_size', 'No of Accomodation', [
+							{!! Form::label('total_accomodation', 'No of Accomodation', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::number('building_size', old('building_size'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('building_size') ? 'border-2 border-red-600' : ''),
+							{!! Form::number('total_accomodation', old('total_accomodation'), [
+							    'class' =>
+							        'input input-bordered input-primary' . ($errors->has('total_accomodation') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('building_size')
+							@error('total_accomodation')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
@@ -157,13 +158,14 @@
 						</div>
 
 						<div class="form-control">
-							{!! Form::label('rent', 'Accomodation Rent', [
+							{!! Form::label('accomodation_rent', 'Accomodation Rent', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::number('rent', old('rent'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('rent') ? 'border-2 border-red-600' : ''),
+							{!! Form::number('accomodation_rent', old('accomodation_rent'), [
+							    'class' =>
+							        'input input-bordered input-primary' . ($errors->has('accomodation_rent') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('rent')
+							@error('accomodation_rent')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
@@ -173,13 +175,14 @@
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 						<div class="form-control">
-							{!! Form::label('building_size', 'No of Warehouse', [
+							{!! Form::label('total_warehouse', 'No of Warehouse', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::number('building_size', old('building_size'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('building_size') ? 'border-2 border-red-600' : ''),
+							{!! Form::number('total_warehouse', old('total_warehouse'), [
+							    'class' =>
+							        'input input-bordered input-primary' . ($errors->has('total_warehouse') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('building_size')
+							@error('total_warehouse')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>
@@ -187,13 +190,13 @@
 						</div>
 
 						<div class="form-control">
-							{!! Form::label('rent', 'Warehouse Rent', [
+							{!! Form::label('warehouse_rent', 'Warehouse Rent', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::number('rent', old('rent'), [
-							    'class' => 'input input-bordered input-primary' . ($errors->has('rent') ? 'border-2 border-red-600' : ''),
+							{!! Form::number('warehouse_rent', old('warehouse_rent'), [
+							    'class' => 'input input-bordered input-primary' . ($errors->has('warehouse_rent') ? 'border-2 border-red-600' : ''),
 							]) !!}
-							@error('rent')
+							@error('warehouse_rent')
 								<label class="label">
 									<span class="text-red-600 label-text-alt">{{ $message }}</span>
 								</label>

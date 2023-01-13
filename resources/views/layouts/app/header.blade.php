@@ -12,6 +12,10 @@
 			</button>
 		</div>
 
+		<div class="">
+			<img src="{{ asset('img/logo.png') }}" style="width:200px" alt="">
+		</div>
+
 		<!-- Navbar right -->
 		<div class="relative flex items-center space-x-3">
 			<!-- User Menu -->
