@@ -40,7 +40,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable(),
 
             TextColumn::make('branch.name')
-                ->label('Company')
+                ->label('Branch')
                 ->limit(25)
                 ->toggleable()
                 ->searchable()
