@@ -60,6 +60,19 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
+				<label class="label uppercase text-sm font-bold">No of Invoice</label>
+				<input placeholder="Total" type="number" min="0" wire:model="tax"
+					class="input input-bordered input-primary">
+				@error('tax')
+					<div class="label uppercase">
+						<span class="text-error label-text">
+							{{ $errors->first('tax') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
+			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase text-sm font-bold">Total Amount</label>
 				<input placeholder="Total" type="number" min="0" wire:model="total"
 					class="input input-bordered input-primary" disabled>

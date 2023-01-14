@@ -18,7 +18,7 @@ class InvoiceItemsRepeater extends Component
         $selling_price,
         $qty = 1,
         $discount = 0,
-        $tax = 0,
+        $tax = 1,
         $non_trade_revenue = 0,
         $additional_charge = 0,
         $custom_price = NULL,
@@ -49,7 +49,7 @@ class InvoiceItemsRepeater extends Component
             $this->discount = $subcategory['discount'];
             $this->additional_charge = $subcategory['additional_charge'];
             $this->non_trade_revenue = $subcategory['non_trade_revenue'];
-            $this->tax = 0;
+            $this->tax = $subcategory['tax'];
             $this->total = $subcategory['total'];
         }
 
@@ -111,16 +111,18 @@ class InvoiceItemsRepeater extends Component
         $this->calcAndEmitUp();
     }
 
-    // public function updatedTax()
-    // {
-    //     $this->validate(
-    //         [
-    //             'sub_category_id'       => ['required', 'not_in:0'],
-    //             'selling_price'    => ['required', 'numeric', 'not_in:0'],
-    //         ]
-    //     );
-    //     $this->calcAndEmitUp();
-    // }
+    public function updatedTax()
+    {
+        $this->validate(
+            [
+                'sub_category_id'       => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+                'additional_charge'    => ['required', 'numeric'],
+                'non_trade_revenue'    => ['required', 'numeric'],
+            ]
+        );
+        $this->calcAndEmitUp();
+    }
 
     private function calcAndEmitUp()
     {

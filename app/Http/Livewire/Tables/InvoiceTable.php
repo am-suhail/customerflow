@@ -74,7 +74,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->sortable(),
 
             TextColumn::make('items.tax')
-                ->label('Total Invoices')
+                ->label('No of Invoices')
                 ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->tax)->sum())
                 ->toggleable()
                 ->searchable(),
