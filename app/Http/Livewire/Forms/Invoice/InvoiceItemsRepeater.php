@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Forms\Invoice;
 
+use App\Models\Category;
 use Livewire\Component;
 use App\Models\Service;
 use App\Models\SubCategory;
@@ -17,7 +18,7 @@ class InvoiceItemsRepeater extends Component
         $selling_price,
         $qty = 1,
         $discount = 0,
-        $tax = 1,
+        $tax = 0,
         $non_trade_revenue = 0,
         $additional_charge = 0,
         $custom_price = NULL,
@@ -48,12 +49,13 @@ class InvoiceItemsRepeater extends Component
             $this->discount = $subcategory['discount'];
             $this->additional_charge = $subcategory['additional_charge'];
             $this->non_trade_revenue = $subcategory['non_trade_revenue'];
-            $this->tax = $subcategory['tax'];
+            $this->tax = 0;
             $this->total = $subcategory['total'];
         }
 
         // Fetched SubCategory
-        $this->subcategory_lists = SubCategory::pluck('name', 'id');
+        $this->subcategory_lists = SubCategory::whereHas('category', fn ($q) => $q->where('type', Category::TYPE_PRODUCT))
+            ->pluck('name', 'id');
     }
 
     public function render()
@@ -109,16 +111,16 @@ class InvoiceItemsRepeater extends Component
         $this->calcAndEmitUp();
     }
 
-    public function updatedTax()
-    {
-        $this->validate(
-            [
-                'sub_category_id'       => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-            ]
-        );
-        $this->calcAndEmitUp();
-    }
+    // public function updatedTax()
+    // {
+    //     $this->validate(
+    //         [
+    //             'sub_category_id'       => ['required', 'not_in:0'],
+    //             'selling_price'    => ['required', 'numeric', 'not_in:0'],
+    //         ]
+    //     );
+    //     $this->calcAndEmitUp();
+    // }
 
     private function calcAndEmitUp()
     {
