@@ -403,12 +403,11 @@
 
 				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
 					<div class="form-control">
-						{!! Form::label('remarks', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::textarea('remarks', old('remarks'), [
-						    'class' =>
-						        'textarea textarea-bordered	textarea-primary' . ($errors->has('remarks') ? 'border-2 border-red-600' : ''),
+						{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::textarea('remark', old('remark'), [
+						    'class' => 'textarea textarea-bordered	textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
 						]) !!}
-						@error('remarks')
+						@error('remark')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>

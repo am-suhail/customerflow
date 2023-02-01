@@ -18,7 +18,7 @@ class InvoiceItemsRepeater extends Component
         $selling_price,
         $qty = 1,
         $discount = 0,
-        $tax = 1,
+        $tax = 0,
         $non_trade_revenue = 0,
         $additional_charge = 0,
         $custom_price = NULL,

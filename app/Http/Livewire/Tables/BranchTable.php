@@ -53,7 +53,7 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(function (Branch $record) {
                     return Carbon::parse($record->inc_date ?? "")->format('d-m-Y');
                 })
-                ->label('Inc. Date')
+                ->label('Commencement Date')
                 ->toggleable(),
 
             TextColumn::make('age')
@@ -125,6 +125,7 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('remark')
                 ->label('Remarks')
+                ->limit(25)
                 ->toggleable()
                 ->searchable(),
         ];
