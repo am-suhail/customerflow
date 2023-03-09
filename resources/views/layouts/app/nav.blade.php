@@ -230,7 +230,18 @@
 			@endcan
 
 
-			@if (!Auth::user()->admin)
+			@if (Auth::user()->admin)
+				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+				<x-nav.nav-link route="admin.index">
+					<x-slot name="path">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</x-slot>
+					Super Admin
+				</x-nav.nav-link>
+			@endif
+
+			@unless(Auth::user()->admin)
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="my-profile.index">
 					<x-slot name="path">
@@ -239,7 +250,7 @@
 					</x-slot>
 					My Profile
 				</x-nav.nav-link>
-			@endif
+			@endunless
 		</ul>
 	</nav>
 

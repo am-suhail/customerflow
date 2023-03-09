@@ -47,6 +47,13 @@ class CompanyTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->sortable(),
 
+            TextColumn::make('total_branches')
+                ->label('Branches')
+                ->getStateUsing(function (Company $record) {
+                    return count($record->branches);
+                })
+                ->toggleable(),
+
             TextColumn::make('inc_date')
                 ->getStateUsing(function (Company $record) {
                     return Carbon::parse($record->inc_date ?? "")->format('d-m-Y');
@@ -87,6 +94,7 @@ class CompanyTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('remark')
                 ->label('Remarks')
+                ->limit(25)
                 ->toggleable()
                 ->searchable(),
         ];

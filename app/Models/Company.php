@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -68,5 +69,15 @@ class Company extends Model
     public function industry(): BelongsTo
     {
         return $this->belongsTo(Industry::class);
+    }
+
+    /**
+     * Get all of the branches for the Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function branches(): HasMany
+    {
+        return $this->hasMany(Branch::class, 'company_id', 'id');
     }
 }

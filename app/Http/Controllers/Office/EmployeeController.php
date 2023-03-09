@@ -102,7 +102,6 @@ class EmployeeController extends BaseController
             'years_of_exp' => ['required', 'numeric'],
             'designation_id' => ['required', 'not_in:0'],
             'joining_date' => ['required', 'date'],
-            'salary' => ['required', 'numeric'],
             'remark' => ['nullable', 'string', 'max:191'],
         ]);
 
@@ -125,7 +124,6 @@ class EmployeeController extends BaseController
         $updated = $user->employee_detail->update([
             'designation_id' => $request->designation_id,
             'joining_date' => $request->joining_date,
-            'salary' => $request->salary,
             'remark' => $request->remark,
         ]);
 

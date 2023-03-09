@@ -8,7 +8,7 @@
 					name="sub_category_id" required>
 					<option value="" selected>--choose sub category--</option>
 					@foreach ($subcategory_lists as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
+						<option value="{{ $id }}" style="font-size:18px">{{ $name }}</option>
 					@endforeach
 				</select>
 				@error('sub_category_id')
@@ -21,7 +21,7 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Sales Revenue</label>
+				<label class="label uppercase text-sm font-bold">Sales</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="selling_price"
 					class="input input-bordered input-primary">
 				@error('selling_price')
@@ -34,7 +34,7 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Trade Revenue</label>
+				<label class="label uppercase text-sm font-bold">Trade</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="additional_charge"
 					class="input input-bordered input-primary">
 				@error('additional_charge')
@@ -47,7 +47,7 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Non Trade Revenue</label>
+				<label class="label uppercase text-sm font-bold">Non Trade</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="non_trade_revenue"
 					class="input input-bordered input-primary">
 				@error('non_trade_revenue')

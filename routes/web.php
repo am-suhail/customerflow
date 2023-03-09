@@ -15,6 +15,7 @@ use App\Http\Controllers\Office\ProfileController;
 use App\Http\Controllers\Office\ReportController;
 use App\Http\Controllers\Office\RolesController;
 use App\Http\Controllers\Office\SettingsController;
+use App\Http\Controllers\Office\SuperAdminController;
 use App\Http\Controllers\Office\UserController;
 use App\Http\Controllers\Office\VendorController;
 use App\Http\Livewire\Auth\Login;
@@ -157,6 +158,11 @@ Route::middleware(['auth'])->group(function () {
             // Finance
             Route::get('/finance-settings', [FinanceSettingsController::class, 'index'])->name('app-settings.finance');
             Route::post('/finance-settings', [FinanceSettingsController::class, 'update'])->name('app-settings.update-finance');
+        });
+
+        Route::prefix('super-admin')->group(function () {
+            Route::get('/', [SuperAdminController::class, 'index'])->name('admin.index');
+            Route::get('roles-permissions', [SuperAdminController::class, 'gate'])->name('admin.roles-management');
         });
 
         Route::get('#', function () {

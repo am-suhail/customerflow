@@ -32,7 +32,7 @@
 		}
 
 		.sidebar-nav-custom::-webkit-scrollbar {
-			width: 10px;
+			width: 18px;
 			height: 16px;
 		}
 

@@ -199,9 +199,6 @@
 							</label>
 						@enderror
 					</div>
-				</div>
-
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('designation_id', 'Designation', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select(
@@ -215,18 +212,6 @@
 						    ],
 						) !!}
 						@error('designation_id')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
-					<div class="form-control">
-						{!! Form::label('salary', 'Salary', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('salary', old('salary', $user->employee_detail->salary ?? ''), [
-						    'step' => '.01',
-						    'class' => 'input input-bordered input-primary' . ($errors->has('salary') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('salary')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
 							</label>

@@ -10,7 +10,6 @@ use App\Models\Branch;
 use app\Settings\DashboardSettings;
 use app\Settings\FinanceSettings;
 use Carbon\Carbon;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
@@ -22,7 +21,19 @@ class DashboardController extends Controller
         }
 
         $this->authorize('dashboard primary');
-        $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')->get();
+        $category_name = "Direct";
+
+        $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')
+            ->whereHas('branch', function ($q) use ($category_name) {
+                $q->whereHas('company', function ($q) use ($category_name) {
+                    $q->whereHas('sub_category', function ($q) use ($category_name) {
+                        $q->whereHas('category', function ($q) use ($category_name) {
+                            $q->where('name', $category_name);
+                        });
+                    });
+                });
+            })
+            ->get();
         $branches = Branch::all();
 
         $start_month = $finance_settings->year_start;
@@ -41,23 +52,33 @@ class DashboardController extends Controller
 
         $current_year = $invoices->whereBetween('date', [$curr_start_date, $curr_end_date]);
         $previous_year = $invoices->whereBetween('date', [$prev_start_date, $prev_end_date]);
-        // $invoices->filter(fn ($data) => Carbon::parse($data->date)->format('Y') == date('Y', strtotime("-1 year")));
 
-        // dd(
-        //     "Current Year Invoice Count: " . count($current_year),
-        //     "Previous Year Invoice Count: " . count($previous_year),
-        //     "Curr Start Date: " . $curr_start_date,
-        //     "Curr End Date: " . $curr_end_date,
-        //     "Prev Start Date: " . $prev_start_date,
-        //     "Prev End Date: " . $prev_end_date,
-        // );
-
-        $current_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($curr_start_date, $curr_end_date) {
-            return $query->whereBetween('date', [$curr_start_date, $curr_end_date]);
+        $current_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($curr_start_date, $curr_end_date, $category_name) {
+            $query->whereBetween('date', [$curr_start_date, $curr_end_date])
+                ->whereHas('branch', function ($q) use ($category_name) {
+                    $q->whereHas('company', function ($q) use ($category_name) {
+                        $q->whereHas('sub_category', function ($q) use ($category_name) {
+                            $q->whereHas('category', function ($q) use ($category_name) {
+                                $q->where('name', $category_name);
+                            });
+                        });
+                    });
+                });
         })
             ->get();
-        $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date) {
-            return $query->whereBetween('date',  [$prev_start_date, $prev_end_date]);
+
+
+        $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date, $category_name) {
+            $query->whereBetween('date',  [$prev_start_date, $prev_end_date])
+                ->whereHas('branch', function ($q) use ($category_name) {
+                    $q->whereHas('company', function ($q) use ($category_name) {
+                        $q->whereHas('sub_category', function ($q) use ($category_name) {
+                            $q->whereHas('category', function ($q) use ($category_name) {
+                                $q->where('name', $category_name);
+                            });
+                        });
+                    });
+                });
         })
             ->get();
 

@@ -36,14 +36,14 @@
 
 		<div class="my-8 divider">Branch Details</div>
 
-		<div class="grid grid-cols-2 mt-4 gap-4 xl:w-3/4">
+		<div class="grid grid-cols-2 mt-4 gap-4">
 			<div class="form-control">
 				<label for="company_id" class="font-semibold uppercase label">Company</label>
 				<select wire:model='company_id' class="select select-primary select-bordered" id="company_id" name="company_id"
 					required>
 					<option value="" selected>--choose company--</option>
 					@foreach ($companies as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
+						<option value="{{ $id }}" style="font-size:20px">{{ $name }}</option>
 					@endforeach
 				</select>
 				@error('company_id')
@@ -59,7 +59,7 @@
 					required {{ !is_null($company_id) ? '' : 'disabled' }}>
 					<option value="" selected>--choose branch--</option>
 					@foreach ($branches as $id => $branch)
-						<option value="{{ $id }}">{{ $branch }}</option>
+						<option value="{{ $id }}" style="font-size:20px">{{ $branch }}</option>
 					@endforeach
 				</select>
 				@error('branch_id')
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Revenue</div>
+		<div class="my-8 divider before:bg-dark after:bg-dark uppercase font-bold text-dark">Revenue</div>
 
 		<div>
 			<div class="mb-2">

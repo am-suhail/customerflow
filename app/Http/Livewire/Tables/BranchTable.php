@@ -18,7 +18,8 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Branch::query();
+        return Branch::query()
+            ->with('activities', 'activities.causer');
     }
 
     protected function getTableColumns(): array
@@ -53,7 +54,7 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(function (Branch $record) {
                     return Carbon::parse($record->inc_date ?? "")->format('d-m-Y');
                 })
-                ->label('Commencement Date')
+                ->label('Start Date')
                 ->toggleable(),
 
             TextColumn::make('age')
@@ -126,6 +127,18 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('remark')
                 ->label('Remarks')
                 ->limit(25)
+                ->toggleable()
+                ->searchable(),
+
+            TextColumn::make('createdBy')
+                ->label('Created By')
+                ->getStateUsing(fn (Branch $record) => $record->activities->where('description', 'created')->first()->causer->name ?? "--")
+                ->limit(12)
+                ->toggleable(),
+
+            TextColumn::make('created_at')
+                ->label('Created On')
+                ->getStateUsing(fn (Branch $record) => Carbon::parse($record->created_at)->format('d-m-Y | h:i:s A'))
                 ->toggleable()
                 ->searchable(),
         ];
