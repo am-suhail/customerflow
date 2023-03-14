@@ -3,9 +3,14 @@
 namespace App\Exports;
 
 use App\Models\Company;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class CompanyTableExport implements FromCollection
+class CompanyTableExport implements FromCollection, WithHeadings, WithMapping, WithStyles
 {
     protected $companies;
 
