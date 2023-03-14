@@ -7,6 +7,21 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class CompanyTableExport implements FromCollection
 {
+    protected $companies;
+
+    public function __construct($companies)
+    {
+        $this->companies = $companies;
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        $sheet->getStyle(1)->getFont()->setBold(true);
+        $sheet->getStyle(1)->getFill()->setFillType(Fill::FILL_SOLID);
+        $sheet->getStyle(1)->getFill()->getStartColor()->setARGB('EFEFEF');
+        $sheet->getStyle(1)->getBorders()->getAllBorders()->setBorderStyle('thin');
+    }
+
     public function headings(): array
     {
         return [
@@ -53,6 +68,6 @@ class CompanyTableExport implements FromCollection
      */
     public function collection()
     {
-        return Company::all();
+        return $this->companies;
     }
 }
