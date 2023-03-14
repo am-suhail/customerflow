@@ -44,7 +44,7 @@
 					@enderror
 				</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
 					@foreach ($permissions as $permission)
 						<div class="p-2 rounded-lg form-control bg-base-200">
 							<label class="cursor-pointer label">
@@ -57,9 +57,11 @@
 					@endforeach
 				</div>
 
-				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4 md:w-1/2'>
-					<a href={{ route('roles.index') }} class="btn">Cancel</a>
-					<button type="submit" class='btn btn-accent'>Create</button>
+				<div class='grid grid-flow-row md:grid-cols-2 gap-4 mt-4'>
+					<div>
+						<button type="submit" class='btn btn-accent'>Create</button>
+						<a href={{ route('roles.index') }} class="btn">Cancel</a>
+					</div>
 				</div>
 				{!! Form::close() !!}
 			</div>

@@ -61,9 +61,10 @@
 
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
-						{!! Form::label('company_id', 'Company', ['class' => 'label font-semibold uppercase text-danger']) !!}
-						{!! Form::date('company_id', old('company_id'), [
-						    'class' => 'input input-primary input-bordered' . ($errors->has('company_id') ? 'border-2 border-red-600' : ''),
+						{!! Form::label('company_id', 'Company', ['class' => 'label font-semibold uppercase text-red-600']) !!}
+						{!! Form::select('company_id', ['company unknown' => 'company unknown'], old('company_id'), [
+						    'placeholder' => '--choose--',
+						    'class' => 'select select-bordered select-primary' . ($errors->has('company_id') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('company_id')
 							<label class="label">
@@ -73,17 +74,10 @@
 					</div>
 
 					<div class="form-control">
-						{!! Form::label('expiry_date', 'Profile Expiry Date', ['class' => 'label font-semibold uppercase text-danger']) !!}
-						{!! Form::select(
-						    'expiry_date',
-						    ['1 Month' => '1 Month', '3 Month' => '3 Month', '1 Year' => '1 Year'],
-						    old('designations'),
-						    [
-						        'placeholder' => '--choose--',
-						        'class' =>
-						            'select select-bordered select-primary' . ($errors->has('expiry_date') ? 'border-2 border-red-600' : ''),
-						    ],
-						) !!}
+						{!! Form::label('expiry_date', 'Profile Expiry Date', ['class' => 'label font-semibold uppercase text-red-600']) !!}
+						{!! Form::date('expiry_date', old('expiry_date'), [
+						    'class' => 'input input-primary input-bordered' . ($errors->has('expiry_date') ? 'border-2 border-red-600' : ''),
+						]) !!}
 						@error('expiry_date')
 							<label class="label">
 								<span class="text-red-600 label-text-alt">{{ $message }}</span>
