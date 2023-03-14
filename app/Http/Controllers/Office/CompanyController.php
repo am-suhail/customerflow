@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Office;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Company;
+use App\Models\Country;
 use App\Models\Industry;
 use Illuminate\Http\Request;
 
@@ -30,9 +31,10 @@ class CompanyController extends BaseController
     public function create()
     {
         $industries = Industry::pluck('name', 'id');
+        $countries = Country::pluck('name', 'id');
 
         $this->setPageTitle('Create Company', 'Add a new company');
-        return view('office.company.create', compact('industries'));
+        return view('office.company.create', compact('industries', 'countries'));
     }
 
     /**
@@ -48,6 +50,7 @@ class CompanyController extends BaseController
             'name' => ['required', 'string', 'max:100'],
             'inc_date' => ['required', 'date'],
             'inc_number' => ['required', 'string'],
+            'country_id' => ['required', 'not_in:0'],
             'industry_id' => ['required', 'not_in:0'],
             'tax_number' => ['required', 'string', 'max:20', 'unique:companies,tax_number'],
             'telephone' => ['required', 'unique:companies,telephone'],
@@ -87,9 +90,10 @@ class CompanyController extends BaseController
 
         $company = Company::findOrFail($id);
         $industries = Industry::pluck('name', 'id');
+        $countries = Country::pluck('name', 'id');
 
         $this->setPageTitle('Edit ' . $company->name, '');
-        return view('office.company.edit', compact('company', 'industries'));
+        return view('office.company.edit', compact('company', 'industries', 'countries'));
     }
 
     /**
@@ -106,6 +110,7 @@ class CompanyController extends BaseController
             'name' => ['required', 'string', 'max:100'],
             'inc_date' => ['required', 'date'],
             'inc_number' => ['required', 'string'],
+            'country_id' => ['required', 'not_in:0'],
             'industry_id' => ['required', 'not_in:0'],
             'tax_number' => ['required', 'string', 'max:20', 'unique:companies,tax_number,' . $id],
             'telephone' => ['required', 'unique:companies,telephone,' . $id],

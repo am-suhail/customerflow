@@ -350,7 +350,7 @@
 						</div>
 					</div>
 
-					{{-- //TODO --}}
+					{{-- //TODO the caculation needs to be fixed --}}
 					<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
 						<div class="form-control">
 							{!! Form::label('roi_percentage', 'Return of Investment (ROI) %', [

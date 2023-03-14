@@ -133,6 +133,21 @@
 						</div>
 
 						<div class="form-control">
+							{!! Form::label('country_id', 'Country', [
+							    'class' => 'label font-semibold uppercase',
+							]) !!}
+							{!! Form::select('country_id', $industries, old('country_id'), [
+							    'placeholder' => '--choose--',
+							    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
+							]) !!}
+							@error('country_id')
+								<label class="label">
+									<span class="text-red-600 label-text-alt">{{ $message }}</span>
+								</label>
+							@enderror
+						</div>
+
+						<div class="form-control">
 							{!! Form::label('website', 'Website (if any)', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
