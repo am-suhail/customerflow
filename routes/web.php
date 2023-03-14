@@ -89,13 +89,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get('employee/{id}/appoint', [EmployeeController::class, 'appoint'])->name('employee.appoint');
         Route::put('employee/appoint/{id}', [EmployeeController::class, 'process_appoint'])->name('employee.appoint-process');
 
-        // Branches Export
-        Route::get('branch/export', [VendorController::class, 'export'])->name('branch.export');
-
-
         Route::get('revenue/list', [InvoiceController::class, 'index'])->name('revenue.index');
         Route::get('revenue/export', [InvoiceController::class, 'export'])->name('revenue.export');
         Route::resource('revenue', InvoiceController::class, ['except' => ['index', 'store', 'update', 'destroy']]);
+
+        // Exports
+        Route::get('branch/export', [VendorController::class, 'export'])->name('branch.export');
+        Route::get('company/export', [CompanyController::class, 'export'])->name('company.export');
 
         // Dashboard Resources
         Route::resources(
