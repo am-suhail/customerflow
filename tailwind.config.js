@@ -1,5 +1,6 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 const colors = require("tailwindcss/colors");
+const plugin = require("tailwindcss/plugin");
 
 module.exports = {
     theme: {
@@ -39,5 +40,23 @@ module.exports = {
         require("@tailwindcss/forms"),
         require("@tailwindcss/typography"),
         require("daisyui"),
+        plugin(function ({ addComponents }) {
+            addComponents({
+                ".filament-tables-header-cell": {
+                    backgroundColor: "#98BDF7 !important",
+                    border: "1px solid !important",
+                },
+                ".filament-tables-header-cell > button": {
+                    fontWeight: "bold !important",
+                    color: "#101010ee !important",
+                },
+                ".filament-tables-row": {
+                    borderBottom: "1px solid #66686a !important",
+                },
+                ".filament-tables-search-input input#tableSearchInput": {
+                    border: "1px solid #66686a !important",
+                },
+            });
+        }),
     ],
 };

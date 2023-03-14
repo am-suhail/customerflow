@@ -2986,19 +2986,12 @@ input:invalid, textarea:invalid, select:invalid {
 .input-primary:focus {
   box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--p));
 }
-.input-secondary {
+.input-success {
   --tw-border-opacity: 1;
-  border-color: hsla(var(--s)/var(--tw-border-opacity,1));
+  border-color: hsla(var(--su)/var(--tw-border-opacity,1));
 }
-.input-secondary:focus {
-  box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--s));
-}
-.input-accent {
-  --tw-border-opacity: 1;
-  border-color: hsla(var(--a)/var(--tw-border-opacity,1));
-}
-.input-accent:focus {
-  box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--a));
+.input-success:focus {
+  box-shadow: 0 0 0 2px hsl(var(--b1)),0 0 0 4px hsl(var(--su));
 }
 .input-disabled,.input[disabled] {
   --tw-bg-opacity: 1;
@@ -3608,6 +3601,20 @@ input:invalid, textarea:invalid, select:invalid {
   background-color: hsla(var(--wa)/var(--tw-bg-opacity,1));
   --tw-text-opacity: 1;
   color: hsla(var(--wa)/var(--tw-text-opacity,1));
+}
+.filament-tables-header-cell {
+  background-color: #98BDF7 !important;
+  border: 1px solid !important;
+}
+.filament-tables-header-cell > button {
+  font-weight: bold !important;
+  color: #101010ee !important;
+}
+.filament-tables-row {
+  border-bottom: 1px solid #66686a !important;
+}
+.filament-tables-search-input input#tableSearchInput {
+  border: 1px solid #66686a !important;
 }
 /**
  * Here you would add any of your custom component classes; stuff that you'd
@@ -6921,8 +6928,8 @@ input:invalid, textarea:invalid, select:invalid {
   .md\:col-span-1 {
     grid-column: span 1 / span 1;
   }
-  .md\:col-span-8 {
-    grid-column: span 8 / span 8;
+  .md\:col-span-6 {
+    grid-column: span 6 / span 6;
   }
   .md\:col-span-4 {
     grid-column: span 4 / span 4;
@@ -6936,11 +6943,11 @@ input:invalid, textarea:invalid, select:invalid {
   .md\:col-span-5 {
     grid-column: span 5 / span 5;
   }
-  .md\:col-span-6 {
-    grid-column: span 6 / span 6;
-  }
   .md\:col-span-7 {
     grid-column: span 7 / span 7;
+  }
+  .md\:col-span-8 {
+    grid-column: span 8 / span 8;
   }
   .md\:col-span-9 {
     grid-column: span 9 / span 9;
@@ -7421,8 +7428,8 @@ input:invalid, textarea:invalid, select:invalid {
   }
 }
 @media (min-width: 1280px) {
-  .xl\:col-span-6 {
-    grid-column: span 6 / span 6;
+  .xl\:col-span-4 {
+    grid-column: span 4 / span 4;
   }
   .xl\:col-span-2 {
     grid-column: span 2 / span 2;
@@ -7433,11 +7440,11 @@ input:invalid, textarea:invalid, select:invalid {
   .xl\:col-span-3 {
     grid-column: span 3 / span 3;
   }
-  .xl\:col-span-4 {
-    grid-column: span 4 / span 4;
-  }
   .xl\:col-span-5 {
     grid-column: span 5 / span 5;
+  }
+  .xl\:col-span-6 {
+    grid-column: span 6 / span 6;
   }
   .xl\:col-span-7 {
     grid-column: span 7 / span 7;
@@ -7477,9 +7484,6 @@ input:invalid, textarea:invalid, select:invalid {
   }
   .xl\:w-12 {
     width: 3rem;
-  }
-  .xl\:w-1\/2 {
-    width: 50%;
   }
   .xl\:columns-1 {
     -moz-columns: 1;
