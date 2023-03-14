@@ -31,7 +31,7 @@
 				    'method' => 'PUT',
 				]) !!}
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('joining_date', 'Joining Date', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::date('joining_date', old('joining_date'), [
@@ -43,9 +43,7 @@
 							</label>
 						@enderror
 					</div>
-				</div>
 
-				<div class="grid grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
 						{!! Form::label('designation_id', 'Designation', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('designation_id', $designations, old('designations'), [
@@ -61,8 +59,41 @@
 					</div>
 				</div>
 
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					<div class="form-control">
+						{!! Form::label('company_id', 'Company', ['class' => 'label font-semibold uppercase text-danger']) !!}
+						{!! Form::date('company_id', old('company_id'), [
+						    'class' => 'input input-primary input-bordered' . ($errors->has('company_id') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('company_id')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+
+					<div class="form-control">
+						{!! Form::label('expiry_date', 'Profile Expiry Date', ['class' => 'label font-semibold uppercase text-danger']) !!}
+						{!! Form::select(
+						    'expiry_date',
+						    ['1 Month' => '1 Month', '3 Month' => '3 Month', '1 Year' => '1 Year'],
+						    old('designations'),
+						    [
+						        'placeholder' => '--choose--',
+						        'class' =>
+						            'select select-bordered select-primary' . ($errors->has('expiry_date') ? 'border-2 border-red-600' : ''),
+						    ],
+						) !!}
+						@error('expiry_date')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+				</div>
+
 				<div class="grid grid-cols-2 mt-4">
-					<div class="fomr-control">
+					<div class="form-control">
 						{!! Form::label('remarks', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::textarea('remarks', old('remarks'), [
 						    'class' =>

@@ -75,10 +75,12 @@ class UserTable extends Component implements Tables\Contracts\HasTable
                     ->url(fn ($record) => route('user.manage', $record->id))
                     ->visible(fn ($record) => !$record->employee),
 
-                // EditAction::make('edit')
-                //     ->label("Edit")
-                //     ->color('primary')
-                //     ->url(fn ($record) => route('user.manage', $record->id)),
+                Action::make('manage-roles')
+                    ->label('Suspend User')
+                    ->icon('heroicon-o-x-circle')
+                    ->color('warning')
+                    ->url(fn ($record) => route('user.manage', $record->id))
+                    ->visible(fn ($record) => !$record->employee),
             ])
         ];
     }
