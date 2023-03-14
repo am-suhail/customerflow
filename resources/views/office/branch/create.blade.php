@@ -32,6 +32,7 @@
 					<div class="mt-8 mb-4 divider">COMPANY DETAILS</div>
 
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+						{{-- //TODO Increase the size of the Dropdown Menu --}}
 						<div class="form-control">
 							{!! Form::label('company_id', 'Choose Company', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::select('company_id', $companies, old('company_id'), [

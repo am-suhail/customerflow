@@ -42,7 +42,7 @@ class CompanyTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('name')
                 ->label('Company Name')
-                ->limit(40)
+                ->limit(30)
                 ->toggleable()
                 ->searchable()
                 ->sortable(),

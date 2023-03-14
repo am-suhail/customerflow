@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Office;
 
+use App\Exports\CompanyTableExport;
 use App\Http\Controllers\BaseController;
 use App\Models\Company;
 use App\Models\Country;
@@ -138,5 +139,18 @@ class CompanyController extends BaseController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function export()
+    {
+        $this->authorize('export branches');
+
+        return Excel::download(new CompanyTableExport(Company::all()), 'companies_abc_mercantile_' . now() . '.xlsx');
     }
 }

@@ -17,7 +17,7 @@
 				Add New
 			</a>
 
-			{{-- <a href="{{ route('branch.export') }}" class="btn btn-outline btn-accent">
+			<a href="{{ route('branch.export') }}" class="btn btn-outline btn-accent">
 				<svg width="25" height="25" class="mr-1" fill="none" stroke="currentColor" stroke-linecap="round"
 					stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 
@@ -30,7 +30,7 @@
 					<path d="m8 10.5-3 3"></path>
 				</svg>
 				Export
-			</a> --}}
+			</a>
 		</div>
 
 		@include('layouts.app.flash')
