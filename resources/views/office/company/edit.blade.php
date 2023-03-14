@@ -6,7 +6,7 @@
 		<!-- Main content header -->
 		<div class="grid grid-rows-1 grid-cols-3 pb-6 mb-4 border-b items-center space-y-0">
 			<div class="">
-				<a href="{{ route('branch.index') }}" class="mr-4 btn btn-primary btn-sm md:btn-md">
+				<a href="{{ route('company.index') }}" class="mr-4 btn btn-primary btn-sm md:btn-md">
 					<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
 							d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
@@ -135,7 +135,7 @@
 					</div>
 
 					<div class="form-control">
-						{!! Form::label('country_id', 'Industry', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::label('country_id', 'Country', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('country_id', $countries, old('country_id', $company->country_id), [
 						    'placeholder' => '--choose--',
 						    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
