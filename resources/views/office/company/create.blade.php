@@ -136,7 +136,7 @@
 							{!! Form::label('country_id', 'Country', [
 							    'class' => 'label font-semibold uppercase',
 							]) !!}
-							{!! Form::select('country_id', $industries, old('country_id'), [
+							{!! Form::select('country_id', $countries, old('country_id'), [
 							    'placeholder' => '--choose--',
 							    'class' => 'select select-bordered select-primary' . ($errors->has('country_id') ? 'border-2 border-red-600' : ''),
 							]) !!}

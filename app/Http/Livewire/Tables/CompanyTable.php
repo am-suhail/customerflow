@@ -47,6 +47,12 @@ class CompanyTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->sortable(),
 
+            TextColumn::make('country.name')
+                ->label('Country')
+                ->limit(40)
+                ->toggleable()
+                ->sortable(),
+
             TextColumn::make('total_branches')
                 ->label('Branches')
                 ->getStateUsing(function (Company $record) {
