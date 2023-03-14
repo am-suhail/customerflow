@@ -164,7 +164,6 @@ class EmployeeController extends BaseController
         $validated = $request->validate([
             'designation_id' => ['required', 'not_in:0'],
             'joining_date' => ['required', 'date'],
-            'salary' => ['required', 'numeric'],
             'remark' => ['nullable', 'string', 'max:191'],
         ]);
 
@@ -176,7 +175,7 @@ class EmployeeController extends BaseController
         $user = User::findOrFail($id);
 
         $appointed = $user->employee_detail()->create($validated);
-        $user->is_employee = 1;
+        $user->employee = 1;
         $user->save();
 
         if (!$appointed) {

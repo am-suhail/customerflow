@@ -59,20 +59,6 @@
 							</label>
 						@enderror
 					</div>
-					<div class="form-control">
-						{!! Form::label('salary', 'Salary', ['class' => 'label font-semibold uppercase']) !!}
-						{!! Form::number('salary', old('salary'), [
-						    'step' => '.01',
-						    'class' =>
-						        'input input-bordered
-																								                    input-primary' . ($errors->has('salary') ? 'border-2 border-red-600' : ''),
-						]) !!}
-						@error('salary')
-							<label class="label">
-								<span class="text-red-600 label-text-alt">{{ $message }}</span>
-							</label>
-						@enderror
-					</div>
 				</div>
 
 				<div class="grid grid-cols-2 mt-4">
@@ -80,8 +66,7 @@
 						{!! Form::label('remarks', 'Remarks', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::textarea('remarks', old('remarks'), [
 						    'class' =>
-						        'textarea h-20 textarea-bordered
-																								                    textarea-primary' . ($errors->has('remarks') ? 'border-2 border-red-600' : ''),
+						        'textarea h-20 textarea-bordered textarea-primary' . ($errors->has('remarks') ? 'border-2 border-red-600' : ''),
 						]) !!}
 						@error('remarks')
 							<label class="label">
@@ -93,8 +78,8 @@
 
 				<div class='grid grid-flow-row grid-cols-2 gap-4 mt-4'>
 					<div>
-						<a href={{ route('user.index') }} class="btn">Cancel</a>
 						<button type="submit" class='btn btn-accent'>Create</button>
+						<a href={{ route('user.index') }} class="btn">Cancel</a>
 					</div>
 				</div>
 				{!! Form::close() !!}
