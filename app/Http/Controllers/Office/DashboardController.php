@@ -36,7 +36,17 @@ class DashboardController extends Controller
         $pie_chart_category = null;
 
         // Company & Branch
-        $companies = Company::all();
+        $companies = Company::with(['sub_category.category'])
+            ->whereHas('sub_category.category', function ($q) use ($category_name) {
+                $q->where('name', $category_name);
+            })
+            ->get();
+
+        $companies_investment = Company::with(['sub_category.category'])
+            ->whereHas('sub_category.category', function ($q) use ($secondary_category_name) {
+                $q->where('name', $secondary_category_name);
+            })
+            ->get();
 
         $branches = Branch::with(['company.sub_category.category'])
             ->whereHas('company.sub_category.category', function ($q) use ($category_name) {
@@ -50,12 +60,14 @@ class DashboardController extends Controller
             })
             ->get();
 
+        $total_companies_direct = $companies->count();
+        $total_companies_investment = $companies_investment->count();
+
         $total_branches_direct = $branches->count();
         $total_branches_investment = $branches_investment->count();
 
         $branches = $branches->filter(fn ($data) => !is_null($data->country_id));
         $total_countries = count($branches->groupBy('country_id'));
-        $total_companies = count($companies);
 
         // Date Settings
         $start_month = $finance_settings->year_start;
@@ -247,6 +259,7 @@ class DashboardController extends Controller
             'previous_year_invoices',
             'total_countries',
             'total_companies',
+            'total_companies_investment',
             'total_branches_direct',
             'total_branches_investment'
         ));

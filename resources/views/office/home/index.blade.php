@@ -98,8 +98,8 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $total_companies }}</p>
-							<p>Total Comapnies</p>
+							<p class="text-2xl">{{ $total_companies_direct }}</p>
+							<p>Total Companies</p>
 						</div>
 					</div>
 
@@ -218,8 +218,8 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $total_companies }}</p>
-							<p>Total Comapnies</p>
+							<p class="text-2xl">{{ $total_companies_investment }}</p>
+							<p>Total Companies</p>
 						</div>
 					</div>
 

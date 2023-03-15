@@ -26,6 +26,9 @@ class EmployeesTable extends Component implements Tables\Contracts\HasTable
     protected function getTableColumns(): array
     {
         return [
+            TextColumn::make('#')
+                ->rowIndex(),
+
             TextColumn::make('user.name')
                 ->label('Name')
                 ->searchable()
