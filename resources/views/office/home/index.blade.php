@@ -5,7 +5,7 @@
 	<main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-scroll">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10 mb-4">
 			<!-- Statistics Cards -->
-			<div class="border-2 p-2 rounded">
+			<div class="border-2 border-gray-800 p-2 rounded">
 				<h6 class="uppercase font-bold text-center text-xl mb-2">Direct</h6>
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 					<div
@@ -125,15 +125,15 @@
 			<!-- ./Statistics Cards -->
 
 			<!-- Statistics Cards -->
-			<div class="border-2 p-2 rounded">
+			<div class="border-2 border-gray-800 p-2 rounded">
 				<h6 class="uppercase font-bold text-center text-xl mb-2">Investment</h6>
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
 					<div
-						class="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
+						class="bg-gray-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-600 text-white font-medium group">
 						<div
 							class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 							<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-								class="stroke-current text-green-800 transform transition-transform duration-500 ease-in-out">
+								class="stroke-current text-gray-800 transform transition-transform duration-500 ease-in-out">
 								<path fill-rule="evenodd"
 									d="M4.5 20.5 3 22V2l1.5 1.5L6 2l1.5 1.5L9 2l1.5 1.5L12 2l1.5 1.5L15 2l1.5 1.5L18 2l1.5 1.5L21 2v20l-1.5-1.5L18 22l-1.5-1.5L15 22l-1.5-1.5L12 22l-1.5-1.5L9 22l-1.5-1.5L6 22l-1.5-1.5ZM18 7v2H6V7h12ZM6 11v2h12v-2H6Zm0 4v2h12v-2H6Z"
 									clip-rule="evenodd"></path>
@@ -146,11 +146,11 @@
 					</div>
 
 					<div
-						class="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
+						class="bg-gray-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-600 text-white font-medium group">
 						<div
 							class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 							<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-								class="stroke-current text-green-800 transform transition-transform duration-500 ease-in-out">
+								class="stroke-current text-gray-800 transform transition-transform duration-500 ease-in-out">
 								<path d="M20.5 7 12 2 3.5 7v10l8.5 5 8.5-5V7Z"></path>
 								<path d="M12 11v4"></path>
 								<path d="M16 9v6"></path>
@@ -164,11 +164,11 @@
 					</div>
 
 					<div
-						class="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
+						class="bg-gray-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-600 text-white font-medium group">
 						<div
 							class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 							<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-								class="stroke-current text-green-800 transform transition-transform duration-500 ease-in-out">
+								class="stroke-current text-gray-800 transform transition-transform duration-500 ease-in-out">
 								<path d="M20.5 7 12 2 3.5 7v10l8.5 5 8.5-5V7Z"></path>
 								<path d="M12 11v4"></path>
 								<path d="M16 9v6"></path>
@@ -182,11 +182,11 @@
 					</div>
 
 					<div
-						class="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
+						class="bg-gray-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-600 text-white font-medium group">
 						<div
 							class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 							<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-								class="stroke-current text-green-800 transform transition-transform duration-500 ease-in-out">
+								class="stroke-current text-gray-800 transform transition-transform duration-500 ease-in-out">
 								<path d="M20.5 7 12 2 3.5 7v10l8.5 5 8.5-5V7Z"></path>
 								<path d="M12 11v4"></path>
 								<path d="M16 9v6"></path>
@@ -200,11 +200,11 @@
 					</div>
 
 					<div
-						class="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
+						class="bg-gray-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-600 text-white font-medium group">
 						<div
 							class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 							<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-								class="stroke-current text-green-800 transform transition-transform duration-500 ease-in-out">
+								class="stroke-current text-gray-800 transform transition-transform duration-500 ease-in-out">
 								<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z"></path>
 								<path
 									d="M2 10.42c1.507-.712 2.622-.811 3.345-.297 1.083.77 1.22 3.909 3.684 2.409 2.464-1.5-1.056-2.112-.291-4.285.764-2.174 3.266-.485 3.515-2.866.166-1.587-1.733-2.194-5.695-1.822">
@@ -224,11 +224,11 @@
 					</div>
 
 					<div
-						class="bg-green-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-green-600 text-white font-medium group">
+						class="bg-gray-500 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-gray-600 text-white font-medium group">
 						<div
 							class="flex justify-center items-center w-14 h-14 bg-white rounded-full transition-all duration-300 transform group-hover:rotate-12">
 							<svg width="30" height="30" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-								class="stroke-current text-green-800 transform transition-transform duration-500 ease-in-out">
+								class="stroke-current text-gray-800 transform transition-transform duration-500 ease-in-out">
 								<path d="M17 2.5H2v2h15v-2Z"></path>
 								<path d="M15 15.5h2v-3h1v-2l-1-5H2l-1 5v2h1v6h9v-6h4v3Zm-6 1H4v-4h5v4Zm-5.96-6 .6-3h11.72l.6 3H3.04Z"></path>
 								<path d="M23 16.5h-3v-3h-2v3h-3v2h3v3h2v-3h3v-2Z"></path>
