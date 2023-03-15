@@ -109,7 +109,8 @@ class DashboardController extends Controller
             })
             ->get();
 
-        $current_year = $invoices_direct->whereBetween('date', [$curr_start_date, $curr_end_date]);
+        $current_year_direct = $invoices_direct->whereBetween('date', [$curr_start_date, $curr_end_date]);
+        $current_year_investment = $invoices_investment->whereBetween('date', [$curr_start_date, $curr_end_date]);
 
         $previous_year_direct = $invoices_direct->whereBetween('date', [$prev_start_date, $prev_end_date]);
         $previous_year_investment = $invoices_investment->whereBetween('date', [$prev_start_date, $prev_end_date]);
@@ -156,11 +157,17 @@ class DashboardController extends Controller
         })
             ->get();
 
-        $current_year_revenue = $current_year->sum('total_amount');
+        // Current Year
+        $current_year_revenue_direct = $current_year_direct->sum('total_amount');
+        $current_year_revenue_investment = $current_year_investment->sum('total_amount');
+
+        $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
+        $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
+
+        // Previous Year
         $previous_year_revenue_direct = $previous_year_direct->sum('total_amount');
         $previous_year_revenue_investment = $previous_year_investment->sum('total_amount');
 
-        $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
         $previous_year_invoices_direct = $previous_year_items_direct->map(fn ($item) => $item->tax)->sum();
         $previous_year_invoices_investment = $previous_year_items_investment->map(fn ($item) => $item->tax)->sum();
 
@@ -196,7 +203,7 @@ class DashboardController extends Controller
 
         // Current Year Revenue Chart
         if ($settings->bar_chart_monthly) {
-            $month_invoices = $current_year
+            $month_invoices = $current_year_direct
                 ->sortBy(function ($data) {
                     return Carbon::parse($data->date)->format('m');
                 })
@@ -211,7 +218,7 @@ class DashboardController extends Controller
 
         // Country Wise Sales Chart
         if ($settings->pie_chart_country) {
-            $country_wise_invoices = $current_year
+            $country_wise_invoices = $current_year_direct
                 ->groupBy(function ($data) {
                     return $data->branch->country->name ?? "Others";
                 });
@@ -219,12 +226,12 @@ class DashboardController extends Controller
             $pie_chart_country = new InvoiceChart;
             $pie_chart_country->labels($country_wise_invoices->keys());
 
-            $pie_chart_country->dataset('Revenue %', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
+            $pie_chart_country->dataset('Revenue %', 'pie', $country_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year_direct->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
         }
 
         // State Wise Sales Chart
         if ($settings->pie_chart_state) {
-            $state_wise_invoices = $current_year
+            $state_wise_invoices = $current_year_direct
                 ->groupBy(function ($data) {
                     return $data->branch->city->state->name ?? "Others";
                 });
@@ -232,12 +239,12 @@ class DashboardController extends Controller
             $pie_chart_state = new InvoiceChart;
             $pie_chart_state->labels($state_wise_invoices->keys());
 
-            $pie_chart_state->dataset('Revenue %', 'pie', $state_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
+            $pie_chart_state->dataset('Revenue %', 'pie', $state_wise_invoices->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year_direct->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
         }
 
         // City Wise Sales Chart
         if ($settings->pie_chart_city) {
-            $city_wise_chart = $current_year
+            $city_wise_chart = $current_year_direct
                 ->groupBy(function ($data) {
                     return $data->branch->city->name ?? "Others";
                 });
@@ -245,7 +252,7 @@ class DashboardController extends Controller
             $pie_chart_city = new InvoiceChart;
             $pie_chart_city->labels($city_wise_chart->keys());
 
-            $pie_chart_city->dataset('Revenue %', 'pie', $city_wise_chart->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
+            $pie_chart_city->dataset('Revenue %', 'pie', $city_wise_chart->values()->map(fn ($data) => $data->map(fn ($invoice) => $invoice->total_amount)->sum() / $current_year_direct->sum('total_amount') * 100))->backgroundColor($this->colorGenerator());
         }
 
         // Category Wise Sales Chart
@@ -283,8 +290,10 @@ class DashboardController extends Controller
             'pie_chart_city',
             'pie_chart_category',
             'pie_chart_sub_category',
-            'current_year_revenue',
-            'current_year_invoices',
+            'current_year_revenue_direct',
+            'current_year_revenue_investment',
+            'current_year_invoices_direct',
+            'current_year_invoices_investment',
             'previous_year_revenue_direct',
             'previous_year_revenue_investment',
             'previous_year_invoices_direct',

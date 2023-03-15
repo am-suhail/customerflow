@@ -20,7 +20,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ round($current_year_revenue) }}</p>
+							<p class="text-2xl">{{ round($current_year_revenue_direct) }}</p>
 							<p>Current Year Revenue</p>
 						</div>
 					</div>
@@ -38,7 +38,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $current_year_invoices }}</p>
+							<p class="text-2xl">{{ $current_year_invoices_direct }}</p>
 							<p>Current Year Invoices</p>
 						</div>
 					</div>
@@ -140,7 +140,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ round($current_year_revenue) }}</p>
+							<p class="text-2xl">{{ round($current_year_revenue_investment) }}</p>
 							<p>Current Year Revenue</p>
 						</div>
 					</div>
@@ -158,7 +158,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $current_year_invoices }}</p>
+							<p class="text-2xl">{{ $current_year_invoices_investment }}</p>
 							<p>Current Year Invoices</p>
 						</div>
 					</div>
