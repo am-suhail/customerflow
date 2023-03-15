@@ -85,7 +85,7 @@ class DashboardController extends Controller
         $prev_end_date = Carbon::parse($curr_end_date)->subYear();
 
         // Invoice & Invoice Items
-        $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')
+        $invoices_direct = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')
             ->whereHas('branch', function ($q) use ($category_name) {
                 $q->whereHas('company', function ($q) use ($category_name) {
                     $q->whereHas('sub_category', function ($q) use ($category_name) {
@@ -97,8 +97,22 @@ class DashboardController extends Controller
             })
             ->get();
 
-        $current_year = $invoices->whereBetween('date', [$curr_start_date, $curr_end_date]);
-        $previous_year = $invoices->whereBetween('date', [$prev_start_date, $prev_end_date]);
+        $invoices_investment = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')
+            ->whereHas('branch', function ($q) use ($secondary_category_name) {
+                $q->whereHas('company', function ($q) use ($secondary_category_name) {
+                    $q->whereHas('sub_category', function ($q) use ($secondary_category_name) {
+                        $q->whereHas('category', function ($q) use ($secondary_category_name) {
+                            $q->where('name', $secondary_category_name);
+                        });
+                    });
+                });
+            })
+            ->get();
+
+        $current_year = $invoices_direct->whereBetween('date', [$curr_start_date, $curr_end_date]);
+
+        $previous_year_direct = $invoices_direct->whereBetween('date', [$prev_start_date, $prev_end_date]);
+        $previous_year_investment = $invoices_investment->whereBetween('date', [$prev_start_date, $prev_end_date]);
 
         $current_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($curr_start_date, $curr_end_date, $category_name) {
             $query->whereBetween('date', [$curr_start_date, $curr_end_date])
@@ -114,7 +128,7 @@ class DashboardController extends Controller
         })
             ->get();
 
-        $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date, $category_name) {
+        $previous_year_items_direct = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date, $category_name) {
             $query->whereBetween('date',  [$prev_start_date, $prev_end_date])
                 ->whereHas('branch', function ($q) use ($category_name) {
                     $q->whereHas('company', function ($q) use ($category_name) {
@@ -128,15 +142,31 @@ class DashboardController extends Controller
         })
             ->get();
 
+        $previous_year_items_investment = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date, $secondary_category_name) {
+            $query->whereBetween('date',  [$prev_start_date, $prev_end_date])
+                ->whereHas('branch', function ($q) use ($secondary_category_name) {
+                    $q->whereHas('company', function ($q) use ($secondary_category_name) {
+                        $q->whereHas('sub_category', function ($q) use ($secondary_category_name) {
+                            $q->whereHas('category', function ($q) use ($secondary_category_name) {
+                                $q->where('name', $secondary_category_name);
+                            });
+                        });
+                    });
+                });
+        })
+            ->get();
+
         $current_year_revenue = $current_year->sum('total_amount');
-        $previous_year_revenue = $previous_year->sum('total_amount');
+        $previous_year_revenue_direct = $previous_year_direct->sum('total_amount');
+        $previous_year_revenue_investment = $previous_year_investment->sum('total_amount');
 
         $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
-        $previous_year_invoices = $previous_year_items->map(fn ($item) => $item->tax)->sum();
+        $previous_year_invoices_direct = $previous_year_items_direct->map(fn ($item) => $item->tax)->sum();
+        $previous_year_invoices_investment = $previous_year_items_investment->map(fn ($item) => $item->tax)->sum();
 
         // Yearly Revenue Chart
         if ($settings->bar_chart_yearly) {
-            $year_invoices = $invoices
+            $year_invoices = $invoices_direct
                 ->sortBy(function ($data) {
                     return Carbon::parse($data->date)->format('Y');
                 })
@@ -151,7 +181,7 @@ class DashboardController extends Controller
 
         // Previous Year Revenue Chart
         if ($settings->bar_chart_monthly) {
-            $previous_year_monthly = $previous_year
+            $previous_year_monthly = $previous_year_direct
                 ->sortBy(function ($data) {
                     return Carbon::parse($data->date)->format('m');
                 })
@@ -255,8 +285,10 @@ class DashboardController extends Controller
             'pie_chart_sub_category',
             'current_year_revenue',
             'current_year_invoices',
-            'previous_year_revenue',
-            'previous_year_invoices',
+            'previous_year_revenue_direct',
+            'previous_year_revenue_investment',
+            'previous_year_invoices_direct',
+            'previous_year_invoices_investment',
             'total_countries',
             'total_companies_direct',
             'total_companies_investment',
@@ -339,18 +371,5 @@ class DashboardController extends Controller
         ];
 
         return $color_palette;
-
-        // $chars = "ABCDEF0123456789";
-        // $size = strlen($chars);
-        // $colors = array();
-        // for ($i = 0; $i < $numbers; $i++) {
-        //     $hex = array();
-        //     for ($j = 0; $j < 6; $j++) {
-        //         array_push($hex, $chars[rand(0, $size - 1)]);
-        //     }
-        //     $colors[$i] = implode(Arr::prepend($hex, "#"));
-        // }
-
-        // return $colors;
     }
 }
