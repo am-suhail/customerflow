@@ -74,6 +74,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('profile_setup')->group(function () {
 
+        // Troubleshoot - Invioce - Invoice Item
+        Route::get('/error-fix', [DashboardController::class, 'trouble']);
+
         // Home|Dashboard
         Route::get('/home', [DashboardController::class, 'index'])->name('home');
 

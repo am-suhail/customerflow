@@ -233,6 +233,56 @@ class DashboardController extends Controller
         ));
     }
 
+    public function trouble(FinanceSettings $finance_settings)
+    {
+        $category_name = "Direct";
+
+        $start_month = $finance_settings->year_start;
+        $end_month = Carbon::parse($start_month)->subMonth();
+
+        if (Carbon::parse($start_month)->gt(date('M'))) {
+            $curr_start_date = Carbon::parse($start_month)->subYear()->startOfMonth();
+            $curr_end_date = $end_month->endOfMonth();
+        } else {
+            $curr_start_date = Carbon::parse($start_month)->startOfMonth();
+            $curr_end_date = $end_month->addYear()->endOfMonth();
+        }
+
+        $prev_start_date = Carbon::parse($curr_start_date)->subYear();
+        $prev_end_date = Carbon::parse($curr_end_date)->subYear();
+
+        // Invoice & Invoice Items
+        $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')
+            ->whereHas('branch', function ($q) use ($category_name) {
+                $q->whereHas('company', function ($q) use ($category_name) {
+                    $q->whereHas('sub_category', function ($q) use ($category_name) {
+                        $q->whereHas('category', function ($q) use ($category_name) {
+                            $q->where('name', $category_name);
+                        });
+                    });
+                });
+            })
+            ->get();
+
+        $previous_year = $invoices->whereBetween('date', [$prev_start_date, $prev_end_date]);
+
+        $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date, $category_name) {
+            $query->whereBetween('date',  [$prev_start_date, $prev_end_date])
+                ->whereHas('branch', function ($q) use ($category_name) {
+                    $q->whereHas('company', function ($q) use ($category_name) {
+                        $q->whereHas('sub_category', function ($q) use ($category_name) {
+                            $q->whereHas('category', function ($q) use ($category_name) {
+                                $q->where('name', $category_name);
+                            });
+                        });
+                    });
+                });
+        })
+            ->get();
+
+        return view('office.home.trouble', compact('previous_year'));
+    }
+
     private function colorGenerator()
     {
         $color_palette = [

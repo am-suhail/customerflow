@@ -132,14 +132,30 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                     Forms\Components\DatePicker::make('date_from'),
                     Forms\Components\DatePicker::make('date_until'),
                 ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['date_from'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('date', '>=', $date),
+                        )
+                        ->when(
+                            $data['date_until'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('date', '<=', $date),
+                        );
+                })
                 ->label('Date Filter')
         ];
     }
 
-    protected function getTableFiltersLayout(): ?string
+    protected function getTableFiltersFormColumns(): int
     {
-        return Layout::AboveContent;
+        return 4;
     }
+
+    // protected function getTableFiltersLayout(): ?string
+    // {
+    //     return Layout::AboveContent;
+    // }
 
     protected function getDefaultTableSortColumn(): ?string
     {
