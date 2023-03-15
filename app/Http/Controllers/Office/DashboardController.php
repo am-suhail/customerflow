@@ -115,13 +115,27 @@ class DashboardController extends Controller
         $previous_year_direct = $invoices_direct->whereBetween('date', [$prev_start_date, $prev_end_date]);
         $previous_year_investment = $invoices_investment->whereBetween('date', [$prev_start_date, $prev_end_date]);
 
-        $current_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($curr_start_date, $curr_end_date, $category_name) {
+        $current_year_items_direct = InvoiceItems::whereHas('invoice', function ($query) use ($curr_start_date, $curr_end_date, $category_name) {
             $query->whereBetween('date', [$curr_start_date, $curr_end_date])
                 ->whereHas('branch', function ($q) use ($category_name) {
                     $q->whereHas('company', function ($q) use ($category_name) {
                         $q->whereHas('sub_category', function ($q) use ($category_name) {
                             $q->whereHas('category', function ($q) use ($category_name) {
                                 $q->where('name', $category_name);
+                            });
+                        });
+                    });
+                });
+        })
+            ->get();
+
+        $current_year_items_investment = InvoiceItems::whereHas('invoice', function ($query) use ($curr_start_date, $curr_end_date, $secondary_category_name) {
+            $query->whereBetween('date', [$curr_start_date, $curr_end_date])
+                ->whereHas('branch', function ($q) use ($secondary_category_name) {
+                    $q->whereHas('company', function ($q) use ($secondary_category_name) {
+                        $q->whereHas('sub_category', function ($q) use ($secondary_category_name) {
+                            $q->whereHas('category', function ($q) use ($secondary_category_name) {
+                                $q->where('name', $secondary_category_name);
                             });
                         });
                     });
@@ -161,8 +175,8 @@ class DashboardController extends Controller
         $current_year_revenue_direct = $current_year_direct->sum('total_amount');
         $current_year_revenue_investment = $current_year_investment->sum('total_amount');
 
-        $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
-        $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
+        $current_year_invoices_direct =  $current_year_items_direct->map(fn ($item) => $item->tax)->sum();
+        $current_year_invoices_investment =  $current_year_items_investment->map(fn ($item) => $item->tax)->sum();
 
         // Previous Year
         $previous_year_revenue_direct = $previous_year_direct->sum('total_amount');
@@ -257,7 +271,7 @@ class DashboardController extends Controller
 
         // Category Wise Sales Chart
         if ($settings->pie_chart_category) {
-            $category_wise_chart = $current_year_items
+            $category_wise_chart = $current_year_items_direct
                 ->groupBy(function ($data) {
                     return $data->subcategory->category->name ?? "Generic";
                 });
@@ -265,12 +279,12 @@ class DashboardController extends Controller
             $pie_chart_category = new InvoiceChart;
             $pie_chart_category->labels($category_wise_chart->keys());
 
-            $pie_chart_category->dataset('Revenue %', 'pie', $category_wise_chart->values()->map(fn ($data) => round($data->map(fn ($invoice_item) => $invoice_item->total)->sum() / $current_year_items->sum('total') * 100, 2)))->backgroundColor($this->colorGenerator());
+            $pie_chart_category->dataset('Revenue %', 'pie', $category_wise_chart->values()->map(fn ($data) => round($data->map(fn ($invoice_item) => $invoice_item->total)->sum() / $current_year_items_direct->sum('total') * 100, 2)))->backgroundColor($this->colorGenerator());
         }
 
         // Sub Category Wise Sales Chart
         if ($settings->pie_chart_sub_category) {
-            $sub_category_wise_chart = $current_year_items
+            $sub_category_wise_chart = $current_year_items_direct
                 ->groupBy(function ($data) {
                     return $data->subcategory->name ?? "Generic";
                 });
@@ -278,7 +292,7 @@ class DashboardController extends Controller
             $pie_chart_sub_category = new InvoiceChart;
             $pie_chart_sub_category->labels($sub_category_wise_chart->keys());
 
-            $pie_chart_sub_category->dataset('Revenue %', 'pie', $sub_category_wise_chart->values()->map(fn ($data) => round($data->map(fn ($invoice_item) => $invoice_item->total)->sum() / $current_year_items->sum('total') * 100, 2)))->backgroundColor($this->colorGenerator());
+            $pie_chart_sub_category->dataset('Revenue %', 'pie', $sub_category_wise_chart->values()->map(fn ($data) => round($data->map(fn ($invoice_item) => $invoice_item->total)->sum() / $current_year_items_direct->sum('total') * 100, 2)))->backgroundColor($this->colorGenerator());
         }
 
         return view('office.home.index', compact(
