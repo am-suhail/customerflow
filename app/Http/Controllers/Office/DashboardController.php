@@ -23,6 +23,7 @@ class DashboardController extends Controller
 
         $this->authorize('dashboard primary');
         $category_name = "Direct";
+        $secondary_category_name = "Investment";
 
         // Global Chart Settings
         $bar_chart_yearly = null;
@@ -34,10 +35,23 @@ class DashboardController extends Controller
         $pie_chart_sub_category = null;
         $pie_chart_category = null;
 
-        // Branches
-        $branches = Branch::all();
+        // Company & Branch
         $companies = Company::all();
-        $total_branches = count($branches);
+
+        $branches = Branch::with(['company.sub_category.category'])
+            ->whereHas('company.sub_category.category', function ($q) use ($category_name) {
+                $q->where('name', $category_name);
+            })
+            ->get();
+
+        $branches_investment = Branch::with(['company.sub_category.category'])
+            ->whereHas('company.sub_category.category', function ($q) use ($secondary_category_name) {
+                $q->where('name', $secondary_category_name);
+            })
+            ->get();
+
+        $total_branches_direct = $branches->count();
+        $total_branches_investment = $branches_investment->count();
 
         $branches = $branches->filter(fn ($data) => !is_null($data->country_id));
         $total_countries = count($branches->groupBy('country_id'));
@@ -233,7 +247,8 @@ class DashboardController extends Controller
             'previous_year_invoices',
             'total_countries',
             'total_companies',
-            'total_branches'
+            'total_branches_direct',
+            'total_branches_investment'
         ));
     }
 

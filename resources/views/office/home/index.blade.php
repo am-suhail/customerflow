@@ -115,7 +115,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $total_branches }}</p>
+							<p class="text-2xl">{{ $total_branches_direct }}</p>
 							<p>Total Branches</p>
 						</div>
 					</div>
@@ -235,7 +235,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $total_branches }}</p>
+							<p class="text-2xl">{{ $total_branches_investment }}</p>
 							<p>Total Branches</p>
 						</div>
 					</div>
