@@ -5,15 +5,16 @@ namespace App\Http\Livewire\Tables;
 use App\Models\Invoice;
 use Carbon\Carbon;
 use Livewire\Component;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\Column;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Filters\Layout;
+use Filament\Forms;
+use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 
 class InvoiceTable extends Component implements Tables\Contracts\HasTable
 {
