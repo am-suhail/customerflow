@@ -258,7 +258,7 @@ class DashboardController extends Controller
             'previous_year_revenue',
             'previous_year_invoices',
             'total_countries',
-            'total_companies',
+            'total_companies_direct',
             'total_companies_investment',
             'total_branches_direct',
             'total_branches_investment'
