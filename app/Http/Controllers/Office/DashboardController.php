@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\InvoiceItems;
 use App\Models\Branch;
+use App\Models\Company;
 use app\Settings\DashboardSettings;
 use app\Settings\FinanceSettings;
 use Carbon\Carbon;
@@ -35,10 +36,12 @@ class DashboardController extends Controller
 
         // Branches
         $branches = Branch::all();
+        $companies = Company::all();
         $total_branches = count($branches);
 
         $branches = $branches->filter(fn ($data) => !is_null($data->country_id));
         $total_countries = count($branches->groupBy('country_id'));
+        $total_companies = count($companies);
 
         // Date Settings
         $start_month = $finance_settings->year_start;
@@ -229,6 +232,7 @@ class DashboardController extends Controller
             'previous_year_revenue',
             'previous_year_invoices',
             'total_countries',
+            'total_companies',
             'total_branches'
         ));
     }

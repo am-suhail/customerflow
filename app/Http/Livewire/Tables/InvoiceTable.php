@@ -97,6 +97,11 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->created_at)->format('d-m-Y | h:i:s A'))
                 ->toggleable()
                 ->searchable(),
+
+            TextColumn::make('status')
+                ->label('Status')
+                ->getStateUsing(fn () => "--")
+                ->toggleable(),
         ];
     }
 
