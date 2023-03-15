@@ -23,19 +23,24 @@ class DashboardController extends Controller
         $this->authorize('dashboard primary');
         $category_name = "Direct";
 
-        $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')
-            ->whereHas('branch', function ($q) use ($category_name) {
-                $q->whereHas('company', function ($q) use ($category_name) {
-                    $q->whereHas('sub_category', function ($q) use ($category_name) {
-                        $q->whereHas('category', function ($q) use ($category_name) {
-                            $q->where('name', $category_name);
-                        });
-                    });
-                });
-            })
-            ->get();
-        $branches = Branch::all();
+        // Global Chart Settings
+        $bar_chart_yearly = null;
+        $bar_chart_monthly_previous_year = null;
+        $bar_chart_monthly = null;
+        $pie_chart_country = null;
+        $pie_chart_state = null;
+        $pie_chart_city = null;
+        $pie_chart_sub_category = null;
+        $pie_chart_category = null;
 
+        // Branches
+        $branches = Branch::all();
+        $total_branches = count($branches);
+
+        $branches = $branches->filter(fn ($data) => !is_null($data->country_id));
+        $total_countries = count($branches->groupBy('country_id'));
+
+        // Date Settings
         $start_month = $finance_settings->year_start;
         $end_month = Carbon::parse($start_month)->subMonth();
 
@@ -49,6 +54,19 @@ class DashboardController extends Controller
 
         $prev_start_date = Carbon::parse($curr_start_date)->subYear();
         $prev_end_date = Carbon::parse($curr_end_date)->subYear();
+
+        // Invoice & Invoice Items
+        $invoices = Invoice::with('branch', 'branch.country', 'branch.city', 'branch.city.state')
+            ->whereHas('branch', function ($q) use ($category_name) {
+                $q->whereHas('company', function ($q) use ($category_name) {
+                    $q->whereHas('sub_category', function ($q) use ($category_name) {
+                        $q->whereHas('category', function ($q) use ($category_name) {
+                            $q->where('name', $category_name);
+                        });
+                    });
+                });
+            })
+            ->get();
 
         $current_year = $invoices->whereBetween('date', [$curr_start_date, $curr_end_date]);
         $previous_year = $invoices->whereBetween('date', [$prev_start_date, $prev_end_date]);
@@ -67,7 +85,6 @@ class DashboardController extends Controller
         })
             ->get();
 
-
         $previous_year_items = InvoiceItems::whereHas('invoice', function ($query) use ($prev_start_date, $prev_end_date, $category_name) {
             $query->whereBetween('date',  [$prev_start_date, $prev_end_date])
                 ->whereHas('branch', function ($q) use ($category_name) {
@@ -85,23 +102,8 @@ class DashboardController extends Controller
         $current_year_revenue = $current_year->sum('total_amount');
         $previous_year_revenue = $previous_year->sum('total_amount');
 
-        $total_branches = count($branches);
-
-        $branches = $branches->filter(fn ($data) => !is_null($data->country_id));
-        $total_countries = count($branches->groupBy('country_id'));
-
         $current_year_invoices =  $current_year_items->map(fn ($item) => $item->tax)->sum();
         $previous_year_invoices = $previous_year_items->map(fn ($item) => $item->tax)->sum();
-
-        // Charts
-        $bar_chart_yearly = null;
-        $bar_chart_monthly_previous_year = null;
-        $bar_chart_monthly = null;
-        $pie_chart_country = null;
-        $pie_chart_state = null;
-        $pie_chart_city = null;
-        $pie_chart_sub_category = null;
-        $pie_chart_category = null;
 
         // Yearly Revenue Chart
         if ($settings->bar_chart_yearly) {

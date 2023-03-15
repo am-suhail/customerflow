@@ -13,6 +13,7 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Filters\Layout;
 
 class InvoiceTable extends Component implements Tables\Contracts\HasTable
 {
@@ -120,6 +121,23 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                     ->visible(fn () => auth()->user()->can('delete revenue'))
             ])
         ];
+    }
+
+    protected function getTableFilters(): array
+    {
+        return [
+            Filter::make('date')
+                ->form([
+                    Forms\Components\DatePicker::make('date_from'),
+                    Forms\Components\DatePicker::make('date_until'),
+                ])
+                ->label('Date Filter')
+        ];
+    }
+
+    protected function getTableFiltersLayout(): ?string
+    {
+        return Layout::AboveContent;
     }
 
     protected function getDefaultTableSortColumn(): ?string

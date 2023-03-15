@@ -65,10 +65,6 @@
 					</x-slot>
 					Expense
 				</x-nav.nav-link>
-			@endcanany
-
-			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])
-				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
 				<x-nav.nav-link route="dummy">
 					<x-slot name="path">
@@ -79,6 +75,10 @@
 					</x-slot>
 					Payment
 				</x-nav.nav-link>
+			@endcanany
+
+			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])
+				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 			@endcanany
 
 			@canany(['view asset', 'add asset', 'edit asset', 'delete asset'])

@@ -24,6 +24,9 @@ class UserTable extends Component implements Tables\Contracts\HasTable
     protected function getTableColumns(): array
     {
         return [
+            TextColumn::make('#')
+                ->rowIndex(),
+
             TextColumn::make('name')
                 ->label('Name')
                 ->searchable()
