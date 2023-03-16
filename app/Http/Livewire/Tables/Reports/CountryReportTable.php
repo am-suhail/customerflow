@@ -13,6 +13,9 @@ class CountryReportTable extends Component
     public function mount()
     {
         $this->countries = Company::whereHas('country')->get();
+
+        // Total Companies for the Country
+        // Total Sum
     }
 
     public function render()

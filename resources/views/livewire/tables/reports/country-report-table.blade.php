@@ -1,6 +1,5 @@
 <div>
 	<div class="overflow-x-auto">
-		@dd($countries)
 		<table class="table table-compact w-full">
 			<!-- head -->
 			<thead>
@@ -13,12 +12,13 @@
 			</thead>
 			<tbody>
 
-				@forelse ($daily_summary->groupBy(function ($data) {
-								return \Carbon\Carbon::parse($data->created_at)->format('d-m-Y');
-				}) as $key => $summary)
+				@forelse ($companies->groupBy(function ($data) {
+					return $data->country
+				}) as $key => $company)
 					<tr class="hover">
 						<th>{{ $key }}</th>
-						<td>{{ count($summary) }}</td>
+						<th>{{ $company }}</th>
+						{{-- <td>{{ count($summary) }}</td>
 						<td>{{ $summary->map(fn($invoice) => count($invoice->items))->sum() }}</td>
 						<td>{{ $summary->sum('total_amount') }}</td>
 						<td>
@@ -30,7 +30,7 @@
 						<td>{{ $summary->sum('total_discount') }}</td>
 						<td>
 							{{ $summary->sum('total_amount') - $summary->map(fn($invoice) => $invoice->items->map(fn($item) => $item->service->total_cost)->sum())->sum() - $summary->sum('total_discount') }}
-						</td>
+						</td> --}}
 					</tr>
 				@empty
 					<tr>
