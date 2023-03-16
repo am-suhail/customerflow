@@ -3,7 +3,7 @@
 		<table class="table table-compact w-full">
 			<!-- head -->
 			<thead>
-				<tr>
+				<tr class="border-1">
 					<th>Country</th>
 					<th>No of Companies</th>
 					<th>Total</th>
@@ -12,23 +12,21 @@
 			</thead>
 			<tbody>
 
-				@forelse ($companies->groupBy('country') as $key => $company)
+				@foreach ($companiesByCountry as $countryName => $countryCompanies)
 					<tr class="hover">
-						<th>{{ $key }}</th>
-						<th>{{ $company }}</th>
-						{{-- <td>{{ count($summary) }}</td>
-						<td>{{ $summary->map(fn($invoice) => count($invoice->items))->sum() }}</td>
-						<td>{{ $summary->sum('total_amount') }}</td>
-						<td>
-							{{ $summary->map(fn($invoice) => $invoice->items->map(fn($item) => $item->service->total_cost)->sum())->sum() }}
+						<td>{{ $countryName }}</td>
+						<td>{{ $countryCompanies->count() }}</td>
+						<td class="text-right">{{ $totalInvoices[$countryName] }}</td>
+					</tr>
+				@endforeach
+
+				@forelse ($companies->groupBy(fn ($company) => $company->country->name) as $key => $company)
+					<tr class="hover">
+						<td>{{ $key }}</td>
+						<td>{{ count($company) }}</td>
+						<td class="text-right">
+							{{ $company->map(fn($company) => $company->branches->map(fn($branch) => $branch->invoices->map(fn($invoice) => $invoice->total_amount)->sum())->sum())->sum() }}
 						</td>
-						<td>
-							{{ $summary->sum('total_amount') - $summary->map(fn($invoice) => $invoice->items->map(fn($item) => $item->service->total_cost)->sum())->sum() }}
-						</td>
-						<td>{{ $summary->sum('total_discount') }}</td>
-						<td>
-							{{ $summary->sum('total_amount') - $summary->map(fn($invoice) => $invoice->items->map(fn($item) => $item->service->total_cost)->sum())->sum() - $summary->sum('total_discount') }}
-						</td> --}}
 					</tr>
 				@empty
 					<tr>
@@ -49,6 +47,29 @@
 						</td>
 					</tr>
 				@endforelse
+				<tr>
+					<td></td>
+					<td>
+						<h6 class="font-bold">
+							<span class="">
+								Total:
+							</span>
+							<span class="text-xl">
+								{{ count($companies) }}
+							</span>
+						</h6>
+					</td>
+					<td>
+						<span class="font-bold">
+							Total:
+						</span> 0
+					</td>
+					<td>
+						<span class="font-bold">
+							Total:
+						</span> 0
+					</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

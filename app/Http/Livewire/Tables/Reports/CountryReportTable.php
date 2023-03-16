@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
+use App\Models\Branch;
 use App\Models\Company;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -9,13 +10,23 @@ use Livewire\Component;
 class CountryReportTable extends Component
 {
     public $companies;
+    public $companiesByCountry,
+        $totalCompanies,
+        $totalInvoices;
 
     public function mount()
     {
         $this->companies = Company::whereHas('country')->get();
 
-        // Total Companies for the Country
-        // Total Sum
+        $companiesByCountry = $this->companies->groupBy('country.name');
+        $this->totalCompanies = $this->companies->count();
+        $this->totalInvoices = $companiesByCountry->flatMap->sum(function ($company) {
+            return $company->sum(function ($c) {
+                return $c->branches->sum(function ($b) {
+                    return $b->invoices->sum('total_amount');
+                });
+            });
+        });
     }
 
     public function render()
