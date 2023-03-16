@@ -129,9 +129,11 @@
 				</x-nav.nav-link>
 			@endcanany
 
+			<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-green-900" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+			<h6 class="text-green-400 text-xs pl-3 mb-2 uppercase" :class="{ 'lg:hidden': !isSidebarOpen }">
+				User Management
+			</h6>
 			@canany(['view users', 'manage user'])
-				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-
 				<x-nav.nav-link route="user.index">
 					<x-slot name="path">
 						<path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
@@ -154,16 +156,53 @@
 				</x-nav.nav-link>
 			@endcanany
 
-			@canany(['view employees', 'manage employee'])
-				<x-nav.nav-link route="dummy">
-					<x-slot name="path">
-						<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-						<path d="M8.5 3a4 4 0 1 0 0 8 4 4 0 1 0 0-8z"></path>
-						<path d="m17 11 2 2 4-4"></path>
-					</x-slot>
-					Share Holder
-				</x-nav.nav-link>
-			@endcanany
+			<x-nav.nav-link route="dummy">
+				<x-slot name="path">
+					<path
+						d="m2.23 6.42 8.888-1.888a1 1 0 0 1 .752.14L15.92 7.3a1 1 0 0 0 .752.14l2.04-.434a1 1 0 0 1 1.186.77l.312 1.467a1 1 0 0 1-.77 1.186l-3.507.746a1 1 0 0 1-.753-.14l-4.05-2.63a1 1 0 0 0-.752-.139l-1.551.33">
+					</path>
+					<path
+						d="m21.77 16.58-8.888 1.889a1 1 0 0 1-.752-.14L8.08 15.7a1 1 0 0 0-.752-.139l-2.04.434a1 1 0 0 1-1.186-.77l-.312-1.468a1 1 0 0 1 .77-1.186l3.507-.745a1 1 0 0 1 .753.14l4.05 2.629a1 1 0 0 0 .752.14l1.551-.33">
+					</path>
+				</x-slot>
+				KMP
+			</x-nav.nav-link>
+
+			<x-nav.nav-link route="dummy">
+				<x-slot name="path">
+					<path
+						d="m2.23 6.42 8.888-1.888a1 1 0 0 1 .752.14L15.92 7.3a1 1 0 0 0 .752.14l2.04-.434a1 1 0 0 1 1.186.77l.312 1.467a1 1 0 0 1-.77 1.186l-3.507.746a1 1 0 0 1-.753-.14l-4.05-2.63a1 1 0 0 0-.752-.139l-1.551.33">
+					</path>
+					<path
+						d="m21.77 16.58-8.888 1.889a1 1 0 0 1-.752-.14L8.08 15.7a1 1 0 0 0-.752-.139l-2.04.434a1 1 0 0 1-1.186-.77l-.312-1.468a1 1 0 0 1 .77-1.186l3.507-.745a1 1 0 0 1 .753.14l4.05 2.629a1 1 0 0 0 .752.14l1.551-.33">
+					</path>
+				</x-slot>
+				Directors
+			</x-nav.nav-link>
+
+			<x-nav.nav-link route="dummy">
+				<x-slot name="path">
+					<path
+						d="m2.23 6.42 8.888-1.888a1 1 0 0 1 .752.14L15.92 7.3a1 1 0 0 0 .752.14l2.04-.434a1 1 0 0 1 1.186.77l.312 1.467a1 1 0 0 1-.77 1.186l-3.507.746a1 1 0 0 1-.753-.14l-4.05-2.63a1 1 0 0 0-.752-.139l-1.551.33">
+					</path>
+					<path
+						d="m21.77 16.58-8.888 1.889a1 1 0 0 1-.752-.14L8.08 15.7a1 1 0 0 0-.752-.139l-2.04.434a1 1 0 0 1-1.186-.77l-.312-1.468a1 1 0 0 1 .77-1.186l3.507-.745a1 1 0 0 1 .753.14l4.05 2.629a1 1 0 0 0 .752.14l1.551-.33">
+					</path>
+				</x-slot>
+				Investors
+			</x-nav.nav-link>
+
+			<x-nav.nav-link route="dummy">
+				<x-slot name="path">
+					<path d="M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+					<path d="M18 18a6 6 0 0 0-12 0"></path>
+					<path d="M18 2h4v4"></path>
+					<path d="M6 2H2v4"></path>
+					<path d="M18 22h4v-4"></path>
+					<path d="M6 22H2v-4"></path>
+				</x-slot>
+				Affiliates
+			</x-nav.nav-link>
 
 			@can('view reports')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
