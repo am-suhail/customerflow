@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
-use App\Models\Invoice;
+use App\Models\Company;
 use Carbon\Carbon;
 use Livewire\Component;
 
 class CountryReportTable extends Component
 {
-    public $daily_summary;
+    public $countries;
 
     public function mount()
     {
-        $this->daily_summary = collect();
+        $this->countries = Company::whereHas('country')->get();
     }
 
     public function render()

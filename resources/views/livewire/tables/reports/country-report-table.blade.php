@@ -1,15 +1,12 @@
 <div>
 	<div class="overflow-x-auto">
+		@dd($countries)
 		<table class="table table-compact w-full">
 			<!-- head -->
 			<thead>
 				<tr>
 					<th>Country</th>
 					<th>No of Companies</th>
-					{{-- <th>Sales Revenue</th>
-					<th>Percentage</th>
-					<th>Other Revenue</th>
-					<th>Percentage</th> --}}
 					<th>Total</th>
 					<th>Total Percentage</th>
 				</tr>
