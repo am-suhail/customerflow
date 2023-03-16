@@ -12,9 +12,7 @@
 			</thead>
 			<tbody>
 
-				@forelse ($companies->groupBy(function ($data) {
-					return $data->country
-				}) as $key => $company)
+				@forelse ($companies->groupBy('country') as $key => $company)
 					<tr class="hover">
 						<th>{{ $key }}</th>
 						<th>{{ $company }}</th>

@@ -8,11 +8,11 @@ use Livewire\Component;
 
 class CountryReportTable extends Component
 {
-    public $countries;
+    public $companies;
 
     public function mount()
     {
-        $this->countries = Company::whereHas('country')->get();
+        $this->companies = Company::whereHas('country')->get();
 
         // Total Companies for the Country
         // Total Sum
