@@ -4,22 +4,20 @@
 			<!-- head -->
 			<thead>
 				<tr class="border-1">
-					<th width="50%" class="border-2">Country</th>
-					<th class="text-center border-2">Companies</th>
+					<th width="50%" class="border-2">Company</th>
 					<th class="text-center border-2">Branches</th>
 					<th class="text-center border-2">Total</th>
 					<th class="text-center border-2">Percentage</th>
 				</tr>
 			</thead>
 			<tbody>
-				@forelse ($companies->groupBy('country.name') as $country_name => $company)
+				@forelse ($branches->groupBy('company.name') as $company_name => $branch)
 					<tr class="hover">
-						<td class="border-2">{{ $country_name }}</td>
-						<td class="text-center border-2">{{ count($company) }}</td>
-						<td class="text-center border-2">{{ $company->map(fn($company) => count($company->branches))->sum() }}</td>
-						<td class="text-right border-2">{{ $total_invoice_amount[$country_name] }}</td>
+						<td class="border-2">{{ $company_name }}</td>
+						<td class="text-center border-2">{{ count($branch) }}</td>
+						<td class="text-right border-2">{{ $total_invoice_amount[$company_name] }}</td>
 						<td class="text-center border-2">
-							{{ number_format((float) (($total_invoice_amount[$country_name] / $total_invoice_amount->sum()) * 100), 2, '.', '') . '%' }}
+							{{ number_format((float) (($total_invoice_amount[$company_name] / $total_invoice_amount->sum()) * 100), 2, '.', '') . '%' }}
 						</td>
 					</tr>
 				@empty
@@ -43,13 +41,6 @@
 				@endforelse
 				<tr>
 					<td></td>
-					<td class="text-center border-2">
-						<h6 class="font-bold">
-							<span class="text-xl">
-								{{ $total_companies }}
-							</span>
-						</h6>
-					</td>
 					<td class="text-center border-2">
 						<h6 class="font-bold">
 							<span class="text-xl">
