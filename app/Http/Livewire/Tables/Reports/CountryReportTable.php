@@ -2,31 +2,29 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
-use App\Models\Branch;
 use App\Models\Company;
 use Carbon\Carbon;
 use Livewire\Component;
 
 class CountryReportTable extends Component
 {
-    public $companies;
-    public $companiesByCountry,
-        $totalCompanies,
-        $totalInvoices;
+    public $companies,
+        $total_companies,
+        $total_branches,
+        $total_invoice_amount;
 
     public function mount()
     {
         $this->companies = Company::whereHas('country')->get();
 
-        $companiesByCountry = $this->companies->groupBy('country.name');
-        $this->totalCompanies = $this->companies->count();
-        $this->totalInvoices = $companiesByCountry->flatMap->sum(function ($company) {
-            return $company->sum(function ($c) {
-                return $c->branches->sum(function ($b) {
-                    return $b->invoices->sum('total_amount');
-                });
-            });
-        });
+        $this->total_companies = $this->companies->count();
+        $this->total_branches = $this->companies->map(fn ($company) => count($company->branches))->sum();
+        $this->total_invoice_amount = $this->companies
+            ->groupBy(fn ($company) => $company->country->name)
+            ->map(fn ($countryCompanies) => $countryCompanies->sum(
+                fn ($company) =>
+                $company->branches->sum(fn ($branch) => $branch->invoices->sum('total_amount'))
+            ));
     }
 
     public function render()

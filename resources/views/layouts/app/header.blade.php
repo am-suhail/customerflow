@@ -12,14 +12,14 @@
 			</button>
 		</div>
 
-		<div class="">
+		<div class="px-2">
 			<img src="{{ asset('img/logo.png') }}" style="width:200px" alt="">
 		</div>
 
 		<!-- Navbar right -->
-		<div class="relative flex items-center space-x-3">
+		<div class="relative flex items-center space-x-1">
 			<!-- User Menu -->
-			<h6 class="font-bold">{{ Auth::user()->name }}</h6>
+			<h6 class="font-bold">{{ Str::limit(Auth::user()->name, 10, '..') }}</h6>
 			<div class="relative" x-data="{ isOpen: false }">
 				<button @click="isOpen = !isOpen" class="p-1 bg-gray-200 rounded-full focus:outline-none focus:ring">
 					<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
