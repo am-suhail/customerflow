@@ -121,8 +121,11 @@ Route::middleware(['auth'])->group(function () {
             // Services Summary Report
             Route::get('/category', [ReportController::class, 'category'])->name('report.category');
 
-            // Employees Summary Report
+            // Company Summary Report
             Route::get('/company', [ReportController::class, 'company'])->name('report.company');
+
+            // Branch Summary Report
+            Route::get('/branch', [ReportController::class, 'branch'])->name('report.branch');
 
             // Bank Card Summary Report
             Route::get('/bank-summary', [ReportController::class, 'bank_summary'])->name('report.bank-summary');

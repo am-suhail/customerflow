@@ -33,6 +33,12 @@ class ReportController extends BaseController
         return view('office.report.company');
     }
 
+    public function branch()
+    {
+        $this->setPageTitle('Branch Report', '');
+        return view('office.report.branch');
+    }
+
     public function bank_summary()
     {
         $this->setPageTitle('Bank & Service Cost Report', '');

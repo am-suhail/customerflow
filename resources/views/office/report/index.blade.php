@@ -73,6 +73,25 @@
 									</div>
 								</div>
 							</a>
+
+							<a href="{{ route('report.branch') }}">
+								<div class="shadow rounded-lg py-6 px-5 bg-gray-100">
+									<div class="flex flex-row justify-between items-center">
+										<div>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Branch Report</h4>
+										</div>
+										<div>
+											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
+												stroke="#3B82F6" stroke-width="2">
+												<path d="M8.5 5.5 12 2l3.5 3.5L12 9 8.5 5.5Z"></path>
+												<path d="M15 12.5 18.5 9l3.5 3.5-3.5 3.5-3.5-3.5Z"></path>
+												<path d="M8.5 18.5 12 15l3.5 3.5L12 22l-3.5-3.5Z"></path>
+												<path d="m2 12 3.5-3.5L9 12l-3.5 3.5L2 12Z"></path>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</a>
 						</div>
 					</div>
 				</div>
