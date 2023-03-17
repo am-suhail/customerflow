@@ -26,7 +26,7 @@
 
 		<div class="p-2">
 			<div class="py-4">
-				<livewire:tables.reports.company-report-table />
+				<livewire:tables.reports.branch-report-table />
 			</div>
 		</div>
 

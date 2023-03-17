@@ -24,7 +24,7 @@
 						<td class="border-2">{{ $branch->city->name }}</td>
 						<td class="text-center border-2">{{ count($branch->invoices) }}</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoices, $branch->name) ? $total_invoices[$branch->name] : 0 }}</td>
+							{{ Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0 }}</td>
 						<td class="text-right border-2">
 							{{ Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0 }}</td>
 						<td class="text-center border-2">

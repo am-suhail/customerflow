@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
+use App\Models\Branch;
 use Livewire\Component;
 
 class BranchReportTable extends Component
