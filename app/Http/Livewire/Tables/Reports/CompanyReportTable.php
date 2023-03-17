@@ -22,7 +22,7 @@ class CompanyReportTable extends Component
         $this->total_branches = $this->branches->count();
         $this->total_invoices = $this->branches
             ->groupBy(fn ($branch) => $branch->company->name)
-            ->map(fn ($companyBranches) => $companyBranches->sum(fn ($branch) => count($branch->invoices)));
+            ->map(fn ($companyBranches) => $companyBranches->sum(fn ($branch) => $branch->invoices->sum(fn ($invoice) => count($invoice->items))));
         $this->total_invoice_amount = $this->branches
             ->groupBy(fn ($branch) => $branch->company->name)
             ->map(fn ($companyBranches) => $companyBranches->sum(fn ($branch) => $branch->invoices->sum('total_amount')));
