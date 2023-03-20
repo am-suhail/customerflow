@@ -5,7 +5,7 @@
 			<thead>
 				<tr class="border-1">
 					<th class="border-2">#</th>
-					<th width="50%" class="border-2">Branch</th>
+					<th width="40%" class="border-2">Branch</th>
 					<th class="text-center border-2">Company</th>
 					<th class="text-center border-2">Country</th>
 					<th class="text-center border-2">City</th>
@@ -22,9 +22,8 @@
 						<td class="border-2">{{ $branch->company->name }}</td>
 						<td class="border-2">{{ $branch->country->name }}</td>
 						<td class="border-2">{{ $branch->city->name }}</td>
-						<td class="text-center border-2">{{ count($branch->invoices) }}</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0 }}</td>
+							{{ Arr::exists($total_invoices, $branch->name) ? $total_invoices[$branch->name] : 0 }}</td>
 						<td class="text-right border-2">
 							{{ Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0 }}</td>
 						<td class="text-center border-2">
@@ -55,26 +54,21 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td class="text-center border-2">
-						{{-- <h6 class="font-bold">
-							<span class="text-xl">
-								{{ $total_branches }}
-							</span>
-						</h6> --}}
-					</td>
+					<td></td>
+					<td></td>
 					<td class="text-right border-2">
 						{{-- <h6 class="font-bold">
-							<span class="text-xl">
-								{{ $total_invoices->sum() }}
-							</span>
-						</h6> --}}
+                            <span class="text-xl">
+                                {{ $total_invoice_amount->sum() }}
+                            </span>
+                        </h6> --}}
 					</td>
 					<td class="text-right border-2">
-						{{-- <h6 class="font-bold">
+						<h6 class="font-bold">
 							<span class="text-xl">
 								{{ $total_invoice_amount->sum() }}
 							</span>
-						</h6> --}}
+						</h6>
 					</td>
 					<td class="text-center border-2">
 						<h6 class="font-bold">
