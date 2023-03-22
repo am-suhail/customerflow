@@ -25,6 +25,7 @@
         "maatwebsite/excel": "^3.1",
         "propaganistas/laravel-phone": "^4.3",
         "psr/simple-cache": "^1.0",
+        "sentry/sentry-laravel": "^3.3",
         "spatie/laravel-activitylog": "^4.6",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^5.1",
