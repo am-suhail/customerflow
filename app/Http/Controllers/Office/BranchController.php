@@ -184,6 +184,6 @@ class BranchController extends BaseController
     {
         $this->authorize('export branches');
 
-        return Excel::download(new BranchExport(Vendor::all()), 'branches_abc_mercantile_' . now() . '.xlsx');
+        return Excel::download(new BranchExport(Vendor::all()), 'branches_' . now() . '.xlsx');
     }
 }
