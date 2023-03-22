@@ -44,18 +44,23 @@
 					@enderror
 				</div>
 
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
-					@foreach ($permissions as $permission)
-						<div class="p-2 rounded-lg form-control bg-base-200">
-							<label class="cursor-pointer label">
-								{!! Form::label('permissions', $permission->name, ['class' => 'label-text']) !!}
-								{!! Form::checkbox('permissions[]', $permission->id, old('permissions'), [
-								    'class' => 'checkbox checkbox-accent',
-								]) !!}
-							</label>
+				@foreach ($permissions->groupBy('group_name') as $group => $group_permissions)
+					<div class="border-2 rounded my-4 p-2">
+						<h6 class="text-center uppercase font-bold">{{ $group }}</h6>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+							@foreach ($group_permissions as $permission)
+								<div class="p-2 rounded-lg form-control bg-green-300">
+									<label class="cursor-pointer label">
+										{!! Form::label('permissions', $permission->name, ['class' => 'label-text']) !!}
+										{!! Form::checkbox('permissions[]', $permission->id, old('permissions'), [
+										    'class' => 'checkbox checkbox-accent',
+										]) !!}
+									</label>
+								</div>
+							@endforeach
 						</div>
-					@endforeach
-				</div>
+					</div>
+				@endforeach
 
 				<div class='grid grid-flow-row md:grid-cols-2 gap-4 mt-4'>
 					<div>

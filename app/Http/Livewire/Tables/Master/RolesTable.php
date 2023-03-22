@@ -19,6 +19,7 @@ class RolesTable extends Component implements Tables\Contracts\HasTable
     protected function getTableQuery(): Builder
     {
         return Role::query()
+            ->where('name', '!=', 'Super Admin')
             ->orderBy('name');
     }
 

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
 
 class PermissionSeeder extends Seeder
@@ -15,30 +17,61 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('permissions')->insert([
-            ['name' => 'modify master data', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'view products', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'add product', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'edit product', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'delete product', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'view customers', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'add customer', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'edit customer', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'delete customer', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'view projects', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'add project', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'edit project', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'delete project', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'modify project status', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'modify project-service status', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'view users', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'manage user', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'view agents', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'manage agent', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'view employees', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'manage employee', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'view all-leads', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-            ['name' => 'manage leads', 'guard_name' => 'web', 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
-        ]);
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+        // create permissions
+        Permission::create(['name' => 'modify general settings', 'group_name' => 'app-settings']);
+        Permission::create(['name' => 'modify dashboard settings', 'group_name' => 'app-settings']);
+        Permission::create(['name' => 'modify finance settings', 'group_name' => 'app-settings']);
+
+        Permission::create(['name' => 'modify master data', 'group_name' => 'master-data']);
+
+        Permission::create(['name' => 'view revenue', 'group_name' => 'revenue']);
+        Permission::create(['name' => 'add revenue', 'group_name' => 'revenue']);
+        Permission::create(['name' => 'edit revenue', 'group_name' => 'revenue']);
+        Permission::create(['name' => 'delete revenue', 'group_name' => 'revenue']);
+        Permission::create(['name' => 'export revenue', 'group_name' => 'revenue']);
+
+        Permission::create(['name' => 'view expense', 'group_name' => 'expense']);
+        Permission::create(['name' => 'add expense', 'group_name' => 'expense']);
+        Permission::create(['name' => 'edit expense', 'group_name' => 'expense']);
+        Permission::create(['name' => 'delete expense', 'group_name' => 'expense']);
+        Permission::create(['name' => 'export expense', 'group_name' => 'expense']);
+
+        Permission::create(['name' => 'view user', 'group_name' => 'user']);
+        Permission::create(['name' => 'add user', 'group_name' => 'user']);
+        Permission::create(['name' => 'edit user', 'group_name' => 'user']);
+        Permission::create(['name' => 'suspend user', 'group_name' => 'user']);
+
+        Permission::create(['name' => 'view employee', 'group_name' => 'employee']);
+        Permission::create(['name' => 'add employee', 'group_name' => 'employee']);
+        Permission::create(['name' => 'edit employee', 'group_name' => 'employee']);
+        Permission::create(['name' => 'suspend employee', 'group_name' => 'employee']);
+
+        Permission::create(['name' => 'view report', 'group_name' => 'report']);
+        Permission::create(['name' => 'access country report', 'group_name' => 'country-report']);
+        Permission::create(['name' => 'export country report', 'group_name' => 'country-report']);
+
+        Permission::create(['name' => 'access company report', 'group_name' => 'company-report']);
+        Permission::create(['name' => 'export company report', 'group_name' => 'company-report']);
+
+        Permission::create(['name' => 'access branch report', 'group_name' => 'branch-report']);
+        Permission::create(['name' => 'export branch report', 'group_name' => 'branch-report']);
+
+        Permission::create(['name' => 'view company', 'group_name' => 'company']);
+        Permission::create(['name' => 'add company', 'group_name' => 'company']);
+        Permission::create(['name' => 'edit company', 'group_name' => 'company']);
+        Permission::create(['name' => 'delete company', 'group_name' => 'company']);
+        Permission::create(['name' => 'export company', 'group_name' => 'company']);
+
+        Permission::create(['name' => 'view branch', 'group_name' => 'branch']);
+        Permission::create(['name' => 'add branch', 'group_name' => 'branch']);
+        Permission::create(['name' => 'edit branch', 'group_name' => 'branch']);
+        Permission::create(['name' => 'delete branch', 'group_name' => 'branch']);
+        Permission::create(['name' => 'export branch', 'group_name' => 'branch']);
+
+        // $role = Role::create(['name' => 'Super Admin']);
+        // $role->givePermissionTo(Permission::all());
     }
 }
