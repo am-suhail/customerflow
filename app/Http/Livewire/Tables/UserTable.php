@@ -69,7 +69,7 @@ class UserTable extends Component implements Tables\Contracts\HasTable
                     ->icon('heroicon-o-user-add')
                     ->color('primary')
                     ->url(fn ($record) => route('employee.appoint', $record->id))
-                    ->visible(fn ($record) => empty($record->employee_detail)),
+                    ->visible(fn ($record) => !$record->employee),
 
                 Action::make('manage-roles')
                     ->label('Manage Roles')
