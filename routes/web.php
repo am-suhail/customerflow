@@ -7,6 +7,7 @@ use App\Http\Controllers\Office\CompanyController;
 use App\Http\Controllers\Office\DashboardController;
 use App\Http\Controllers\Office\DashboardSettingsController;
 use App\Http\Controllers\Office\EmployeeController;
+use App\Http\Controllers\Office\ExpenseController;
 use App\Http\Controllers\Office\FinanceSettingsController;
 use App\Http\Controllers\Office\GeneralSettingsController;
 use App\Http\Controllers\Office\InvoiceController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Office\ReportController;
 use App\Http\Controllers\Office\RolesController;
 use App\Http\Controllers\Office\SettingsController;
 use App\Http\Controllers\Office\SuperAdminController;
+use App\Http\Controllers\Office\TransEntryTypeController;
 use App\Http\Controllers\Office\UserController;
 use App\Http\Controllers\Office\VendorController;
 use App\Http\Livewire\Auth\Login;
@@ -92,9 +94,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('employee/{id}/appoint', [EmployeeController::class, 'appoint'])->name('employee.appoint');
         Route::put('employee/appoint/{id}', [EmployeeController::class, 'process_appoint'])->name('employee.appoint-process');
 
+        // Revenue
         Route::get('revenue/list', [InvoiceController::class, 'index'])->name('revenue.index');
         Route::get('revenue/export', [InvoiceController::class, 'export'])->name('revenue.export');
         Route::resource('revenue', InvoiceController::class, ['except' => ['index', 'store', 'update', 'destroy']]);
+
+        // Expense
+        Route::get('expense/export', [ExpenseController::class, 'export'])->name('expense.export');
+        Route::resource('expense', ExpenseController::class, ['except' => ['store', 'update', 'destroy']]);
+
+        // Transaction Entry Type
+        Route::get('transaction-entry/{type}', [TransEntryTypeController::class, 'index'])->name('entry-type.index');
 
         // Exports
         Route::get('branch/export', [VendorController::class, 'export'])->name('branch.export');
@@ -147,6 +157,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/category/{type?}', [MasterController::class, 'category'])->name('master.category');
             // Company Category
             Route::get('/company-category/{type?}', [MasterController::class, 'company_category'])->name('master.company-category');
+            // Expense Category
+            Route::get('/expense-category/{type?}', [MasterController::class, 'expense_category'])->name('master.expense-category');
+            // Tax Settings
+            Route::get('/tax-settings', [MasterController::class, 'tax_settings'])->name('master.tax-settings');
         });
 
         // Application Settings

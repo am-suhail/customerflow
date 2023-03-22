@@ -14,6 +14,7 @@ class Category extends Model
 
     const TYPE_PRODUCT = 1;
     const TYPE_COMPANY = 2;
+    const TYPE_EXPENSE = 3;
 
     /**
      * The attributes that are mass assignable.

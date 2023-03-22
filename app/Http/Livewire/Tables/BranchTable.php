@@ -44,6 +44,11 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->sortable(),
 
+            TextColumn::make('type_info')
+                ->label('Type')
+                ->getStateUsing(fn ($record) => "")
+                ->toggleable(),
+
             TextColumn::make('code')
                 ->label('Code')
                 ->toggleable()

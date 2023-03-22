@@ -32,10 +32,21 @@ module.exports = {
         "./resources/**/*.php",
         "./resources/**/*.vue",
         "./resources/**/*.twig",
+        "./vendor/wire-elements/modal/resources/views/*.blade.php",
+        "./storage/framework/views/*.php",
+        "./resources/views/**/*.blade.php",
         "./app/Http/Livewire/**/*Table.php",
         "./vendor/filament/**/*.blade.php",
     ],
-    safelist: ["text-blue-600", "text-indigo-600", "border-blue-600"],
+    safelist: [
+        {
+            pattern: /max-w-(sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
+            variants: ["sm", "md", "lg", "xl", "2xl"],
+        },
+        "text-blue-600",
+        "text-indigo-600",
+        "border-blue-600",
+    ],
     plugins: [
         require("@tailwindcss/forms"),
         require("@tailwindcss/typography"),

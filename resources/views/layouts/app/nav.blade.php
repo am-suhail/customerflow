@@ -56,7 +56,7 @@
 			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 
-				<x-nav.nav-link route="dummy">
+				<x-nav.nav-link route="expense.index">
 					<x-slot name="path">
 						<path d="M18 5H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3Z"></path>
 						<path d="M3 10h18"></path>

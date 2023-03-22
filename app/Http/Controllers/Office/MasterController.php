@@ -63,4 +63,20 @@ class MasterController extends BaseController
         $this->setPageTitle($type == 'main' ? 'Company Category Data' : 'Company Sub Category Data', '');
         return view('office.master.company-category', compact('type'));
     }
+
+    public function expense_category($type = 'main')
+    {
+        $this->authorize('modify master data');
+
+        $this->setPageTitle($type == 'main' ? 'Expense Category Data' : 'Expense Sub Category Data', '');
+        return view('office.master.expense-category', compact('type'));
+    }
+
+    public function tax_settings()
+    {
+        $this->authorize('modify master data');
+
+        $this->setPageTitle('Tax Data', '');
+        return view('office.master.tax');
+    }
 }
