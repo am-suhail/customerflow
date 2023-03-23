@@ -152,6 +152,6 @@ class CompanyController extends BaseController
     {
         $this->authorize('export branches');
 
-        return Excel::download(new CompanyTableExport(Company::all()), 'companies_abc_mercantile_' . now() . '.xlsx');
+        return Excel::download(new CompanyTableExport(Company::all()), 'companies_' . now() . '.xlsx');
     }
 }
