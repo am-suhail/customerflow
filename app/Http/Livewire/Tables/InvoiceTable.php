@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Tables;
 
+use App\Exports\RevenueTableExport;
 use App\Models\Invoice;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -11,10 +12,10 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Filters\Layout;
 use Filament\Forms;
 use Filament\Tables\Filters\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvoiceTable extends Component implements Tables\Contracts\HasTable
 {
@@ -24,6 +25,22 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
     {
         return Invoice::query()
             ->with('activities', 'activities.causer', 'items', 'items.subcategory');
+
+        // $start_date = $this->start_date;
+        // $end_date = $this->end_date;
+
+        // ->when(
+        //     isset($start_date),
+        //     function (Builder $query) use ($start_date) {
+        //         return $query->where('date', '>=', $start_date);
+        //     }
+        // )
+        // ->when(
+        //     isset($end_date),
+        //     function (Builder $query) use ($end_date) {
+        //         return $query->where('date', '<=', $end_date);
+        //     }
+        // )
     }
 
     protected function getTableColumns(): array
@@ -157,11 +174,6 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
         return 4;
     }
 
-    // protected function getTableFiltersLayout(): ?string
-    // {
-    //     return Layout::AboveContent;
-    // }
-
     protected function getDefaultTableSortColumn(): ?string
     {
         return 'number';
@@ -172,9 +184,19 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
         return 'desc';
     }
 
+    protected function isTableStriped(): bool
+    {
+        return true;
+    }
+
     protected function shouldPersistTableFiltersInSession(): bool
     {
         return true;
+    }
+
+    public function export()
+    {
+        return Excel::download(new RevenueTableExport(collect($this->getTableRecords()->items())), 'revenue_' . now() . '.xlsx');
     }
 
     public function render()

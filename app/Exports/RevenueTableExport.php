@@ -10,6 +10,12 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class RevenueTableExport implements FromCollection, WithHeadings, WithMapping
 {
+    protected $revenue;
+
+    public function __construct($revenue)
+    {
+        $this->revenue = $revenue;
+    }
 
     public function headings(): array
     {
@@ -49,6 +55,6 @@ class RevenueTableExport implements FromCollection, WithHeadings, WithMapping
      */
     public function collection()
     {
-        return Invoice::all();
+        return $this->revenue;
     }
 }
