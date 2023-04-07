@@ -12,11 +12,16 @@ class BranchReportTable extends Component
         $total_invoices,
         $total_invoice_amount;
 
+    public $start_date, $end_date;
+
+    public $filter_active = false;
+
     public function mount()
     {
         $this->branches = Branch::whereHas('company')->get();
 
         $this->total_branches = $this->branches->count();
+
         $this->total_invoices = $this->branches
             ->groupBy(fn ($company) => $company->name)
             ->map(fn ($companyBranches) => $companyBranches->sum(
@@ -29,8 +34,35 @@ class BranchReportTable extends Component
             ));
     }
 
+    public function filter()
+    {
+        $this->report();
+        $this->filter_active = true;
+    }
+
+    public function clearFilter()
+    {
+        $this->report();
+        $this->filter_active = false;
+    }
+
     public function render()
     {
         return view('livewire.tables.reports.branch-report-table');
+    }
+
+    public function report()
+    {
+        $this->total_invoices = $this->branches
+            ->groupBy(fn ($company) => $company->name)
+            ->map(fn ($companyBranches) => $companyBranches->sum(
+                fn ($branch) => $branch->invoices->sum(fn ($invoice) => $invoice->items->sum('tax'))
+            ));
+
+        $this->total_invoice_amount = $this->branches
+            ->groupBy(fn ($company) => $company->name)
+            ->map(fn ($companyBranches) => $companyBranches->sum(
+                fn ($branch) => $branch->invoices->sum('total_amount')
+            ));
     }
 }
