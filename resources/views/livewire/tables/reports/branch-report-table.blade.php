@@ -1,27 +1,39 @@
 <div>
 	<div class="flex justify-between mb-5">
 		<div class="flex flex-col">
-			<div class="">
-				<label class="label">
-					<span class="label-text font-bold">Choose Date</span>
-				</label>
-			</div>
 			<div class="flex">
 				<div class="form-control">
-					{!! Form::date('date', old('date'), [
+					<label class="label">
+						<span class="label-text font-bold">Choose Start Date</span>
+					</label>
+					{!! Form::date('start_date', old('start_date'), [
 					    'class' => 'input input-sm input-bordered w-full max-w-xs',
-					    'wire:model' => 'date',
+					    'wire:model' => 'start_date',
 					]) !!}
 					@if ($filter_active)
 						<a href="javascript:void(0)" wire:click.prevent="clearFilter" class="text-red-600 px-1">clear filter</a>
 					@endif
 				</div>
-				<button class="ml-1 btn btn-sm" wire:click.prevent="filter"
-					@if (is_null($date)) disabled @endif>Filter</button>
+				<div class="form-control">
+					<label class="label">
+						<span class="label-text font-bold">Choose End Date</span>
+					</label>
+					{!! Form::date('end_date', old('end_date'), [
+					    'class' => 'ml-1 input input-sm input-bordered w-full max-w-xs',
+					    'wire:model' => 'end_date',
+					]) !!}
+				</div>
+				<div class="form-control ml-2">
+					<label class="label">
+						<span class="label-text font-bold">&nbsp;</span>
+					</label>
+					<button class="btn btn-sm" wire:click.prevent="filter"
+						@if (is_null($end_date)) disabled @endif>Filter</button>
+				</div>
 			</div>
 		</div>
 
-		{{-- <div class="flex flex-col">
+		<div class="flex flex-col">
 			<div class="">
 				<label class="label">
 					<span class="label-text font-bold">&nbsp;</span>
@@ -29,8 +41,8 @@
 			</div>
 			<div class="flex">
 				<div class="form-control">
-					<button class="ml-1 btn btn-sm btn-accent btn-outline" wire:click.prevent="excelExport"
-						@if (count($items) == 0) disabled @endif>
+					{{-- <button class="ml-1 btn btn-sm btn-accent btn-outline" wire:click.prevent="excelExport" --}}
+					<button class="ml-1 btn btn-sm btn-accent btn-outline" @if (true) disabled @endif>
 						<svg width="20" height="20" class="mr-1" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4 7.5V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4.5"></path>
@@ -47,7 +59,7 @@
 					</button>
 				</div>
 			</div>
-		</div> --}}
+		</div>
 	</div>
 
 	<div class="overflow-x-auto">
