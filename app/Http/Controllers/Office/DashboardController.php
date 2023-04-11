@@ -73,6 +73,9 @@ class DashboardController extends Controller
         $start_month = $finance_settings->year_start;
         $end_month = Carbon::parse($start_month)->subMonth();
 
+        $start_month_gpt = Carbon::parse($finance_settings->year_start);
+        $end_month_gpt = $start_month_gpt->copy()->subMonth();
+
         if (Carbon::parse($start_month)->gt(date('M'))) {
             $curr_start_date = Carbon::parse($start_month)->subYear()->startOfMonth();
             $curr_end_date = $end_month->endOfMonth();
@@ -202,12 +205,25 @@ class DashboardController extends Controller
 
         // Previous Year Revenue Chart
         if ($settings->bar_chart_monthly) {
+
+            // $previous_year_monthly = $previous_year_direct
+            //     ->sortBy(function ($data) {
+            //         return Carbon::parse($data->date)->format('m');
+            //     })
+            //     ->groupBy(function ($data) {
+            //         return Carbon::parse($data->date)->format('M');
+            //     });
+
             $previous_year_monthly = $previous_year_direct
                 ->sortBy(function ($data) {
-                    return Carbon::parse($data->date)->format('m');
+                    $month = Carbon::parse($data->date)->format('m');
+                    $year = Carbon::parse($data->date)->format('Y');
+                    return $year . $month;
                 })
                 ->groupBy(function ($data) {
-                    return Carbon::parse($data->date)->format('M');
+                    $month = Carbon::parse($data->date)->format('M');
+                    $year = Carbon::parse($data->date)->format('Y');
+                    return $year . " - " . $month;
                 });
 
             $bar_chart_monthly_previous_year = new InvoiceChart;
@@ -217,12 +233,25 @@ class DashboardController extends Controller
 
         // Current Year Revenue Chart
         if ($settings->bar_chart_monthly) {
+
+            // $month_invoices = $current_year_direct
+            //     ->sortBy(function ($data) {
+            //         return Carbon::parse($data->date)->format('m');
+            //     })
+            //     ->groupBy(function ($data) {
+            //         return Carbon::parse($data->date)->format('M');
+            //     });
+
             $month_invoices = $current_year_direct
                 ->sortBy(function ($data) {
-                    return Carbon::parse($data->date)->format('m');
+                    $month = Carbon::parse($data->date)->format('m');
+                    $year = Carbon::parse($data->date)->format('Y');
+                    return $year . $month;
                 })
                 ->groupBy(function ($data) {
-                    return Carbon::parse($data->date)->format('M');
+                    $month = Carbon::parse($data->date)->format('M');
+                    $year = Carbon::parse($data->date)->format('Y');
+                    return $year . " - " . $month;
                 });
 
             $bar_chart_monthly = new InvoiceChart;
