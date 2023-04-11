@@ -73,9 +73,6 @@ class DashboardController extends Controller
         $start_month = $finance_settings->year_start;
         $end_month = Carbon::parse($start_month)->subMonth();
 
-        $start_month_gpt = Carbon::parse($finance_settings->year_start);
-        $end_month_gpt = $start_month_gpt->copy()->subMonth();
-
         if (Carbon::parse($start_month)->gt(date('M'))) {
             $curr_start_date = Carbon::parse($start_month)->subYear()->startOfMonth();
             $curr_end_date = $end_month->endOfMonth();
@@ -190,12 +187,23 @@ class DashboardController extends Controller
 
         // Yearly Revenue Chart
         if ($settings->bar_chart_yearly) {
+            $year_start_month = Carbon::parse($finance_settings->year_start)->format('m');
+            $year_end_month = ($year_start_month - 1) ?: 12;
+
             $year_invoices = $invoices_direct
                 ->sortBy(function ($data) {
                     return Carbon::parse($data->date)->format('Y');
                 })
-                ->groupBy(function ($data) {
-                    return Carbon::parse($data->date)->format('Y');
+                ->groupBy(function ($data) use ($year_start_month, $year_end_month) {
+                    $invoice_date = Carbon::parse($data->date);
+                    $year_start_date = Carbon::create($invoice_date->year, $year_start_month, 1);
+                    $year_end_date = Carbon::create($year_end_month < $year_start_month ? $invoice_date->year + 1 : $invoice_date->year, $year_end_month, $year_end_month == 2 && $year_start_month == 1 ? 28 : 30);
+
+                    if ($invoice_date->gte($year_start_date)) {
+                        return $year_start_date->format('Y') . '-' . $year_end_date->format('y');
+                    }
+
+                    return $year_start_date->subYear()->format('Y') . '-' . $year_end_date->subYear()->format('y');
                 });
 
             $bar_chart_yearly = new InvoiceChart;
@@ -205,15 +213,6 @@ class DashboardController extends Controller
 
         // Previous Year Revenue Chart
         if ($settings->bar_chart_monthly) {
-
-            // $previous_year_monthly = $previous_year_direct
-            //     ->sortBy(function ($data) {
-            //         return Carbon::parse($data->date)->format('m');
-            //     })
-            //     ->groupBy(function ($data) {
-            //         return Carbon::parse($data->date)->format('M');
-            //     });
-
             $previous_year_monthly = $previous_year_direct
                 ->sortBy(function ($data) {
                     $month = Carbon::parse($data->date)->format('m');
@@ -233,15 +232,6 @@ class DashboardController extends Controller
 
         // Current Year Revenue Chart
         if ($settings->bar_chart_monthly) {
-
-            // $month_invoices = $current_year_direct
-            //     ->sortBy(function ($data) {
-            //         return Carbon::parse($data->date)->format('m');
-            //     })
-            //     ->groupBy(function ($data) {
-            //         return Carbon::parse($data->date)->format('M');
-            //     });
-
             $month_invoices = $current_year_direct
                 ->sortBy(function ($data) {
                     $month = Carbon::parse($data->date)->format('m');
