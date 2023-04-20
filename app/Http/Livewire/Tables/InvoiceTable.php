@@ -70,6 +70,13 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->sortable(),
 
+            TextColumn::make('branch.company.name')
+                ->label('Company')
+                ->limit(25)
+                ->toggleable()
+                ->searchable()
+                ->sortable(),
+
             TextColumn::make('branch.country.name')
                 ->label('Country')
                 ->limit(25)

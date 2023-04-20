@@ -54,8 +54,6 @@
 			@endcanany
 
 			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])
-				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
-
 				<x-nav.nav-link route="expense.index">
 					<x-slot name="path">
 						<path d="M18 5H6a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3Z"></path>
@@ -64,16 +62,6 @@
 						<path d="M11 15h2"></path>
 					</x-slot>
 					Expense
-				</x-nav.nav-link>
-
-				<x-nav.nav-link route="dummy">
-					<x-slot name="path">
-						<path d="M18 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"></path>
-						<path d="m4.6 19.402 14.8-14.8"></path>
-						<path d="M9 7v4M7 9h4-4Z"></path>
-						<path d="M13 16h4"></path>
-					</x-slot>
-					Payment
 				</x-nav.nav-link>
 			@endcanany
 
@@ -100,18 +88,6 @@
 						<path d="M3 12.001c.887-1.284 2.48-2.033 4-2 1.52-.033 3.113.716 4 2s2.48 2.033 4 2c1.52.033 3-1 4-2l2-2"></path>
 					</x-slot>
 					Liability
-				</x-nav.nav-link>
-			@endcanany
-
-			@canany(['view liability', 'add liability', 'edit liability', 'delete liability'])
-				<x-nav.nav-link route="dummy">
-					<x-slot name="path">
-						<path d="M10 17a7 7 0 1 0 0-14 7 7 0 0 0 0 14Z"></path>
-						<path d="m21 21-6-6"></path>
-						<path d="M12 7H9.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 1 1 0 3H8"></path>
-						<path d="M10 6v1m0 6v1-1Z"></path>
-					</x-slot>
-					Investment Cost
 				</x-nav.nav-link>
 			@endcanany
 
@@ -180,30 +156,6 @@
 				Directors
 			</x-nav.nav-link>
 
-			<x-nav.nav-link route="dummy">
-				<x-slot name="path">
-					<path
-						d="m2.23 6.42 8.888-1.888a1 1 0 0 1 .752.14L15.92 7.3a1 1 0 0 0 .752.14l2.04-.434a1 1 0 0 1 1.186.77l.312 1.467a1 1 0 0 1-.77 1.186l-3.507.746a1 1 0 0 1-.753-.14l-4.05-2.63a1 1 0 0 0-.752-.139l-1.551.33">
-					</path>
-					<path
-						d="m21.77 16.58-8.888 1.889a1 1 0 0 1-.752-.14L8.08 15.7a1 1 0 0 0-.752-.139l-2.04.434a1 1 0 0 1-1.186-.77l-.312-1.468a1 1 0 0 1 .77-1.186l3.507-.745a1 1 0 0 1 .753.14l4.05 2.629a1 1 0 0 0 .752.14l1.551-.33">
-					</path>
-				</x-slot>
-				Investors
-			</x-nav.nav-link>
-
-			<x-nav.nav-link route="dummy">
-				<x-slot name="path">
-					<path d="M12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
-					<path d="M18 18a6 6 0 0 0-12 0"></path>
-					<path d="M18 2h4v4"></path>
-					<path d="M6 2H2v4"></path>
-					<path d="M18 22h4v-4"></path>
-					<path d="M6 22H2v-4"></path>
-				</x-slot>
-				Affiliates
-			</x-nav.nav-link>
-
 			@can('view reports')
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="report.index">
@@ -221,7 +173,10 @@
 			@endcan
 
 			@can('modify master data')
-				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-green-900" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+				<h6 class="text-green-400 text-xs pl-3 mb-2 uppercase" :class="{ 'lg:hidden': !isSidebarOpen }">
+					Corporate Settings
+				</h6>
 
 				@canany(['view branches', 'add branch', 'edit branch', 'delete branch'])
 					<x-nav.nav-link route="company.index">
@@ -253,6 +208,11 @@
 						Branches
 					</x-nav.nav-link>
 				@endcanany
+
+				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-green-900" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
+				<h6 class="text-green-400 text-xs pl-3 mb-2 uppercase" :class="{ 'lg:hidden': !isSidebarOpen }">
+					System Settings
+				</h6>
 
 				<x-nav.nav-link route="master.index">
 					<x-slot name="path">
@@ -291,7 +251,7 @@
 				</x-nav.nav-link>
 			@endif
 
-			@unless(Auth::user()->admin)
+			@unless (Auth::user()->admin)
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-gray-600" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<x-nav.nav-link route="my-profile.index">
 					<x-slot name="path">
