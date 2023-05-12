@@ -7,9 +7,15 @@
 						<span class="label-text font-bold">Choose Start Date</span>
 					</label>
 					{!! Form::date('start_date', old('start_date'), [
-					    'class' => 'input input-sm input-bordered w-full max-w-xs',
+					    'class' =>
+					        'input input-sm input-bordered w-full max-w-xs' . ($errors->has('start_date') ? 'border-2 border-red-600' : ''),
 					    'wire:model' => 'start_date',
 					]) !!}
+					@error('start_date')
+						<label class="label">
+							<span class="text-red-600 label-text-alt">{{ $message }}</span>
+						</label>
+					@enderror
 					@if ($filter_active)
 						<a href="javascript:void(0)" wire:click.prevent="clearFilter" class="text-red-600 px-1">clear filter</a>
 					@endif
@@ -19,9 +25,16 @@
 						<span class="label-text font-bold">Choose End Date</span>
 					</label>
 					{!! Form::date('end_date', old('end_date'), [
-					    'class' => 'ml-1 input input-sm input-bordered w-full max-w-xs',
+					    'class' =>
+					        'ml-1 input input-sm input-bordered w-full max-w-xs' .
+					        ($errors->has('end_date') ? 'border-2 border-red-600' : ''),
 					    'wire:model' => 'end_date',
 					]) !!}
+					@error('end_date')
+						<label class="label">
+							<span class="text-red-600 label-text-alt">{{ $message }}</span>
+						</label>
+					@enderror
 				</div>
 				<div class="form-control ml-2">
 					<label class="label">
@@ -63,6 +76,14 @@
 	</div>
 
 	<div class="overflow-x-auto">
+		@if ($filter_active)
+			<h6 class="text-center font-semibold mb-2">
+				Showing results for the Date Range:
+				{{ \Carbon\Carbon::parse($start_date)->format('d M Y') }}
+				to
+				{{ \Carbon\Carbon::parse($end_date)->format('d M Y') }}
+			</h6>
+		@endif
 		<table class="table table-zebra table-compact w-full">
 			<!-- head -->
 			<thead>
@@ -90,7 +111,7 @@
 						<td class="text-right border-2">
 							{{ Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0 }}</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoice_amount, $branch->name) ? number_format((float) (($total_invoice_amount[$branch->name] / $total_invoice_amount->sum()) * 100), 2, '.', '') : '0.00' }}
+							{{ Arr::exists($total_invoice_amount, $branch->name) ? number_format((float) (($total_invoice_amount[$branch->name] ?? 0 / $total_invoice_amount->sum()) * 100), 2, '.', '') : '0.00' }}
 							%
 						</td>
 					</tr>

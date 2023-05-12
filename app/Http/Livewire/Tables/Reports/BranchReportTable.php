@@ -27,13 +27,21 @@ class BranchReportTable extends Component
 
     public function filter()
     {
+        $this->validate([
+            'start_date' => 'required',
+            'end_date'  => 'required|after_or_equal:start_date'
+        ]);
+
         $this->report($this->start_date, $this->end_date);
         $this->filter_active = true;
     }
 
     public function clearFilter()
     {
-        reset($this->start_date, $this->end_date);
+        $this->reset(
+            'start_date',
+            'end_date'
+        );
 
         $this->report();
         $this->filter_active = false;
