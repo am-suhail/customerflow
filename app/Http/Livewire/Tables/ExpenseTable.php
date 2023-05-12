@@ -51,27 +51,6 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->sortable(),
 
-            // TextColumn::make('branch.country.name')
-            //     ->label('Country')
-            //     ->limit(25)
-            //     ->toggleable()
-            //     ->searchable()
-            //     ->sortable(),
-
-            // TextColumn::make('branch.city.state.name')
-            //     ->label('Zone/District')
-            //     ->limit(25)
-            //     ->toggleable()
-            //     ->searchable()
-            //     ->sortable(),
-
-            // TextColumn::make('branch.city.name')
-            //     ->label('City')
-            //     ->limit(25)
-            //     ->toggleable()
-            //     ->searchable()
-            //     ->sortable(),
-
             TextColumn::make('sub_category.category.name')
                 ->label('Category')
                 ->toggleable(),
@@ -87,37 +66,11 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->sortable(),
 
-            TextColumn::make('document_number')
-                ->label('Invoice Number')
-                ->toggleable()
-                ->searchable()
-                ->sortable(),
-
-            TextColumn::make('amount')
-                ->label('Amount')
-                ->alignEnd()
-                ->toggleable()
-                ->searchable()
-                ->sortable(),
-
-            TextColumn::make('taxCalc')
-                ->label('VAT')
-                ->getStateUsing(fn (Expense $record) => $record->tax_calc)
-                ->alignEnd()
-                ->toggleable()
-                ->sortable(),
-
             TextColumn::make('totalAmount')
                 ->label('Total Amount')
                 ->getStateUsing(fn (Expense $record) => $record->amount + $record->tax_calc)
                 ->alignEnd()
                 ->toggleable()
-                ->sortable(),
-
-            TextColumn::make('payment_mode')
-                ->label('Payment Mode')
-                ->toggleable()
-                ->searchable()
                 ->sortable(),
 
             TextColumn::make('creator.name')

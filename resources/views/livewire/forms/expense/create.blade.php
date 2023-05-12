@@ -35,7 +35,7 @@
 					required>
 					<option value="" selected>--choose company--</option>
 					@foreach ($companies as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
+						<option value="{{ $id }}" class="lg:font-bold lg:text-1xl">{{ $name }}</option>
 					@endforeach
 				</select>
 				@error('company_id')
@@ -51,7 +51,7 @@
 					required {{ !is_null($company_id) ? '' : 'disabled' }}>
 					<option value="" selected>--choose branch--</option>
 					@foreach ($branches as $id => $branch)
-						<option value="{{ $id }}">{{ $branch }}</option>
+						<option value="{{ $id }}" class="lg:font-bold lg:text-1xl">{{ $branch }}</option>
 					@endforeach
 				</select>
 				@error('branch_id')
@@ -66,23 +66,11 @@
 
 		<div class="grid grid-cols-1 md:grid-cols-5 mt-4 gap-4">
 			<div class="form-control">
-				{!! Form::label('number', 'PV Number', ['class' => 'label font-semibold uppercase']) !!}
-				{!! Form::text('number', old('number'), [
-				    'wire:model' => 'number',
-				    'disabled',
-				    'class' => 'input input-primary input-bordered',
-				]) !!}
-			</div>
-
-			<div class="form-control">
-				<label for="sub_category_id" class="font-semibold uppercase label text-danger-500">Vendor</label>
-				<select class="select select-primary select-bordered" disabled>
-					<option value="" selected>--choose vendor--</option>
-					@foreach ($subcategory_lists as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
-					@endforeach
+				<label for="category_id" class="font-semibold uppercase label">Category</label>
+				<select class="select select-primary select-bordered" id="category_id" name="category_id">
+					<option value="" selected>--choose category--</option>
 				</select>
-				@error('sub_category_id')
+				@error('category_id')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>
@@ -90,10 +78,10 @@
 			</div>
 
 			<div class="form-control">
-				<label for="sub_category_id" class="font-semibold uppercase label">Category</label>
+				<label for="sub_category_id" class="font-semibold uppercase label">Sub Category</label>
 				<select wire:model='sub_category_id' class="select select-primary select-bordered" id="sub_category_id"
 					name="sub_category_id" required>
-					<option value="" selected>--choose category--</option>
+					<option value="" selected>--choose sub category--</option>
 					@foreach ($subcategory_lists->sort() as $id => $name)
 						<option value="{{ $id }}" class="font-bold">{{ $name }}</option>
 					@endforeach
@@ -102,32 +90,6 @@
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				{!! Form::label('document_date', 'Invoice Date', ['class' => 'label font-semibold uppercase']) !!}
-				{!! Form::date('document_date', old('document_date'), [
-				    'class' => 'input input-bordered input-primary' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
-				    'wire:model' => 'document_date',
-				]) !!}
-				@error('document_date')
-					<label class="label">
-						<span class="text-red-600 label-text-alt">{{ $message }}</span>
-					</label>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				<label class="label uppercase">Invoice Number</label>
-				<input type="text" placeholder="Doc Ref Number" class="input input-bordered input-primary"
-					wire:model="document_number">
-				@error('document_number')
-					<div class="label uppercase">
-						<span class="text-error label-text">
-							{{ $errors->first('document_number') }}
-						</span>
-					</div>
 				@enderror
 			</div>
 
@@ -170,37 +132,6 @@
 							{{ $errors->first('amount') }}
 						</span>
 					</div>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				<label for="tax_option_id" class="font-semibold uppercase label">VAT</label>
-				<select wire:model='tax_option_id' class="select select-primary select-bordered" id="tax_option_id"
-					name="tax_option_id">
-					<option value="" selected>--choose category--</option>
-					@foreach ($tax_lists as $id => $name)
-						<option value="{{ $id }}" class="font-bold">{{ $name }}</option>
-					@endforeach
-				</select>
-				@error('tax_option_id')
-					<label class="label">
-						<span class="text-red-600 label-text-alt">{{ $message }}</span>
-					</label>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				<label for="payment_mode" class="font-semibold uppercase label">Paymemt Mode</label>
-				<select wire:model='payment_mode' class="select select-primary select-bordered" id="payment_mode"
-					name="payment_mode">
-					<option value="" selected>--choose--</option>
-					<option value="Cash" class="font-bold">Cash</option>
-					<option value="Card" class="font-bold">Card</option>
-				</select>
-				@error('payment_mode')
-					<label class="label">
-						<span class="text-red-600 label-text-alt">{{ $message }}</span>
-					</label>
 				@enderror
 			</div>
 

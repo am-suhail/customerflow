@@ -104,11 +104,8 @@ class Create extends Component
             [
                 'branch_id'             => ['required', 'not_in:0'],
                 'sub_category_id'       => ['required', 'not_in:0'],
-                'document_date'         => ['required', 'date'],
-                'document_number'       => ['nullable', 'string'],
                 'accounting_date'       => ['required', 'date'],
                 'description'           => ['nullable', 'string'],
-                'payment_mode'          => ['required', 'string'],
                 'amount'                => ['required', 'numeric'],
             ],
             [
@@ -121,12 +118,8 @@ class Create extends Component
             'branch_id'             => empty($this->branch_id) ? NULL : $this->branch_id,
             'sub_category_id'       => empty($this->sub_category_id) ? NULL : $this->sub_category_id,
             'entry_type_id'         => empty($this->entry_type_id) ? NULL : $this->entry_type_id,
-            'document_date'         => $this->document_date,
-            'document_number'       => $this->document_number,
-            'accounting_date'       => $this->accounting_date,
             'amount'                => $this->amount,
             'tax_option_id'         => empty($this->tax_option_id) ? NULL : $this->tax_option_id,
-            'payment_mode'          => $this->payment_mode,
             'description'           => $this->description,
             'created_by'            => Auth::id(),
             'remark'                => $this->remark
