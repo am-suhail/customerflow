@@ -34,6 +34,18 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
+				<label class="label uppercase text-sm font-bold">Tax (VAT/GST)</label>
+				<input placeholder="Tax" type="number" min="0" step=".01" class="input input-bordered input-primary">
+				@error('tax')
+					<div class="label uppercase">
+						<span class="text-error label-text">
+							{{ $errors->first('tax') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
+			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase text-sm font-bold">Trade</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="additional_charge"
 					class="input input-bordered input-primary">

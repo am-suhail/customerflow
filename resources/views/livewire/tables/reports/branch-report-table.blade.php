@@ -7,8 +7,7 @@
 						<span class="label-text font-bold">Choose Start Date</span>
 					</label>
 					{!! Form::date('start_date', old('start_date'), [
-					    'class' =>
-					        'input input-sm input-bordered w-full max-w-xs' . ($errors->has('start_date') ? 'border-2 border-red-600' : ''),
+					    'class' => 'input input-bordered w-full max-w-xs' . ($errors->has('start_date') ? 'border-2 border-red-600' : ''),
 					    'wire:model' => 'start_date',
 					]) !!}
 					@error('start_date')
@@ -26,9 +25,23 @@
 					</label>
 					{!! Form::date('end_date', old('end_date'), [
 					    'class' =>
-					        'ml-1 input input-sm input-bordered w-full max-w-xs' .
-					        ($errors->has('end_date') ? 'border-2 border-red-600' : ''),
+					        'ml-1 input input-bordered w-full max-w-xs' . ($errors->has('end_date') ? 'border-2 border-red-600' : ''),
 					    'wire:model' => 'end_date',
+					]) !!}
+					@error('end_date')
+						<label class="label">
+							<span class="text-red-600 label-text-alt">{{ $message }}</span>
+						</label>
+					@enderror
+				</div>
+				<div class="ml-1 form-control">
+					<label class="label">
+						<span class="label-text font-bold">Choose Branch</span>
+					</label>
+					{!! Form::select('branch_id', $branch_list, old('branch_id'), [
+					    'class' => 'ml-1 select select-bordered w-full max-w-xs',
+					    'placeholder' => '--all branches--',
+					    'wire:model' => 'selected_branch',
 					]) !!}
 					@error('end_date')
 						<label class="label">
@@ -40,8 +53,8 @@
 					<label class="label">
 						<span class="label-text font-bold">&nbsp;</span>
 					</label>
-					<button class="btn btn-sm" wire:click.prevent="filter"
-						@if (is_null($end_date)) disabled @endif>Filter</button>
+					<button class="btn" wire:click.prevent="filter">Filter</button>
+					{{-- @if (!isset($end_date) || !isset($selected_branch)) disabled @endif>Filter</button> --}}
 				</div>
 			</div>
 		</div>
@@ -55,7 +68,7 @@
 			<div class="flex">
 				<div class="form-control">
 					{{-- <button class="ml-1 btn btn-sm btn-accent btn-outline" wire:click.prevent="excelExport" --}}
-					<button class="ml-1 btn btn-sm btn-accent btn-outline" @if (true) disabled @endif>
+					<button class="ml-1 btn btn-accent btn-outline" @if (true) disabled @endif>
 						<svg width="20" height="20" class="mr-1" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4 7.5V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4.5"></path>
@@ -111,7 +124,7 @@
 						<td class="text-right border-2">
 							{{ Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0 }}</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoice_amount, $branch->name) ? number_format((float) (($total_invoice_amount[$branch->name] ?? 0 / $total_invoice_amount->sum()) * 100), 2, '.', '') : '0.00' }}
+							{{ Arr::exists($total_invoice_amount, $branch->name) && $total_invoice_amount->sum() > 0 ? number_format((float) ((($total_invoice_amount[$branch->name] ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100), 2, '.', '') : '0.00' }}
 							%
 						</td>
 					</tr>

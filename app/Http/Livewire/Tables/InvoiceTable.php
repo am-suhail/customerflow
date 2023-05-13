@@ -100,6 +100,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('total_amount')
                 ->label('Total Amount')
+                ->alignRight()
                 ->toggleable()
                 ->searchable()
                 ->sortable(),
