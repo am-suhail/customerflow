@@ -43,11 +43,6 @@
 					    'placeholder' => '--all branches--',
 					    'wire:model' => 'selected_branch',
 					]) !!}
-					@error('end_date')
-						<label class="label">
-							<span class="text-red-600 label-text-alt">{{ $message }}</span>
-						</label>
-					@enderror
 				</div>
 				<div class="form-control ml-2">
 					<label class="label">

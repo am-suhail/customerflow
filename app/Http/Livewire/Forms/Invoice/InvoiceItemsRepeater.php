@@ -41,8 +41,8 @@ class InvoiceItemsRepeater extends Component
         $this->key_id = $key_id;
 
         if (!is_null($subcategory) && !empty($subcategory['sub_category_id'])) {
-            $this->selectedSubcategory = SubCategory::findOrFail($subcategory['sub_category_id']);
-            $this->sub_category_id = $this->selectedSubcategory->id;
+            $this->selectedSubcategory = SubCategory::find($subcategory['sub_category_id']) ?? null;
+            $this->sub_category_id = $this->selectedSubcategory->id ?? null;
 
             $this->selling_price = $subcategory['unit_price'];
             $this->qty = $subcategory['qty'];
