@@ -24,6 +24,7 @@ class InvoiceItems extends Model
         'qty',
         'discount',
         'tax',
+        'tax_option_id',
         'non_trade_revenue',
         'additional_charge',
         'total'
@@ -69,5 +70,15 @@ class InvoiceItems extends Model
     public function subcategory(): BelongsTo
     {
         return $this->belongsTo(SubCategory::class, 'sub_category_id', 'id');
+    }
+
+    /**
+     * Get the tax_option that owns the InvoiceItems
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tax_option(): BelongsTo
+    {
+        return $this->belongsTo(TaxOption::class);
     }
 }

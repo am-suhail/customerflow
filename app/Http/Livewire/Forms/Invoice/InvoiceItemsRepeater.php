@@ -6,6 +6,7 @@ use App\Models\Category;
 use Livewire\Component;
 use App\Models\Service;
 use App\Models\SubCategory;
+use App\Models\TaxOption;
 
 class InvoiceItemsRepeater extends Component
 {
@@ -15,6 +16,7 @@ class InvoiceItemsRepeater extends Component
 
     public
         $sub_category_id,
+        $tax_option_id,
         $selling_price,
         $qty = 1,
         $discount = 0,
@@ -25,6 +27,7 @@ class InvoiceItemsRepeater extends Component
         $total = 0;
 
     public $subcategory_lists;
+    public $taxoption_lists;
 
     protected $listeners = ['validateSubCategory'];
 
@@ -46,6 +49,7 @@ class InvoiceItemsRepeater extends Component
 
             $this->selling_price = $subcategory['unit_price'];
             $this->qty = $subcategory['qty'];
+            $this->tax_option_id = $subcategory['tax_option_id'] ?? null;
             $this->discount = $subcategory['discount'];
             $this->additional_charge = $subcategory['additional_charge'];
             $this->non_trade_revenue = $subcategory['non_trade_revenue'];
@@ -56,6 +60,9 @@ class InvoiceItemsRepeater extends Component
         // Fetched SubCategory
         $this->subcategory_lists = SubCategory::whereHas('category', fn ($q) => $q->where('type', Category::TYPE_PRODUCT))
             ->pluck('name', 'id');
+
+        // Fetched Tax Options
+        $this->taxoption_lists = TaxOption::pluck('name', 'id');
     }
 
     public function render()
@@ -127,6 +134,6 @@ class InvoiceItemsRepeater extends Component
     private function calcAndEmitUp()
     {
         $this->total = (($this->selling_price * $this->qty) - $this->discount) + ($this->additional_charge ?? 0) + ($this->non_trade_revenue ?? 0);
-        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price, $this->tax, $this->non_trade_revenue);
+        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->tax_option_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price, $this->tax, $this->non_trade_revenue);
     }
 }

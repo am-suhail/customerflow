@@ -107,19 +107,19 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('items.selling_price')
                 ->label('Sales')
-                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->tax)->sum())
+                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->selling_price)->sum())
                 ->toggleable()
                 ->searchable(),
 
             TextColumn::make('items.additional_charge')
                 ->label('Trade')
-                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->tax)->sum())
+                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->additional_charge)->sum())
                 ->toggleable()
                 ->searchable(),
 
             TextColumn::make('items.non_trade_revenue')
                 ->label('Non Trade')
-                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->tax)->sum())
+                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->non_trade_revenue)->sum())
                 ->toggleable()
                 ->searchable(),
 
