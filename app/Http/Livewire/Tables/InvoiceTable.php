@@ -81,21 +81,18 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->label('Country')
                 ->limit(25)
                 ->toggleable()
-                ->searchable()
                 ->sortable(),
 
             TextColumn::make('branch.city.state.name')
                 ->label('Zone/District')
                 ->limit(25)
                 ->toggleable()
-                ->searchable()
                 ->sortable(),
 
             TextColumn::make('branch.city.name')
                 ->label('City')
                 ->limit(25)
                 ->toggleable()
-                ->searchable()
                 ->sortable(),
 
             TextColumn::make('total_amount')
@@ -108,8 +105,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('items.selling_price')
                 ->label('Sales')
                 ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->selling_price)->sum())
-                ->toggleable()
-                ->searchable(),
+                ->toggleable(),
 
             TextColumn::make('items.additional_charge')
                 ->label('Trade')
