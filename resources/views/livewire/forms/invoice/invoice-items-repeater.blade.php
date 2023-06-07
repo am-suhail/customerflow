@@ -21,7 +21,9 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Sales</label>
+				<label class="label uppercase text-sm font-bold">Sales
+					<span class="text-xs italic">(Excluding Tax Amount)</span>
+				</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="selling_price"
 					class="input input-bordered input-primary">
 				@error('selling_price')
@@ -34,7 +36,7 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Tax</label>
+				<label class="label uppercase text-sm font-bold">Tax Amount</label>
 				<select wire:model='tax_option_id' class="select select-primary select-bordered" id="tax_option_id"
 					name="tax_option_id" required>
 					<option value="" selected>--choose--</option>
