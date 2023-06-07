@@ -14,6 +14,9 @@ class Branch extends Model
 {
     use HasFactory, SoftDeletes, LogsActivity;
 
+    const TYPE_PHYSICAL = 1;
+    const TYPE_VIRTUAL = 2;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -47,6 +50,7 @@ class Branch extends Model
         'investment_shares',
         'additional_info',
         'remark',
+        'type'
     ];
 
     /**
@@ -67,6 +71,14 @@ class Branch extends Model
         return LogOptions::defaults()
             ->logAll()
             ->logOnlyDirty();
+    }
+
+    public function getTypeTextAttribute()
+    {
+        return match ($this->type) {
+            self::TYPE_PHYSICAL => 'Physical',
+            self::TYPE_VIRTUAL  => 'Virtual',
+        };
     }
 
     /**

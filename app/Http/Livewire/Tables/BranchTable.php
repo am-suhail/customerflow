@@ -45,7 +45,7 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->sortable(),
 
             TextColumn::make('type_info')
-                ->label('Type')
+                ->label('Company Type')
                 ->getStateUsing(fn ($record) => "")
                 ->toggleable(),
 
@@ -134,6 +134,11 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->limit(25)
                 ->toggleable()
                 ->searchable(),
+
+            TextColumn::make('type')
+                ->label('Type')
+                ->getStateUsing(fn ($record) => $record->type_text)
+                ->toggleable(),
 
             TextColumn::make('createdBy')
                 ->label('Created By')

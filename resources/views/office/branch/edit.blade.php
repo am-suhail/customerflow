@@ -52,6 +52,19 @@
 
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 					<div class="form-control">
+						{!! Form::label('type', 'Type', ['class' => 'label font-semibold uppercase']) !!}
+						{!! Form::select('type', [1 => 'Physical', 2 => 'Virtual'], old('type', $branch->type), [
+						    'placeholder' => '--choose--',
+						    'class' => 'select select-bordered select-primary' . ($errors->has('type') ? 'border-2 border-red-600' : ''),
+						]) !!}
+						@error('type')
+							<label class="label">
+								<span class="text-red-600 label-text-alt">{{ $message }}</span>
+							</label>
+						@enderror
+					</div>
+
+					<div class="form-control">
 						{!! Form::label('country_id', 'Country', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::select('country_id', $countries, old('country_id', $branch->country_id), [
 						    'placeholder' => '--choose--',

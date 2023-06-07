@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Office;
 
 use App\Exports\BranchExport;
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\BranchRequest;
 use App\Models\Branch;
 use App\Models\Company;
 use App\Models\Country;
-use Illuminate\Http\Request;
 
 class BranchController extends BaseController
 {
@@ -46,33 +46,11 @@ class BranchController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BranchRequest $request)
     {
         $this->authorize('add branch');
 
-        $validated = $request->validate([
-            'company_id' => ['required', 'not_in:0'],
-            'name' => ['required', 'string', 'max:100'],
-            'telephone' => ['required', 'unique:branches,telephone'],
-            'inc_date' => ['required', 'date'],
-            'building_size' => ['nullable'],
-            'rent' => ['nullable'],
-            'total_accomodation' => ['nullable'],
-            'accomodation_rent' => ['nullable'],
-            'total_warehouse' => ['nullable'],
-            'warehouse_rent' => ['nullable'],
-            'country_id' => ['required', 'not_in:0'],
-            'city_id' => ['required', 'not_in:0'],
-            'emp_male' => ['required', 'numeric'],
-            'emp_female' => ['required', 'numeric'],
-            'capital' => ['required', 'numeric'],
-            'share_value' => ['required', 'numeric'],
-            'total_shares' => ['required', 'numeric'],
-            'investment_amount' => ['required', 'numeric', 'lte:capital'],
-            'investment_percentage' => ['required', 'numeric'],
-            'investment_shares' => ['required', 'numeric'],
-            'remark' => ['nullable', 'string']
-        ]);
+        $validated = $request->validated();
 
         $lastBranch = Branch::latest()->first();
         $lastCode = preg_replace('~\D~', '', $lastBranch ? $lastBranch->code : 'BR-000000');
@@ -125,33 +103,11 @@ class BranchController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BranchRequest $request, $id)
     {
         $this->authorize('edit branch');
 
-        $validated = request()->validate([
-            'company_id' => ['required', 'not_in:0'],
-            'name' => ['required', 'string', 'max:100'],
-            'telephone' => ['required', 'unique:branches,telephone,' . $id],
-            'inc_date' => ['required', 'date'],
-            'building_size' => ['nullable'],
-            'rent' => ['nullable'],
-            'total_accomodation' => ['nullable'],
-            'accomodation_rent' => ['nullable'],
-            'total_warehouse' => ['nullable'],
-            'warehouse_rent' => ['nullable'],
-            'country_id' => ['required', 'not_in:0'],
-            'city_id' => ['required', 'not_in:0'],
-            'emp_male' => ['required', 'numeric'],
-            'emp_female' => ['required', 'numeric'],
-            'capital' => ['required', 'numeric'],
-            'share_value' => ['required', 'numeric'],
-            'total_shares' => ['required', 'numeric'],
-            'investment_amount' => ['required', 'numeric', 'lte:capital'],
-            'investment_percentage' => ['required', 'numeric'],
-            'investment_shares' => ['required', 'numeric'],
-            'remark' => ['nullable', 'string']
-        ]);
+        $validated = $request->validated();
 
         $branch = Branch::findOrFail($id);
         $updated = $branch->update($validated);
