@@ -44,16 +44,10 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->searchable()
                 ->sortable(),
 
-            TextColumn::make('type_info')
-                ->label('Company Type')
-                ->getStateUsing(fn ($record) => "")
+            TextColumn::make('type')
+                ->label('Type')
+                ->getStateUsing(fn ($record) => $record->type_text)
                 ->toggleable(),
-
-            TextColumn::make('code')
-                ->label('Code')
-                ->toggleable()
-                ->searchable()
-                ->sortable(),
 
             TextColumn::make('inc_date')
                 ->getStateUsing(function (Branch $record) {
@@ -135,11 +129,6 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->searchable(),
 
-            TextColumn::make('type')
-                ->label('Type')
-                ->getStateUsing(fn ($record) => $record->type_text)
-                ->toggleable(),
-
             TextColumn::make('createdBy')
                 ->label('Created By')
                 ->getStateUsing(fn (Branch $record) => $record->activities->where('description', 'created')->first()->causer->name ?? "--")
@@ -148,7 +137,7 @@ class BranchTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('created_at')
                 ->label('Created On')
-                ->getStateUsing(fn (Branch $record) => Carbon::parse($record->created_at)->format('d-m-Y | h:i:s A'))
+                ->getStateUsing(fn (Branch $record) => Carbon::parse($record->created_at)->format('d-m-Y'))
                 ->toggleable()
                 ->searchable(),
         ];
