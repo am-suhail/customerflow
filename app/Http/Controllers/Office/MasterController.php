@@ -72,6 +72,14 @@ class MasterController extends BaseController
         return view('office.master.expense-category', compact('type'));
     }
 
+    public function revenue_type()
+    {
+        $this->authorize('modify master data');
+
+        $this->setPageTitle('Revenue Type', '');
+        return view('office.master.revenue-type');
+    }
+
     public function tax_settings()
     {
         $this->authorize('modify master data');

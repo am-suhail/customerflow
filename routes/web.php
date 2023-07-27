@@ -159,6 +159,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/company-category/{type?}', [MasterController::class, 'company_category'])->name('master.company-category');
             // Expense Category
             Route::get('/expense-category/{type?}', [MasterController::class, 'expense_category'])->name('master.expense-category');
+            // Revenue Type
+            Route::get('/revenue-type', [MasterController::class, 'revenue_type'])->name('master.revenue-type');
             // Tax Settings
             Route::get('/tax-settings', [MasterController::class, 'tax_settings'])->name('master.tax-settings');
         });
