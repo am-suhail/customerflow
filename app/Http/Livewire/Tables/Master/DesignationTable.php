@@ -17,6 +17,8 @@ class DesignationTable extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
+    protected $listeners = ['refreshLivewireDatatable' => '$refresh'];
+
     protected function getTableQuery(): Builder
     {
         return Designation::query()
