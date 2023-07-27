@@ -34,13 +34,12 @@ class Edit extends Component
         'serviceAdded'
     ];
 
-    public function serviceAdded($key_id, $sub_category_id, $tax_option_id, $qty, $discount, $additional_charge, $total, $unit_price, $tax, $non_trade_revenue)
+    public function serviceAdded($key_id, $sub_category_id, $revenue_type_id, $tax_option_id, $qty, $discount, $total, $unit_price, $tax)
     {
         $this->services[$key_id]['sub_category_id'] = $sub_category_id;
+        $this->services[$key_id]['revenue_type_id'] = $revenue_type_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
-        $this->services[$key_id]['non_trade_revenue'] = $non_trade_revenue;
-        $this->services[$key_id]['additional_charge'] = $additional_charge;
         $this->services[$key_id]['total'] = $total;
         $this->services[$key_id]['unit_price'] = $unit_price;
         $this->services[$key_id]['tax'] = $tax;
@@ -63,10 +62,9 @@ class Edit extends Component
             foreach ($invoice->items as $item) {
                 $this->services[] = [
                     'sub_category_id' => $item->sub_category_id,
+                    'revenue_type_id' => $item->revenue_type_id,
                     'qty' => $item->qty,
                     'discount' => $item->discount,
-                    'non_trade_revenue' => $item->non_trade_revenue,
-                    'additional_charge' => $item->additional_charge,
                     'total' => $item->total,
                     'unit_price' => $item->unit_price,
                     'tax' => $item->tax,
@@ -93,9 +91,9 @@ class Edit extends Component
     {
         $this->services[] = [
             'sub_category_id' => '',
+            'revenue_type_id' => '',
             'qty' => '',
             'discount' => '',
-            'additional_charge' => '',
             'total' => '',
             'unit_price' => '',
             'tax' => '',

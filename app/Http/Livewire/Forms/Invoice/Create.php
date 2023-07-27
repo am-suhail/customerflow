@@ -39,13 +39,12 @@ class Create extends Component
         $this->branch_id = $branch_id;
     }
 
-    public function serviceAdded($key_id, $sub_category_id, $tax_option_id, $qty, $discount, $additional_charge, $total, $unit_price, $tax, $non_trade_revenue)
+    public function serviceAdded($key_id, $sub_category_id, $revenue_type_id, $tax_option_id, $qty, $discount, $total, $unit_price, $tax)
     {
         $this->services[$key_id]['sub_category_id'] = $sub_category_id;
+        $this->services[$key_id]['revenue_type_id'] = $revenue_type_id;
         $this->services[$key_id]['qty'] = $qty;
         $this->services[$key_id]['discount'] = $discount;
-        $this->services[$key_id]['non_trade_revenue'] = $non_trade_revenue;
-        $this->services[$key_id]['additional_charge'] = $additional_charge;
         $this->services[$key_id]['total'] = $total;
         $this->services[$key_id]['unit_price'] = $unit_price;
         $this->services[$key_id]['tax'] = $tax;
@@ -81,14 +80,13 @@ class Create extends Component
     {
         $this->services[] = [
             'sub_category_id' => '',
+            'revenue_type_id' => '',
             'qty' => '',
             'discount' => '',
-            'additional_charge' => '',
             'total' => '',
             'unit_price' => '',
             'tax' => '',
             'tax_option_id' => '',
-            'non_trade_revenue' => ''
         ];
     }
 
@@ -112,6 +110,7 @@ class Create extends Component
                 'branch_id'             => ['required', 'not_in:0'],
                 'date'                  => ['required', 'date'],
                 'services.*.sub_category_id' => ['required', 'not_in:0'],
+                'services.*.revenue_type_id' => ['required', 'not_in:0'],
                 'services.*.qty'        => ['required', 'numeric'],
             ],
             [

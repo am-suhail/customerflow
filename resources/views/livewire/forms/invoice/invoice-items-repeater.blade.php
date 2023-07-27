@@ -20,9 +20,27 @@
 				@enderror
 			</div>
 
+			<div class="form-control w-full col-span-2 md:col-span-6 xl:col-span-4">
+				<label class="label uppercase text-sm font-bold">Revenue Type</label>
+				<select wire:model='revenue_type_id' class="select select-primary select-bordered" id="revenue_type_id"
+					name="revenue_type_id" required>
+					<option value="" selected>--choose revenue type--</option>
+					@foreach ($revenuetype_lists as $id => $name)
+						<option value="{{ $id }}" style="font-size:18px">{{ $name }}</option>
+					@endforeach
+				</select>
+				@error('revenue_type_id')
+					<div class="label uppercase">
+						<span class="text-error label-text">
+							{{ $errors->first('revenue_type_id') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase text-sm font-bold">Sales
-					<span class="text-xs italic">(Excluding Tax Amount)</span>
+					<span class="text-xs italic">(Excluding Tax)</span>
 				</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="selling_price"
 					class="input input-bordered input-primary">
@@ -48,32 +66,6 @@
 					<div class="label uppercase">
 						<span class="text-error label-text">
 							{{ $errors->first('tax_option_id') }}
-						</span>
-					</div>
-				@enderror
-			</div>
-
-			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Trade</label>
-				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="additional_charge"
-					class="input input-bordered input-primary">
-				@error('additional_charge')
-					<div class="label uppercase">
-						<span class="text-error label-text">
-							{{ $errors->first('additional_charge') }}
-						</span>
-					</div>
-				@enderror
-			</div>
-
-			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Non Trade</label>
-				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="non_trade_revenue"
-					class="input input-bordered input-primary">
-				@error('non_trade_revenue')
-					<div class="label uppercase">
-						<span class="text-error label-text">
-							{{ $errors->first('non_trade_revenue') }}
 						</span>
 					</div>
 				@enderror

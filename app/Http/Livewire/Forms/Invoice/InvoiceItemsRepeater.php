@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Forms\Invoice;
 
 use App\Models\Category;
+use App\Models\RevenueType;
 use Livewire\Component;
 use App\Models\Service;
 use App\Models\SubCategory;
@@ -16,17 +17,17 @@ class InvoiceItemsRepeater extends Component
 
     public
         $sub_category_id,
+        $revenue_type_id,
         $tax_option_id,
         $selling_price,
         $qty = 1,
         $discount = 0,
         $tax = 0,
-        $non_trade_revenue = 0,
-        $additional_charge = 0,
         $custom_price = NULL,
         $total = 0;
 
     public $subcategory_lists;
+    public $revenuetype_lists;
     public $taxoption_lists;
 
     protected $listeners = ['validateSubCategory'];
@@ -35,6 +36,7 @@ class InvoiceItemsRepeater extends Component
     {
         $validated = $this->validate([
             'sub_category_id' => 'required|not_in:0',
+            'revenue_type_id' => 'required|not_in:0',
         ]);
     }
 
@@ -51,8 +53,6 @@ class InvoiceItemsRepeater extends Component
             $this->qty = $subcategory['qty'];
             $this->tax_option_id = $subcategory['tax_option_id'] ?? null;
             $this->discount = $subcategory['discount'];
-            $this->additional_charge = $subcategory['additional_charge'];
-            $this->non_trade_revenue = $subcategory['non_trade_revenue'];
             $this->tax = $subcategory['tax'];
             $this->total = $subcategory['total'];
         }
@@ -60,6 +60,9 @@ class InvoiceItemsRepeater extends Component
         // Fetched SubCategory
         $this->subcategory_lists = SubCategory::whereHas('category', fn ($q) => $q->where('type', Category::TYPE_PRODUCT))
             ->pluck('name', 'id');
+
+        // Fetched RevenueType Options
+        $this->revenuetype_lists = RevenueType::pluck('name', 'id');
 
         // Fetched Tax Options
         $this->taxoption_lists = TaxOption::pluck('name', 'id');
@@ -87,32 +90,8 @@ class InvoiceItemsRepeater extends Component
         $this->validate(
             [
                 'sub_category_id'       => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-            ]
-        );
-        $this->calcAndEmitUp();
-    }
-
-    public function updatedAdditionalCharge()
-    {
-        $this->validate(
-            [
-                'sub_category_id'       => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-                'additional_charge'    => ['required', 'numeric'],
-            ]
-        );
-        $this->calcAndEmitUp();
-    }
-
-    public function updatedNonTradeRevenue()
-    {
-        $this->validate(
-            [
-                'sub_category_id'       => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-                'additional_charge'    => ['required', 'numeric'],
-                'non_trade_revenue'    => ['required', 'numeric'],
+                'revenue_type_id'       => ['required', 'not_in:0'],
+                'selling_price'         => ['required', 'numeric', 'not_in:0'],
             ]
         );
         $this->calcAndEmitUp();
@@ -123,9 +102,8 @@ class InvoiceItemsRepeater extends Component
         $this->validate(
             [
                 'sub_category_id'       => ['required', 'not_in:0'],
-                'selling_price'    => ['required', 'numeric', 'not_in:0'],
-                'additional_charge'    => ['required', 'numeric'],
-                'non_trade_revenue'    => ['required', 'numeric'],
+                'revenue_type_id'       => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0']
             ]
         );
         $this->calcAndEmitUp();
@@ -133,7 +111,7 @@ class InvoiceItemsRepeater extends Component
 
     private function calcAndEmitUp()
     {
-        $this->total = (($this->selling_price * $this->qty) - $this->discount) + ($this->additional_charge ?? 0) + ($this->non_trade_revenue ?? 0);
-        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->tax_option_id, $this->qty, $this->discount, $this->additional_charge, $this->total, $this->selling_price, $this->tax, $this->non_trade_revenue);
+        $this->total = (($this->selling_price * $this->qty) - $this->discount);
+        $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->revenue_type_id, $this->tax_option_id, $this->qty, $this->discount, $this->total, $this->selling_price, $this->tax);
     }
 }
