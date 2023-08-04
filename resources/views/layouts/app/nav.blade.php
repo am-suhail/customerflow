@@ -51,6 +51,13 @@
 					</x-slot>
 					Revenue
 				</x-nav.nav-link>
+
+				<x-nav.nav-link route="dummy">
+					<x-slot name="path">
+						<path d="M13 15h2M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16l-3-2-2 2-2-2-2 2-2-2-3 2ZM9 7h6-6Zm0 4h6-6Z"></path>
+					</x-slot>
+					Invoice
+				</x-nav.nav-link>
 			@endcanany
 
 			@canany(['view expense', 'add expense', 'edit expense', 'delete expense'])

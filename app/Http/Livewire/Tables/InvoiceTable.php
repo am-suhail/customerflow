@@ -59,7 +59,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable(),
 
             TextColumn::make('revenue_type')
-                ->label('Revenue Type')
+                ->label('Company Type')
                 ->getStateUsing(fn (Invoice $record) => $record->branch->company->sub_category->category->name ?? "--")
                 ->toggleable(),
 
@@ -95,13 +95,6 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->sortable(),
 
-            TextColumn::make('total_amount')
-                ->label('Total Amount')
-                ->alignRight()
-                ->toggleable()
-                ->searchable()
-                ->sortable(),
-
             TextColumn::make('items.selling_price')
                 ->label('Sales')
                 ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->selling_price)->sum())
@@ -118,6 +111,13 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->non_trade_revenue)->sum())
                 ->toggleable()
                 ->searchable(),
+
+            TextColumn::make('total_amount')
+                ->label('Total Amount')
+                ->alignRight()
+                ->toggleable()
+                ->searchable()
+                ->sortable(),
 
             TextColumn::make('items.tax')
                 ->label('No of Invoices')

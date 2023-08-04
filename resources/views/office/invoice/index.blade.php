@@ -21,6 +21,5 @@
 		</div>
 
 		<livewire:tables.invoice-table>
-
 	</main>
 @endsection

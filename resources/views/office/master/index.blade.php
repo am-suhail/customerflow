@@ -143,16 +143,16 @@
 						</div>
 					</div>
 
-					<!-- Categories -->
+					<!-- Revenue Type -->
 					<div class="border-b border-gray-300 grid grid-cols-3 py-2">
 						<div class="text-black col-span-3 md:col-span-1">
-							Expense Categories
+							Revenue Type
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage expense categories
+							Manage Revenue Type
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
-							<a href="{{ route('master.expense-category') }}" class="md:float-right text-blue-600 hover:text-blue-400">
+							<a href="{{ route('master.revenue-type') }}" class="md:float-right text-blue-600 hover:text-blue-400">
 								<span class="flex items-center">
 									<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
 										<path fill-rule="evenodd"
@@ -165,16 +165,16 @@
 						</div>
 					</div>
 
-					<!-- Revenue Type -->
+					<!-- Categories -->
 					<div class="border-b border-gray-300 grid grid-cols-3 py-2">
 						<div class="text-black col-span-3 md:col-span-1">
-							Revenue Type
+							Expense Categories
 						</div>
 						<div class="text-gray-400 col-span-3 md:col-span-1">
-							Manage Revenue Type
+							Manage expense categories
 						</div>
 						<div class="col-span-3 md:col-span-1 mt-2 md:mt-0">
-							<a href="{{ route('master.revenue-type') }}" class="md:float-right text-blue-600 hover:text-blue-400">
+							<a href="{{ route('master.expense-category') }}" class="md:float-right text-blue-600 hover:text-blue-400">
 								<span class="flex items-center">
 									<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
 										<path fill-rule="evenodd"

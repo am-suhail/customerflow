@@ -14,6 +14,7 @@ use App\Http\Controllers\Office\InvoiceController;
 use App\Http\Controllers\Office\MasterController;
 use App\Http\Controllers\Office\ProfileController;
 use App\Http\Controllers\Office\ReportController;
+use App\Http\Controllers\Office\RevenueUploadController;
 use App\Http\Controllers\Office\RolesController;
 use App\Http\Controllers\Office\SettingsController;
 use App\Http\Controllers\Office\SuperAdminController;
@@ -97,6 +98,8 @@ Route::middleware(['auth'])->group(function () {
         // Revenue
         Route::get('revenue/list', [InvoiceController::class, 'index'])->name('revenue.index');
         Route::get('revenue/export', [InvoiceController::class, 'export'])->name('revenue.export');
+        Route::get('revenue/import', [RevenueUploadController::class, 'index'])->name('revenue.import.index');
+        Route::post('revenue/import', [RevenueUploadController::class, 'store'])->name('revenue.import.store');
         Route::resource('revenue', InvoiceController::class, ['except' => ['index', 'store', 'update', 'destroy']]);
 
         // Expense
