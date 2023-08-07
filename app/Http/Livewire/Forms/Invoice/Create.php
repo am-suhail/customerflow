@@ -128,8 +128,8 @@ class Create extends Component
             'number'                => $newNumber,
             'branch_id'             => empty($this->branch_id) ? NULL : $this->branch_id,
             'date'                  => $this->date,
-            'total_discount'        => collect($this->services)->sum('discount'),
-            'total_tax'             => 0,
+            'total_discount'        => 0,
+            'total_tax'             => collect($this->services)->sum('discount'),
             'total_amount'          => collect($this->services)->sum('total'),
         ]);
 

@@ -21,7 +21,6 @@
 
 			<div class="form-control w-full col-span-2 md:col-span-6 xl:col-span-4">
 				<label class="label uppercase text-sm font-bold">Category</label>
-				{{-- <x-select-search :data="$subcategory_lists" wire:model.lazy="sub_category_id" placeholder="--choose product--" /> --}}
 				<select wire:model='sub_category_id' class="select select-primary select-bordered" id="sub_category_id"
 					name="sub_category_id" required>
 					<option value="" selected>--choose sub category--</option>
@@ -39,8 +38,8 @@
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
-				<label class="label uppercase text-sm font-bold">Amount
-					<span class="text-xs italic">(Excluding Tax)</span>
+				<label class="label uppercase text-sm font-bold">
+					Taxable Amount
 				</label>
 				<input placeholder="Amount" type="number" min="0" step=".01" wire:model="selling_price"
 					class="input input-bordered input-primary">
@@ -56,11 +55,11 @@
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase text-sm font-bold">Tax Amount</label>
 				<input placeholder="Tax Amount" type="number" min="0" step=".01"
-					class="input input-bordered input-primary">
-				@error('tax_option_id')
+					class="input input-bordered input-primary" wire:model="discount">
+				@error('discount')
 					<div class="label uppercase">
 						<span class="text-error label-text">
-							{{ $errors->first('tax_option_id') }}
+							{{ $errors->first('discount') }}
 						</span>
 					</div>
 				@enderror
@@ -68,15 +67,8 @@
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">
 				<label class="label uppercase text-sm font-bold">Tax %</label>
-				<input placeholder="Tax Amount" type="number" min="0" step=".01"
-					class="input input-bordered input-primary">
-				@error('tax_option_id')
-					<div class="label uppercase">
-						<span class="text-error label-text">
-							{{ $errors->first('tax_option_id') }}
-						</span>
-					</div>
-				@enderror
+				<input placeholder="Tax %" type="number" min="0" step=".01" wire:model="tax_percentage"
+					class="input input-bordered input-primary" disabled>
 			</div>
 
 			<div class="form-control col-span-2 md:col-span-4 xl:col-span-2">

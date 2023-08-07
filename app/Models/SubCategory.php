@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -20,7 +21,8 @@ class SubCategory extends Model
     protected $fillable = [
         'name',
         'description',
-        'category_id'
+        'category_id',
+        'revenue_type_id'
     ];
 
     public function getActivitylogOptions(): LogOptions
@@ -35,8 +37,18 @@ class SubCategory extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Get the revenue_type that owns the SubCategory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function revenue_type(): BelongsTo
+    {
+        return $this->belongsTo(RevenueType::class);
     }
 }

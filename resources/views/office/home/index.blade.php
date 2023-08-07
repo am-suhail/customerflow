@@ -20,7 +20,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ round($current_year_revenue_direct) }}</p>
+							<p class="text-2xl">{{ number_format($current_year_revenue_direct, 0) }}</p>
 							<p>Current Year Revenue</p>
 						</div>
 					</div>
@@ -56,7 +56,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $previous_year_revenue_direct }}</p>
+							<p class="text-2xl">{{ number_format($previous_year_revenue_direct, 0) }}</p>
 							<p>Last Year Revenue</p>
 						</div>
 					</div>
@@ -176,7 +176,7 @@
 							</svg>
 						</div>
 						<div class="text-right">
-							<p class="text-2xl">{{ $previous_year_revenue_investment }}</p>
+							<p class="text-2xl">{{ number_format($previous_year_revenue_investment, 0) }}</p>
 							<p>Last Year Revenue</p>
 						</div>
 					</div>

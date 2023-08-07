@@ -23,6 +23,7 @@ class InvoiceItemsRepeater extends Component
         $qty = 1,
         $discount = 0,
         $tax = 0,
+        $tax_percentage = 0,
         $custom_price = NULL,
         $total = 0;
 
@@ -63,14 +64,20 @@ class InvoiceItemsRepeater extends Component
 
         // Fetched RevenueType Options
         $this->revenuetype_lists = RevenueType::pluck('name', 'id');
-
-        // Fetched Tax Options
-        $this->taxoption_lists = TaxOption::pluck('name', 'id');
     }
 
     public function render()
     {
         return view('livewire.forms.invoice.invoice-items-repeater');
+    }
+
+    public function updatedRevenueTypeId($revenue_type_id)
+    {
+        if (!is_null($revenue_type_id)) {
+            // Fetched SubCategory
+            $this->subcategory_lists = SubCategory::where('revenue_type_id', $revenue_type_id)
+                ->pluck('name', 'id');
+        }
     }
 
     public function updatedSubCategoryId($id)
@@ -97,6 +104,20 @@ class InvoiceItemsRepeater extends Component
         $this->calcAndEmitUp();
     }
 
+    public function updatedDiscount()
+    {
+        $this->validate(
+            [
+                'sub_category_id'       => ['required', 'not_in:0'],
+                'revenue_type_id'       => ['required', 'not_in:0'],
+                'selling_price'    => ['required', 'numeric', 'not_in:0'],
+                'discount'    => ['required', 'numeric']
+            ]
+        );
+        $this->tax_percentage = round(($this->discount / $this->selling_price) * 100, 2);
+        $this->calcAndEmitUp();
+    }
+
     public function updatedTax()
     {
         $this->validate(
@@ -111,7 +132,7 @@ class InvoiceItemsRepeater extends Component
 
     private function calcAndEmitUp()
     {
-        $this->total = (($this->selling_price * $this->qty) - $this->discount);
+        $this->total = (($this->selling_price * $this->qty) + $this->discount);
         $this->emitUp('serviceAdded', $this->key_id, $this->sub_category_id, $this->revenue_type_id, $this->tax_option_id, $this->qty, $this->discount, $this->total, $this->selling_price, $this->tax);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Tables\Master;
 
 use App\Models\Category;
+use App\Models\RevenueType;
 use App\Models\SubCategory;
 use Livewire\Component;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,6 +55,10 @@ class SubCategoryTable extends Component implements Tables\Contracts\HasTable
                 ->label('Parent Category')
                 ->searchable(),
 
+            TextColumn::make('revenue_type.name')
+                ->label('Revenue Type')
+                ->searchable(),
+
         ];
     }
 
@@ -67,9 +72,15 @@ class SubCategoryTable extends Component implements Tables\Contracts\HasTable
                     ->modalHeading(fn ($record) => "Edit " . $record->name)
                     ->mountUsing(fn (ComponentContainer $form, $record) => $form->fill([
                         'category_id' => $record->category_id,
+                        'revenue_type_id' => $record->revenue_type_id,
                         'name' => $record->name,
                     ]))
                     ->form([
+                        Select::make('revenue_type_id')
+                            ->label('Revenue Type')
+                            ->options(RevenueType::query()->pluck('name', 'id'))
+                            ->required(),
+
                         Select::make('category_id')
                             ->label('Parent Category')
                             ->options(Category::query()->where('type', $this->category_type)->pluck('name', 'id'))

@@ -13,6 +13,14 @@
 
 				<div class="flex flex-col space-y-2 space-x-0 sm:flex-row sm:space-y-0 sm:space-x-2">
 					<div>
+						<select id="revenue_type" wire:model='revenue_type' class="w-full select select-bordered">
+							<option>--choose revenue type--</option>
+							@foreach ($revenue_types as $revenue_type)
+								<option value="{{ $revenue_type->id }}">{{ $revenue_type->name }}</option>
+							@endforeach
+						</select>
+					</div>
+					<div>
 						<select id="category" wire:model='category' class="w-full select select-bordered">
 							<option>--choose category--</option>
 							@foreach ($categories as $category)

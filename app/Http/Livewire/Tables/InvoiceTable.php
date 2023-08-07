@@ -25,22 +25,6 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
     {
         return Invoice::query()
             ->with('activities', 'activities.causer', 'items', 'items.subcategory');
-
-        // $start_date = $this->start_date;
-        // $end_date = $this->end_date;
-
-        // ->when(
-        //     isset($start_date),
-        //     function (Builder $query) use ($start_date) {
-        //         return $query->where('date', '>=', $start_date);
-        //     }
-        // )
-        // ->when(
-        //     isset($end_date),
-        //     function (Builder $query) use ($end_date) {
-        //         return $query->where('date', '<=', $end_date);
-        //     }
-        // )
     }
 
     protected function getTableColumns(): array
