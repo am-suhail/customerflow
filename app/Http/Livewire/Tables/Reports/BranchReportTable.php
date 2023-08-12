@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
+use App\Exports\BranchSummaryReportExport;
 use App\Models\Branch;
 use App\Models\Invoice;
+use Carbon\Carbon;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class BranchReportTable extends Component
 {
@@ -50,6 +53,11 @@ class BranchReportTable extends Component
         $this->branches = Branch::whereHas('company')->get();
         $this->report();
         $this->filter_active = false;
+    }
+
+    public function excelExport()
+    {
+        return Excel::download(new BranchSummaryReportExport($this->branches, $this->total_invoices, $this->total_invoice_amount), Carbon::now() . '_branch_report.xlsx');
     }
 
     public function render()

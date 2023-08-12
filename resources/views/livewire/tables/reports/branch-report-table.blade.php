@@ -62,8 +62,8 @@
 			</div>
 			<div class="flex">
 				<div class="form-control">
-					{{-- <button class="ml-1 btn btn-sm btn-accent btn-outline" wire:click.prevent="excelExport" --}}
-					<button class="ml-1 btn btn-accent btn-outline" @if (true) disabled @endif>
+					<button class="ml-1 btn btn-sm btn-accent btn-outline" wire:click.prevent="excelExport"
+						@if (count($branches) == 0) disabled @endif>
 						<svg width="20" height="20" class="mr-1" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4 7.5V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4.5"></path>

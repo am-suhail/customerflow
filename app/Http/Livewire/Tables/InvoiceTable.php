@@ -81,17 +81,20 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('items.selling_price')
                 ->label('Sales')
-                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->selling_price)->sum())
+                ->alignRight()
+                ->getStateUsing(fn ($record) => number_format($record->items->map(fn ($item) => $item->selling_price)->sum(), 0))
                 ->toggleable(),
 
             TextColumn::make('items.additional_charge')
                 ->label('Trade')
-                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->additional_charge)->sum())
+                ->alignRight()
+                ->getStateUsing(fn ($record) => number_format($record->items->map(fn ($item) => $item->additional_charge)->sum(), 0))
                 ->toggleable()
                 ->searchable(),
 
             TextColumn::make('items.non_trade_revenue')
                 ->label('Non Trade')
+                ->alignRight()
                 ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->non_trade_revenue)->sum())
                 ->toggleable()
                 ->searchable(),
@@ -117,14 +120,9 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('created_at')
                 ->label('Created On')
-                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->created_at)->format('d-m-Y | h:i:s A'))
+                ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->created_at)->format('d-m-Y'))
                 ->toggleable()
                 ->searchable(),
-
-            TextColumn::make('status')
-                ->label('Status')
-                ->getStateUsing(fn () => "--")
-                ->toggleable(),
         ];
     }
 

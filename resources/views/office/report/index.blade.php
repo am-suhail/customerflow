@@ -62,12 +62,16 @@
 											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Company Report</h4>
 										</div>
 										<div>
-											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
-												stroke="#3B82F6" stroke-width="2">
-												<path d="M8.5 5.5 12 2l3.5 3.5L12 9 8.5 5.5Z"></path>
-												<path d="M15 12.5 18.5 9l3.5 3.5-3.5 3.5-3.5-3.5Z"></path>
-												<path d="M8.5 18.5 12 15l3.5 3.5L12 22l-3.5-3.5Z"></path>
-												<path d="m2 12 3.5-3.5L9 12l-3.5 3.5L2 12Z"></path>
+											<svg class="w-10 h-10 xl:w-12 xl:h-12" fill="none" stroke="#3B82F6" stroke-linecap="round"
+												stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+												<path d="M3 21h18"></path>
+												<path d="M9 8h1"></path>
+												<path d="M9 12h1"></path>
+												<path d="M9 16h1"></path>
+												<path d="M14 8h1"></path>
+												<path d="M14 12h1"></path>
+												<path d="M14 16h1"></path>
+												<path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path>
 											</svg>
 										</div>
 									</div>
@@ -83,10 +87,10 @@
 										<div>
 											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
 												stroke="#3B82F6" stroke-width="2">
-												<path d="M8.5 5.5 12 2l3.5 3.5L12 9 8.5 5.5Z"></path>
-												<path d="M15 12.5 18.5 9l3.5 3.5-3.5 3.5-3.5-3.5Z"></path>
-												<path d="M8.5 18.5 12 15l3.5 3.5L12 22l-3.5-3.5Z"></path>
-												<path d="m2 12 3.5-3.5L9 12l-3.5 3.5L2 12Z"></path>
+												<path d="M12 7 9.5 9.5 12 12l2.5-2.5L12 7Z"></path>
+												<path d="m12 14-2.5 2.5L12 19l2.5-2.5L12 14Z"></path>
+												<path d="m19 7-2.5 2.5L19 12l2.5-2.5L19 7Z"></path>
+												<path d="M5 7 2.5 9.5 5 12l2.5-2.5L5 7Z"></path>
 											</svg>
 										</div>
 									</div>

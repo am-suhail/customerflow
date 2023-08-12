@@ -7,9 +7,14 @@
 						<span class="label-text font-bold">Choose Start Date</span>
 					</label>
 					{!! Form::date('start_date', old('start_date'), [
-					    'class' => 'input input-sm input-bordered w-full max-w-xs',
+					    'class' => 'input input-bordered w-full max-w-xs' . ($errors->has('start_date') ? 'border-2 border-red-600' : ''),
 					    'wire:model' => 'start_date',
 					]) !!}
+					@error('start_date')
+						<label class="label">
+							<span class="text-red-600 label-text-alt">{{ $message }}</span>
+						</label>
+					@enderror
 					@if ($filter_active)
 						<a href="javascript:void(0)" wire:click.prevent="clearFilter" class="text-red-600 px-1">clear filter</a>
 					@endif
@@ -19,16 +24,31 @@
 						<span class="label-text font-bold">Choose End Date</span>
 					</label>
 					{!! Form::date('end_date', old('end_date'), [
-					    'class' => 'ml-1 input input-sm input-bordered w-full max-w-xs',
+					    'class' =>
+					        'ml-1 input input-bordered w-full max-w-xs' . ($errors->has('end_date') ? 'border-2 border-red-600' : ''),
 					    'wire:model' => 'end_date',
+					]) !!}
+					@error('end_date')
+						<label class="label">
+							<span class="text-red-600 label-text-alt">{{ $message }}</span>
+						</label>
+					@enderror
+				</div>
+				<div class="ml-1 form-control">
+					<label class="label">
+						<span class="label-text font-bold">Choose Sub Category</span>
+					</label>
+					{!! Form::select('sub_category_id', $sub_category_list, old('sub_category_id'), [
+					    'class' => 'ml-1 select select-bordered w-full max-w-xs',
+					    'placeholder' => '--all sub category--',
+					    'wire:model' => 'selected_sub_category',
 					]) !!}
 				</div>
 				<div class="form-control ml-2">
 					<label class="label">
 						<span class="label-text font-bold">&nbsp;</span>
 					</label>
-					<button class="btn btn-sm" wire:click.prevent="filter"
-						@if (is_null($end_date)) disabled @endif>Filter</button>
+					<button class="btn" wire:click.prevent="filter">Filter</button>
 				</div>
 			</div>
 		</div>
@@ -42,7 +62,7 @@
 			<div class="flex">
 				<div class="form-control">
 					<button class="ml-1 btn btn-sm btn-accent btn-outline" wire:click.prevent="excelExport"
-						@if (count($companies) == 0) disabled @endif>
+						@if (count($sub_categories) == 0) disabled @endif>
 						<svg width="20" height="20" class="mr-1" fill="none" stroke="currentColor" stroke-linecap="round"
 							stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4 7.5V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-4.5"></path>
@@ -63,32 +83,41 @@
 	</div>
 
 	<div class="overflow-x-auto">
+		@if ($filter_active)
+			<h6 class="text-center font-semibold mb-2">
+				Showing results for the Date Range:
+				{{ \Carbon\Carbon::parse($start_date)->format('d M Y') }}
+				to
+				{{ \Carbon\Carbon::parse($end_date)->format('d M Y') }}
+			</h6>
+		@endif
 		<table class="table table-zebra table-compact w-full">
 			<!-- head -->
 			<thead>
 				<tr class="border-1">
 					<th class="border-2">#</th>
-					<th width="50%" class="border-2">Company</th>
-					<th class="text-center border-2">Country</th>
-					<th class="text-center border-2">Branches</th>
+					<th width="40%" class="border-2">Type</th>
+					<th width="40%" class="border-2">Category</th>
+					<th width="40%" class="border-2">Sub Category</th>
 					<th class="text-center border-2">Invoices</th>
 					<th class="text-center border-2">Total</th>
 					<th class="text-center border-2">Percentage</th>
 				</tr>
 			</thead>
 			<tbody>
-				@forelse ($companies->sortBy('name') as $company)
+				@forelse ($sub_categories->sortBy(['category.name', 'name']) as $sub_category)
 					<tr class="hover">
 						<td class="border-2">{{ $loop->iteration }}</td>
-						<td class="border-2">{{ $company->name }}</td>
-						<td class="border-2">{{ $company->country->name ?? '--' }}</td>
-						<td class="text-center border-2">{{ count($company->branches) }}</td>
+						<td class="border-2">{{ $sub_category->revenue_type->name ?? '--' }}</td>
+						<td class="border-2">{{ $sub_category->category->name ?? '--' }}</td>
+						<td class="border-2">{{ $sub_category->name ?? '--' }}</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoices, $company->name) ? $total_invoices[$company->name] : 0 }}</td>
+							{{ Arr::exists($total_invoices, $sub_category->name) ? $total_invoices[$sub_category->name] : 0 }}</td>
 						<td class="text-right border-2">
-							{{ Arr::exists($total_invoice_amount, $company->name) ? $total_invoice_amount[$company->name] : 0 }}</td>
+							{{ Arr::exists($total_invoice_amount, $sub_category->name) ? $total_invoice_amount[$sub_category->name] : 0 }}
+						</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoice_amount, $company->name) ? number_format((float) (($total_invoice_amount[$company->name] / $total_invoice_amount->sum()) * 100), 2, '.', '') : '0.00' }}
+							{{ Arr::exists($total_invoice_amount, $sub_category->name) && $total_invoice_amount->sum() > 0 ? number_format((float) ((($total_invoice_amount[$sub_category->name] ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100), 2, '.', '') : '0.00' }}
 							%
 						</td>
 					</tr>
@@ -115,20 +144,8 @@
 					<td></td>
 					<td></td>
 					<td></td>
-					<td class="text-center border-2">
-						<h6 class="font-bold">
-							<span class="text-xl">
-								{{ $total_branches }}
-							</span>
-						</h6>
-					</td>
-					<td class="text-right border-2">
-						<h6 class="font-bold">
-							<span class="text-xl">
-								{{ $total_invoices->sum() }}
-							</span>
-						</h6>
-					</td>
+					<td></td>
+					<td></td>
 					<td class="text-right border-2">
 						<h6 class="font-bold">
 							<span class="text-xl">

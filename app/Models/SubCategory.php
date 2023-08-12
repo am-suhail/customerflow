@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
@@ -50,5 +51,15 @@ class SubCategory extends Model
     public function revenue_type(): BelongsTo
     {
         return $this->belongsTo(RevenueType::class);
+    }
+
+    /**
+     * Get all of the invoice_items for the SubCategory
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function invoice_items(): HasMany
+    {
+        return $this->hasMany(InvoiceItems::class, 'sub_category_id', 'id');
     }
 }
