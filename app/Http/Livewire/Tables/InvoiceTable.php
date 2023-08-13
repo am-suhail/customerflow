@@ -42,7 +42,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->date)->format('d-m-Y'))
                 ->toggleable(),
 
-            TextColumn::make('revenue_type')
+            TextColumn::make('company_type')
                 ->label('Company Type')
                 ->getStateUsing(fn (Invoice $record) => $record->branch->company->sub_category->category->name ?? "--")
                 ->toggleable(),
@@ -79,29 +79,29 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
                 ->toggleable()
                 ->sortable(),
 
-            TextColumn::make('items.selling_price')
-                ->label('Sales')
+            TextColumn::make('revenue_type')
+                ->label('Type')
+                ->limit(25)
+                ->getStateUsing(fn ($record) => $record->items->first()->revenue_type->name ?? "--")
+                ->toggleable()
+                ->sortable(),
+
+            TextColumn::make('taxable_amount')
+                ->label('Taxable Amount')
                 ->alignRight()
-                ->getStateUsing(fn ($record) => number_format($record->items->map(fn ($item) => $item->selling_price)->sum(), 0))
+                ->getStateUsing(fn ($record) => number_format($record->items->map(fn ($item) => $item->unit_price)->sum(), 0))
                 ->toggleable(),
 
-            TextColumn::make('items.additional_charge')
-                ->label('Trade')
+            TextColumn::make('items.discount')
+                ->label('Tax')
                 ->alignRight()
-                ->getStateUsing(fn ($record) => number_format($record->items->map(fn ($item) => $item->additional_charge)->sum(), 0))
-                ->toggleable()
-                ->searchable(),
-
-            TextColumn::make('items.non_trade_revenue')
-                ->label('Non Trade')
-                ->alignRight()
-                ->getStateUsing(fn ($record) => $record->items->map(fn ($item) => $item->non_trade_revenue)->sum())
-                ->toggleable()
-                ->searchable(),
+                ->getStateUsing(fn ($record) => number_format($record->items->map(fn ($item) => $item->discount)->sum(), 0))
+                ->toggleable(),
 
             TextColumn::make('total_amount')
                 ->label('Total Amount')
                 ->alignRight()
+                ->getStateUsing(fn ($record) => number_format($record->total_amount, 0))
                 ->toggleable()
                 ->searchable()
                 ->sortable(),

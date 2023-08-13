@@ -74,12 +74,12 @@ class InvoiceItems extends Model
     }
 
     /**
-     * Get the tax_option that owns the InvoiceItems
+     * Get the revenue_type that owns the InvoiceItems
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function tax_option(): BelongsTo
+    public function revenue_type(): BelongsTo
     {
-        return $this->belongsTo(TaxOption::class);
+        return $this->belongsTo(RevenueType::class);
     }
 }
