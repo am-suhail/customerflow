@@ -88,14 +88,8 @@ class CategorySummaryReportTable extends Component
         $earliest_date = Invoice::min('date');
         $latest_date = Invoice::max('date');
 
-        $start_date = $start_date ?? $earliest_date;
-        $end_date = $end_date ?? $latest_date;
-
-        if (!is_null($sub_category)) {
-            $selected_sub_category = SubCategory::where('id', $sub_category)->get();
-
-            $this->sub_categories = $selected_sub_category;
-        }
+        $this->start_date = $start_date ?? $earliest_date;
+        $this->end_date = $end_date ?? $latest_date;
 
         $subCategoryQuery = SubCategory::with(['invoice_items.invoice'])
             ->whereHas('category', fn ($q) => $q->where('type', Category::TYPE_PRODUCT))
@@ -127,6 +121,12 @@ class CategorySummaryReportTable extends Component
         $this->sub_categories = $subCategoryQuery->get();
 
         $this->total_invoice_amount = $this->sub_categories
-            ->map(fn ($sub_category) => $sub_category->invoice_items->sum('total'));
+            ->map(
+                fn ($sub_category) => $sub_category
+                    ->invoice_items
+                    ->where('invoice.date', '>=', $this->start_date)
+                    ->where('invoice.date', '<=', $this->end_date)
+                    ->sum('total')
+            );
     }
 }

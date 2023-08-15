@@ -107,15 +107,14 @@
 				@forelse ($sub_categories->sortBy(['category.name', 'name']) as $sub_category)
 					<tr class="hover">
 						<td class="border-2">{{ $loop->iteration }}</td>
-						<td class="text-center border-2">--</td>
 						<td class="border-2">{{ $sub_category->revenue_type->name ?? '--' }}</td>
 						<td class="border-2">{{ $sub_category->category->name ?? '--' }}</td>
 						<td class="border-2">{{ $sub_category->name ?? '--' }}</td>
 						<td class="text-right border-2">
-							{{ number_format($sub_category->invoice_items->sum('total'), 0) }}
+							{{ number_format($sub_category->invoice_items->whereBetween('invoice.date', [$start_date, $end_date])->sum('total'), 0) }}
 						</td>
 						<td class="text-center border-2">
-							{{ $sub_category->invoice_items->sum('total') > 0 && $total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->sum('total') ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100, 0) : '0.00' }}
+							{{ $sub_category->invoice_items->whereBetween('invoice.date', [$start_date, $end_date])->sum('total') > 0 && $total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->whereBetween('invoice.date', [$start_date, $end_date])->sum('total') ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100, 2) : '0.00' }}
 							%
 						</td>
 					</tr>
@@ -139,7 +138,6 @@
 					</tr>
 				@endforelse
 				<tr>
-					<td></td>
 					<td></td>
 					<td></td>
 					<td></td>

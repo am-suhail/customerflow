@@ -42,7 +42,7 @@ class CategorySummaryReportExport implements FromCollection, WithHeadings
                 number_format($sub_category->invoice_items->sum('total') ?? 0, 0),
                 (Arr::exists($this->total_invoice_amount, $sub_category->name) && $this->total_invoice_amount->sum() > 0 ?
                     number_format((float) ((($total_invoice_amount[$sub_category->name] ?? 0) / ($this->total_invoice_amount->sum() ?? 0)) * 100), 2, '.', '') : '0.00') . '%',
-                $sub_category->invoice_items->sum('total') > 0 && $this->total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->sum('total') ?? 0) / ($this->total_invoice_amount->sum() ?? 0)) * 100, 0) : '0.00'
+                $sub_category->invoice_items->sum('total') > 0 && $this->total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->sum('total') ?? 0) / ($this->total_invoice_amount->sum() ?? 0)) * 100, 2) : '0.00'
             ]);
         }
 
