@@ -35,8 +35,9 @@ class CategorySummaryReportTable extends Component
     public function mount()
     {
         $this->revenue_type_list = RevenueType::pluck('name', 'id');
-        $this->category_list = Category::pluck('name', 'id');
-        $this->sub_category_list = SubCategory::pluck('name', 'id');
+        $this->category_list = Category::where('type', Category::TYPE_PRODUCT)->pluck('name', 'id');
+        $this->sub_category_list = SubCategory::whereHas('category', fn ($q) => $q->where('type', Category::TYPE_PRODUCT))
+            ->pluck('name', 'id');
 
         $this->report();
     }
@@ -97,6 +98,7 @@ class CategorySummaryReportTable extends Component
         }
 
         $subCategoryQuery = SubCategory::with(['invoice_items.invoice'])
+            ->whereHas('category', fn ($q) => $q->where('type', Category::TYPE_PRODUCT))
             ->when($company, function ($query) use ($company) {
                 return $query->whereHas('invoice_items.invoice.branch.company', function ($q) use ($company) {
                     $q->where('id', $company);
@@ -111,6 +113,11 @@ class CategorySummaryReportTable extends Component
                 return $query->whereHas('revenue_type', function ($q) use ($revenue_type) {
                     $q->where('id', $revenue_type);
                 });
+            })
+            ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
+                return $query->whereHas('invoice_items.invoice', function ($q) use ($start_date, $end_date) {
+                    $q->whereBetween('date', [$start_date, $end_date]);
+                });
             });
 
         if (!is_null($sub_category)) {
@@ -119,31 +126,7 @@ class CategorySummaryReportTable extends Component
 
         $this->sub_categories = $subCategoryQuery->get();
 
-        $this->total_invoices = $this->sub_categories
-            ->groupBy('name')
-            ->map(function ($categorySubCategories) use ($start_date, $end_date) {
-                return $categorySubCategories->sum(function ($sub_category) use ($start_date, $end_date) {
-                    return $sub_category->invoice_items
-                        ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
-                            $query->whereBetween('date', [$start_date, $end_date]);
-                        })
-                        ->sum('tax');
-                });
-            });
-
         $this->total_invoice_amount = $this->sub_categories
-            ->groupBy('name')
-            ->map(function ($categorySubCategories) use ($start_date, $end_date) {
-                return $categorySubCategories->sum(function ($sub_category) use ($start_date, $end_date) {
-                    return $sub_category->invoice_items
-                        ->sum(function ($invoiceItem) use ($start_date, $end_date) {
-                            return $invoiceItem->invoice
-                                ->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
-                                    $query->whereBetween('date', [$start_date, $end_date]);
-                                })
-                                ->sum('total_amount');
-                        });
-                });
-            });
+            ->map(fn ($sub_category) => $sub_category->invoice_items->sum('total'));
     }
 }

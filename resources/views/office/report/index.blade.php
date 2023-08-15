@@ -96,6 +96,25 @@
 									</div>
 								</div>
 							</a>
+
+							<a href="#">
+								<div class="shadow rounded-lg py-6 px-5 bg-gray-100">
+									<div class="flex flex-row justify-between items-center">
+										<div>
+											<h4 class="text-black text-lg md:text-sm xl:text-xl font-bold text-left">Income Statement</h4>
+										</div>
+										<div>
+											<svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 xl:w-12 xl:h-12" fill="none" viewBox="0 0 24 24"
+												stroke="#3B82F6" stroke-width="2">
+												<path d="M12 7 9.5 9.5 12 12l2.5-2.5L12 7Z"></path>
+												<path d="m12 14-2.5 2.5L12 19l2.5-2.5L12 14Z"></path>
+												<path d="m19 7-2.5 2.5L19 12l2.5-2.5L19 7Z"></path>
+												<path d="M5 7 2.5 9.5 5 12l2.5-2.5L5 7Z"></path>
+											</svg>
+										</div>
+									</div>
+								</div>
+							</a>
 						</div>
 					</div>
 				</div>

@@ -117,9 +117,10 @@
 						<td class="text-center border-2">
 							{{ Arr::exists($total_invoices, $branch->name) ? $total_invoices[$branch->name] : 0 }}</td>
 						<td class="text-right border-2">
-							{{ Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0 }}</td>
+							{{ Arr::exists($total_invoice_amount, $branch->name) ? number_format($total_invoice_amount[$branch->name], 0) : 0 }}
+						</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoice_amount, $branch->name) && $total_invoice_amount->sum() > 0 ? number_format((float) ((($total_invoice_amount[$branch->name] ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100), 2, '.', '') : '0.00' }}
+							{{ Arr::exists($total_invoice_amount, $branch->name) && $total_invoice_amount->sum() > 0 ? number_format((($total_invoice_amount[$branch->name] ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100, 0) : '0.00' }}
 							%
 						</td>
 					</tr>
@@ -158,7 +159,7 @@
 					<td class="text-right border-2">
 						<h6 class="font-bold">
 							<span class="text-xl">
-								{{ $total_invoice_amount->sum() }}
+								{{ number_format($total_invoice_amount->sum(), 0) }}
 							</span>
 						</h6>
 					</td>

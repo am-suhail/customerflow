@@ -96,28 +96,26 @@
 			<thead>
 				<tr class="border-1">
 					<th class="border-2">#</th>
-					<th width="40%" class="border-2">Type</th>
+					<th width="40%" class="border-2">Revenue Type</th>
 					<th width="40%" class="border-2">Category</th>
 					<th width="40%" class="border-2">Sub Category</th>
-					<th class="text-center border-2">Invoices</th>
 					<th class="text-center border-2">Total</th>
-					<th class="text-center border-2">Percentage</th>
+					<th class="text-center border-2">% of Total Revenue</th>
 				</tr>
 			</thead>
 			<tbody>
 				@forelse ($sub_categories->sortBy(['category.name', 'name']) as $sub_category)
 					<tr class="hover">
 						<td class="border-2">{{ $loop->iteration }}</td>
+						<td class="text-center border-2">--</td>
 						<td class="border-2">{{ $sub_category->revenue_type->name ?? '--' }}</td>
 						<td class="border-2">{{ $sub_category->category->name ?? '--' }}</td>
 						<td class="border-2">{{ $sub_category->name ?? '--' }}</td>
-						<td class="text-center border-2">
-							{{ Arr::exists($total_invoices, $sub_category->name) ? $total_invoices[$sub_category->name] : 0 }}</td>
 						<td class="text-right border-2">
-							{{ Arr::exists($total_invoice_amount, $sub_category->name) ? $total_invoice_amount[$sub_category->name] : 0 }}
+							{{ number_format($sub_category->invoice_items->sum('total'), 0) }}
 						</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoice_amount, $sub_category->name) && $total_invoice_amount->sum() > 0 ? number_format((float) ((($total_invoice_amount[$sub_category->name] ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100), 2, '.', '') : '0.00' }}
+							{{ $sub_category->invoice_items->sum('total') > 0 && $total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->sum('total') ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100, 0) : '0.00' }}
 							%
 						</td>
 					</tr>
@@ -149,7 +147,7 @@
 					<td class="text-right border-2">
 						<h6 class="font-bold">
 							<span class="text-xl">
-								{{ $total_invoice_amount->sum() }}
+								{{ number_format($total_invoice_amount->sum(), 0) }}
 							</span>
 						</h6>
 					</td>

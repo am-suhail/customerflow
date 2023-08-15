@@ -120,6 +120,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('created_at')
                 ->label('Created On')
+                ->date('d-m-Y')
                 ->getStateUsing(fn (Invoice $record) => Carbon::parse($record->created_at)->format('d-m-Y'))
                 ->toggleable()
                 ->searchable(),

@@ -86,9 +86,10 @@
 						<td class="text-center border-2">
 							{{ Arr::exists($total_invoices, $company->name) ? $total_invoices[$company->name] : 0 }}</td>
 						<td class="text-right border-2">
-							{{ Arr::exists($total_invoice_amount, $company->name) ? $total_invoice_amount[$company->name] : 0 }}</td>
+							{{ Arr::exists($total_invoice_amount, $company->name) ? number_format($total_invoice_amount[$company->name], 0) : 0 }}
+						</td>
 						<td class="text-center border-2">
-							{{ Arr::exists($total_invoice_amount, $company->name) ? number_format((float) (($total_invoice_amount[$company->name] / $total_invoice_amount->sum()) * 100), 2, '.', '') : '0.00' }}
+							{{ Arr::exists($total_invoice_amount, $company->name) ? number_format(($total_invoice_amount[$company->name] / $total_invoice_amount->sum()) * 100, 0) : '0.00' }}
 							%
 						</td>
 					</tr>
@@ -132,7 +133,7 @@
 					<td class="text-right border-2">
 						<h6 class="font-bold">
 							<span class="text-xl">
-								{{ $total_invoice_amount->sum() }}
+								{{ number_format($total_invoice_amount->sum(), 0) }}
 							</span>
 						</h6>
 					</td>
