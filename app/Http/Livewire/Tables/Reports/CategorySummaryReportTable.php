@@ -49,6 +49,8 @@ class CategorySummaryReportTable extends Component
             'end_date'   => 'nullable|required_with:start_date|after_or_equal:start_date',
         ]);
 
+        // $sub_category = is_null($this->selected_sub_category)
+
         $this->report($this->start_date, $this->end_date, $this->selected_sub_category);
         $this->filter_active = true;
     }
@@ -112,11 +114,10 @@ class CategorySummaryReportTable extends Component
                 return $query->whereHas('invoice_items.invoice', function ($q) use ($start_date, $end_date) {
                     $q->whereBetween('date', [$start_date, $end_date]);
                 });
+            })
+            ->when($sub_category, function ($query) use ($sub_category) {
+                return $query->where('id', $sub_category);
             });
-
-        if (!is_null($sub_category)) {
-            $subCategoryQuery->where('id', $sub_category);
-        }
 
         $this->sub_categories = $subCategoryQuery->get();
 
