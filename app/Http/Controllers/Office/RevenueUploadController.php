@@ -102,7 +102,7 @@ class RevenueUploadController extends BaseController
                         'branch_id' => $branch_id,
                         'date' => Date::excelToDateTimeObject($single_invoice['date']),
                         'total_tax' => 0,
-                        'total_amount' => $single_invoice['total'],
+                        'total_amount' => $single_invoice['taxable_amount'] + $single_invoice['tax'],
                     ];
 
                     $invoice = Invoice::create($invoice_data);
@@ -115,7 +115,7 @@ class RevenueUploadController extends BaseController
                         'qty' => 1,
                         'discount' => $single_invoice['tax'],
                         'tax' => 0,
-                        'total' => $single_invoice['total'],
+                        'total' => $single_invoice['taxable_amount'] + $single_invoice['tax'],
                     ];
 
                     $invoice_item = InvoiceItems::create($invoice_item_data);

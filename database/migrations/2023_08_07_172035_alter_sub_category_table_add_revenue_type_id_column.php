@@ -20,6 +20,23 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
         });
+
+Schema::create('product_suppliers', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('product_id')
+        ->nullable()
+        ->constrained()
+        ->nullOnDelete();
+    $table->foreignId('supplier_id')
+        ->nullable()
+        ->constrained()
+        ->nullOnDelete();
+    $table->decimal('purchase_price', 10, 2)
+        ->default(0.00);
+    $table->boolean('is_default')
+        ->default(0);
+    $table->timestamps();
+});
     }
 
     /**

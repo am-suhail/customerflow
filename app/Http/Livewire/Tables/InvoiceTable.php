@@ -201,7 +201,7 @@ class InvoiceTable extends Component implements Tables\Contracts\HasTable
 
     public function export()
     {
-        return Excel::download(new RevenueTableExport(collect($this->getTableRecords()->items())), 'revenue_' . now() . '.xlsx');
+        return Excel::download(new RevenueTableExport(collect($this->getFilteredTableQuery()->get())), 'revenue_' . now() . '.xlsx');
     }
 
     public function render()
