@@ -67,7 +67,7 @@ class CategorySummaryReportTable extends Component
 
     public function excelExport()
     {
-        return Excel::download(new CategorySummaryReportExport($this->sub_categories, $this->total_invoices, $this->total_invoice_amount), Carbon::now() . '_category_report.xlsx');
+        return Excel::download(new CategorySummaryReportExport($this->sub_categories, $this->total_invoice_amount), Carbon::now() . '_category_report.xlsx');
     }
 
     public function render()
