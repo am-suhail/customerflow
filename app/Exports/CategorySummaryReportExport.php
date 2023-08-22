@@ -39,8 +39,8 @@ class CategorySummaryReportExport implements FromCollection, WithHeadings
                 $sub_category->revenue_type->name ?? '--',
                 $sub_category->category->name ?? '--',
                 $sub_category->name ?? '--',
-                number_format($sub_category->invoice_items->sum('total') ?? 0, 0),
-                $sub_category->invoice_items->sum('total') > 0 && $this->total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->sum('total') ?? 0) / ($this->total_invoice_amount->sum() ?? 0)) * 100, 2) : '0.00'
+                number_format($sub_category->invoice_items->where('invoice.branch.company.sub_category.category.name', 'Direct')->sum('total') ?? 0, 0),
+                $sub_category->invoice_items->where('invoice.branch.company.sub_category.category.name', 'Direct')->sum('total') > 0 && $this->total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->where('invoice.branch.company.sub_category.category.name', 'Direct')->sum('total') ?? 0) / ($this->total_invoice_amount->sum() ?? 0)) * 100, 2) : '0.00'
             ]);
         }
 

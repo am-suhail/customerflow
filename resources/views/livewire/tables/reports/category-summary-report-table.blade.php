@@ -6,11 +6,12 @@
 					<label class="label">
 						<span class="label-text font-bold">Choose Start Date</span>
 					</label>
-					{!! Form::date('start_date', old('start_date'), [
-					    'class' => 'input input-bordered w-full max-w-xs' . ($errors->has('start_date') ? 'border-2 border-red-600' : ''),
-					    'wire:model' => 'start_date',
+					{!! Form::date('selected_start_date', old('selected_start_date'), [
+					    'class' =>
+					        'input input-bordered w-full max-w-xs' . ($errors->has('selected_start_date') ? 'border-2 border-red-600' : ''),
+					    'wire:model' => 'selected_start_date',
 					]) !!}
-					@error('start_date')
+					@error('selected_start_date')
 						<label class="label">
 							<span class="text-red-600 label-text-alt">{{ $message }}</span>
 						</label>
@@ -23,12 +24,13 @@
 					<label class="label">
 						<span class="label-text font-bold">Choose End Date</span>
 					</label>
-					{!! Form::date('end_date', old('end_date'), [
+					{!! Form::date('selected_end_date', old('selected_end_date'), [
 					    'class' =>
-					        'ml-1 input input-bordered w-full max-w-xs' . ($errors->has('end_date') ? 'border-2 border-red-600' : ''),
-					    'wire:model' => 'end_date',
+					        'ml-1 input input-bordered w-full max-w-xs' .
+					        ($errors->has('selected_end_date') ? 'border-2 border-red-600' : ''),
+					    'wire:model' => 'selected_end_date',
 					]) !!}
-					@error('end_date')
+					@error('selected_end_date')
 						<label class="label">
 							<span class="text-red-600 label-text-alt">{{ $message }}</span>
 						</label>
@@ -111,10 +113,13 @@
 						<td class="border-2">{{ $sub_category->category->name ?? '--' }}</td>
 						<td class="border-2">{{ $sub_category->name ?? '--' }}</td>
 						<td class="text-right border-2">
-							{{ number_format($sub_category->invoice_items->whereBetween('invoice.date', [$start_date, $end_date])->sum('total'), 0) }}
+							{{ number_format(
+							    $sub_category->invoice_items->where('invoice.branch.company.sub_category.category.name', 'Direct')->whereBetween('invoice.date', [$start_date, $end_date])->sum('total'),
+							    0,
+							) }}
 						</td>
 						<td class="text-center border-2">
-							{{ $sub_category->invoice_items->whereBetween('invoice.date', [$start_date, $end_date])->sum('total') > 0 && $total_invoice_amount->sum() > 0 ? number_format((($sub_category->invoice_items->whereBetween('invoice.date', [$start_date, $end_date])->sum('total') ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100, 2) : '0.00' }}
+							{{ $sub_category->invoice_items->where('invoice.branch.company.sub_category.category.name', 'Direct')->whereBetween('invoice.date', [$start_date, $end_date])->sum('total') > 0 && $total_invoice_amount->sum() > 0? number_format((($sub_category->invoice_items->where('invoice.branch.company.sub_category.category.name', 'Direct')->whereBetween('invoice.date', [$start_date, $end_date])->sum('total') ??0) /($total_invoice_amount->sum() ?? 0)) *100,2): '0.00' }}
 							%
 						</td>
 					</tr>

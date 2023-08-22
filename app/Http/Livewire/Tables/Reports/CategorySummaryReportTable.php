@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Tables\Reports;
 
-use App\Exports\BranchSummaryReportExport;
 use App\Exports\CategorySummaryReportExport;
 use App\Models\Category;
 use App\Models\Invoice;
@@ -28,7 +27,11 @@ class CategorySummaryReportTable extends Component
         $selected_category,
         $selected_sub_category;
 
-    public $start_date, $end_date;
+    public
+        $start_date,
+        $selected_start_date,
+        $end_date,
+        $selected_end_date;
 
     public $filter_active = false;
 
@@ -45,21 +48,19 @@ class CategorySummaryReportTable extends Component
     public function filter()
     {
         $this->validate([
-            'start_date' => 'nullable|required_with:end_date|date',
-            'end_date'   => 'nullable|required_with:start_date|after_or_equal:start_date',
+            'selected_start_date' => 'nullable|required_with:selected_end_date|date',
+            'selected_end_date'   => 'nullable|required_with:selected_start_date|after_or_equal:selected_start_date',
         ]);
 
-        // $sub_category = is_null($this->selected_sub_category)
-
-        $this->report($this->start_date, $this->end_date, $this->selected_sub_category);
+        $this->report($this->selected_start_date, $this->selected_end_date, $this->selected_sub_category);
         $this->filter_active = true;
     }
 
     public function clearFilter()
     {
         $this->reset(
-            'start_date',
-            'end_date',
+            'selected_start_date',
+            'selected_end_date',
             'selected_sub_category'
         );
 
@@ -84,7 +85,8 @@ class CategorySummaryReportTable extends Component
         $category = null,
         $revenue_type = null,
         $branch = null,
-        $company = null
+        $company = null,
+        $category_name = "Direct",
     ) {
 
         $earliest_date = Invoice::min('date');
@@ -94,6 +96,9 @@ class CategorySummaryReportTable extends Component
         $this->end_date = $end_date ?? $latest_date;
 
         $subCategoryQuery = SubCategory::with(['invoice_items.invoice'])
+            ->whereHas('invoice_items.invoice.branch.company.sub_category.category', function ($q) use ($category_name) {
+                $q->where('name', $category_name);
+            })
             ->whereHas('category', fn ($q) => $q->where('type', Category::TYPE_PRODUCT))
             ->when($company, function ($query) use ($company) {
                 return $query->whereHas('invoice_items.invoice.branch.company', function ($q) use ($company) {
@@ -121,10 +126,15 @@ class CategorySummaryReportTable extends Component
 
         $this->sub_categories = $subCategoryQuery->get();
 
+        // $this->sub_categories = $this->sub_categories->filter(function ($sub_category) {
+        //     return $sub_category->invoice_items->first()->invoice->branch->company->sub_category->category->name == "Direct";
+        // });
+
         $this->total_invoice_amount = $this->sub_categories
             ->map(
                 fn ($sub_category) => $sub_category
                     ->invoice_items
+                    ->filter(fn ($item) =>  $item->invoice->branch->company->sub_category->category->name ==  "Direct")
                     ->where('invoice.date', '>=', $this->start_date)
                     ->where('invoice.date', '<=', $this->end_date)
                     ->sum('total')
