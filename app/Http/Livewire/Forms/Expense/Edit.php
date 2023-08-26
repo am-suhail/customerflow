@@ -72,7 +72,7 @@ class Edit extends Component
             $this->number = $expense->number;
             $this->company_id = $expense->branch->company_id;
             $this->branch_id = $expense->branch_id;
-            $this->category_id = $expense->sub_category->category_id;
+            $this->category_id = $expense->sub_category->category_id ?? null;
             $this->sub_category_id = $expense->sub_category_id;
             $this->entry_type_id = $expense->entry_type_id;
             $this->document_date = $expense->document_date;
