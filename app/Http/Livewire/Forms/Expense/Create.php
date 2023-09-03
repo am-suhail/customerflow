@@ -25,18 +25,16 @@ class Create extends Component
     public $category_id;
     public $sub_category_id;
     public $entry_type_id;
-    public $document_date;
-    public $document_number;
     public $accounting_date;
     public $amount = 0;
-    public $tax_option_id;
-    public $payment_mode;
+    public $tax = 0;
+    public $total;
     public $description;
     public $remark;
 
+    public $category_lists;
     public $subcategory_lists;
     public $entry_type_lists;
-    public $tax_lists;
 
     protected $listeners = ['transEntryAdded', 'entryValueUpdate'];
 
@@ -61,7 +59,6 @@ class Create extends Component
         $this->number = $this->voucherNumbering();
 
         $this->accounting_date = date('Y-m-d');
-        $this->document_date = date('Y-m-d');
 
         $this->branches = [];
         $this->companies = Company::pluck('name', 'id');
@@ -75,13 +72,15 @@ class Create extends Component
             $this->branch_id = $default_branch->id;
         }
 
+        // Fetched Category
+        $this->category_lists = Category::where('type', Category::TYPE_EXPENSE)
+            ->pluck('name', 'id');
+
         // Fetched SubCategory
         $this->subcategory_lists = SubCategory::whereHas('category', fn ($q) => $q->where('type', Category::TYPE_EXPENSE))
             ->pluck('name', 'id');
 
         $this->entry_type_lists = collect();
-
-        $this->tax_lists = TaxOption::pluck('name', 'id');
     }
 
     public function updatedCompanyId($company)
@@ -92,10 +91,26 @@ class Create extends Component
         }
     }
 
+    public function updatedCategoryId($value)
+    {
+        $this->subcategory_lists = SubCategory::where('category_id', $value)
+            ->pluck('name', 'id');
+    }
+
     public function updatedSubCategoryId($value)
     {
         $this->entry_type_lists = TransactionEntryType::where('sub_category_id', $value)
             ->pluck('name', 'id');
+    }
+
+    public function updatedAmount($value)
+    {
+        $this->total = $value + $this->tax;
+    }
+
+    public function updatedTax($value)
+    {
+        $this->total = $value + $this->amount;
     }
 
     public function process()
@@ -107,6 +122,7 @@ class Create extends Component
                 'accounting_date'       => ['required', 'date'],
                 'description'           => ['nullable', 'string'],
                 'amount'                => ['required', 'numeric'],
+                'tax'                   => ['required', 'numeric'],
             ],
             [
                 'sub_category_id.required' => 'Please, specify the Category',
@@ -115,14 +131,16 @@ class Create extends Component
 
         $created = Expense::create([
             'number'                => $this->voucherNumbering(),
+            'accounting_date'       => $this->accounting_date,
             'branch_id'             => empty($this->branch_id) ? NULL : $this->branch_id,
             'sub_category_id'       => empty($this->sub_category_id) ? NULL : $this->sub_category_id,
             'entry_type_id'         => empty($this->entry_type_id) ? NULL : $this->entry_type_id,
             'amount'                => $this->amount,
+            'tax'                   => $this->tax,
             'tax_option_id'         => empty($this->tax_option_id) ? NULL : $this->tax_option_id,
             'description'           => $this->description,
+            'remark'                => $this->remark,
             'created_by'            => Auth::id(),
-            'remark'                => $this->remark
         ]);
 
         if ($created) {
@@ -140,7 +158,7 @@ class Create extends Component
     public function voucherNumbering()
     {
         $lastExpense = Expense::latest()->first();
-        $lastCode = preg_replace('~\D~', '', $lastExpense ? $lastExpense->number : '#INV-000000');
+        $lastCode = preg_replace('~\D~', '', $lastExpense ? $lastExpense->number : '#EXP-000000');
         $code = str_pad($lastCode + 1, 6, "0", STR_PAD_LEFT);
         $number = 'EXP-' . $code;
 

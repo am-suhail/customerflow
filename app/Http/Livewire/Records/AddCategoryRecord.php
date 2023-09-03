@@ -35,6 +35,12 @@ class AddCategoryRecord extends Component
         }
     }
 
+    public function resetField()
+    {
+        $this->resetErrorBag(['name']);
+        $this->reset(['name']);
+    }
+
     public function render()
     {
         return view('livewire.records.add-category-record');

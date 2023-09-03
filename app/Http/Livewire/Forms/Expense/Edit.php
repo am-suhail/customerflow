@@ -25,18 +25,16 @@ class Edit extends Component
     public $category_id;
     public $sub_category_id;
     public $entry_type_id;
-    public $document_date;
-    public $document_number;
     public $accounting_date;
     public $amount = 0;
-    public $tax_option_id;
-    public $payment_mode;
+    public $tax = 0;
+    public $total = 0;
     public $description;
     public $remark;
 
+    public $category_lists;
     public $subcategory_lists;
     public $entry_type_lists;
-    public $tax_lists;
 
     protected $listeners = ['transEntryAdded', 'entryValueUpdate'];
 
@@ -62,11 +60,13 @@ class Edit extends Component
         $this->branches = Branch::pluck('name', 'id');
         $this->companies = Company::pluck('name', 'id');
 
+        // Fetched Category
+        $this->category_lists = Category::where('type', Category::TYPE_EXPENSE)
+            ->pluck('name', 'id');
+
         // Fetched SubCategory
         $this->subcategory_lists = SubCategory::whereHas('category', fn ($q) => $q->where('type', Category::TYPE_EXPENSE))
             ->pluck('name', 'id');
-
-        $this->tax_lists = TaxOption::pluck('name', 'id');
 
         if (!is_null($expense)) {
             $this->number = $expense->number;
@@ -75,12 +75,10 @@ class Edit extends Component
             $this->category_id = $expense->sub_category->category_id ?? null;
             $this->sub_category_id = $expense->sub_category_id;
             $this->entry_type_id = $expense->entry_type_id;
-            $this->document_date = $expense->document_date;
-            $this->document_number = $expense->document_number;
-            $this->accounting_date = $expense->accounting_date;
+            $this->accounting_date = $expense->accounting_date->format('Y-m-d');
             $this->amount = $expense->amount;
-            $this->tax_option_id = $expense->tax_option_id;
-            $this->payment_mode = $expense->payment_mode;
+            $this->tax = $expense->tax;
+            $this->total = $expense->tax + $expense->amount;
             $this->description = $expense->description;
             $this->remark = $expense->remark;
         }
@@ -98,10 +96,26 @@ class Edit extends Component
         }
     }
 
+    public function updatedCategoryId($value)
+    {
+        $this->subcategory_lists = SubCategory::where('category_id', $value)
+            ->pluck('name', 'id');
+    }
+
     public function updatedSubCategoryId($value)
     {
         $this->entry_type_lists = TransactionEntryType::where('sub_category_id', $value)
             ->pluck('name', 'id');
+    }
+
+    public function updatedAmount($value)
+    {
+        $this->total = $value + $this->tax;
+    }
+
+    public function updatedTax($value)
+    {
+        $this->total = $value + $this->amount;
     }
 
     public function process()
@@ -111,12 +125,9 @@ class Edit extends Component
                 'branch_id'             => ['required', 'not_in:0'],
                 'entry_type_id'         => ['required', 'not_in:0'],
                 'sub_category_id'       => ['required', 'not_in:0'],
-                'tax_option_id'         => ['required', 'not_in:0'],
-                'document_date'         => ['required', 'date'],
                 'document_number'       => ['nullable', 'string'],
                 'accounting_date'       => ['required', 'date'],
                 'description'           => ['nullable', 'string'],
-                'payment_mode'          => ['required', 'string'],
                 'amount'                => ['required', 'numeric'],
             ],
             [
@@ -128,12 +139,12 @@ class Edit extends Component
             'branch_id'             => empty($this->branch_id) ? NULL : $this->branch_id,
             'sub_category_id'       => empty($this->sub_category_id) ? NULL : $this->sub_category_id,
             'entry_type_id'         => empty($this->entry_type_id) ? NULL : $this->entry_type_id,
-            'document_date'         => $this->document_date,
-            'document_number'       => $this->document_number,
+            'document_date'         => null,
+            'document_number'       => null,
             'accounting_date'       => $this->accounting_date,
             'amount'                => $this->amount,
             'tax_option_id'         => empty($this->tax_option_id) ? NULL : $this->tax_option_id,
-            'payment_mode'          => $this->payment_mode,
+            'payment_mode'          => null,
             'description'           => $this->description,
             'remark'                => $this->remark
         ]);

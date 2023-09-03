@@ -19,8 +19,7 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
 
     protected function getTableQuery(): Builder
     {
-        return Expense::query()
-            ->with('tax');
+        return Expense::query();
     }
 
     protected function getTableColumns(): array
@@ -62,13 +61,24 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
 
             TextColumn::make('entry_type.name')
                 ->label('Expense Type')
-                // ->getStateUsing(fn (Expense $record) => "--")
+                ->toggleable()
+                ->sortable(),
+
+            TextColumn::make('amount')
+                ->label('Amount')
+                ->alignEnd()
+                ->toggleable()
+                ->sortable(),
+
+            TextColumn::make('tax')
+                ->label('Tax')
+                ->alignEnd()
                 ->toggleable()
                 ->sortable(),
 
             TextColumn::make('totalAmount')
                 ->label('Total Amount')
-                ->getStateUsing(fn (Expense $record) => $record->amount + $record->tax_calc)
+                ->getStateUsing(fn (Expense $record) => number_format($record->amount + $record->tax))
                 ->alignEnd()
                 ->toggleable()
                 ->sortable(),

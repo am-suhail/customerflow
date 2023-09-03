@@ -8,6 +8,7 @@ use App\Http\Controllers\Office\DashboardController;
 use App\Http\Controllers\Office\DashboardSettingsController;
 use App\Http\Controllers\Office\EmployeeController;
 use App\Http\Controllers\Office\ExpenseController;
+use App\Http\Controllers\Office\ExpenseUploadController;
 use App\Http\Controllers\Office\FinanceSettingsController;
 use App\Http\Controllers\Office\GeneralSettingsController;
 use App\Http\Controllers\Office\InvoiceController;
@@ -104,6 +105,8 @@ Route::middleware(['auth'])->group(function () {
 
         // Expense
         Route::get('expense/export', [ExpenseController::class, 'export'])->name('expense.export');
+        Route::get('expense/import', [ExpenseUploadController::class, 'index'])->name('expense.import.index');
+        Route::post('expense/import', [ExpenseUploadController::class, 'store'])->name('expense.import.store');
         Route::resource('expense', ExpenseController::class, ['except' => ['store', 'update', 'destroy']]);
 
         // Transaction Entry Type

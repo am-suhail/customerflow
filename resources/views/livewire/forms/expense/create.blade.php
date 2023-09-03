@@ -62,13 +62,16 @@
 			</div>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Document Details</div>
+		<div class="mt-8 mb-4 divider">Expense Details</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-5 mt-4 gap-4">
+		<div class="grid grid-cols-1 md:grid-cols-3 mt-4 gap-4">
 			<div class="form-control">
 				<label for="category_id" class="font-semibold uppercase label">Category</label>
-				<select class="select select-primary select-bordered" id="category_id" name="category_id">
+				<select class="select select-primary select-bordered" id="category_id" name="category_id" wire:model='category_id'>
 					<option value="" selected>--choose category--</option>
+					@foreach ($category_lists->sort() as $id => $name)
+						<option value="{{ $id }}" class="font-bold">{{ $name }}</option>
+					@endforeach
 				</select>
 				@error('category_id')
 					<label class="label">
@@ -123,11 +126,11 @@
 			</div>
 
 			<div class="form-control">
-				<label class="label uppercase">Amount</label>
+				<label class="font-semibold uppercase label">Amount</label>
 				<input placeholder="Amount" type="number" min="1" step=".01" wire:model="amount"
 					class="input input-bordered input-primary">
 				@error('amount')
-					<div class="label uppercase">
+					<div class="label">
 						<span class="text-error label-text">
 							{{ $errors->first('amount') }}
 						</span>
@@ -136,25 +139,57 @@
 			</div>
 
 			<div class="form-control">
-				<label class="label uppercase">Description</label>
-				<input placeholder="Description" wire:model="description" class="input input-bordered input-primary">
-				@error('description')
-					<div class="label uppercase">
+				<label class="font-semibold uppercase label">Tax (if any)</label>
+				<input placeholder="Tax" type="number" min="1" step=".01" class="input input-bordered input-primary"
+					wire:model='tax'>
+				@error('tax')
+					<div class="label">
 						<span class="text-error label-text">
-							{{ $errors->first('description') }}
+							{{ $errors->first('tax') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
+			<div class="form-control">
+				<label class="font-semibold uppercase label">Total</label>
+				<input placeholder="Total" type="number" min="1" step=".01"
+					class="input input-bordered input-primary" wire:model='total' readonly>
+				@error('total')
+					<div class="label">
+						<span class="text-error label-text">
+							{{ $errors->first('total') }}
 						</span>
 					</div>
 				@enderror
 			</div>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Remark</div>
+		<div class="mt-8 mb-4 divider">Additional Details</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 mt-4 gap-4">
+			<div class="form-control">
+				<label class="font-semibold uppercase label">Description</label>
+				{!! Form::textarea('description', old('description'), [
+				    'class' =>
+				        'textarea textarea-bordered	textarea-primary' . ($errors->has('description') ? 'border-2 border-red-600' : ''),
+				    'rows' => 2,
+				    'wire:model' => 'description',
+				]) !!}
+				@error('description')
+					<div class="label">
+						<span class="text-error label-text">
+							{{ $errors->first('description') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
 			<div class="form-control">
 				{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
 				{!! Form::textarea('remark', old('remark'), [
 				    'class' => 'textarea textarea-bordered	textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
+				    'rows' => 2,
 				    'wire:model' => 'remark',
 				]) !!}
 				@error('remark')

@@ -24,7 +24,7 @@ class Expense extends Model
         'document_number',
         'accounting_date',
         'amount',
-        'tax_option_id',
+        'tax',
         'payment_mode',
         'description',
         'created_by',
@@ -56,19 +56,19 @@ class Expense extends Model
      * @param  string  $value
      * @return string
      */
-    public function getTaxCalcAttribute()
-    {
-        $tax_percentage = $this->tax->value ?? 0;
-        $amount = $this->amount;
+    // public function getTaxCalcAttribute()
+    // {
+    //     $tax_percentage = $this->tax->value ?? 0;
+    //     $amount = $this->amount;
 
-        if ($tax_percentage == 0) {
-            return 0;
-        }
+    //     if ($tax_percentage == 0) {
+    //         return 0;
+    //     }
 
-        $tax = ($amount * $tax_percentage) / 100;
+    //     $tax = ($amount * $tax_percentage) / 100;
 
-        return number_format($tax, 2, '.', '');
-    }
+    //     return number_format($tax, 2, '.', '');
+    // }
 
     /**
      * Get the creator that owns the Expense
@@ -108,15 +108,5 @@ class Expense extends Model
     public function entry_type(): BelongsTo
     {
         return $this->belongsTo(TransactionEntryType::class, 'entry_type_id', 'id');
-    }
-
-    /**
-     * Get the tax that owns the Expense
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function tax(): BelongsTo
-    {
-        return $this->belongsTo(TaxOption::class, 'tax_option_id', 'id');
     }
 }

@@ -35,7 +35,7 @@
 					required>
 					<option value="" selected>--choose company--</option>
 					@foreach ($companies as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
+						<option value="{{ $id }}" class="lg:font-bold lg:text-1xl">{{ $name }}</option>
 					@endforeach
 				</select>
 				@error('company_id')
@@ -51,7 +51,7 @@
 					required {{ !is_null($company_id) ? '' : 'disabled' }}>
 					<option value="" selected>--choose branch--</option>
 					@foreach ($branches as $id => $branch)
-						<option value="{{ $id }}">{{ $branch }}</option>
+						<option value="{{ $id }}" class="lg:font-bold lg:text-1xl">{{ $branch }}</option>
 					@endforeach
 				</select>
 				@error('branch_id')
@@ -62,27 +62,18 @@
 			</div>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Document Details</div>
+		<div class="mt-8 mb-4 divider">Expense Details</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-5 mt-4 gap-4">
+		<div class="grid grid-cols-1 md:grid-cols-3 mt-4 gap-4">
 			<div class="form-control">
-				{!! Form::label('number', 'PV Number', ['class' => 'label font-semibold uppercase']) !!}
-				{!! Form::text('number', old('number'), [
-				    'wire:model' => 'number',
-				    'disabled',
-				    'class' => 'input input-primary input-bordered',
-				]) !!}
-			</div>
-
-			<div class="form-control">
-				<label for="sub_category_id" class="font-semibold uppercase label text-danger-500">Vendor</label>
-				<select class="select select-primary select-bordered" disabled>
-					<option value="" selected>--choose vendor--</option>
-					@foreach ($subcategory_lists as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
+				<label for="category_id" class="font-semibold uppercase label">Category</label>
+				<select class="select select-primary select-bordered" id="category_id" name="category_id" wire:model='category_id'>
+					<option value="" selected>--choose category--</option>
+					@foreach ($category_lists->sort() as $id => $name)
+						<option value="{{ $id }}" class="font-bold">{{ $name }}</option>
 					@endforeach
 				</select>
-				@error('sub_category_id')
+				@error('category_id')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>
@@ -90,44 +81,18 @@
 			</div>
 
 			<div class="form-control">
-				<label for="sub_category_id" class="font-semibold uppercase label">Category</label>
+				<label for="sub_category_id" class="font-semibold uppercase label">Sub Category</label>
 				<select wire:model='sub_category_id' class="select select-primary select-bordered" id="sub_category_id"
 					name="sub_category_id" required>
-					<option value="" selected>--choose category--</option>
+					<option value="" selected>--choose sub category--</option>
 					@foreach ($subcategory_lists->sort() as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
+						<option value="{{ $id }}" class="font-bold">{{ $name }}</option>
 					@endforeach
 				</select>
 				@error('sub_category_id')
 					<label class="label">
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				{!! Form::label('document_date', 'Invoice Date', ['class' => 'label font-semibold uppercase']) !!}
-				{!! Form::date('document_date', old('document_date'), [
-				    'class' => 'input input-bordered input-primary' . ($errors->has('name') ? 'border-2 border-red-600' : ''),
-				    'wire:model' => 'document_date',
-				]) !!}
-				@error('document_date')
-					<label class="label">
-						<span class="text-red-600 label-text-alt">{{ $message }}</span>
-					</label>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				<label class="label uppercase">Invoice Number</label>
-				<input type="text" placeholder="Doc Ref Number" class="input input-bordered input-primary"
-					wire:model="document_number">
-				@error('document_number')
-					<div class="label uppercase">
-						<span class="text-error label-text">
-							{{ $errors->first('document_number') }}
-						</span>
-					</div>
 				@enderror
 			</div>
 
@@ -137,7 +102,7 @@
 					wire:model="entry_type_id" required>
 					<option value="" selected>--choose--</option>
 					@foreach ($entry_type_lists->sort() as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
+						<option value="{{ $id }}" class="font-bold">{{ $name }}</option>
 					@endforeach
 				</select>
 				@error('entry_type_id')
@@ -145,9 +110,9 @@
 						<span class="text-red-600 label-text-alt">{{ $message }}</span>
 					</label>
 				@enderror
-
 				<div class="mt-1">
-					<a href="javascript:void(0)" wire:click.prevent="$emit('openModal', 'records.modals.add-trans-entry-type')"
+					<a href="javascript:void(0)"
+						wire:click.prevent='$emit("openModal", "records.modals.add-trans-entry-type",  {{ json_encode(['id' => $sub_category_id]) }})'
 						class="text-black flex items-center uppercase text-sm font-semibold">
 						Add New Expense Type
 						<svg width="18" height="18" class="text-yellow-600 ml-1" fill="none" stroke="currentColor"
@@ -161,11 +126,11 @@
 			</div>
 
 			<div class="form-control">
-				<label class="label uppercase">Amount</label>
+				<label class="font-semibold uppercase label">Amount</label>
 				<input placeholder="Amount" type="number" min="1" step=".01" wire:model="amount"
 					class="input input-bordered input-primary">
 				@error('amount')
-					<div class="label uppercase">
+					<div class="label">
 						<span class="text-error label-text">
 							{{ $errors->first('amount') }}
 						</span>
@@ -174,56 +139,57 @@
 			</div>
 
 			<div class="form-control">
-				<label for="tax_option_id" class="font-semibold uppercase label">VAT</label>
-				<select wire:model='tax_option_id' class="select select-primary select-bordered" id="tax_option_id"
-					name="tax_option_id">
-					<option value="" selected>--choose category--</option>
-					@foreach ($tax_lists as $id => $name)
-						<option value="{{ $id }}">{{ $name }}</option>
-					@endforeach
-				</select>
-				@error('tax_option_id')
-					<label class="label">
-						<span class="text-red-600 label-text-alt">{{ $message }}</span>
-					</label>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				<label for="payment_mode" class="font-semibold uppercase label">Paymemt Mode</label>
-				<select wire:model='payment_mode' class="select select-primary select-bordered" id="payment_mode"
-					name="payment_mode">
-					<option value="" selected>--choose--</option>
-					<option value="Cash" selected>Cash</option>
-					<option value="Card" selected>Card</option>
-				</select>
-				@error('payment_mode')
-					<label class="label">
-						<span class="text-red-600 label-text-alt">{{ $message }}</span>
-					</label>
-				@enderror
-			</div>
-
-			<div class="form-control">
-				<label class="label uppercase">Description</label>
-				<input placeholder="Description" wire:model="description" class="input input-bordered input-primary">
-				@error('description')
-					<div class="label uppercase">
+				<label class="font-semibold uppercase label">Tax (if any)</label>
+				<input placeholder="Tax" type="number" min="1" step=".01" class="input input-bordered input-primary"
+					wire:model='tax'>
+				@error('tax')
+					<div class="label">
 						<span class="text-error label-text">
-							{{ $errors->first('description') }}
+							{{ $errors->first('tax') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
+			<div class="form-control">
+				<label class="font-semibold uppercase label">Total</label>
+				<input placeholder="Total" type="number" min="1" step=".01"
+					class="input input-bordered input-primary" wire:model='total' readonly>
+				@error('total')
+					<div class="label">
+						<span class="text-error label-text">
+							{{ $errors->first('total') }}
 						</span>
 					</div>
 				@enderror
 			</div>
 		</div>
 
-		<div class="mt-8 mb-4 divider">Remark</div>
+		<div class="mt-8 mb-4 divider">Additional Details</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
+		<div class="grid grid-cols-1 md:grid-cols-2 mt-4 gap-4">
+			<div class="form-control">
+				<label class="font-semibold uppercase label">Description</label>
+				{!! Form::textarea('description', old('description'), [
+				    'class' =>
+				        'textarea textarea-bordered	textarea-primary' . ($errors->has('description') ? 'border-2 border-red-600' : ''),
+				    'rows' => 2,
+				    'wire:model' => 'description',
+				]) !!}
+				@error('description')
+					<div class="label">
+						<span class="text-error label-text">
+							{{ $errors->first('description') }}
+						</span>
+					</div>
+				@enderror
+			</div>
+
 			<div class="form-control">
 				{!! Form::label('remark', 'Remark', ['class' => 'label font-semibold uppercase']) !!}
 				{!! Form::textarea('remark', old('remark'), [
 				    'class' => 'textarea textarea-bordered	textarea-primary' . ($errors->has('remark') ? 'border-2 border-red-600' : ''),
+				    'rows' => 2,
 				    'wire:model' => 'remark',
 				]) !!}
 				@error('remark')
@@ -235,7 +201,7 @@
 		</div>
 
 		<div class='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-1/2'>
-			<button type="submit" class='btn btn-accent'>Update</button>
+			<button type="submit" class='btn btn-accent'>Create</button>
 			<a href={{ route('expense.index') }} class="btn">Cancel</a>
 		</div>
 	</form>

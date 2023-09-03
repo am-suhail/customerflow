@@ -1,31 +1,42 @@
 <?php
 
-namespace App\Http\Livewire\Tables;
+namespace App\Http\Livewire\Tables\Master;
 
 use App\Models\Category;
+use App\Models\RevenueType;
 use App\Models\SubCategory;
-use App\Models\TransactionEntryType;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
 use Filament\Forms\ComponentContainer;
 
-class EntryTypeTable extends Component implements Tables\Contracts\HasTable
+class ExpenseSubCategoryTable extends Component implements Tables\Contracts\HasTable
 {
     use Tables\Concerns\InteractsWithTable;
 
+    public $category_type;
+
     protected $listeners = ['refreshLivewireDatatable' => '$refresh'];
+
+    public function mount($category_type)
+    {
+        $this->category_type = $category_type;
+    }
 
     protected function getTableQuery(): Builder
     {
-        return TransactionEntryType::query()
+        $category_type = $this->category_type;
+
+        return SubCategory::query()
+            ->whereHas('category', function ($query) use ($category_type) {
+                return $query->where('type', $category_type);
+            })
             ->orderBy('name');
     }
 
@@ -36,25 +47,12 @@ class EntryTypeTable extends Component implements Tables\Contracts\HasTable
             TextColumn::make('#')
                 ->rowIndex(),
 
-            TextColumn::make('sub_category.category.name')
-                ->label('Category')
-                ->sortable()
-                ->searchable(),
-
-            TextColumn::make('sub_category.name')
-                ->label('Sub Category')
-                ->sortable()
-                ->searchable(),
-
             TextColumn::make('name')
-                ->label('Entry Type')
                 ->sortable()
                 ->searchable(),
 
-            TextColumn::make('updated_at')
-                ->label('Updated On')
-                ->getStateUsing(fn (TransactionEntryType $record) => Carbon::parse($record->updated_at)->format('d-m-Y | h:i:s A'))
-                ->toggleable()
+            TextColumn::make('category.name')
+                ->label('Parent Category')
                 ->searchable(),
 
         ];
@@ -69,19 +67,17 @@ class EntryTypeTable extends Component implements Tables\Contracts\HasTable
                     ->color('primary')
                     ->modalHeading(fn ($record) => "Edit " . $record->name)
                     ->mountUsing(fn (ComponentContainer $form, $record) => $form->fill([
-                        'sub_category_id' => $record->sub_category_id,
+                        'category_id' => $record->category_id,
                         'name' => $record->name,
                     ]))
                     ->form([
-                        Select::make('sub_category_id')
-                            ->label('Sub Category')
-                            ->options(SubCategory::query()
-                                ->whereHas('category', fn ($q) => $q->where('type', Category::TYPE_EXPENSE))
-                                ->pluck('name', 'id'))
+                        Select::make('category_id')
+                            ->label('Parent Category')
+                            ->options(Category::query()->where('type', $this->category_type)->pluck('name', 'id'))
                             ->required(),
 
                         TextInput::make('name')
-                            ->label('Expense Type Name')
+                            ->label('Sub Category')
                             ->required(),
                     ]),
 
@@ -93,6 +89,6 @@ class EntryTypeTable extends Component implements Tables\Contracts\HasTable
 
     public function render()
     {
-        return view('livewire.tables.entry-type-table');
+        return view('livewire.tables.master.expense-sub-category-table');
     }
 }

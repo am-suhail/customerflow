@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Office;
 use App\Exports\ExpenseTableExport;
 use App\Http\Controllers\BaseController;
 use App\Models\Expense;
+use app\Settings\FinanceSettings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,11 +17,23 @@ class ExpenseController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(FinanceSettings $finance_settings)
     {
         $this->authorize('view expense');
 
-        $expense = Expense::with('tax')->get();
+        $expense = Expense::all();
+
+        // Date Settings
+        $start_month = $finance_settings->year_start;
+        $end_month = Carbon::parse($start_month)->subMonth();
+
+        if (Carbon::parse($start_month)->gt(date('M'))) {
+            $curr_start_date = Carbon::parse($start_month)->subYear()->startOfMonth();
+            $curr_end_date = $end_month->endOfMonth();
+        } else {
+            $curr_start_date = Carbon::parse($start_month)->startOfMonth();
+            $curr_end_date = $end_month->addYear()->endOfMonth();
+        }
 
         // Current Month
         $current_month_expense = $expense
@@ -31,18 +44,13 @@ class ExpenseController extends BaseController
                     Carbon::now()->endOfMonth()
                 ]
             );
+
         $current_month_expense = $current_month_expense->map(fn ($expense) => $expense->amount + $expense->tax_calc);
         $current_month_expense = $current_month_expense->sum();
 
         // Current Year
         $current_year_expense = $expense
-            ->whereBetween(
-                'accounting_date',
-                [
-                    Carbon::now()->startOfYear(),
-                    Carbon::now()->endOfYear()
-                ]
-            );
+            ->whereBetween('accounting_date', [$curr_start_date, $curr_end_date]);
         $current_year_expense = $current_year_expense->map(fn ($expense) => $expense->amount + $expense->tax_calc);
         $current_year_expense = $current_year_expense->sum();
 

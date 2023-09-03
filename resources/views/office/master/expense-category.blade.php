@@ -48,11 +48,11 @@
 
 					<div x-show="activeTabIndex == 1">
 						<x-toggle-record-field>
-							<livewire:records.add-subcategory-record type='3'>
+							<livewire:records.add-expense-subcategory-record type='3'>
 						</x-toggle-record-field>
 						<hr>
 						<div class="py-4">
-							<livewire:tables.master.sub-category-table category_type='3' />
+							<livewire:tables.master.expense-sub-category-table category_type='3' />
 						</div>
 					</div>
 				</div>
