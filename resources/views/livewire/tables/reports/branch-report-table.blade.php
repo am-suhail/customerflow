@@ -102,7 +102,9 @@
 					<th class="text-center border-2">Country</th>
 					<th class="text-center border-2">City</th>
 					<th class="text-center border-2">Invoices</th>
-					<th class="text-center border-2">Total</th>
+					<th class="text-center border-2">Revenue</th>
+					<th class="text-center border-2">Expense</th>
+					<th class="text-center border-2">Profit</th>
 					<th class="text-center border-2">Percentage</th>
 				</tr>
 			</thead>
@@ -118,6 +120,16 @@
 							{{ Arr::exists($total_invoices, $branch->name) ? $total_invoices[$branch->name] : 0 }}</td>
 						<td class="text-right border-2">
 							{{ Arr::exists($total_invoice_amount, $branch->name) ? number_format($total_invoice_amount[$branch->name], 0) : 0 }}
+						</td>
+						<td class="text-right border-2">
+							{{ Arr::exists($total_expense_amount, $branch->name) ? number_format($total_expense_amount[$branch->name], 0) : 0 }}
+						</td>
+						<td class="text-right border-2">
+							{{ number_format(
+							    (Arr::exists($total_invoice_amount, $branch->name) ? $total_invoice_amount[$branch->name] : 0) -
+							        (Arr::exists($total_expense_amount, $branch->name) ? $total_expense_amount[$branch->name] : 0),
+							    0,
+							) }}
 						</td>
 						<td class="text-center border-2">
 							{{ Arr::exists($total_invoice_amount, $branch->name) && $total_invoice_amount->sum() > 0 ? number_format((($total_invoice_amount[$branch->name] ?? 0) / ($total_invoice_amount->sum() ?? 0)) * 100, 0) : '0.00' }}
@@ -151,8 +163,8 @@
 					<td></td>
 					<td class="text-right border-2">
 						{{-- <h6 class="font-bold">
-                            <span class="text-xl">
-                                {{ $total_invoice_amount->sum() }}
+							<span class="text-xl">
+								{{ $total_invoice_amount->sum() }}
                             </span>
                         </h6> --}}
 					</td>
@@ -160,6 +172,20 @@
 						<h6 class="font-bold">
 							<span class="text-xl">
 								{{ number_format($total_invoice_amount->sum(), 0) }}
+							</span>
+						</h6>
+					</td>
+					<td class="text-right border-2">
+						<h6 class="font-bold">
+							<span class="text-xl">
+								{{ number_format($total_expense_amount->sum(), 0) }}
+							</span>
+						</h6>
+					</td>
+					<td>
+						<h6 class="font-bold">
+							<span class="text-xl">
+								{{ number_format($total_invoice_amount->sum() - $total_expense_amount->sum(), 0) }}
 							</span>
 						</h6>
 					</td>

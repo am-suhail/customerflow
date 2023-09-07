@@ -140,7 +140,7 @@
 
 			<div class="form-control">
 				<label class="font-semibold uppercase label">Tax (if any)</label>
-				<input placeholder="Tax" type="number" min="1" step=".01" class="input input-bordered input-primary"
+				<input placeholder="Tax" type="number" min="0" step=".01" class="input input-bordered input-primary"
 					wire:model='tax'>
 				@error('tax')
 					<div class="label">

@@ -8,13 +8,14 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class BranchSummaryReportExport implements FromCollection, WithHeadings
 {
-    public $branches, $total_invoices, $total_invoice_amount;
+    public $branches, $total_invoices, $total_invoice_amount, $total_expense_amount;
 
-    public function __construct($branches, $total_invoices, $total_invoice_amount)
+    public function __construct($branches, $total_invoices, $total_invoice_amount, $total_expense_amount)
     {
         $this->branches = $branches;
         $this->total_invoices = $total_invoices;
         $this->total_invoice_amount = $total_invoice_amount;
+        $this->total_expense_amount = $total_expense_amount;
     }
 
     public function headings(): array
@@ -25,7 +26,9 @@ class BranchSummaryReportExport implements FromCollection, WithHeadings
             'Country',
             'City',
             'Invoices',
-            'Total',
+            'Revenue',
+            'Expense',
+            'Profit',
             'Percentage',
         ];
     }
@@ -45,6 +48,12 @@ class BranchSummaryReportExport implements FromCollection, WithHeadings
                 $branch->city->name,
                 (Arr::exists($this->total_invoices, $branch->name) ? $this->total_invoices[$branch->name] : 0),
                 (Arr::exists($this->total_invoice_amount, $branch->name) ? $this->total_invoice_amount[$branch->name] : 0),
+                (Arr::exists($this->total_expense_amount, $branch->name) ? $this->total_expense_amount[$branch->name] : 0),
+                (
+                    (Arr::exists($this->total_invoice_amount, $branch->name) ? $this->total_invoice_amount[$branch->name] : 0)
+                    -
+                    (Arr::exists($this->total_expense_amount, $branch->name) ? $this->total_expense_amount[$branch->name] : 0)
+                ),
                 (Arr::exists($this->total_invoice_amount, $branch->name) && $this->total_invoice_amount->sum() > 0 ? number_format((float) ((($total_invoice_amount[$branch->name] ?? 0) / ($this->total_invoice_amount->sum() ?? 0)) * 100), 2, '.', '') : '0.00') . '%',
             ]);
         }

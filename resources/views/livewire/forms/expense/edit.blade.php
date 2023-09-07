@@ -140,7 +140,7 @@
 
 			<div class="form-control">
 				<label class="font-semibold uppercase label">Tax (if any)</label>
-				<input placeholder="Tax" type="number" min="1" step=".01" class="input input-bordered input-primary"
+				<input placeholder="Tax" type="number" min="0" step=".01" class="input input-bordered input-primary"
 					wire:model='tax'>
 				@error('tax')
 					<div class="label">
@@ -201,7 +201,7 @@
 		</div>
 
 		<div class='grid grid-flow-row grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-1/2'>
-			<button type="submit" class='btn btn-accent'>Create</button>
+			<button type="submit" class='btn btn-accent'>Update</button>
 			<a href={{ route('expense.index') }} class="btn">Cancel</a>
 		</div>
 	</form>

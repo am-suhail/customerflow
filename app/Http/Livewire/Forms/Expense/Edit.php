@@ -110,12 +110,12 @@ class Edit extends Component
 
     public function updatedAmount($value)
     {
-        $this->total = $value + $this->tax;
+        $this->total = ($value ?? 0) + $this->tax;
     }
 
     public function updatedTax($value)
     {
-        $this->total = $value + $this->amount;
+        $this->total = ($value ?? 0) + $this->amount;
     }
 
     public function process()
@@ -125,7 +125,6 @@ class Edit extends Component
                 'branch_id'             => ['required', 'not_in:0'],
                 'entry_type_id'         => ['required', 'not_in:0'],
                 'sub_category_id'       => ['required', 'not_in:0'],
-                'document_number'       => ['nullable', 'string'],
                 'accounting_date'       => ['required', 'date'],
                 'description'           => ['nullable', 'string'],
                 'amount'                => ['required', 'numeric'],
@@ -143,7 +142,7 @@ class Edit extends Component
             'document_number'       => null,
             'accounting_date'       => $this->accounting_date,
             'amount'                => $this->amount,
-            'tax_option_id'         => empty($this->tax_option_id) ? NULL : $this->tax_option_id,
+            'tax'                   => $this->tax,
             'payment_mode'          => null,
             'description'           => $this->description,
             'remark'                => $this->remark

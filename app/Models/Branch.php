@@ -118,4 +118,14 @@ class Branch extends Model
     {
         return $this->hasMany(Invoice::class);
     }
+
+    /**
+     * Get all of the expenses for the Branch
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function expenses(): HasMany
+    {
+        return $this->hasMany(Expense::class);
+    }
 }

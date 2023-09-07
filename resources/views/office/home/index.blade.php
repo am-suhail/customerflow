@@ -293,6 +293,10 @@
 					{!! $pie_chart_sub_category->container() !!}
 				</div>
 			@endif
+
+			<div class="bg-base-200 rounded my-2 p-2 shadow-md">
+				<livewire:component.widget.dashboard.company-profit-data />
+			</div>
 		</div>
 
 	</main>

@@ -16,6 +16,7 @@ class BranchReportTable extends Component
         $branch_list,
         $selected_branch,
         $total_invoices,
+        $total_expense_amount,
         $total_invoice_amount;
 
     public $start_date, $end_date;
@@ -57,7 +58,7 @@ class BranchReportTable extends Component
 
     public function excelExport()
     {
-        return Excel::download(new BranchSummaryReportExport($this->branches, $this->total_invoices, $this->total_invoice_amount), Carbon::now() . '_branch_report.xlsx');
+        return Excel::download(new BranchSummaryReportExport($this->branches, $this->total_invoices, $this->total_invoice_amount, $this->total_expense_amount), Carbon::now() . '_branch_report.xlsx');
     }
 
     public function render()
@@ -79,6 +80,7 @@ class BranchReportTable extends Component
             $this->branches = $selected_branch;
         }
 
+        // Invoice/Revenue
         $this->total_invoices = $this->branches
             ->groupBy(fn ($company) => $company->name)
             ->map(fn ($companyBranches) => $companyBranches->sum(
@@ -87,12 +89,32 @@ class BranchReportTable extends Component
                     ->sum(fn ($invoice) => $invoice->items->sum('tax'))
             ));
 
+        // $this->total_expense_amount = $this->branches
+        //     ->groupBy(fn ($company) => $company->name)
+        //     ->map(fn ($companyBranches) => $companyBranches->sum(
+        //         fn ($branch) => $branch->expenses
+        //             ->when($start_date && $end_date, fn ($query) => $query->whereBetween('accounting_date', [$start_date, $end_date]))
+        //             ->sum()
+        //     ));
+
         $this->total_invoice_amount = $this->branches
             ->groupBy(fn ($company) => $company->name)
             ->map(fn ($companyBranches) => $companyBranches->sum(
                 fn ($branch) => $branch->invoices
                     ->when($start_date && $end_date, fn ($query) => $query->whereBetween('date', [$start_date, $end_date]))
                     ->sum('total_amount')
+            ));
+
+        // Expense
+        $this->total_expense_amount = $this->branches
+            ->groupBy(fn ($company) => $company->name)
+            ->map(fn ($companyBranches) => $companyBranches->sum(
+                fn ($branch) => $branch->expenses
+                    ->when($start_date && $end_date, fn ($query) => $query->whereBetween('accounting_date', [$start_date, $end_date]))
+                    ->sum('amount') +
+                    $branch->expenses
+                    ->when($start_date && $end_date, fn ($query) => $query->whereBetween('accounting_date', [$start_date, $end_date]))
+                    ->sum('tax')
             ));
     }
 }

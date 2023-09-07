@@ -5,13 +5,15 @@ namespace App\Http\Livewire\Tables;
 use App\Models\Expense;
 use Carbon\Carbon;
 use Livewire\Component;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Forms;
+use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 
 class ExpenseTable extends Component implements Tables\Contracts\HasTable
 {
@@ -48,32 +50,38 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
                 ->label('Branch')
                 ->limit(20)
                 ->toggleable()
+                ->searchable()
                 ->sortable(),
 
             TextColumn::make('sub_category.category.name')
                 ->label('Category')
+                ->searchable()
                 ->toggleable(),
 
             TextColumn::make('sub_category.name')
                 ->label('Sub Category')
                 ->toggleable()
+                ->searchable()
                 ->sortable(),
 
             TextColumn::make('entry_type.name')
                 ->label('Expense Type')
                 ->toggleable()
+                ->searchable()
                 ->sortable(),
 
             TextColumn::make('amount')
                 ->label('Amount')
                 ->alignEnd()
                 ->toggleable()
+                ->searchable()
                 ->sortable(),
 
             TextColumn::make('tax')
                 ->label('Tax')
                 ->alignEnd()
                 ->toggleable()
+                ->searchable()
                 ->sortable(),
 
             TextColumn::make('totalAmount')
@@ -87,6 +95,7 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
                 ->label('Entry By')
                 ->limit(12)
                 ->toggleable()
+                ->searchable()
                 ->sortable(),
 
             TextColumn::make('created_at')
@@ -133,6 +142,34 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
         ];
     }
 
+    protected function getTableFilters(): array
+    {
+        return [
+            Filter::make('date')
+                ->form([
+                    Forms\Components\DatePicker::make('date_from'),
+                    Forms\Components\DatePicker::make('date_until'),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['date_from'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('accounting_date', '>=', $date),
+                        )
+                        ->when(
+                            $data['date_until'],
+                            fn (Builder $query, $date): Builder => $query->whereDate('accounting_date', '<=', $date),
+                        );
+                })
+                ->label('Date Filter')
+        ];
+    }
+
+    protected function getTableFiltersFormColumns(): int
+    {
+        return 4;
+    }
+
     protected function getDefaultTableSortColumn(): ?string
     {
         return 'number';
@@ -144,6 +181,11 @@ class ExpenseTable extends Component implements Tables\Contracts\HasTable
     }
 
     protected function shouldPersistTableFiltersInSession(): bool
+    {
+        return true;
+    }
+
+    protected function isTableStriped(): bool
     {
         return true;
     }
