@@ -1,5 +1,5 @@
 <div>
-	<div class="md:grid md:grid-cols-4">
+	<div class="hidden md:grid md:grid-cols-4">
 		<div class="border border-gray-50 p-2">
 			Company
 		</div>
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	@forelse ($companies as $company)
-		<div class="grid md:grid-cols-4 rounded md:rounded-none md:bg-transparent bg-gray-200 my-1 md:my-0">
+		<div class="grid md:grid-cols-4 rounded bg-gray-200 my-1 md:rounded-none md:bg-transparent md:my-0">
 			<div class="border border-gray-50 p-2 font-bold">
 				{{ $company->name ?? '--' }}
 			</div>
