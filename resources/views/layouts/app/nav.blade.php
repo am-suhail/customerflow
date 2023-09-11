@@ -216,6 +216,22 @@
 					</x-nav.nav-link>
 				@endcanany
 
+				@canany(['view customer flow', 'add customer flow', 'edit customer flow', 'delete customer flow'])
+					<x-nav.nav-link route="customer-flow.index">
+						<x-slot name="path">
+							<path d="M3 21h18"></path>
+							<path d="M9 8h1"></path>
+							<path d="M9 12h1"></path>
+							<path d="M9 16h1"></path>
+							<path d="M14 8h1"></path>
+							<path d="M14 12h1"></path>
+							<path d="M14 16h1"></path>
+							<path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path>
+						</x-slot>
+						Customer Flow
+					</x-nav.nav-link>
+				@endcanany
+
 				<li class="p-1 mt-4 mb-2 text-xs border-t-2 border-green-900" :class="{ 'lg:p-0': !isSidebarOpen }"></li>
 				<h6 class="text-green-400 text-xs pl-3 mb-2 uppercase" :class="{ 'lg:hidden': !isSidebarOpen }">
 					System Settings

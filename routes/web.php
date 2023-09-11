@@ -1,36 +1,37 @@
 <?php
 
-use App\Http\Controllers\Auth\EmailVerificationController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Office\BranchController;
-use App\Http\Controllers\Office\CompanyController;
-use App\Http\Controllers\Office\DashboardController;
-use App\Http\Controllers\Office\DashboardSettingsController;
-use App\Http\Controllers\Office\EmployeeController;
-use App\Http\Controllers\Office\ExpenseController;
-use App\Http\Controllers\Office\ExpenseUploadController;
-use App\Http\Controllers\Office\FinanceSettingsController;
-use App\Http\Controllers\Office\GeneralSettingsController;
-use App\Http\Controllers\Office\InvoiceController;
-use App\Http\Controllers\Office\MasterController;
-use App\Http\Controllers\Office\ProfileController;
-use App\Http\Controllers\Office\ReportController;
-use App\Http\Controllers\Office\RevenueUploadController;
-use App\Http\Controllers\Office\RolesController;
-use App\Http\Controllers\Office\SettingsController;
-use App\Http\Controllers\Office\SuperAdminController;
-use App\Http\Controllers\Office\TransEntryTypeController;
-use App\Http\Controllers\Office\UserController;
-use App\Http\Controllers\Office\VendorController;
+use Carbon\Carbon;
+use App\Models\Invoice;
 use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Auth\Passwords\Confirm;
+use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Auth\Register;
+use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
-use App\Http\Livewire\Auth\Register;
-use App\Http\Livewire\Auth\Verify;
-use App\Models\Invoice;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Auth\Passwords\Confirm;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Office\UserController;
+use App\Http\Controllers\Office\RolesController;
+use App\Http\Controllers\Office\BranchController;
+use App\Http\Controllers\Office\MasterController;
+use App\Http\Controllers\Office\ReportController;
+use App\Http\Controllers\Office\VendorController;
+use App\Http\Controllers\Office\CompanyController;
+use App\Http\Controllers\Office\ExpenseController;
+use App\Http\Controllers\Office\InvoiceController;
+use App\Http\Controllers\Office\ProfileController;
+use App\Http\Controllers\Office\EmployeeController;
+use App\Http\Controllers\Office\SettingsController;
+use App\Http\Controllers\Office\DashboardController;
+use App\Http\Controllers\Office\SuperAdminController;
+use App\Http\Controllers\Office\CustomerFlowController;
+use App\Http\Controllers\Office\ExpenseUploadController;
+use App\Http\Controllers\Office\RevenueUploadController;
+use App\Http\Controllers\Office\TransEntryTypeController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Office\FinanceSettingsController;
+use App\Http\Controllers\Office\GeneralSettingsController;
+use App\Http\Controllers\Office\DashboardSettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,6 +124,7 @@ Route::middleware(['auth'])->group(function () {
                 'branch' => BranchController::class,
                 'employee' => EmployeeController::class,
                 'roles' => RolesController::class,
+                'customer-flow'=> CustomerFlowController::class,
             ]
         );
 
