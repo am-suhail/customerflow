@@ -46,9 +46,9 @@
 								</label>
 							@enderror
 						</div>
-							</div>
+							
 
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+				
 						<div class="form-control">
 							{!! Form::label('date', 'Date', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::date('date', old('date'), [
@@ -76,10 +76,10 @@
 								</label>
 							@enderror
 						</div>
-					</div>
+					
 
 					
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+					
 					<div class="form-control">
 							{!! Form::label('loyalty_cards', 'Loyalty Cards', ['class' => 'label font-semibold uppercase']) !!}
 							{!! Form::number('loyalty_cards', old('loyalty_cards'), [
