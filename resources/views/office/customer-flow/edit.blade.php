@@ -31,7 +31,7 @@
 				    'method' => 'PUT',
 				]) !!}
 
-				<div class="mt-8 mb-4 divider">CUSTOMER FLOW</div>
+				<div class="mt-8 mb-4 divider">CUSTOMER DETAILS</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 				<div class="form-control">
@@ -47,11 +47,11 @@
         </label>
     @enderror
 </div>
-   </div>
+   
 
 				
 
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+				
 					<div class="form-control">
 						{!! Form::label('date', 'Date', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::date('date', old('date', $customer_flow->date), [
@@ -78,10 +78,10 @@
 							</label>
 						@enderror
 					</div>
-				</div>
+		
 
 			
-				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
+				
 				<div class="form-control">
 						{!! Form::label('loyalty_cards', 'Loyalty Cards', ['class' => 'label font-semibold uppercase']) !!}
 						{!! Form::number('loyalty_cards', $customer_flow->loyalty_cards, [
@@ -94,7 +94,8 @@
 							</label>
 						@enderror
 					</div>
-				</div>
+						</div>
+
 
 				<div class="grid grid-cols-1 md:grid-cols-2 mt-4">
 						<div class="form-control">
